@@ -21,8 +21,14 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isFalling = false;
     private bool isLeft = false;
+    private bool isInAir = false;
 
-    
+    public Transform[] groundRays;
+    public float rayRange = 5f;
+
+
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         cam.position = this.transform.position + offset;
 
         if (Input.GetKey(KeyCode.LeftShift))
@@ -70,60 +77,89 @@ public class PlayerMovement : MonoBehaviour
         float dirX = Input.GetAxisRaw("Horizontal");
         rb.velocity = new Vector2(dirX * Speed, rb.velocity.y);
 
-        if (dirX == 0)
+        if (dirX == 0 && !isInAir)
         {
             anim.ResetTrigger("Walking");
             anim.ResetTrigger("Running");
             anim.SetTrigger("Idle");
         }
+
         else
         {
 
            this.transform.eulerAngles = new Vector2(0, dirX < 0 ? 180 : 0);
            isLeft = dirX > 0 ? false : true;
 
-            switch (Speed)
+            if (!isInAir)
             {
-                case 14f:
-                    anim.ResetTrigger("Walking");
-                    break;
+                switch (Speed)
+                {
+                    case 14f:
+                        anim.ResetTrigger("Walking");
+                        break;
 
-                case 7f:
-                    anim.SetTrigger("Walking");
-                    break;
+                    case 7f:
+                        anim.SetTrigger("Walking");
+                        break;
 
+                }
+
+                anim.ResetTrigger("Idle");
             }
-
-            anim.ResetTrigger("Idle");
         }
         
     }
 
     void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (!(jumpAmt == 0 && isInAir))
         {
-            if (jumpAmt < 2)
+            if (Input.GetKeyDown(KeyCode.Space))
             {
-                jumpAmt++;
-                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+                anim.ResetTrigger("Idle");
+                isInAir = true;
+
+                anim.SetBool("isGrounded", !isInAir);
+                if (jumpAmt < 2)
+                {
+                    jumpAmt++;
+                    switch (jumpAmt)
+                    {
+                        case 1:
+                            anim.SetBool("isJumping", true);
+                            anim.SetBool("isDoubleJumping", false);
+                            break;
+                        case 2:
+                            anim.SetBool("isJumping", false);
+                            anim.SetBool("isDoubleJumping", true);
+                            break;
+                    }
+                    print(jumpAmt);
+
+                    rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+                }
+
             }
-                
-        }
 
 
-        else if (Input.GetKeyUp(KeyCode.Space))
-        {
-            rb.velocity = new Vector2(rb.velocity.x, isFalling ? rb.velocity.y : 0.0f);
+
+            else if (Input.GetKeyUp(KeyCode.Space))
+            {
+                rb.velocity = new Vector2(rb.velocity.x, isFalling ? rb.velocity.y : 0.0f);
+            }
         }
 
 
         if (rb.velocity.y < 0.0f)
         {
             isFalling = true;
+            anim.SetBool("isJumping", false);
+            anim.SetBool("isDoubleJumping", false);
             rb.gravityScale = scaledGravity;
         }
         else isFalling = false;
+
+        anim.SetBool("isFalling", isFalling);
 
         if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
@@ -140,24 +176,51 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.gravityScale /= rb.gravityScale == scaledGravity ? scaledGravity: 1.0f;
 
+            isInAir = false;
+            anim.SetBool("isGrounded", !isInAir);
+
+            RaycastHit2D hitGround = Physics2D.Raycast(groundRays[0].transform.position, -Vector2.up * rayRange);
+            Debug.DrawRay(groundRays[0].transform.position, -Vector2.up * rayRange);
 
             if (collision.gameObject.tag == "PassThroughPlatform")
             {
+                if (hitGround.collider.tag == "PassThroughPlatform")
+                {
+                    print("PassThrough");
+                    jumpAmt = 0;
+                }
                 currentPassThroughPlatform = collision.gameObject;
             }
 
+     
+
+            if(collision.gameObject.tag == "Platform" && hitGround.collider.tag == "Platform")
+            { 
+                print("Plat");
+                jumpAmt = 0;
+            }
+
+           
         }
 
-        jumpAmt = 0;
+        
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "PassThroughPlatform" || collision.gameObject.tag == "Platform")
         {
-            jumpAmt = 1;
+            RaycastHit2D hitGround = Physics2D.Raycast(groundRays[1].transform.position, -Vector2.up * rayRange);
+            Debug.DrawRay(groundRays[1].transform.position, -Vector2.up * rayRange);
+
+            if (collision.gameObject.tag == "Platform" && hitGround.collider.tag == "Platform" || collision.gameObject.tag == "PassThroughPlatform" && hitGround.collider.tag == "PassThroughPlatform")
+            {
+                print("Plat");
+                jumpAmt = 1;
+            }
             currentPassThroughPlatform = null;
         }
+        isInAir = true;
     }
 
     private IEnumerator DisableCollision()
