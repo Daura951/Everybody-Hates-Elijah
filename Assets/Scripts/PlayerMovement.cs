@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isFalling = false;
     private bool isLeft = false;
     private bool isInAir = false;
+    private bool isInLandingLag = false;
 
     public Transform[] groundRays;
     public float rayRange = 5f;
@@ -47,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        isInLandingLag = anim.GetCurrentAnimatorStateInfo(0).IsName("Fall 2 Idle");
         cam.position = this.transform.position + offset;
 
         if (Input.GetKey(KeyCode.LeftShift))
@@ -75,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
     void Move()
     {
         float dirX = Input.GetAxisRaw("Horizontal");
-        rb.velocity = new Vector2(dirX * Speed, rb.velocity.y);
+        rb.velocity = new Vector2(isInLandingLag? 0: dirX * Speed, rb.velocity.y);
 
         if (dirX == 0 && !isInAir)
         {
@@ -112,7 +113,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Jump()
     {
-        if (!(jumpAmt == 0 && isInAir))
+        if (!(jumpAmt == 0 && isInAir) &&!isInLandingLag)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -155,6 +156,7 @@ public class PlayerMovement : MonoBehaviour
             isFalling = true;
             anim.SetBool("isJumping", false);
             anim.SetBool("isDoubleJumping", false);
+            anim.SetBool("isGrounded", !isInAir);
             rb.gravityScale = scaledGravity;
         }
         else isFalling = false;
@@ -193,8 +195,6 @@ public class PlayerMovement : MonoBehaviour
                 }
                 currentPassThroughPlatform = collision.gameObject;
             }
-
-     
 
             if(collision.gameObject.tag == "Platform" && hitGround.collider.tag == "Platform")
             { 
