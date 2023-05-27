@@ -176,7 +176,9 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.gravityScale /= rb.gravityScale == scaledGravity ? scaledGravity: 1.0f;
 
-            isInAir = false;
+            if(rb.velocity.y==0)
+                isInAir = false;
+
             anim.SetBool("isGrounded", !isInAir);
 
             RaycastHit2D hitGround = Physics2D.Raycast(groundRays[0].transform.position, -Vector2.up * rayRange);
@@ -184,7 +186,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (collision.gameObject.tag == "PassThroughPlatform")
             {
-                if (hitGround.collider.tag == "PassThroughPlatform")
+                if (hitGround.collider.tag == "PassThroughPlatform" && !isInAir)
                 {
                     print("PassThrough");
                     jumpAmt = 0;
@@ -213,7 +215,7 @@ public class PlayerMovement : MonoBehaviour
             RaycastHit2D hitGround = Physics2D.Raycast(groundRays[1].transform.position, -Vector2.up * rayRange);
             Debug.DrawRay(groundRays[1].transform.position, -Vector2.up * rayRange);
 
-            if (collision.gameObject.tag == "Platform" && hitGround.collider.tag == "Platform" || collision.gameObject.tag == "PassThroughPlatform" && hitGround.collider.tag == "PassThroughPlatform")
+            if ( !isInAir && collision.gameObject.tag == "Platform" && hitGround.collider.tag == "Platform" || collision.gameObject.tag == "PassThroughPlatform" && hitGround.collider.tag == "PassThroughPlatform")
             {
                 print("Plat");
                 jumpAmt = 1;
