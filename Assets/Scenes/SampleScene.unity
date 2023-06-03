@@ -402,6 +402,7 @@ MonoBehaviour:
   - {fileID: 1289416394}
   - {fileID: 734885422}
   rayRange: 5
+  attackScript: {fileID: 809558016}
 --- !u!61 &809558013
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -483,6 +484,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitBoxes:
   - {fileID: 670290101}
+  isAttacking: 0
 --- !u!1 &839397073
 GameObject:
   m_ObjectHideFlags: 0

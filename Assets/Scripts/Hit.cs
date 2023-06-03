@@ -34,8 +34,6 @@ public class Hit : MonoBehaviour
 
         rb.AddForce(new Vector2(XComponent, YComponent));
 
-        print(XComponent + " " + YComponent);
-        print(knockBack + " "+angle);
         isHit = false;
     }
 
@@ -49,9 +47,5 @@ public class Hit : MonoBehaviour
             isHit = true;
             isLeft = collision.transform.parent.gameObject.GetComponent<PlayerMovement>().GetIsLeft();
         }
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        print("Done");
     }
 }

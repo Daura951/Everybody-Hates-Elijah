@@ -9,6 +9,8 @@ public class PlayerAttack : MonoBehaviour
     public GameObject[] hitBoxes;
 
     private float[] currentStats;
+
+    public bool isAttacking = false;
     private void Start()
     {
         currentStats = new float[3];
@@ -21,6 +23,7 @@ public class PlayerAttack : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Z))
         {
+            isAttacking = true;
             anim.SetTrigger("FTilt");
         }
 
@@ -37,6 +40,7 @@ public class PlayerAttack : MonoBehaviour
 
     void DespawnHitBox(int hitboxIndex)
     {
+        isAttacking = false;
         hitBoxes[hitboxIndex].SetActive(false);
     }
 

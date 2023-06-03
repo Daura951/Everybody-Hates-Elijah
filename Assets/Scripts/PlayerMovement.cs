@@ -27,6 +27,8 @@ public class PlayerMovement : MonoBehaviour
     public Transform[] groundRays;
     public float rayRange = 5f;
 
+    public PlayerAttack attackScript;
+
 
 
 
@@ -37,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
        rb = GetComponent<Rigidbody2D>();
        playerCollider = GetComponent<Collider2D>();
        anim = GetComponent<Animator>();
+        attackScript = GetComponent<PlayerAttack>();
        WalkMat =sr.material;
        Speed = Walk;
        Run = Walk * 2;
@@ -51,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
         isInLandingLag = anim.GetCurrentAnimatorStateInfo(0).IsName("Fall 2 Idle");
         cam.position = this.transform.position + offset;
 
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift) &&!isInAir)
         {
             Speed = Run;
             anim.SetTrigger("Running");
@@ -68,15 +71,18 @@ public class PlayerMovement : MonoBehaviour
             Speed = Walk;
             anim.ResetTrigger("Running");
         }
-
+    
         Move();
         Jump();
+     
+
     }
 
     void Move()
     {
         float dirX = Input.GetAxisRaw("Horizontal");
-        rb.velocity = new Vector2(isInLandingLag? 0: dirX * Speed, rb.velocity.y);
+        print(isLeft);
+        rb.velocity = new Vector2(isInLandingLag || attackScript.isAttacking ? 0  : dirX * Speed, rb.velocity.y);
 
         if (dirX == 0 && !isInAir)
         {
@@ -87,9 +93,10 @@ public class PlayerMovement : MonoBehaviour
 
         else
         {
+            if(dirX!=0)
+                transform.eulerAngles = new Vector2(0, dirX < 0 ? 180 : 0);
 
-           this.transform.eulerAngles = new Vector2(0, dirX < 0 ? 180 : 0);
-           isLeft = dirX > 0 ? false : true;
+            isLeft = transform.eulerAngles.y == 0 ? false : true;
 
             if (!isInAir)
             {
@@ -113,7 +120,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Jump()
     {
-        if (!(jumpAmt == 0 && isInAir) &&!isInLandingLag)
+        if (!(jumpAmt == 0 && isInAir) &&!isInLandingLag &&!attackScript.isAttacking)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -135,8 +142,6 @@ public class PlayerMovement : MonoBehaviour
                             anim.SetBool("isDoubleJumping", true);
                             break;
                     }
-                    print(jumpAmt);
-
                     rb.velocity = new Vector2(rb.velocity.x, jumpForce);
                 }
 
@@ -184,13 +189,10 @@ public class PlayerMovement : MonoBehaviour
             anim.SetBool("isGrounded", !isInAir);
 
             RaycastHit2D hitGround = Physics2D.Raycast(groundRays[0].transform.position, -Vector2.up * rayRange);
-            Debug.DrawRay(groundRays[0].transform.position, -Vector2.up * rayRange);
-
             if (collision.gameObject.tag == "PassThroughPlatform")
             {
                 if (hitGround.collider.tag == "PassThroughPlatform" && !isInAir)
                 {
-                    print("PassThrough");
                     jumpAmt = 0;
                 }
                 currentPassThroughPlatform = collision.gameObject;
@@ -198,7 +200,6 @@ public class PlayerMovement : MonoBehaviour
 
             if(collision.gameObject.tag == "Platform" && hitGround.collider.tag == "Platform")
             { 
-                print("Plat");
                 jumpAmt = 0;
             }
 
@@ -213,11 +214,8 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.tag == "PassThroughPlatform" || collision.gameObject.tag == "Platform")
         {
             RaycastHit2D hitGround = Physics2D.Raycast(groundRays[1].transform.position, -Vector2.up * rayRange);
-            Debug.DrawRay(groundRays[1].transform.position, -Vector2.up * rayRange);
-
             if ( !isInAir && collision.gameObject.tag == "Platform" && hitGround.collider.tag == "Platform" || collision.gameObject.tag == "PassThroughPlatform" && hitGround.collider.tag == "PassThroughPlatform")
             {
-                print("Plat");
                 jumpAmt = 1;
             }
             currentPassThroughPlatform = null;
