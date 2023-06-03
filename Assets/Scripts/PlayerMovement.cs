@@ -81,7 +81,6 @@ public class PlayerMovement : MonoBehaviour
     void Move()
     {
         float dirX = Input.GetAxisRaw("Horizontal");
-        print(isLeft);
         rb.velocity = new Vector2(isInLandingLag || attackScript.isAttacking ? 0  : dirX * Speed, rb.velocity.y);
 
         if (dirX == 0 && !isInAir)
