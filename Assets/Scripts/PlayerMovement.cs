@@ -197,7 +197,7 @@ public class PlayerMovement : MonoBehaviour
                 currentPassThroughPlatform = collision.gameObject;
             }
 
-            if(collision.gameObject.tag == "Platform" && hitGround.collider.tag == "Platform")
+            if(collision != null && collision.gameObject.tag == "Platform" && hitGround.collider.tag == "Platform")
             { 
                 jumpAmt = 0;
             }
