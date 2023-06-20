@@ -27,6 +27,17 @@ public class PlayerAttack : MonoBehaviour
             anim.SetTrigger("FTilt");
         }
 
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            isAttacking = true;
+            anim.SetTrigger("Jab");
+        }
+
+        if(Input.GetKeyDown(KeyCode.O))
+        {
+            print("Special");
+        }    
+
     }
 
     private void FTilt(string stats)
@@ -37,6 +48,16 @@ public class PlayerAttack : MonoBehaviour
         currentStats[1] = float.Parse(statSplit[1]); //Angle
         currentStats[2] = float.Parse(statSplit[2]); //Knockback
     }
+
+    private void Jab1(string stats)
+    {
+        hitBoxes[1].SetActive(true);
+        string[] statSplit = stats.Split(" ");
+        currentStats[0] = float.Parse(statSplit[0]); //Damage
+        currentStats[1] = float.Parse(statSplit[1]); //Angle
+        currentStats[2] = float.Parse(statSplit[2]); //Knockback
+    }
+
 
     void DespawnHitBox(int hitboxIndex)
     {

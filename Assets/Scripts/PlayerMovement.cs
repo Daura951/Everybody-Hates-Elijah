@@ -23,6 +23,8 @@ public class PlayerMovement : MonoBehaviour
     private bool isLeft = false;
     private bool isInAir = false;
     private bool isInLandingLag = false;
+    private bool isOnPassThrough = false;
+    bool isCrouch = false;
 
     public Transform[] groundRays;
     public float rayRange = 5f;
@@ -54,24 +56,31 @@ public class PlayerMovement : MonoBehaviour
         isInLandingLag = anim.GetCurrentAnimatorStateInfo(0).IsName("Fall 2 Idle");
         cam.position = this.transform.position + offset;
 
-        if (Input.GetKey(KeyCode.LeftShift) &&!isInAir)
+        isCrouch = anim.GetCurrentAnimatorStateInfo(0).IsName("Crouch");
+
+        if (Input.GetKey(KeyCode.LeftShift) && !isInAir &&!isCrouch)
         {
             Speed = Run;
             anim.SetTrigger("Running");
             anim.ResetTrigger("Walking");
 
         }
-        else if (Input.GetAxisRaw("Vertical") < 0f)
+
+        else if (Input.GetAxisRaw("Vertical") < 0f && !isInAir && isCrouch)
         {
             Speed = Crawl;
-            sr.material = crouchMat;
+            anim.ResetTrigger("Crouch");
+            anim.ResetTrigger("Walking");
+            anim.ResetTrigger("Running");
         }
         else
         {
             Speed = Walk;
             anim.ResetTrigger("Running");
         }
+
     
+
         Move();
         Jump();
      
@@ -81,13 +90,24 @@ public class PlayerMovement : MonoBehaviour
     void Move()
     {
         float dirX = Input.GetAxisRaw("Horizontal");
-        rb.velocity = new Vector2(isInLandingLag || attackScript.isAttacking ? 0  : dirX * Speed, rb.velocity.y);
+        rb.velocity = new Vector2(isInLandingLag || (attackScript.isAttacking && !isInAir) || isCrouch  ? 0  : dirX * Speed, rb.velocity.y);
 
-        if (dirX == 0 && !isInAir)
+        if (dirX == 0 && !isInAir && Input.GetAxisRaw("Vertical") >= 0f)
         {
             anim.ResetTrigger("Walking");
             anim.ResetTrigger("Running");
+            anim.ResetTrigger("Crouch");
             anim.SetTrigger("Idle");
+            //isCrouch = false;
+        }
+
+        else if(dirX == 0 && !isInAir && Input.GetAxisRaw("Vertical") < 0f && !isOnPassThrough)
+        {
+            anim.ResetTrigger("Walking");
+            anim.ResetTrigger("Running");
+            anim.ResetTrigger("Idle");
+            anim.SetTrigger("Crouch");
+            //isCrouch = true;
         }
 
         else
@@ -102,15 +122,22 @@ public class PlayerMovement : MonoBehaviour
                 switch (Speed)
                 {
                     case 14f:
+                        //isCrouch = false;
                         anim.ResetTrigger("Walking");
                         break;
 
                     case 7f:
+                       // isCrouch = false;
                         anim.SetTrigger("Walking");
                         break;
+                    case 3.5f:
+                      //  isCrouch = true;
+                        anim.ResetTrigger("Walking");
+                        break;
+
 
                 }
-
+                anim.ResetTrigger("Crouch");
                 anim.ResetTrigger("Idle");
             }
         }
@@ -119,10 +146,11 @@ public class PlayerMovement : MonoBehaviour
 
     void Jump()
     {
-        if (!(jumpAmt == 0 && isInAir) &&!isInLandingLag &&!attackScript.isAttacking)
+        if (!(jumpAmt == 0 && isInAir) &&!isInLandingLag && !attackScript.isAttacking)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                anim.ResetTrigger("Crouch");
                 anim.ResetTrigger("Idle");
                 isInAir = true;
 
@@ -161,6 +189,7 @@ public class PlayerMovement : MonoBehaviour
             anim.SetBool("isJumping", false);
             anim.SetBool("isDoubleJumping", false);
             anim.SetBool("isGrounded", !isInAir);
+            anim.ResetTrigger("Crouch");
             rb.gravityScale = scaledGravity;
         }
         else isFalling = false;
@@ -190,16 +219,17 @@ public class PlayerMovement : MonoBehaviour
             RaycastHit2D hitGround = Physics2D.Raycast(groundRays[0].transform.position, -Vector2.up * rayRange);
             if (collision.gameObject.tag == "PassThroughPlatform")
             {
+                isOnPassThrough = true;
                 if (hitGround.collider.tag == "PassThroughPlatform" && !isInAir)
                 {
                     jumpAmt = 0;
                 }
                 currentPassThroughPlatform = collision.gameObject;
             }
-
             if(collision != null && collision.gameObject.tag == "Platform" && hitGround.collider.tag == "Platform")
             { 
                 jumpAmt = 0;
+                isOnPassThrough = false;
             }
 
            
@@ -234,4 +264,5 @@ public class PlayerMovement : MonoBehaviour
     {
         return isLeft;
     }
+
 }
