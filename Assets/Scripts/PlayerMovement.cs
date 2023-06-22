@@ -148,7 +148,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!(jumpAmt == 0 && isInAir) &&!isInLandingLag && !attackScript.isAttacking)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) ||Input.GetKeyDown(KeyCode.W))
             {
                 anim.ResetTrigger("Crouch");
                 anim.ResetTrigger("Idle");
@@ -176,7 +176,7 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-            else if (Input.GetKeyUp(KeyCode.Space))
+            else if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.W))
             {
                 rb.velocity = new Vector2(rb.velocity.x, isFalling ? rb.velocity.y : 0.0f);
             }

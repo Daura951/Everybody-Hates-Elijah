@@ -5,42 +5,38 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    private Animator anim;
+    public Animator anim;
+    public bool isAttacking = false;
+    public static PlayerAttack attackInstance;
     public GameObject[] hitBoxes;
-
     private float[] currentStats;
 
-    public bool isAttacking = false;
+    private void Awake()
+    {
+        attackInstance = this;
+    }
+
     private void Start()
     {
         currentStats = new float[3];
         anim = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-
-        if(Input.GetKeyDown(KeyCode.Z))
-        {
-            isAttacking = true;
-            anim.SetTrigger("FTilt");
-        }
-
-        if(Input.GetKeyDown(KeyCode.P))
-        {
-            isAttacking = true;
-            anim.SetTrigger("Jab");
-        }
-
-        if(Input.GetKeyDown(KeyCode.O))
-        {
-            print("Special");
-        }    
-
+        Attack();
     }
 
-    private void FTilt(string stats)
+    void Attack()
+    {
+        if(Input.GetKeyDown(KeyCode.P) && !isAttacking)
+        {
+            isAttacking = true;
+        }
+    }
+
+
+    public void Jab1(string stats)
     {
         hitBoxes[0].SetActive(true);
         string[] statSplit = stats.Split(" ");
@@ -49,7 +45,7 @@ public class PlayerAttack : MonoBehaviour
         currentStats[2] = float.Parse(statSplit[2]); //Knockback
     }
 
-    private void Jab1(string stats)
+    public void Jab2(string stats)
     {
         hitBoxes[1].SetActive(true);
         string[] statSplit = stats.Split(" ");
@@ -58,10 +54,17 @@ public class PlayerAttack : MonoBehaviour
         currentStats[2] = float.Parse(statSplit[2]); //Knockback
     }
 
+    public void Jab3(string stats)
+    {
+        hitBoxes[2].SetActive(true);
+        string[] statSplit = stats.Split(" ");
+        currentStats[0] = float.Parse(statSplit[0]); //Damage
+        currentStats[1] = float.Parse(statSplit[1]); //Angle
+        currentStats[2] = float.Parse(statSplit[2]); //Knockback
+    }
 
     void DespawnHitBox(int hitboxIndex)
     {
-        isAttacking = false;
         hitBoxes[hitboxIndex].SetActive(false);
     }
 
@@ -69,5 +72,4 @@ public class PlayerAttack : MonoBehaviour
     {
         return currentStats;
     }
-
 }
