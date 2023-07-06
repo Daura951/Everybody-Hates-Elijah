@@ -12,10 +12,10 @@ public class PlayerMovement : MonoBehaviour
     public Vector3 offset;
 
     public float Walk, jumpForce, fallingGravityFactor;
-    float Speed,Run, Crawl, scaledGravity, jumpAmt;
-  
+    float Speed, Run, Crawl, scaledGravity, jumpAmt;
+
     Material WalkMat;
-    public Material crouchMat , RunMat;
+    public Material crouchMat, RunMat;
 
     private GameObject currentPassThroughPlatform;
 
@@ -38,16 +38,16 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       rb = GetComponent<Rigidbody2D>();
-       playerCollider = GetComponent<Collider2D>();
-       anim = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
+        playerCollider = GetComponent<Collider2D>();
+        anim = GetComponent<Animator>();
         attackScript = GetComponent<PlayerAttack>();
-       WalkMat =sr.material;
-       Speed = Walk;
-       Run = Walk * 2;
-       Crawl = Walk/2;
-       scaledGravity = rb.gravityScale * fallingGravityFactor;
-       jumpAmt = 0;
+        WalkMat = sr.material;
+        Speed = Walk;
+        Run = Walk * 2;
+        Crawl = Walk / 2;
+        scaledGravity = rb.gravityScale * fallingGravityFactor;
+        jumpAmt = 0;
     }
 
     // Update is called once per frame
@@ -58,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
 
         isCrouch = anim.GetCurrentAnimatorStateInfo(0).IsName("Crouch");
 
-        if (Input.GetKey(KeyCode.LeftShift) && !isInAir &&!isCrouch)
+        if (Input.GetKey(KeyCode.LeftShift) && !isInAir && !isCrouch)
         {
             Speed = Run;
             anim.SetTrigger("Running");
@@ -79,18 +79,18 @@ public class PlayerMovement : MonoBehaviour
             anim.ResetTrigger("Running");
         }
 
-    
+
 
         Move();
         Jump();
-     
+
 
     }
 
     void Move()
     {
         float dirX = Input.GetAxisRaw("Horizontal");
-        rb.velocity = new Vector2(isInLandingLag || (attackScript.isAttacking && !isInAir) || isCrouch  ? 0  : dirX * Speed, rb.velocity.y);
+        rb.velocity = new Vector2(isInLandingLag || (attackScript.isAttacking && !isInAir) || isCrouch ? 0 : dirX * Speed, rb.velocity.y);
 
         if (dirX == 0 && !isInAir && Input.GetAxisRaw("Vertical") >= 0f)
         {
@@ -101,7 +101,7 @@ public class PlayerMovement : MonoBehaviour
             //isCrouch = false;
         }
 
-        else if(dirX == 0 && !isInAir && Input.GetAxisRaw("Vertical") < 0f && !isOnPassThrough)
+        else if (dirX == 0 && !isInAir && Input.GetAxisRaw("Vertical") < 0f && !isOnPassThrough)
         {
             anim.ResetTrigger("Walking");
             anim.ResetTrigger("Running");
@@ -112,7 +112,7 @@ public class PlayerMovement : MonoBehaviour
 
         else
         {
-            if(dirX!=0)
+            if (dirX != 0)
                 transform.eulerAngles = new Vector2(0, dirX < 0 ? 180 : 0);
 
             isLeft = transform.eulerAngles.y == 0 ? false : true;
@@ -127,11 +127,11 @@ public class PlayerMovement : MonoBehaviour
                         break;
 
                     case 7f:
-                       // isCrouch = false;
+                        // isCrouch = false;
                         anim.SetTrigger("Walking");
                         break;
                     case 3.5f:
-                      //  isCrouch = true;
+                        //  isCrouch = true;
                         anim.ResetTrigger("Walking");
                         break;
 
@@ -141,14 +141,14 @@ public class PlayerMovement : MonoBehaviour
                 anim.ResetTrigger("Idle");
             }
         }
-        
+
     }
 
     void Jump()
     {
-        if (!(jumpAmt == 0 && isInAir) &&!isInLandingLag && !attackScript.isAttacking)
+        if (!(jumpAmt == 0 && isInAir) && !isInLandingLag && !attackScript.isAttacking)
         {
-            if (Input.GetKeyDown(KeyCode.Space) ||Input.GetKeyDown(KeyCode.W))
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W))
             {
                 anim.ResetTrigger("Crouch");
                 anim.ResetTrigger("Idle");
@@ -209,9 +209,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.gameObject.tag == "Platform" || collision.gameObject.tag == "PassThroughPlatform")
         {
-            rb.gravityScale /= rb.gravityScale == scaledGravity ? scaledGravity: 1.0f;
+            rb.gravityScale /= rb.gravityScale == scaledGravity ? scaledGravity : 1.0f;
 
-            if(rb.velocity.y==0)
+            if (rb.velocity.y == 0)
                 isInAir = false;
 
             anim.SetBool("isGrounded", !isInAir);
@@ -226,16 +226,16 @@ public class PlayerMovement : MonoBehaviour
                 }
                 currentPassThroughPlatform = collision.gameObject;
             }
-            if(collision != null && collision.gameObject.tag == "Platform" && hitGround.collider.tag == "Platform")
-            { 
+            if (collision != null && collision.gameObject.tag == "Platform" && hitGround.collider.tag == "Platform")
+            {
                 jumpAmt = 0;
                 isOnPassThrough = false;
             }
 
-           
+
         }
 
-        
+
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -243,7 +243,7 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.tag == "PassThroughPlatform" || collision.gameObject.tag == "Platform")
         {
             RaycastHit2D hitGround = Physics2D.Raycast(groundRays[1].transform.position, -Vector2.up * rayRange);
-            if ( !isInAir && collision.gameObject.tag == "Platform" && hitGround.collider.tag == "Platform" || collision.gameObject.tag == "PassThroughPlatform" && hitGround.collider.tag == "PassThroughPlatform")
+            if (!isInAir && collision.gameObject.tag == "Platform" && hitGround.collider.tag == "Platform" || collision.gameObject.tag == "PassThroughPlatform" && hitGround.collider.tag == "PassThroughPlatform")
             {
                 jumpAmt = 1;
             }
@@ -265,4 +265,9 @@ public class PlayerMovement : MonoBehaviour
         return isLeft;
     }
 
+
+    public bool GetIsFalling()
+    {
+        return isFalling;
+    }
 }
