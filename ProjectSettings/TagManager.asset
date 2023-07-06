@@ -8,6 +8,8 @@ TagManager:
   - PassThroughPlatform
   - Enemy
   - Hitbox
+  - KnockBack
+  - BreakingPlatform
   layers:
   - Default
   - TransparentFX

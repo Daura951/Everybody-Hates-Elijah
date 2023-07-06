@@ -86,7 +86,7 @@ AnimationClip:
   m_Events:
   - time: 0.26666668
     functionName: FTilt
-    data: 10 80 300
+    data: 10 45 200
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
