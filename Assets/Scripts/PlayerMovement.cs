@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isFalling = false;
     private bool isLeft = false;
-    private bool isInAir = false;
+    public bool isInAir = false;
     private bool isInLandingLag = false;
     private bool isOnPassThrough = false;
     bool isCrouch = false;

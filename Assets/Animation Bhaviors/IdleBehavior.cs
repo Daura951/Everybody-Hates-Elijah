@@ -13,10 +13,11 @@ public class IdleBehavior : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if(PlayerAttack.attackInstance.isAttacking)
+        if (PlayerAttack.attackInstance.isAttacking && PlayerAttack.attackInstance.anim.GetBool("Idle") == true && !PlayerAttack.attackInstance.playerMovement.isInAir)
         {
             PlayerAttack.attackInstance.anim.Play("Jab 1 Start");
         }
+
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
