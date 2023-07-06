@@ -34,8 +34,6 @@ public class Hit : MonoBehaviour
 
         rb.AddForce(new Vector2(XComponent, YComponent));
 
-        print(XComponent + " " + YComponent);
-        print(knockBack + " "+angle);
         isHit = false;
     }
 
@@ -45,13 +43,10 @@ public class Hit : MonoBehaviour
 
         if(collision.gameObject.tag == "Hitbox")
         {
+            print("WHat?");
             stats = collision.transform.parent.gameObject.GetComponent<PlayerAttack>().GetCurrentStats();
             isHit = true;
             isLeft = collision.transform.parent.gameObject.GetComponent<PlayerMovement>().GetIsLeft();
         }
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        print("Done");
     }
 }

@@ -5,30 +5,93 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    private Animator anim;
+    public Animator anim;
+    public bool isAttacking = false;
+    public static PlayerAttack attackInstance;
     public GameObject[] hitBoxes;
-
     private float[] currentStats;
+    public PlayerMovement playerMovement;
+
+    private void Awake()
+    {
+        attackInstance = this;
+    }
+
     private void Start()
     {
         currentStats = new float[3];
         anim = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
+    {
+        Attack();
+    }
+
+    void Attack()
     {
 
-        if(Input.GetKeyDown(KeyCode.Z))
+
+        //Jab if statement
+        if(Input.GetKeyDown(KeyCode.P) && !isAttacking && anim.GetBool("Idle")==true && !playerMovement.isInAir)
         {
-            anim.SetTrigger("FTilt");
+            print("Jab");
+            isAttacking = true;
+        }
+
+        else if(Input.GetKeyDown(KeyCode.P) && !isAttacking && playerMovement.isInAir && !isAttacking && anim.GetBool("Idle") == false)
+        {
+            isAttacking = true;
+            print("Nair");
+        }
+
+        else if(Input.GetKeyDown(KeyCode.O) && !isAttacking && Input.GetAxisRaw("Vertical") < 0f && !playerMovement.isInAir)
+        {
+            isAttacking = true;
+            print("DownB");
         }
 
     }
 
-    private void FTilt(string stats)
+
+    public void Jab1(string stats)
     {
         hitBoxes[0].SetActive(true);
+        string[] statSplit = stats.Split(" ");
+        currentStats[0] = float.Parse(statSplit[0]); //Damage
+        currentStats[1] = float.Parse(statSplit[1]); //Angle
+        currentStats[2] = float.Parse(statSplit[2]); //Knockback
+    }
+
+    public void Jab2(string stats)
+    {
+        hitBoxes[1].SetActive(true);
+        string[] statSplit = stats.Split(" ");
+        currentStats[0] = float.Parse(statSplit[0]); //Damage
+        currentStats[1] = float.Parse(statSplit[1]); //Angle
+        currentStats[2] = float.Parse(statSplit[2]); //Knockback
+    }
+
+    public void Jab3(string stats)
+    {
+        hitBoxes[2].SetActive(true);
+        string[] statSplit = stats.Split(" ");
+        currentStats[0] = float.Parse(statSplit[0]); //Damage
+        currentStats[1] = float.Parse(statSplit[1]); //Angle
+        currentStats[2] = float.Parse(statSplit[2]); //Knockback
+    }
+
+    public void Nair(string stats)
+    {
+        hitBoxes[3].SetActive(true);
+        string[] statSplit = stats.Split(" ");
+        currentStats[0] = float.Parse(statSplit[0]); //Damage
+        currentStats[1] = float.Parse(statSplit[1]); //Angle
+        currentStats[2] = float.Parse(statSplit[2]); //Knockback
+    }
+    public void DownB(string stats)
+    {
+        hitBoxes[4].SetActive(true);
         string[] statSplit = stats.Split(" ");
         currentStats[0] = float.Parse(statSplit[0]); //Damage
         currentStats[1] = float.Parse(statSplit[1]); //Angle
@@ -44,5 +107,4 @@ public class PlayerAttack : MonoBehaviour
     {
         return currentStats;
     }
-
 }
