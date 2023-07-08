@@ -51,6 +51,12 @@ public class PlayerAttack : MonoBehaviour
             print("DownB");
         }
 
+        else if (Input.GetKeyDown(KeyCode.O) && !isAttacking && Input.GetAxisRaw("Horizontal") != 0f && !playerMovement.isInAir)
+        {
+            isAttacking = true;
+            print("Side B");
+        }
+
     }
 
 
@@ -96,6 +102,20 @@ public class PlayerAttack : MonoBehaviour
         currentStats[0] = float.Parse(statSplit[0]); //Damage
         currentStats[1] = float.Parse(statSplit[1]); //Angle
         currentStats[2] = float.Parse(statSplit[2]); //Knockback
+    }
+
+    public void SideB(string stats)
+    {
+        hitBoxes[5].SetActive(true);
+        string[] statSplit = stats.Split(" ");
+        currentStats[0] = float.Parse(statSplit[0]); //Damage
+        currentStats[1] = float.Parse(statSplit[1]); //Angle
+        currentStats[2] = float.Parse(statSplit[2]); //Knockback
+        float XDir = float.Parse(statSplit[3]); //XDir
+        float yDir = float.Parse(statSplit[4]); //YDir
+
+
+        playerMovement.rb.AddForce(new Vector2(playerMovement.GetIsLeft() ? -XDir : XDir, yDir));
     }
 
     void DespawnHitBox(int hitboxIndex)

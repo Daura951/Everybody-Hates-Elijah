@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private Rigidbody2D rb;
+    public Rigidbody2D rb;
     public SpriteRenderer sr;
     private Collider2D playerCollider;
     private Animator anim;
@@ -243,11 +243,14 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.tag == "PassThroughPlatform" || collision.gameObject.tag == "Platform")
         {
             RaycastHit2D hitGround = Physics2D.Raycast(groundRays[1].transform.position, -Vector2.up * rayRange);
-            if (!isInAir && collision.gameObject.tag == "Platform" && hitGround.collider.tag == "Platform" || collision.gameObject.tag == "PassThroughPlatform" && hitGround.collider.tag == "PassThroughPlatform")
+            if(hitGround.collider!=null)
             {
-                jumpAmt = 1;
+                if (!isInAir && collision.gameObject.tag == "Platform" && hitGround.collider.tag == "Platform" || collision.gameObject.tag == "PassThroughPlatform" && hitGround.collider.tag == "PassThroughPlatform")
+                {
+                    jumpAmt = 1;
+                }
+                currentPassThroughPlatform = null;
             }
-            currentPassThroughPlatform = null;
         }
         isInAir = true;
     }
@@ -270,4 +273,6 @@ public class PlayerMovement : MonoBehaviour
     {
         return isFalling;
     }
+
+
 }
