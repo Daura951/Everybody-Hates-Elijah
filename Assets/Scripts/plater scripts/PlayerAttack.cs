@@ -9,11 +9,14 @@ public class PlayerAttack : MonoBehaviour
     public bool isAttacking = false;
     public static PlayerAttack attackInstance;
     public GameObject[] hitBoxes;
+    public GameObject stickyHand;
     private float[] currentStats;
     public PlayerMovement playerMovement;
-
+    public bool isSpecial = false;
+    
     private void Awake()
     {
+        stickyHand.SetActive(false);
         attackInstance = this;
     }
 
@@ -36,6 +39,14 @@ public class PlayerAttack : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.P) && !isAttacking && anim.GetBool("Idle")==true && !playerMovement.isInAir)
         {
             print("Jab");
+            isSpecial = false;
+            isAttacking = true;
+        }
+
+        else if(Input.GetKeyDown(KeyCode.O) && !isAttacking && anim.GetBool("Idle")==true && !playerMovement.isInAir)
+        {
+            print("Neutral B");
+            isSpecial = true;
             isAttacking = true;
         }
 
@@ -116,6 +127,15 @@ public class PlayerAttack : MonoBehaviour
 
 
         playerMovement.rb.AddForce(new Vector2(playerMovement.GetIsLeft() ? -XDir : XDir, yDir));
+    }
+
+    public void NeutralB(string stats)
+    {
+        hitBoxes[6].SetActive(true);
+        string[] statSplit = stats.Split(" ");
+        currentStats[0] = float.Parse(statSplit[0]); //Damage
+        currentStats[1] = float.Parse(statSplit[1]); //Angle
+        currentStats[2] = float.Parse(statSplit[2]); //Knockback
     }
 
     void DespawnHitBox(int hitboxIndex)
