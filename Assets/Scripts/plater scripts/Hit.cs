@@ -43,10 +43,15 @@ public class Hit : MonoBehaviour
 
         if(collision.gameObject.tag == "Hitbox")
         {
-            print("WHat?");
             stats = collision.transform.parent.gameObject.GetComponent<PlayerAttack>().GetCurrentStats();
             isHit = true;
             isLeft = collision.transform.parent.gameObject.GetComponent<PlayerMovement>().GetIsLeft();
+        }
+
+        if(collision.gameObject.name== "StickyHandHitBox")
+        {
+            print("Gotcha!!!!");
+            collision.transform.parent.gameObject.GetComponent<PlayerAttack>().anim.SetBool("isSticked", true);
         }
     }
 }

@@ -6,13 +6,12 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
     public Animator anim;
-    public bool isAttacking = false;
+    public bool isAttacking = false, isSpecial = false, isSticked = false;
     public static PlayerAttack attackInstance;
     public GameObject[] hitBoxes;
     public GameObject stickyHand;
     private float[] currentStats;
     public PlayerMovement playerMovement;
-    public bool isSpecial = false;
     
     private void Awake()
     {
