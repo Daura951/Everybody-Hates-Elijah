@@ -52,6 +52,7 @@ public class Hit : MonoBehaviour
         {
             print("Gotcha!!!!");
             collision.transform.parent.gameObject.GetComponent<PlayerAttack>().anim.SetBool("isSticked", true);
+            collision.transform.parent.gameObject.GetComponent<PlayerAttack>().hitBoxes[6].SetActive(false);
         }
     }
 }

@@ -120,12 +120,12 @@ TextureImporter:
       name: Bnutural hand_0
       rect:
         serializedVersion: 2
-        x: 1196
-        y: 429
-        width: 340
-        height: 98
-      alignment: 9
-      pivot: {x: 0.5, y: 0.35}
+        x: 0
+        y: 0
+        width: 1200
+        height: 800
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -141,12 +141,12 @@ TextureImporter:
       name: Bnutural hand_1
       rect:
         serializedVersion: 2
-        x: 2393
-        y: 408
-        width: 726
-        height: 144
-      alignment: 9
-      pivot: {x: 0.5, y: 0.35}
+        x: 1200
+        y: 0
+        width: 1200
+        height: 800
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -162,12 +162,12 @@ TextureImporter:
       name: Bnutural hand_2
       rect:
         serializedVersion: 2
-        x: 3595
-        y: 396
-        width: 1005
-        height: 219
-      alignment: 9
-      pivot: {x: 0.5, y: 0.35}
+        x: 2400
+        y: 0
+        width: 1200
+        height: 800
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -183,12 +183,12 @@ TextureImporter:
       name: Bnutural hand_3
       rect:
         serializedVersion: 2
-        x: 4793
-        y: 388
-        width: 918
-        height: 233
-      alignment: 9
-      pivot: {x: 0.5, y: 0.35}
+        x: 3600
+        y: 0
+        width: 1200
+        height: 800
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -204,12 +204,12 @@ TextureImporter:
       name: Bnutural hand_4
       rect:
         serializedVersion: 2
-        x: 5994
-        y: 408
-        width: 886
-        height: 267
-      alignment: 9
-      pivot: {x: 0.5, y: 0.35}
+        x: 4800
+        y: 0
+        width: 1200
+        height: 800
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -225,12 +225,12 @@ TextureImporter:
       name: Bnutural hand_5
       rect:
         serializedVersion: 2
-        x: 7196
-        y: 416
-        width: 624
-        height: 251
-      alignment: 9
-      pivot: {x: 0.5, y: 0.35}
+        x: 6000
+        y: 0
+        width: 1200
+        height: 800
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -238,6 +238,27 @@ TextureImporter:
       bones: []
       spriteID: 4ba752cc3e73d4f45a5809cbec3449e7
       internalID: 1694642408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bnutural hand_6
+      rect:
+        serializedVersion: 2
+        x: 7200
+        y: 0
+        width: 1200
+        height: 800
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39007efefd9391f47b6df5da40330c5f
+      internalID: -1555577545
       vertices: []
       indices: 
       edges: []
@@ -256,6 +277,7 @@ TextureImporter:
       Bnutural hand_1: 1638640523
       Bnutural hand_5: 1694642408
       Bnutural hand_2: 1513385369
+      Bnutural hand_6: -1555577545
       Bnutural hand_3: -755387902
       Bnutural hand_0: 2056625848
       Bnutural hand_4: -2127521663
