@@ -142,6 +142,11 @@ public class PlayerAttack : MonoBehaviour
         hitBoxes[hitboxIndex].SetActive(false);
     }
 
+    void DespawnStickyHand()
+    {
+        stickyHand.SetActive(false);
+    }
+
     public float[] GetCurrentStats()
     {
         return currentStats;

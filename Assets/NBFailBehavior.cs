@@ -20,7 +20,6 @@ public class NBFailBehavior : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         PlayerAttack.attackInstance.isAttacking = false;
-        PlayerAttack.attackInstance.stickyHand.SetActive(false);
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

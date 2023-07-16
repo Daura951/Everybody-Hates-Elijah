@@ -41,18 +41,24 @@ public class Hit : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
 
-        if(collision.gameObject.tag == "Hitbox")
+        if(collision.gameObject.tag == "Hitbox" && !(collision.gameObject.name == "StickyHandHitbox"))
         {
             stats = collision.transform.parent.gameObject.GetComponent<PlayerAttack>().GetCurrentStats();
             isHit = true;
             isLeft = collision.transform.parent.gameObject.GetComponent<PlayerMovement>().GetIsLeft();
         }
 
-        if(collision.gameObject.name== "StickyHandHitBox")
+        else if(collision.gameObject.tag == "Hitbox" && collision.gameObject.name== "StickyHandHitbox")
         {
             print("Gotcha!!!!");
-            collision.transform.parent.gameObject.GetComponent<PlayerAttack>().anim.SetBool("isSticked", true);
-            collision.transform.parent.gameObject.GetComponent<PlayerAttack>().hitBoxes[6].SetActive(false);
+            stats = collision.transform.parent.gameObject.GetComponent<PlayerAttack>().GetCurrentStats();
+            isHit = true;
+            isLeft = collision.transform.parent.gameObject.GetComponent<PlayerMovement>().GetIsLeft();
+            collision.transform.parent.gameObject.GetComponent<PlayerAttack>().isSticked = true;
+            collision.transform.parent.gameObject.GetComponent<PlayerAttack>().stickyHand.GetComponent<StickyHand>().goBack = true;
+            collision.transform.parent.gameObject.GetComponent<PlayerAttack>().hitBoxes[6].GetComponent<StickyHand>().goBack = true;
+            collision.transform.parent.gameObject.GetComponent<PlayerAttack>().hitBoxes[6].GetComponent<CircleCollider2D>().enabled = false;
+
         }
     }
 }
