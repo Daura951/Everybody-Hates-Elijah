@@ -27,6 +27,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void Update()
     {
+        //print(isAttacking);
         Attack();
     }
 
@@ -35,10 +36,34 @@ public class PlayerAttack : MonoBehaviour
 
 
         //Jab if statement
-        if(Input.GetKeyDown(KeyCode.P) && !isAttacking && anim.GetBool("Idle")==true && !playerMovement.isInAir)
+        if(Input.GetKeyDown(KeyCode.P) && Input.GetAxisRaw("Vertical")==0&& !isAttacking && anim.GetBool("Idle")==true && !playerMovement.isInAir)
         {
             print("Jab");
             isSpecial = false;
+            isAttacking = true;
+        }
+
+        else if (Input.GetKeyDown(KeyCode.P) && !isAttacking && playerMovement.isInAir && !isAttacking && anim.GetBool("Idle") == false)
+        {
+            isAttacking = true;
+            print("Nair");
+        }
+
+        else if (Input.GetKeyDown(KeyCode.P) && !isAttacking && Input.GetAxisRaw("Vertical") > 0 && anim.GetBool("Idle") && !playerMovement.isInAir)
+        {
+            print("UTilt");
+            isAttacking = true;
+        }
+
+        else if (Input.GetKeyDown(KeyCode.P) && !isAttacking && Input.GetAxisRaw("Vertical") < 0 && anim.GetBool("Crouch") && !playerMovement.isInAir)
+        {
+            print("DTilt");
+            isAttacking = true;
+        }
+
+        else if (Input.GetKeyDown(KeyCode.P) && !isAttacking && Input.GetAxisRaw("Horizontal") !=0 &&  !playerMovement.isInAir)
+        {
+            print("FTilt");
             isAttacking = true;
         }
 
@@ -49,23 +74,21 @@ public class PlayerAttack : MonoBehaviour
             isAttacking = true;
         }
 
-        else if(Input.GetKeyDown(KeyCode.P) && !isAttacking && playerMovement.isInAir && !isAttacking && anim.GetBool("Idle") == false)
-        {
-            isAttacking = true;
-            print("Nair");
-        }
 
         else if(Input.GetKeyDown(KeyCode.O) && !isAttacking && Input.GetAxisRaw("Vertical") < 0f && !playerMovement.isInAir)
         {
             isAttacking = true;
+            isSpecial = true;
             print("DownB");
         }
 
         else if (Input.GetKeyDown(KeyCode.O) && !isAttacking && Input.GetAxisRaw("Horizontal") != 0f && !playerMovement.isInAir)
         {
             isAttacking = true;
+            isSpecial = true;
             print("Side B");
         }
+
 
     }
 
@@ -136,6 +159,35 @@ public class PlayerAttack : MonoBehaviour
         currentStats[1] = float.Parse(statSplit[1]); //Angle
         currentStats[2] = float.Parse(statSplit[2]); //Knockback
     }
+
+
+    public void UTilt(string stats)
+    {
+        hitBoxes[7].SetActive(true);
+        string[] statSplit = stats.Split(" ");
+        currentStats[0] = float.Parse(statSplit[0]); //Damage
+        currentStats[1] = float.Parse(statSplit[1]); //Angle
+        currentStats[2] = float.Parse(statSplit[2]); //Knockback
+    }
+
+    public void FTilt(string stats)
+    {
+        hitBoxes[8].SetActive(true);
+        string[] statSplit = stats.Split(" ");
+        currentStats[0] = float.Parse(statSplit[0]); //Damage
+        currentStats[1] = float.Parse(statSplit[1]); //Angle
+        currentStats[2] = float.Parse(statSplit[2]); //Knockback
+    }
+
+    public void DTilt(string stats)
+    {
+        hitBoxes[9].SetActive(true);
+        string[] statSplit = stats.Split(" ");
+        currentStats[0] = float.Parse(statSplit[0]); //Damage
+        currentStats[1] = float.Parse(statSplit[1]); //Angle
+        currentStats[2] = float.Parse(statSplit[2]); //Knockback
+    }
+
 
     void DespawnHitBox(int hitboxIndex)
     {

@@ -13,10 +13,16 @@ public class CrouchBehavior : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (PlayerAttack.attackInstance.isAttacking)
+        if (PlayerAttack.attackInstance.isAttacking && PlayerAttack.attackInstance.isSpecial)
         {
             PlayerAttack.attackInstance.anim.Play("Down B");
             PlayerAttack.attackInstance.isAttacking = false;
+            PlayerAttack.attackInstance.isSpecial = false;
+        }
+
+        else if(PlayerAttack.attackInstance.isAttacking)
+        {
+            PlayerAttack.attackInstance.anim.Play("DTilt");
         }
     }
 

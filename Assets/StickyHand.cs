@@ -58,6 +58,7 @@ public class StickyHand : MonoBehaviour
             transform.position += new Vector3(isPlayerLeft ? -1 :  1, 0, 0) * Time.deltaTime * editedSpeed;
             editedSpeed += .1f;
         }
+
         else if (goBack || countDown < maxCountDown+.05)
         {
             if(GetComponent<CircleCollider2D>() != null && !playedSuccess)

@@ -13,9 +13,14 @@ public class WalkBehavior : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (PlayerAttack.attackInstance.isAttacking)
+        if (PlayerAttack.attackInstance.isAttacking &&PlayerAttack.attackInstance.isSpecial)
         {
             PlayerAttack.attackInstance.anim.Play("Side B");
+        }
+
+        else if (PlayerAttack.attackInstance.isAttacking && Input.GetAxisRaw("Horizontal") != 0 && !PlayerAttack.attackInstance.playerMovement.isInAir)
+        {
+            PlayerAttack.attackInstance.anim.Play("Forward Tilt");
         }
     }
 

@@ -13,7 +13,7 @@ public class IdleBehavior : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (PlayerAttack.attackInstance.isAttacking && PlayerAttack.attackInstance.anim.GetBool("Idle") == true && !PlayerAttack.attackInstance.playerMovement.isInAir && !PlayerAttack.attackInstance.isSpecial)
+        if (PlayerAttack.attackInstance.isAttacking && Input.GetAxisRaw("Vertical") == 0 && PlayerAttack.attackInstance.anim.GetBool("Idle") == true && !PlayerAttack.attackInstance.playerMovement.isInAir && !PlayerAttack.attackInstance.isSpecial)
         {
             PlayerAttack.attackInstance.anim.Play("Jab 1 Start");
         }
@@ -23,15 +23,22 @@ public class IdleBehavior : StateMachineBehaviour
             PlayerAttack.attackInstance.anim.SetBool("isSticked", PlayerAttack.attackInstance.isSticked);
             PlayerAttack.attackInstance.anim.Play("Neutral B Start");
             PlayerAttack.attackInstance.stickyHand.SetActive(true);
-            Debug.Log("Play me!");
         }
+
+        else if (PlayerAttack.attackInstance.isAttacking && Input.GetAxisRaw("Vertical") > 0 && PlayerAttack.attackInstance.anim.GetBool("Idle")==true && !PlayerAttack.attackInstance.playerMovement.isInAir)
+        {
+            Debug.Log("Called!");
+            PlayerAttack.attackInstance.anim.Play("Up Tilt");
+        }
+
 
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        PlayerAttack.attackInstance.isAttacking = false;
+        if(!PlayerAttack.attackInstance.stickyHand.activeSelf)
+            PlayerAttack.attackInstance.isAttacking = false;
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
