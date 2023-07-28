@@ -91,7 +91,7 @@ public class PlayerMovement : MonoBehaviour
     void Move()
     {
         float dirX = Input.GetAxisRaw("Horizontal");
-        rb.velocity = new Vector2(isInLandingLag || (attackScript.isAttacking && !isInAir) || isCrouch ? 0 : dirX * Speed, rb.velocity.y);
+        rb.velocity = new Vector2(DetermineMovement() ? 0 : dirX * Speed, rb.velocity.y);
 
         if (dirX == 0 && !isInAir && Input.GetAxisRaw("Vertical") >= 0f)
         {
@@ -113,7 +113,7 @@ public class PlayerMovement : MonoBehaviour
 
         else
         {
-            if (dirX != 0)
+            if (dirX != 0 && !attackScript.isAttacking)
                 transform.eulerAngles = new Vector2(0, dirX < 0 ? 180 : 0);
 
             isLeft = transform.eulerAngles.y == 0 ? false : true;
@@ -286,5 +286,9 @@ public class PlayerMovement : MonoBehaviour
         else print("Tap jump off");
     }
 
+    bool DetermineMovement()
+    {
+        return isInLandingLag || (attackScript.isAttacking && !isInAir) || isCrouch;
+    }
 
 }
