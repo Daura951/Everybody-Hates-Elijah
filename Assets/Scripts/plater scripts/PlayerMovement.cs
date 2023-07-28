@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -210,7 +211,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.gameObject.tag == "Platform" || collision.gameObject.tag == "PassThroughPlatform")
         {
-            rb.gravityScale /= rb.gravityScale == scaledGravity ? scaledGravity : 1.0f;
+            rb.gravityScale /= rb.gravityScale == scaledGravity ? scaledGravity : 2f;
 
             if (rb.velocity.y == 0)
                 isInAir = false;
@@ -238,6 +239,7 @@ public class PlayerMovement : MonoBehaviour
 
 
     }
+
 
     private void OnCollisionExit2D(Collision2D collision)
     {
@@ -275,15 +277,20 @@ public class PlayerMovement : MonoBehaviour
         return isFalling;
     }
 
-    public void InvertIsTapJump()
+    public void InvertIsTapJump(Image img)
     {
         isTapJump = !isTapJump;
 
         if (isTapJump)
         {
             print("Tap jump on");
+            img.color = new Color(0, 255, 0, 1);
         }
-        else print("Tap jump off");
+        else
+        {
+            print("Tap jump off");
+            img.color = new Color(255, 0, 0, 1);
+        }
     }
 
     bool DetermineMovement()

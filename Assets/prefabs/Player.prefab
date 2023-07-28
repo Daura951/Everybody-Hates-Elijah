@@ -557,7 +557,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 2
   m_Material: {fileID: 6200000, guid: 1be42126bf678e941b2a24538bad1aa1, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -611,6 +611,7 @@ MonoBehaviour:
   crouchMat: {fileID: 2100000, guid: 6ed032d1c2cd87c42a57a267c3a8c539, type: 2}
   RunMat: {fileID: 2100000, guid: b3667f6cfd912fe4386181334424e8c8, type: 2}
   isInAir: 0
+  isTapJump: 0
   groundRays:
   - {fileID: 2052426328689145744}
   - {fileID: 2052426328807346244}
