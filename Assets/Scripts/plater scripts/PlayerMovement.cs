@@ -25,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isInLandingLag = false;
     private bool isOnPassThrough = false;
     bool isCrouch = false;
+    public bool isTapJump = false;
 
     public Transform[] groundRays;
     public float rayRange = 5f;
@@ -148,7 +149,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!(jumpAmt == 0 && isInAir) && !isInLandingLag && !attackScript.isAttacking)
         {
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W))
+            if (Input.GetKeyDown(KeyCode.Space) || (Input.GetKeyDown(KeyCode.W)&&isTapJump))
             {
                 anim.ResetTrigger("Crouch");
                 anim.ResetTrigger("Idle");
@@ -272,6 +273,17 @@ public class PlayerMovement : MonoBehaviour
     public bool GetIsFalling()
     {
         return isFalling;
+    }
+
+    public void InvertIsTapJump()
+    {
+        isTapJump = !isTapJump;
+
+        if (isTapJump)
+        {
+            print("Tap jump on");
+        }
+        else print("Tap jump off");
     }
 
 
