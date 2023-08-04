@@ -12,7 +12,10 @@ public class PlayerAttack : MonoBehaviour
     public GameObject stickyHand;
     private float[] currentStats;
     public PlayerMovement playerMovement;
-    
+    public bool strongStarted = false;
+    public bool strongDone = false;
+    public float strongTimer = 0.0f;
+    float strongDamage = 0.0f;
     private void Awake()
     {
         stickyHand.SetActive(false);
@@ -36,17 +39,11 @@ public class PlayerAttack : MonoBehaviour
 
 
         //Jab if statement
-        if(Input.GetKeyDown(KeyCode.P) && Input.GetAxisRaw("Vertical")==0&& !isAttacking && anim.GetBool("Idle")==true && !playerMovement.isInAir)
+        if (Input.GetKeyDown(KeyCode.P) && Input.GetAxisRaw("Vertical") == 0 && !isAttacking && anim.GetBool("Idle") == true && !playerMovement.isInAir)
         {
             print("Jab");
             isSpecial = false;
             isAttacking = true;
-        }
-
-        else if (Input.GetKeyDown(KeyCode.P) && !isAttacking && playerMovement.isInAir && !isAttacking && anim.GetBool("Idle") == false)
-        {
-            isAttacking = true;
-            print("Nair");
         }
 
         else if (Input.GetKeyDown(KeyCode.P) && !isAttacking && Input.GetAxisRaw("Vertical") > 0 && anim.GetBool("Idle") && !playerMovement.isInAir)
@@ -61,13 +58,38 @@ public class PlayerAttack : MonoBehaviour
             isAttacking = true;
         }
 
-        else if (Input.GetKeyDown(KeyCode.P) && !isAttacking && Input.GetAxisRaw("Horizontal") !=0 &&  !playerMovement.isInAir)
+        else if (Input.GetKeyDown(KeyCode.P) && !isAttacking && Input.GetAxisRaw("Horizontal") != 0 && !playerMovement.isInAir)
         {
             print("FTilt");
             isAttacking = true;
         }
 
-        else if(Input.GetKeyDown(KeyCode.O) && !isAttacking && anim.GetBool("Idle")==true && !playerMovement.isInAir)
+        else if (Input.GetKeyDown(KeyCode.P) && !isAttacking && Input.GetAxisRaw("Vertical") == 0 && Input.GetAxisRaw("Horizontal") == 0 && playerMovement.isInAir && !isAttacking && anim.GetBool("Idle") == false)
+        {
+            isAttacking = true;
+            print("Nair");
+        }
+
+        else if (Input.GetKeyDown(KeyCode.P) && !isAttacking && Input.GetAxisRaw("Vertical") > 0 && playerMovement.isInAir && anim.GetBool("Idle") == false)
+        {
+            print("Uair");
+            isAttacking = true;
+        }
+
+        else if (Input.GetKeyDown(KeyCode.P) && !isAttacking && Input.GetAxisRaw("Vertical") < 0 && playerMovement.isInAir && anim.GetBool("Idle") == false)
+        {
+            print("Dair");
+            isAttacking = true;
+        }
+
+        else if (Input.GetKeyDown(KeyCode.P) && !isAttacking && Input.GetAxisRaw("Horizontal") != 0 && playerMovement.isInAir && anim.GetBool("Idle") == false)
+        {
+            print("Fair");
+            isAttacking = true;
+        }
+
+
+        else if (Input.GetKeyDown(KeyCode.O) && !isAttacking && anim.GetBool("Idle") == true && !playerMovement.isInAir)
         {
             print("Neutral B");
             isSpecial = true;
@@ -75,7 +97,7 @@ public class PlayerAttack : MonoBehaviour
         }
 
 
-        else if(Input.GetKeyDown(KeyCode.O) && !isAttacking && Input.GetAxisRaw("Vertical") < 0f && !playerMovement.isInAir)
+        else if (Input.GetKeyDown(KeyCode.O) && !isAttacking && Input.GetAxisRaw("Vertical") < 0f && !playerMovement.isInAir)
         {
             isAttacking = true;
             isSpecial = true;
@@ -87,6 +109,94 @@ public class PlayerAttack : MonoBehaviour
             isAttacking = true;
             isSpecial = true;
             print("Side B");
+        }
+
+
+
+        else if (Input.GetKey(KeyCode.I) && !strongDone && Input.GetAxisRaw("Vertical")==0 && !playerMovement.isInAir)
+        {
+            isAttacking = true;
+            if (!strongStarted)
+            {
+                strongStarted = true;
+                anim.SetBool("isStrong", strongStarted);
+                anim.Play("FStrong Startup");
+            }
+            strongTimer += Time.deltaTime;
+
+            if(strongTimer < 1.2f)
+            {
+                strongDamage += .001f;
+                print(strongDamage);
+            }
+
+            if (strongTimer >= 2.2f)
+            {
+                strongDone = true;
+            }
+
+        }
+
+        else if (Input.GetKey(KeyCode.I) && !strongDone && Input.GetAxisRaw("Vertical") > 0 && !playerMovement.isInAir)
+        {
+            isAttacking = true;
+            if (!strongStarted)
+            {
+                strongStarted = true;
+                anim.SetBool("isStrong", strongStarted);
+                anim.Play("UStrong Startup");
+            }
+            strongTimer += Time.deltaTime;
+
+            if (strongTimer < 1.2f)
+            {
+                strongDamage += .001f;
+                print(strongDamage);
+            }
+
+            if (strongTimer >= 2.2f)
+            {
+                strongDone = true;
+            }
+
+        }
+
+        else if (Input.GetKey(KeyCode.I) && !strongDone && Input.GetAxisRaw("Vertical") < 0 && !playerMovement.isInAir)
+        {
+            isAttacking = true;
+            if (!strongStarted)
+            {
+                strongStarted = true;
+                anim.SetBool("isStrong", strongStarted);
+                anim.Play("DStrong Startup");
+            }
+            strongTimer += Time.deltaTime;
+
+            if (strongTimer < 1.2f)
+            {
+                strongDamage += .001f;
+                print(strongDamage);
+            }
+
+            if (strongTimer >= 2.2f)
+            {
+                strongDone = true;
+            }
+
+        }
+
+
+        else if (Input.GetKeyUp(KeyCode.I) || strongDone)
+        {
+            print("Releasing strong");
+            strongStarted = false;
+            anim.SetBool("isStrong", strongStarted);
+            print(strongDamage);
+            strongTimer = 0;
+            if (Input.GetKeyUp(KeyCode.I))
+            {
+                strongDone = false;
+            }
         }
 
 
@@ -188,6 +298,65 @@ public class PlayerAttack : MonoBehaviour
         currentStats[2] = float.Parse(statSplit[2]); //Knockback
     }
 
+    public void Fair(string stats)
+    {
+        hitBoxes[10].SetActive(true);
+        string[] statSplit = stats.Split(" ");
+        currentStats[0] = float.Parse(statSplit[0]); //Damage
+        currentStats[1] = float.Parse(statSplit[1]); //Angle
+        currentStats[2] = float.Parse(statSplit[2]); //Knockback
+    }
+
+    public void Uair(string stats)
+    {
+        hitBoxes[11].SetActive(true);
+        string[] statSplit = stats.Split(" ");
+        currentStats[0] = float.Parse(statSplit[0]); //Damage
+        currentStats[1] = float.Parse(statSplit[1]); //Angle
+        currentStats[2] = float.Parse(statSplit[2]); //Knockback
+    }
+
+    public void Dair(string stats)
+    {
+        hitBoxes[12].SetActive(true);
+        string[] statSplit = stats.Split(" ");
+        currentStats[0] = float.Parse(statSplit[0]); //Damage
+        currentStats[1] = float.Parse(statSplit[1]); //Angle
+        currentStats[2] = float.Parse(statSplit[2]); //Knockback
+    }
+
+    public void FStrong(string stats)
+    {
+        hitBoxes[13].SetActive(true);
+        string[] statSplit = stats.Split(" ");
+        currentStats[0] = float.Parse(statSplit[0]) + (float.Parse(statSplit[0])*strongDamage); //Damage
+        currentStats[1] = float.Parse(statSplit[1]); //Angle
+        currentStats[2] = float.Parse(statSplit[2]) + (float.Parse(statSplit[2]) * strongDamage); //Knockback
+        strongDamage = 0.0f;
+    }
+
+    public void UStrong(string stats)
+    {
+        hitBoxes[14].SetActive(true);
+        string[] statSplit = stats.Split(" ");
+        currentStats[0] = float.Parse(statSplit[0]) + (float.Parse(statSplit[0]) * strongDamage); //Damage
+        currentStats[1] = float.Parse(statSplit[1]); //Angle
+        currentStats[2] = float.Parse(statSplit[2]) + (float.Parse(statSplit[2]) * strongDamage); //Knockback
+        strongDamage = 0.0f;
+    }
+
+    public void DStrong(string stats)
+    {
+        hitBoxes[15].SetActive(true);
+        string[] statSplit = stats.Split(" ");
+        currentStats[0] = float.Parse(statSplit[0]) + (float.Parse(statSplit[0]) * strongDamage); //Damage
+        currentStats[1] = float.Parse(statSplit[1]); //Angle
+        currentStats[2] = float.Parse(statSplit[2]) + (float.Parse(statSplit[2]) * strongDamage); //Knockback
+        strongDamage = 0.0f;
+    }
+
+
+
 
     void DespawnHitBox(int hitboxIndex)
     {
@@ -197,6 +366,11 @@ public class PlayerAttack : MonoBehaviour
     void DespawnStickyHand()
     {
         stickyHand.SetActive(false);
+    }
+
+    public void SetStrongDone(bool newStrongDone)
+    {
+        strongDone = newStrongDone;
     }
 
     public float[] GetCurrentStats()

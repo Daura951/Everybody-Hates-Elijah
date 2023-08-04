@@ -13,9 +13,27 @@ public class SingleJumpBheavior : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (PlayerAttack.attackInstance.isAttacking)
+        if (PlayerAttack.attackInstance.isAttacking && Input.GetAxisRaw("Vertical") == 0 && Input.GetAxisRaw("Horizontal") == 0)
         {
             PlayerAttack.attackInstance.anim.Play("Nair");
+            PlayerAttack.attackInstance.isAttacking = false;
+        }
+
+        else if(PlayerAttack.attackInstance.isAttacking && Input.GetAxisRaw("Vertical") > 0)
+        {
+            PlayerAttack.attackInstance.anim.Play("Uair");
+            PlayerAttack.attackInstance.isAttacking = false;
+        }
+
+        else if (PlayerAttack.attackInstance.isAttacking && Input.GetAxisRaw("Vertical") < 0)
+        {
+            PlayerAttack.attackInstance.anim.Play("Dair");
+            PlayerAttack.attackInstance.isAttacking = false;
+        }
+
+        else if (PlayerAttack.attackInstance.isAttacking && Input.GetAxisRaw("Horizontal") != 0)
+        {
+            PlayerAttack.attackInstance.anim.Play("Fair");
             PlayerAttack.attackInstance.isAttacking = false;
         }
     }
