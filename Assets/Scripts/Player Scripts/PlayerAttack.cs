@@ -30,6 +30,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void Update()
     {
+
         //print(isAttacking);
         Attack();
     }
@@ -64,25 +65,25 @@ public class PlayerAttack : MonoBehaviour
             isAttacking = true;
         }
 
-        else if (Input.GetKeyDown(KeyCode.P) && !isAttacking && Input.GetAxisRaw("Vertical") == 0 && Input.GetAxisRaw("Horizontal") == 0 && playerMovement.isInAir && !isAttacking && anim.GetBool("Idle") == false)
+        else if (Input.GetKeyDown(KeyCode.P) && !isAttacking && Input.GetAxisRaw("Vertical") == 0 && Input.GetAxisRaw("Horizontal") == 0 && playerMovement.isInAir)
         {
             isAttacking = true;
             print("Nair");
         }
 
-        else if (Input.GetKeyDown(KeyCode.P) && !isAttacking && Input.GetAxisRaw("Vertical") > 0 && playerMovement.isInAir && anim.GetBool("Idle") == false)
+        else if (Input.GetKeyDown(KeyCode.P) && !isAttacking && Input.GetAxisRaw("Vertical") > 0 && playerMovement.isInAir)
         {
             print("Uair");
             isAttacking = true;
         }
 
-        else if (Input.GetKeyDown(KeyCode.P) && !isAttacking && Input.GetAxisRaw("Vertical") < 0 && playerMovement.isInAir && anim.GetBool("Idle") == false)
+        else if (Input.GetKeyDown(KeyCode.P) && !isAttacking && Input.GetAxisRaw("Vertical") < 0 && playerMovement.isInAir)
         {
             print("Dair");
             isAttacking = true;
         }
 
-        else if (Input.GetKeyDown(KeyCode.P) && !isAttacking && Input.GetAxisRaw("Horizontal") != 0 && playerMovement.isInAir && anim.GetBool("Idle") == false)
+        else if (Input.GetKeyDown(KeyCode.P) && !isAttacking && Input.GetAxisRaw("Horizontal") != 0 && playerMovement.isInAir)
         {
             print("Fair");
             isAttacking = true;

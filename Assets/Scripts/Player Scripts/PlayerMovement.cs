@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private Rigidbody2D rb;
+    public Rigidbody2D rb;
     public SpriteRenderer sr;
     private Collider2D playerCollider;
     private Animator anim;
@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
     public PlayerAttack attackScript;
 
     private Stun S;
-    private bool stunned;
+    private bool stunned = false;
 
     private Escelator Escelator;
     public bool OnEscelator, InEscelator = false;
@@ -54,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
         scaledGravity = rb.gravityScale * fallingGravityFactor;
         jumpAmt = 0;
 
-        S = GetComponent<Stun>();
+        //S = GetComponent<Stun>();
 
 
 
@@ -63,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        stunned = S.getIsStunned();
+        //stunned = S.getIsStunned();
 
         if (Escelator != null)
             OnEscelator = Escelator.GetOnEscelator();
@@ -192,7 +192,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 anim.ResetTrigger("Crouch");
                 anim.ResetTrigger("Idle");
-                anim.ResetTrigger("Climbing");
+                //anim.ResetTrigger("Climbing");
                 isInAir = true;
 
                 anim.SetBool("isGrounded", !isInAir);
