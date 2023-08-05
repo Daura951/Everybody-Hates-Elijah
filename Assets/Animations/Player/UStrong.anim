@@ -81,7 +81,7 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.2
+  - time: 0.26666668
     functionName: UStrong
     data: 40 89 300
     objectReferenceParameter: {fileID: 0}
