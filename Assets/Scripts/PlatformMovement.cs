@@ -5,61 +5,43 @@ using UnityEngine;
 public class PlatformMovement : MonoBehaviour
 {
 
-    public Vector3 LowStart;
-    public Vector3 HighEnd;
+    private Vector3 home;
+    public Vector3 End;
     public float speed;
-    private float Xspeed , Yspeed;
-    private bool Fall , bounce;
+    private bool Fall , bounce = true;
     PlayerMovement PM;
-    [SerializeField] GameObject player;
+    GameObject player;
 
 
 
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         PM = player.GetComponent<PlayerMovement>();
-        Xspeed = Yspeed = speed;
-        bounce = true;
+        home = this.transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
         Fall = PM.GetIsFalling();
+        float step = speed * Time.deltaTime;
         
-               if (LowStart.x != HighEnd.x){
+               if(bounce)
+        {
+        transform.position = Vector2.MoveTowards(transform.position, End, step);
+            if(transform.position == End)
+                bounce = !bounce;
+        }
 
-                transform.position +=  new Vector3(1f , 0 ,0) * Xspeed * Time.deltaTime;
 
-                if(transform.position.x >= HighEnd.x && bounce)
-                {
-                    Xspeed *= -1;
-                    bounce = false;
-                }
-                if(transform.position.x <= LowStart.x && !bounce)
-                {
-                    Xspeed *= -1;
-                    bounce = true;
-                }
-               }
-
-               if(LowStart.y != HighEnd.y){
-
-                transform.position +=  new Vector3(1f, 0, 0) * Yspeed * Time.deltaTime;
-
-                if(transform.position.y >= HighEnd.y && bounce)
-                {
-                    Yspeed *= -1;
-                    bounce = false;
-                }
-                if(transform.position.y <= LowStart.y && !bounce)
-                {
-                    Yspeed *= -1;
-                    bounce = true;
-                }
-   
-                }    
+        if(!bounce)
+        {
+        transform.position = Vector2.MoveTowards(transform.position, home, step);
+            if(transform.position == home)
+                bounce = !bounce;
+        }  
      }
 
      private void OnCollisionEnter2D(Collision2D collision)
@@ -78,15 +60,3 @@ public class PlatformMovement : MonoBehaviour
             }
      }
 }
-
-
-/* 
- add : 
-
- public bool GetIsFalling()
-  {
-  return isFalling;
-  }
-
- to PlayerMovement.cs
- */

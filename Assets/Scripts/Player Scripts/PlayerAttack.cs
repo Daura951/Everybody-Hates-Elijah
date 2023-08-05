@@ -33,19 +33,19 @@ public class PlayerAttack : MonoBehaviour
 
 
         //Jab if statement
-        if(Input.GetKeyDown(KeyCode.P) && !isAttacking && anim.GetBool("Idle")==true && !playerMovement.isInAir)
+        if(Input.GetKeyDown(KeyCode.P) && !isAttacking && anim.GetBool("Idle")==true && !playerMovement.GetIsInAir())
         {
             print("Jab");
             isAttacking = true;
         }
 
-        else if(Input.GetKeyDown(KeyCode.P) && !isAttacking && playerMovement.isInAir && !isAttacking && anim.GetBool("Idle") == false)
+        else if(Input.GetKeyDown(KeyCode.P) && !isAttacking && playerMovement.GetIsInAir() && !isAttacking && anim.GetBool("Idle") == false)
         {
             isAttacking = true;
             print("Nair");
         }
 
-        else if(Input.GetKeyDown(KeyCode.O) && !isAttacking && Input.GetAxisRaw("Vertical") < 0f && !playerMovement.isInAir)
+        else if(Input.GetKeyDown(KeyCode.O) && !isAttacking && Input.GetAxisRaw("Vertical") < 0f && !playerMovement.GetIsInAir())
         {
             isAttacking = true;
             print("DownB");
