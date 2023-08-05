@@ -116,23 +116,26 @@ public class PlayerAttack : MonoBehaviour
         else if (Input.GetKey(KeyCode.I) && !strongDone && Input.GetAxisRaw("Vertical")==0 && !playerMovement.isInAir)
         {
             isAttacking = true;
-            if (!strongStarted)
+            if (isAttacking)
             {
-                strongStarted = true;
-                anim.SetBool("isStrong", strongStarted);
-                anim.Play("FStrong Startup");
-            }
-            strongTimer += Time.deltaTime;
+                if (!strongStarted)
+                {
+                    strongStarted = true;
+                    anim.SetBool("isStrong", strongStarted);
+                    anim.Play("FStrong Startup");
+                }
+                strongTimer += Time.deltaTime;
 
-            if(strongTimer < 1.2f)
-            {
-                strongDamage += .001f;
-                print(strongDamage);
-            }
+                if (strongTimer < 1.2f)
+                {
+                    strongDamage += .001f;
+                    print(strongDamage);
+                }
 
-            if (strongTimer >= 2.2f)
-            {
-                strongDone = true;
+                if (strongTimer >= 2.2f)
+                {
+                    strongDone = true;
+                }
             }
 
         }
@@ -140,23 +143,26 @@ public class PlayerAttack : MonoBehaviour
         else if (Input.GetKey(KeyCode.I) && !strongDone && Input.GetAxisRaw("Vertical") > 0 && !playerMovement.isInAir)
         {
             isAttacking = true;
-            if (!strongStarted)
+            if (isAttacking)
             {
-                strongStarted = true;
-                anim.SetBool("isStrong", strongStarted);
-                anim.Play("UStrong Startup");
-            }
-            strongTimer += Time.deltaTime;
+                if (!strongStarted)
+                {
+                    strongStarted = true;
+                    anim.SetBool("isStrong", strongStarted);
+                    anim.Play("UStrong Startup");
+                }
+                strongTimer += Time.deltaTime;
 
-            if (strongTimer < 1.2f)
-            {
-                strongDamage += .001f;
-                print(strongDamage);
-            }
+                if (strongTimer < 1.2f)
+                {
+                    strongDamage += .001f;
+                    print(strongDamage);
+                }
 
-            if (strongTimer >= 2.2f)
-            {
-                strongDone = true;
+                if (strongTimer >= 2.2f)
+                {
+                    strongDone = true;
+                }
             }
 
         }
@@ -164,23 +170,26 @@ public class PlayerAttack : MonoBehaviour
         else if (Input.GetKey(KeyCode.I) && !strongDone && Input.GetAxisRaw("Vertical") < 0 && !playerMovement.isInAir)
         {
             isAttacking = true;
-            if (!strongStarted)
+            if (isAttacking)
             {
-                strongStarted = true;
-                anim.SetBool("isStrong", strongStarted);
-                anim.Play("DStrong Startup");
-            }
-            strongTimer += Time.deltaTime;
+                if (!strongStarted)
+                {
+                    strongStarted = true;
+                    anim.SetBool("isStrong", strongStarted);
+                    anim.Play("DStrong Startup");
+                }
+                strongTimer += Time.deltaTime;
 
-            if (strongTimer < 1.2f)
-            {
-                strongDamage += .001f;
-                print(strongDamage);
-            }
+                if (strongTimer < 1.2f)
+                {
+                    strongDamage += .001f;
+                    print(strongDamage);
+                }
 
-            if (strongTimer >= 2.2f)
-            {
-                strongDone = true;
+                if (strongTimer >= 2.2f)
+                {
+                    strongDone = true;
+                }
             }
 
         }
