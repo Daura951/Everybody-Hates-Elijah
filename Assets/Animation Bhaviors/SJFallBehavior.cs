@@ -13,7 +13,7 @@ public class SJFallBehavior : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (PlayerAttack.attackInstance.isAttacking && PlayerAttack.attackInstance.anim.GetBool("isFalling") == true && PlayerAttack.attackInstance.playerMovement.isInAir)
+        if (PlayerAttack.attackInstance.isAttacking && PlayerAttack.attackInstance.anim.GetBool("isFalling") == true && PlayerAttack.attackInstance.playerMovement.GetIsInAir())
         {
             PlayerAttack.attackInstance.anim.Play("Nair");
             PlayerAttack.attackInstance.isAttacking = false;

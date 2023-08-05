@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class JumpingPlatform : MonoBehaviour
 {
-    [SerializeField] GameObject player;
+    private GameObject obj;
     private Rigidbody2D body;
+    private float dir;
     public float velocity;
 
     void Start()
     {
-        body = player.GetComponent<Rigidbody2D>(); 
-     }
+         
+    }
 
      private void OnCollisionEnter2D(Collision2D collision)
      {
-            if (collision.gameObject.tag == "Player")
-            {
-                body.AddForce(Vector2.up * 100 * velocity);
-            }
+            obj = collision.gameObject;
+            body = obj.GetComponent<Rigidbody2D>();
+            dir = obj.transform.rotation.y;
       }
 }
