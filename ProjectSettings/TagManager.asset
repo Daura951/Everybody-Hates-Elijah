@@ -8,8 +8,6 @@ TagManager:
   - PassThroughPlatform
   - Enemy
   - Hitbox
-  - Danger
-  - Ladder
   layers:
   - Default
   - TransparentFX
@@ -19,7 +17,7 @@ TagManager:
   - UI
   - Enemy
   - HitBox
-  - Wind
+  - 
   - 
   - 
   - 

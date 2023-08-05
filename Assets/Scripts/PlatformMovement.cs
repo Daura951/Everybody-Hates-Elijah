@@ -5,43 +5,61 @@ using UnityEngine;
 public class PlatformMovement : MonoBehaviour
 {
 
-    private Vector3 home;
-    public Vector3 End;
+    public Vector3 LowStart;
+    public Vector3 HighEnd;
     public float speed;
-    private bool Fall , bounce = true;
+    private float Xspeed , Yspeed;
+    private bool Fall , bounce;
     PlayerMovement PM;
-    GameObject player;
+    [SerializeField] GameObject player;
 
 
 
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
         PM = player.GetComponent<PlayerMovement>();
-        home = this.transform.position;
+        Xspeed = Yspeed = speed;
+        bounce = true;
     }
 
     // Update is called once per frame
     void Update()
     {
         Fall = PM.GetIsFalling();
-        float step = speed * Time.deltaTime;
         
-               if(bounce)
-        {
-        transform.position = Vector2.MoveTowards(transform.position, End, step);
-            if(transform.position == End)
-                bounce = !bounce;
-        }
+               if (LowStart.x != HighEnd.x){
 
+                transform.position +=  new Vector3(1f , 0 ,0) * Xspeed * Time.deltaTime;
 
-        if(!bounce)
-        {
-        transform.position = Vector2.MoveTowards(transform.position, home, step);
-            if(transform.position == home)
-                bounce = !bounce;
-        }  
+                if(transform.position.x >= HighEnd.x && bounce)
+                {
+                    Xspeed *= -1;
+                    bounce = false;
+                }
+                if(transform.position.x <= LowStart.x && !bounce)
+                {
+                    Xspeed *= -1;
+                    bounce = true;
+                }
+               }
+
+               if(LowStart.y != HighEnd.y){
+
+                transform.position +=  new Vector3(1f, 0, 0) * Yspeed * Time.deltaTime;
+
+                if(transform.position.y >= HighEnd.y && bounce)
+                {
+                    Yspeed *= -1;
+                    bounce = false;
+                }
+                if(transform.position.y <= LowStart.y && !bounce)
+                {
+                    Yspeed *= -1;
+                    bounce = true;
+                }
+   
+                }    
      }
 
      private void OnCollisionEnter2D(Collision2D collision)
@@ -60,3 +78,15 @@ public class PlatformMovement : MonoBehaviour
             }
      }
 }
+
+
+/* 
+ add : 
+
+ public bool GetIsFalling()
+  {
+  return isFalling;
+  }
+
+ to PlayerMovement.cs
+ */
