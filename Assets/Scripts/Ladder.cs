@@ -9,7 +9,7 @@ public class Ladder : MonoBehaviour
     GameObject player;
     public float speed = 1;
     private float PGravity;
-    public bool climb , grounded;
+    public bool OnLadder , climb , grounded;
 
     // Start is called before the first frame update
     void Start()
@@ -24,16 +24,28 @@ public class Ladder : MonoBehaviour
     void Update()
     {
         grounded = !PM.GetIsInAir();
-        LadderCheck();
-        if(climb)
+
+        if(OnLadder)
         {
-         if (Input.GetKey(KeyCode.W))
+         if ((Input.GetKey(KeyCode.W)) || (Input.GetKey(KeyCode.S) && !grounded))
          {
-           player.transform.position += new Vector3(0,1,0) * Time.deltaTime * speed;
+                climb = true;
          }
-         if (Input.GetKey(KeyCode.S))
+         else if (Input.GetKey(KeyCode.S) && grounded )
          {
+                climb = false;
+         }
+         if(climb)
+         {
+          LadderCheck();
+          if (Input.GetKey(KeyCode.W))
+          {
+           player.transform.position += new Vector3(0,1,0) * Time.deltaTime * speed;
+          }
+          if (Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.Space))
+          {
            player.transform.position -= new Vector3(0,1,0) * Time.deltaTime * speed;
+          }
          }
         }
     }
@@ -44,7 +56,7 @@ public class Ladder : MonoBehaviour
         {
             rb.gravityScale = PGravity;
         } 
-        if (Input.GetKeyDown(KeyCode.W) || Input.GetKey(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.W) || (Input.GetKey(KeyCode.S) && !grounded))
         {
             rb.velocity = new Vector2(0,0);
             rb.gravityScale = 0;
@@ -55,16 +67,17 @@ public class Ladder : MonoBehaviour
     {
      if(col.gameObject == player)
      {
-       climb = true;
-       rb.velocity = new Vector2(0,0);
+       OnLadder = true;
+       
      }
     }
+
 
     private void OnTriggerExit2D(Collider2D col)
     {
      if(col.gameObject == player)
      {
-      climb = false;
+      OnLadder = false;
       rb.gravityScale = PGravity;
      }
     }

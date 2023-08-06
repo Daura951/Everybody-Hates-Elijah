@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
 
     public bool isFalling = false;
     private bool isLeft = false;
-    public bool isInAir = false;
+    public bool isInAir;
     public bool isInLandingLag = false;
     private bool isOnPassThrough = false;
     public bool OnLadder = false;
@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
     private bool stunned = false;
 
     private Escelator Escelator;
-    public bool OnEscelator, InEscelator = false;
+    public bool OnEscelator , InEscelator = false;
 
     private float lastY;
 
@@ -54,19 +54,19 @@ public class PlayerMovement : MonoBehaviour
         scaledGravity = rb.gravityScale * fallingGravityFactor;
         jumpAmt = 0;
 
-        //S = GetComponent<Stun>();
+        
 
-
-
+        
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        //stunned = S.getIsStunned();
+        
 
-        if (Escelator != null)
-            OnEscelator = Escelator.GetOnEscelator();
+        if(Escelator != null)
+        OnEscelator = Escelator.GetOnEscelator();
 
         isInLandingLag = anim.GetCurrentAnimatorStateInfo(0).IsName("Fall 2 Idle");
         cam.position = this.transform.position + offset;
@@ -94,18 +94,19 @@ public class PlayerMovement : MonoBehaviour
             anim.ResetTrigger("Running");
         }
         else
-        {
+         {
             anim.ResetTrigger("Walking");
             anim.ResetTrigger("Running");
             anim.ResetTrigger("Crouch");
-            if (Escelator == null)
-                anim.SetTrigger("Idle");
-        }
+            if(Escelator == null && !isInAir)
+            anim.SetTrigger("Idle");
+           
+         }
 
-        if (!stunned)
+        if(!stunned)
         {
-            Move();
-            Jump();
+        Move();
+        Jump();
         }
         else
         {
@@ -115,12 +116,12 @@ public class PlayerMovement : MonoBehaviour
             anim.SetTrigger("Idle");
             if (rb.velocity.y < 0.0f)
             {
-                isFalling = true;
-                anim.SetBool("isJumping", false);
-                anim.SetBool("isDoubleJumping", false);
-                anim.SetBool("isGrounded", !isInAir);
-                anim.ResetTrigger("Crouch");
-                rb.gravityScale = scaledGravity;
+            isFalling = true;
+            anim.SetBool("isJumping", false);
+            anim.SetBool("isDoubleJumping", false);
+            anim.SetBool("isGrounded", !isInAir);
+            anim.ResetTrigger("Crouch");
+            rb.gravityScale = scaledGravity;
             }
             else isFalling = false;
             anim.SetBool("isFalling", isFalling);
@@ -141,7 +142,7 @@ public class PlayerMovement : MonoBehaviour
             //isCrouch = false;
         }
 
-        else if (dirX == 0 && !isInAir && Input.GetAxisRaw("Vertical") < 0f && !isOnPassThrough && !OnLadder)
+        else if (dirX == 0 && !isInAir && Input.GetAxisRaw("Vertical") < 0f && !isOnPassThrough && anim.GetBool("Climbing")==false)
         {
             anim.ResetTrigger("Walking");
             anim.ResetTrigger("Running");
@@ -178,7 +179,7 @@ public class PlayerMovement : MonoBehaviour
 
                 }
                 anim.ResetTrigger("Crouch");
-                anim.ResetTrigger("Idle");
+               anim.ResetTrigger("Idle");
             }
         }
 
@@ -186,19 +187,22 @@ public class PlayerMovement : MonoBehaviour
 
     void Jump()
     {
-        if (!(jumpAmt == 0 && isInAir) && !isInLandingLag && !attackScript.isAttacking)
+        if (!(jumpAmt == 0 && isInAir && !anim.GetBool("Climbing")) && !isInLandingLag && !attackScript.isAttacking)
         {
+            if(OnLadder && anim.GetBool("Climbing"))
+                    jumpAmt=0;
+
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 anim.ResetTrigger("Crouch");
                 anim.ResetTrigger("Idle");
-                //anim.ResetTrigger("Climbing");
+                anim.ResetTrigger("Climbing");
                 isInAir = true;
 
                 anim.SetBool("isGrounded", !isInAir);
                 if (jumpAmt < 2)
                 {
-
+                    
                     jumpAmt++;
                     switch (jumpAmt)
                     {
@@ -213,8 +217,7 @@ public class PlayerMovement : MonoBehaviour
                     }
                     rb.velocity = new Vector2(rb.velocity.x, jumpForce);
 
-                    if (OnLadder && jumpAmt == 2)
-                        jumpAmt = 1;
+                    
                 }
             }
 
@@ -230,12 +233,12 @@ public class PlayerMovement : MonoBehaviour
         if (rb.velocity.y < 0.0f && Escelator == null)
         {
             if (!InEscelator)
-                isFalling = true;
-
+            isFalling = true;
+           
 
             anim.SetBool("isJumping", false);
             anim.SetBool("isDoubleJumping", false);
-            anim.SetBool("isGrounded", !isInAir);
+            anim.SetBool("isGrounded", !isFalling);
             anim.ResetTrigger("Crouch");
             rb.gravityScale = scaledGravity;
         }
@@ -258,7 +261,7 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.tag == "Platform" || collision.gameObject.tag == "PassThroughPlatform")
         {
             if (collision.gameObject.GetComponent<Escelator>())
-                Escelator = collision.gameObject.GetComponent<Escelator>();
+                Escelator =collision.gameObject.GetComponent<Escelator>();
 
 
             rb.gravityScale /= rb.gravityScale == scaledGravity ? scaledGravity : 1.0f;
@@ -299,13 +302,13 @@ public class PlayerMovement : MonoBehaviour
 
                 if (Input.GetKey(KeyCode.Space))
                 {
-                    anim.ResetTrigger("Crouch");
-                    anim.ResetTrigger("Idle");
-                    isInAir = true;
-                    anim.SetBool("isGrounded", !isInAir);
-                    anim.SetBool("isJumping", true);
-                    anim.SetBool("isDoubleJumping", false);
-                    jumpAmt = 1;
+                anim.ResetTrigger("Crouch");
+                anim.ResetTrigger("Idle");
+                isInAir = true;
+                anim.SetBool("isGrounded", !isInAir);
+                anim.SetBool("isJumping", true);
+                anim.SetBool("isDoubleJumping", false);
+                jumpAmt =1 ;
                 }
             }
 
@@ -316,21 +319,21 @@ public class PlayerMovement : MonoBehaviour
             }
             currentPassThroughPlatform = null;
 
-            if (OnLadder)
-                isInAir = OnLadder;
+            if(OnLadder)
+            isInAir = OnLadder;
         }
 
-
-        if (rb.velocity.y != 0)
-            isInAir = true;
-    }
+       
+        if (rb.velocity.y != 0 )
+        isInAir = true;
+    } 
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Ladder")
+        if(collision.gameObject.tag == "Ladder")
         {
-            OnLadder = true;
-            anim.SetBool("OnLadder", OnLadder);
+              OnLadder = true;
+              anim.SetBool("OnLadder", OnLadder);
         }
     }
 
@@ -338,45 +341,56 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<Escelator>() && rb.velocity.y < 0f)
         {
-            InEscelator = true;
+            InEscelator=true;
         }
 
-        if (OnLadder && rb.gravityScale == 0)
+        if(OnLadder && rb.gravityScale == 0)
         {
+            if(anim.GetBool("Climbing")==true)
+            {
+                anim.SetBool("isJumping", false);
+                anim.SetBool("isDoubleJumping", false);
+            }
+
+          if(Input.GetAxisRaw("Vertical") > 0f)
+          {
             anim.SetTrigger("Climbing");
-
-            float CurrnetY = transform.position.y;
-            if (CurrnetY == lastY)
+            anim.SetFloat("ClimbSpeed",1f);
+            anim.SetBool("isGrounded", !isInAir);
+          }          
+          if(Input.GetAxisRaw("Vertical") == 0f)
+          {
+            anim.SetFloat("ClimbSpeed",0f);
+             
+          }
+          if(Input.GetAxisRaw("Vertical") < 0f)
+          {
+            if(isInAir)
             {
-                anim.SetFloat("ClimbSpeed", 0f);
-
+             anim.SetTrigger("Climbing");
+             anim.SetFloat("ClimbSpeed",-1f);
             }
-            if (CurrnetY < lastY)
-            {
-                anim.SetFloat("ClimbSpeed", -1f);
-
-            }
-            if (CurrnetY > lastY)
-            {
-                anim.SetFloat("ClimbSpeed", 1f);
-            }
-            lastY = CurrnetY;
+            
+            if(!isInAir)
+            anim.ResetTrigger("Climbing");
+          }
+          
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Ladder")
-        {
-            OnLadder = false;
-            anim.ResetTrigger("Climbing");
-            anim.SetBool("OnLadder", OnLadder);
-        }
+       if(collision.gameObject.tag == "Ladder")
+       {
+              OnLadder = false;
+              anim.ResetTrigger("Climbing");
+              anim.SetBool("OnLadder", OnLadder);
+       }
 
-        if (collision.gameObject.GetComponent<Escelator>())
-        {
-            InEscelator = false;
-        }
+       if (collision.gameObject.GetComponent<Escelator>())
+            {
+            InEscelator=false;
+            }
     }
 
 
