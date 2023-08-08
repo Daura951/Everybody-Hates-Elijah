@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4701402067671950739}
   - component: {fileID: 4701402067671950738}
   - component: {fileID: 4701402067671950741}
-  - component: {fileID: 4701402067671950740}
+  - component: {fileID: -5247052261529209671}
   m_Layer: 0
   m_Name: SpikeTrap
   m_TagString: Danger
@@ -130,7 +130,7 @@ PolygonCollider2D:
       - {x: 0.36221886, y: -0.31185722}
       - {x: 0.35940552, y: 0.0014013052}
       - {x: 0.30455017, y: 0.07751036}
---- !u!114 &4701402067671950740
+--- !u!114 &-5247052261529209671
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -139,6 +139,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4701402067671950742}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d724d8f4bd45f5e49a8657dc31061944, type: 3}
+  m_Script: {fileID: 11500000, guid: 6b31fcb4b7ae4624dbadfad6945ed17f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TAKD: 0 0 0 0

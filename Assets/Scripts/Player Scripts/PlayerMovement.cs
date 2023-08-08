@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
     public PlayerAttack attackScript;
 
     private Stun S;
-    private bool stunned = false;
+    private bool stunned;
 
     private Escelator Escelator;
     public bool OnEscelator , InEscelator = false;
@@ -55,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
         jumpAmt = 0;
 
         
-
+        S = GetComponent<Stun>();
         
         
     }
@@ -63,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        stunned = S.getIsStunned();
 
         if(Escelator != null)
         OnEscelator = Escelator.GetOnEscelator();
@@ -263,6 +263,9 @@ public class PlayerMovement : MonoBehaviour
             if (collision.gameObject.GetComponent<Escelator>())
                 Escelator =collision.gameObject.GetComponent<Escelator>();
 
+            if(anim.GetBool("Climbing"))
+                anim.ResetTrigger("Climbing");
+
 
             rb.gravityScale /= rb.gravityScale == scaledGravity ? scaledGravity : 1.0f;
 
@@ -344,7 +347,7 @@ public class PlayerMovement : MonoBehaviour
             InEscelator=true;
         }
 
-        if(OnLadder && rb.gravityScale == 0)
+        if(OnLadder && rb.gravityScale == 0 && !stunned)
         {
             if(anim.GetBool("Climbing")==true)
             {
@@ -352,7 +355,7 @@ public class PlayerMovement : MonoBehaviour
                 anim.SetBool("isDoubleJumping", false);
             }
 
-          if(Input.GetAxisRaw("Vertical") > 0f)
+          if((Input.GetKey(KeyCode.W)))
           {
             anim.SetTrigger("Climbing");
             anim.SetFloat("ClimbSpeed",1f);
@@ -363,7 +366,7 @@ public class PlayerMovement : MonoBehaviour
             anim.SetFloat("ClimbSpeed",0f);
              
           }
-          if(Input.GetAxisRaw("Vertical") < 0f)
+          if((Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.Space)))
           {
             if(isInAir)
             {
@@ -420,5 +423,10 @@ public class PlayerMovement : MonoBehaviour
     public bool GetIsInAir()
     {
         return isInAir;
+    }
+
+    public bool GetIsStunned()
+    {
+        return stunned;
     }
 }

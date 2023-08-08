@@ -523,6 +523,7 @@ GameObject:
   - component: {fileID: 2052426329602708056}
   - component: {fileID: 2052426329602708063}
   - component: {fileID: 2052426329602708062}
+  - component: {fileID: 6181224151700024480}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -686,13 +687,17 @@ MonoBehaviour:
   fallingGravityFactor: 2
   crouchMat: {fileID: 2100000, guid: 6ed032d1c2cd87c42a57a267c3a8c539, type: 2}
   RunMat: {fileID: 2100000, guid: b3667f6cfd912fe4386181334424e8c8, type: 2}
+  isFalling: 0
   isInAir: 0
-  isTapJump: 0
+  isInLandingLag: 0
+  OnLadder: 0
   groundRays:
   - {fileID: 2052426328689145744}
   - {fileID: 2052426328807346244}
   rayRange: 5
   attackScript: {fileID: 2052426329602708063}
+  OnEscelator: 0
+  InEscelator: 0
 --- !u!114 &2052426329602708063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -751,6 +756,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6181224151700024480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2052426329602708061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d14c57a4be5fe04a8b0c8e021b42f0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Stunned: 0
+  isLeft: 0
 --- !u!1 &2052426329625543915
 GameObject:
   m_ObjectHideFlags: 0
