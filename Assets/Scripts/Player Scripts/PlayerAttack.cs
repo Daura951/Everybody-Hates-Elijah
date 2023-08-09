@@ -90,9 +90,9 @@ public class PlayerAttack : MonoBehaviour
         }
 
 
-        else if (Input.GetKeyDown(KeyCode.O) && !isAttacking && anim.GetBool("Idle") == true && !playerMovement.isInAir)
+        else if (Input.GetKeyDown(KeyCode.O) && !isAttacking && anim.GetBool("Idle") == true && !playerMovement.isInAir && Input.GetAxisRaw("Vertical") == 0f && Input.GetAxisRaw("Horizontal") == 0f)
         {
-            print("Neutral B");
+            print("NSpecial");
             isSpecial = true;
             isAttacking = true;
         }
@@ -102,14 +102,21 @@ public class PlayerAttack : MonoBehaviour
         {
             isAttacking = true;
             isSpecial = true;
-            print("DownB");
+            print("DSpecial");
         }
 
-        else if (Input.GetKeyDown(KeyCode.O) && !isAttacking && Input.GetAxisRaw("Horizontal") != 0f && !playerMovement.isInAir)
+        else if (Input.GetKeyDown(KeyCode.O) && !isAttacking && Input.GetAxisRaw("Vertical") > 0f && !playerMovement.isInAir)
         {
             isAttacking = true;
             isSpecial = true;
-            print("Side B");
+            print("USpecial");
+        }
+
+        else if (Input.GetKeyDown(KeyCode.O) && !isAttacking && Input.GetAxisRaw("Horizontal") != 0f && Input.GetAxisRaw("Vertical") == 0 && !playerMovement.isInAir)
+        {
+            isAttacking = true;
+            isSpecial = true;
+            print("FSpecial");
         }
 
 
@@ -354,6 +361,19 @@ public class PlayerAttack : MonoBehaviour
         currentStats[1] = float.Parse(statSplit[1]); //Angle
         currentStats[2] = float.Parse(statSplit[2]) + (float.Parse(statSplit[2]) * strongDamage); //Knockback
         strongDamage = 0.0f;
+    }
+
+    public void USpecial(string stats)
+    {
+        string[] statSplit = stats.Split(" ");
+        hitBoxes[int.Parse(statSplit[5])].SetActive(true);
+        currentStats[0] = float.Parse(statSplit[0]); //Damage
+        currentStats[1] = float.Parse(statSplit[1]); //Angle
+        currentStats[2] = float.Parse(statSplit[2]); //Knockback
+        float XDir = float.Parse(statSplit[3]); //XDir
+        float yDir = float.Parse(statSplit[4]); //YDir
+
+        playerMovement.rb.AddForce(new Vector2( XDir, yDir));
     }
 
 

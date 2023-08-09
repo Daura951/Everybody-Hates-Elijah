@@ -84,7 +84,6 @@ public class StickyHand : MonoBehaviour
                 }
             }
 
-            print(goBack);
             transform.position += new Vector3(isPlayerLeft ? 1 : -1, 0, 0) * Time.deltaTime * (playerAttack.isSticked ? speed : editedSpeed/2);
 
             if(!isPlayerLeft &&  transform.position.x < endPos || isPlayerLeft && transform.position.x > endPos)

@@ -20,6 +20,7 @@ public class SideBTransBehavior : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         PlayerAttack.attackInstance.isAttacking = false;
+        PlayerAttack.attackInstance.isSpecial = false;
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

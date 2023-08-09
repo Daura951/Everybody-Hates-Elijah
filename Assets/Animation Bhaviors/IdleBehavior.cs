@@ -18,11 +18,16 @@ public class IdleBehavior : StateMachineBehaviour
             PlayerAttack.attackInstance.anim.Play("Jab 1 Start");
         }
 
-        else if (PlayerAttack.attackInstance.isAttacking && PlayerAttack.attackInstance.anim.GetBool("Idle") == true && !PlayerAttack.attackInstance.playerMovement.isInAir && PlayerAttack.attackInstance.isSpecial)
+        else if (PlayerAttack.attackInstance.isAttacking && PlayerAttack.attackInstance.anim.GetBool("Idle") == true && !PlayerAttack.attackInstance.playerMovement.isInAir && PlayerAttack.attackInstance.isSpecial && Input.GetAxisRaw("Vertical")==0)
         {
             PlayerAttack.attackInstance.anim.SetBool("isSticked", PlayerAttack.attackInstance.isSticked);
             PlayerAttack.attackInstance.anim.Play("Neutral B Start");
             PlayerAttack.attackInstance.stickyHand.SetActive(true);
+        }
+
+        else if(PlayerAttack.attackInstance.isAttacking && Input.GetAxisRaw("Vertical") > 0f && !PlayerAttack.attackInstance.playerMovement.isInAir)
+        {
+            PlayerAttack.attackInstance.anim.Play("USpecial");
         }
 
         else if (PlayerAttack.attackInstance.isAttacking && Input.GetAxisRaw("Vertical") > 0 && PlayerAttack.attackInstance.anim.GetBool("Idle")==true && !PlayerAttack.attackInstance.playerMovement.isInAir)
