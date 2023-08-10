@@ -28,7 +28,7 @@ public class Ladder : MonoBehaviour
 
         if(OnLadder && !Stunned)
         {
-         if ((Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.Space)) || (Input.GetKey(KeyCode.S) && !grounded && !Input.GetKey(KeyCode.Space)))
+         if (((Input.GetKey(KeyCode.W) || Input.GetButton("Vertical")) && !Input.GetKey(KeyCode.Space)) || (Input.GetKey(KeyCode.S) && !grounded && !Input.GetKey(KeyCode.Space)))
          {
                 climb = true;
          }

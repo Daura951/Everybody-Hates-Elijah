@@ -192,7 +192,7 @@ public class PlayerMovement : MonoBehaviour
             if(OnLadder && anim.GetBool("Climbing"))
                     jumpAmt=0;
 
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) ||Input.GetButtonDown("Jump"))
             {
                 anim.ResetTrigger("Crouch");
                 anim.ResetTrigger("Idle");
@@ -223,7 +223,7 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-            else if (Input.GetKeyUp(KeyCode.Space))
+            else if (Input.GetKeyUp(KeyCode.Space) || Input.GetButtonUp("Jump"))
             {
                 rb.velocity = new Vector2(rb.velocity.x, isFalling ? rb.velocity.y : 0.0f);
             }

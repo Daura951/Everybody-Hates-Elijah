@@ -227,8 +227,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 287920832}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6, y: -0.5, z: 0}
-  m_LocalScale: {x: 24.975, y: 0.975, z: 1}
+  m_LocalPosition: {x: 9.133, y: -0.5, z: 0}
+  m_LocalScale: {x: 31.241228, y: 0.975, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -567,12 +567,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 2065872486}
-  activationDistance: 6
+  activationDistance: 7
   pathUpdateSeconds: 0.5
   speed: 500
   nextWayPointDistance: 3
   jumpNodeHeightReq: 0.8
-  jumpModifier: 0.025
+  jumpModifier: 0.1
   jumpCheckOffset: 0.1
   canFollow: 1
   canJump: 1
@@ -790,11 +790,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1118812275856739099, guid: d3c6d510df13af54b8b7edd8cdfc3e22, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 18.716717
+      value: 14.72
       objectReference: {fileID: 0}
     - target: {fileID: 1118812275856739099, guid: d3c6d510df13af54b8b7edd8cdfc3e22, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.6989446
+      value: 2.17
       objectReference: {fileID: 0}
     - target: {fileID: 1118812275856739099, guid: d3c6d510df13af54b8b7edd8cdfc3e22, type: 3}
       propertyPath: m_LocalPosition.z
