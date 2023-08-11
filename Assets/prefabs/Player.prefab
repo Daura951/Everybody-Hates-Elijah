@@ -337,7 +337,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2052426328689145744}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: RayObj
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -368,7 +368,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2052426328807346244}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: offPlatRay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -753,6 +753,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
   sr: {fileID: 2052426329602708059}
+  anim: {fileID: 0}
   cam: {fileID: 0}
   offset: {x: 2.25, y: 1.5, z: -0.75}
   Walk: 7

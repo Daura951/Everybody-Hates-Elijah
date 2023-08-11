@@ -4,35 +4,35 @@ using UnityEngine;
 
 public class DoorExit : MonoBehaviour
 {
-     PlayerMovement PM;
-     GameObject player;
+    PlayerMovement PM;
+    GameObject player;
     Transform EnterDoor;
-    private bool grounded , Enter;
+    private bool grounded, Enter;
 
 
     // Start is called before the first frame update
     void Start()
     {
-    player = GameObject.FindGameObjectWithTag("Player");
-      PM = player.GetComponent<PlayerMovement>();
-      EnterDoor = this.transform.parent;
+        player = GameObject.FindGameObjectWithTag("Player");
+        PM = player.GetComponent<PlayerMovement>();
+        EnterDoor = this.transform.parent;
     }
 
     // Update is called once per frame
     void Update()
     {
-       grounded = !PM.GetIsFalling(); 
+        grounded = !PM.GetIsFalling();
 
-       if (Input.GetKeyDown(KeyCode.W) && Enter && grounded)
-       {
-       player.transform.position = EnterDoor.position;
-       }
-       
+        if (Input.GetButtonDown("DoorEnter") && Enter && grounded)
+        {
+            player.transform.position = EnterDoor.position;
+        }
+
     }
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if(col.gameObject == player)
+        if (col.gameObject == player)
         {
             Enter = true;
         }
@@ -40,9 +40,9 @@ public class DoorExit : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D col)
     {
-        if(col.gameObject == player)
+        if (col.gameObject == player)
         {
             Enter = false;
         }
     }
- }
+}

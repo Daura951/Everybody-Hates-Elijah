@@ -426,7 +426,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &839397074
 Transform:
   m_ObjectHideFlags: 0
@@ -998,6 +998,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2052426328689145744, guid: 49b91c20ba8cc6249b9010246d083c77, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 2052426328689145751, guid: 49b91c20ba8cc6249b9010246d083c77, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2052426328807346244, guid: 49b91c20ba8cc6249b9010246d083c77, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 2052426328807346251, guid: 49b91c20ba8cc6249b9010246d083c77, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 2052426329602708052, guid: 49b91c20ba8cc6249b9010246d083c77, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -1057,6 +1073,10 @@ PrefabInstance:
     - target: {fileID: 2052426329602708058, guid: 49b91c20ba8cc6249b9010246d083c77, type: 3}
       propertyPath: m_SleepingMode
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2052426329602708058, guid: 49b91c20ba8cc6249b9010246d083c77, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2052426329602708059, guid: 49b91c20ba8cc6249b9010246d083c77, type: 3}
       propertyPath: m_SortingOrder

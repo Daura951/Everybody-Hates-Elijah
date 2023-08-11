@@ -291,6 +291,9 @@ public class PlayerMovement : MonoBehaviour
                 jumpAmt = 0;
                 isOnPassThrough = false;
             }
+
+            if(rb.velocity.y==0)
+                jumpAmt = 0;
         }
     }
 
