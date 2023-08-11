@@ -14,27 +14,28 @@ public class Ladder : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-      player = GameObject.FindGameObjectWithTag("Player");
-      PM = player.GetComponent<PlayerMovement>();
-      rb = player.GetComponent<Rigidbody2D>();
-      PGravity = rb.gravityScale;
+        player = GameObject.FindGameObjectWithTag("Player");
+        PM = player.GetComponent<PlayerMovement>();
+        rb = player.GetComponent<Rigidbody2D>();
+        PGravity = rb.gravityScale;
     }
 
     // Update is called once per frame
     void Update()
     {
-        grounded = !PM.GetIsInAir();
-        Stunned = PM.GetIsStunned();
+         grounded = !PM.GetIsInAir();
+         Stunned = PM.GetIsStunned();
 
-        if(OnLadder && !Stunned)
-        {
-         if ((Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.Space)) || (Input.GetKey(KeyCode.S) && !grounded && !Input.GetKey(KeyCode.Space)))
+         if (OnLadder && !Stunned)
          {
+            if ((Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.Space)) || (Input.GetKey(KeyCode.S) && !grounded && !Input.GetKey(KeyCode.Space)))
+            {
                 climb = true;
-         }
-         else if (grounded && !Input.GetKey(KeyCode.W))
-         {
+            }
+            else if (grounded && !Input.GetKey(KeyCode.W))
+            {
                 climb = false;
+            }
          }
          if(climb)
          {
@@ -48,7 +49,6 @@ public class Ladder : MonoBehaviour
            player.transform.position -= new Vector3(0,1,0) * Time.deltaTime * speed;
           }
          }
-        }
     }
 
     private void LadderCheck()
@@ -60,7 +60,7 @@ public class Ladder : MonoBehaviour
         } 
         else if (Input.GetKey(KeyCode.W) || (Input.GetKey(KeyCode.S) && !grounded))
         {
-            rb.velocity = new Vector2(0,0);
+            rb.velocity = new Vector2(0, 0);
             rb.gravityScale = 0;
         } 
     }
@@ -76,11 +76,11 @@ public class Ladder : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D col)
     {
-     if(col.gameObject == player)
-     {
-      OnLadder = false;
-      climb = false;
-      rb.gravityScale = PGravity;
-     }
+        if (col.gameObject == player)
+        {
+            OnLadder = false;
+            climb = false;
+            rb.gravityScale = PGravity;
+        }
     }
 }

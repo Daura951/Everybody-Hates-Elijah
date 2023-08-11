@@ -40,57 +40,57 @@ public class PlayerAttack : MonoBehaviour
 
 
         //Jab if statement
-        if (Input.GetKeyDown(KeyCode.P) && Input.GetAxisRaw("Vertical") == 0 && !isAttacking && anim.GetBool("Idle") == true && !playerMovement.isInAir)
+        if (Input.GetButtonDown("Fire2") && Input.GetAxisRaw("Vertical") == 0 && !isAttacking && anim.GetBool("Idle") == true && !playerMovement.isInAir)
         {
             print("Jab");
             isSpecial = false;
             isAttacking = true;
         }
 
-        else if (Input.GetKeyDown(KeyCode.P) && !isAttacking && Input.GetAxisRaw("Vertical") > 0 && anim.GetBool("Idle") && !playerMovement.isInAir)
+        else if (Input.GetButtonDown("Fire2") && !isAttacking && Input.GetAxisRaw("Vertical") > 0 && anim.GetBool("Idle") && !playerMovement.isInAir)
         {
             print("UTilt");
             isAttacking = true;
         }
 
-        else if (Input.GetKeyDown(KeyCode.P) && !isAttacking && Input.GetAxisRaw("Vertical") < 0 && anim.GetBool("Crouch") && !playerMovement.isInAir)
+        else if (Input.GetButtonDown("Fire2") && !isAttacking && Input.GetAxisRaw("Vertical") < 0 && anim.GetBool("Crouch") && !playerMovement.isInAir)
         {
             print("DTilt");
             isAttacking = true;
         }
 
-        else if (Input.GetKeyDown(KeyCode.P) && !isAttacking && Input.GetAxisRaw("Horizontal") != 0 && !playerMovement.isInAir)
+        else if (Input.GetButtonDown("Fire2") && !isAttacking && Input.GetAxisRaw("Horizontal") != 0 && !playerMovement.isInAir)
         {
             print("FTilt");
             isAttacking = true;
         }
 
-        else if (Input.GetKeyDown(KeyCode.P) && !isAttacking && Input.GetAxisRaw("Vertical") == 0 && Input.GetAxisRaw("Horizontal") == 0 && playerMovement.isInAir)
+        else if (Input.GetButtonDown("Fire2") && !isAttacking && Input.GetAxisRaw("Vertical") == 0 && Input.GetAxisRaw("Horizontal") == 0 && playerMovement.isInAir)
         {
             isAttacking = true;
             print("Nair");
         }
 
-        else if (Input.GetKeyDown(KeyCode.P) && !isAttacking && Input.GetAxisRaw("Vertical") > 0 && playerMovement.isInAir)
+        else if (Input.GetButtonDown("Fire2") && !isAttacking && Input.GetAxisRaw("Vertical") > 0 && playerMovement.isInAir)
         {
             print("Uair");
             isAttacking = true;
         }
 
-        else if (Input.GetKeyDown(KeyCode.P) && !isAttacking && Input.GetAxisRaw("Vertical") < 0 && playerMovement.isInAir)
+        else if (Input.GetButtonDown("Fire2") && !isAttacking && Input.GetAxisRaw("Vertical") < 0 && playerMovement.isInAir)
         {
             print("Dair");
             isAttacking = true;
         }
 
-        else if (Input.GetKeyDown(KeyCode.P) && !isAttacking && Input.GetAxisRaw("Horizontal") != 0 && playerMovement.isInAir)
+        else if (Input.GetButtonDown("Fire2") && !isAttacking && Input.GetAxisRaw("Horizontal") != 0 && playerMovement.isInAir)
         {
             print("Fair");
             isAttacking = true;
         }
 
 
-        else if (Input.GetKeyDown(KeyCode.O) && !isAttacking && anim.GetBool("Idle") == true && !playerMovement.isInAir && Input.GetAxisRaw("Vertical") == 0f && Input.GetAxisRaw("Horizontal") == 0f)
+        else if (Input.GetButtonDown("Fire1") && !isAttacking && anim.GetBool("Idle") == true && !playerMovement.isInAir && Input.GetAxisRaw("Vertical") == 0f && Input.GetAxisRaw("Horizontal") == 0f)
         {
             print("NSpecial");
             isSpecial = true;
@@ -98,21 +98,21 @@ public class PlayerAttack : MonoBehaviour
         }
 
 
-        else if (Input.GetKeyDown(KeyCode.O) && !isAttacking && Input.GetAxisRaw("Vertical") < 0f && !playerMovement.isInAir)
+        else if (Input.GetButtonDown("Fire1") && !isAttacking && Input.GetAxisRaw("Vertical") < 0f && !playerMovement.isInAir)
         {
             isAttacking = true;
             isSpecial = true;
             print("DSpecial");
         }
 
-        else if (Input.GetKeyDown(KeyCode.O) && !isAttacking && Input.GetAxisRaw("Vertical") > 0f && !playerMovement.isInAir)
+        else if (Input.GetButtonDown("Fire1") && !isAttacking && Input.GetAxisRaw("Vertical") > 0f && !playerMovement.isInAir)
         {
             isAttacking = true;
             isSpecial = true;
             print("USpecial");
         }
 
-        else if (Input.GetKeyDown(KeyCode.O) && !isAttacking && Input.GetAxisRaw("Horizontal") != 0f && Input.GetAxisRaw("Vertical") == 0 && !playerMovement.isInAir)
+        else if (Input.GetButtonDown("Fire1") && !isAttacking && Input.GetAxisRaw("Horizontal") != 0f && Input.GetAxisRaw("Vertical") == 0 && !playerMovement.isInAir)
         {
             isAttacking = true;
             isSpecial = true;
@@ -121,7 +121,7 @@ public class PlayerAttack : MonoBehaviour
 
 
 
-        else if (Input.GetKey(KeyCode.I) && !strongDone && Input.GetAxisRaw("Vertical")==0 && !playerMovement.isInAir)
+        else if (Input.GetButtonDown("Fire3") && !strongDone && Input.GetAxisRaw("Vertical")==0 && !playerMovement.isInAir)
         {
             isAttacking = true;
             if (!strongStarted)
@@ -145,7 +145,7 @@ public class PlayerAttack : MonoBehaviour
 
         }
 
-        else if (Input.GetKey(KeyCode.I) && !strongDone && Input.GetAxisRaw("Vertical") > 0 && !playerMovement.isInAir)
+        else if (Input.GetButtonDown("Fire3") && !strongDone && Input.GetAxisRaw("Vertical") > 0 && !playerMovement.isInAir)
         {
             isAttacking = true;
             if (!strongStarted)
@@ -169,7 +169,7 @@ public class PlayerAttack : MonoBehaviour
 
         }
 
-        else if (Input.GetKey(KeyCode.I) && !strongDone && Input.GetAxisRaw("Vertical") < 0 && !playerMovement.isInAir)
+        else if (Input.GetButtonDown("Fire3") && !strongDone && Input.GetAxisRaw("Vertical") < 0 && !playerMovement.isInAir)
         {
             isAttacking = true;
             if (!strongStarted)
@@ -194,7 +194,7 @@ public class PlayerAttack : MonoBehaviour
         }
 
 
-        else if (Input.GetKeyUp(KeyCode.I) || strongDone)
+        else if (Input.GetButtonUp("Fire3") || strongDone)
         {
             print("Releasing strong");
             strongStarted = false;

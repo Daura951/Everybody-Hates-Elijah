@@ -25,7 +25,7 @@ public class IdleBehavior : StateMachineBehaviour
             PlayerAttack.attackInstance.stickyHand.SetActive(true);
         }
 
-        else if(PlayerAttack.attackInstance.isAttacking && Input.GetAxisRaw("Vertical") > 0f && !PlayerAttack.attackInstance.playerMovement.isInAir)
+        else if(PlayerAttack.attackInstance.isAttacking && Input.GetAxisRaw("Vertical") > 0f && !PlayerAttack.attackInstance.playerMovement.isInAir && PlayerAttack.attackInstance.isSpecial)
         {
             PlayerAttack.attackInstance.anim.Play("USpecial");
         }
