@@ -9,7 +9,7 @@ public class Ladder : MonoBehaviour
     GameObject player;
     public float speed = 1;
     private float PGravity;
-    public bool OnLadder , Stunned, climb , grounded;
+    public bool OnLadder , climb , grounded , Stunned;
 
     // Start is called before the first frame update
     void Start()
@@ -43,7 +43,7 @@ public class Ladder : MonoBehaviour
           {
            player.transform.position += new Vector3(0,1,0) * Time.deltaTime * speed;
           }
-          if (Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.Space))
+          else if (Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.Space) && !grounded)
           {
            player.transform.position -= new Vector3(0,1,0) * Time.deltaTime * speed;
           }
@@ -53,15 +53,16 @@ public class Ladder : MonoBehaviour
 
     private void LadderCheck()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space) || grounded)
         {
             rb.gravityScale = PGravity;
+            climb = false;
         } 
-        if (Input.GetKeyDown(KeyCode.W) || (Input.GetKey(KeyCode.S) && !grounded))
+        else if (Input.GetKey(KeyCode.W) || (Input.GetKey(KeyCode.S) && !grounded))
         {
             rb.velocity = new Vector2(0,0);
             rb.gravityScale = 0;
-        }
+        } 
     }
 
     private void OnTriggerEnter2D(Collider2D col)
@@ -69,7 +70,6 @@ public class Ladder : MonoBehaviour
      if(col.gameObject == player)
      {
        OnLadder = true;
-       
      }
     }
 

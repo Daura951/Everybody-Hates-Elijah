@@ -144,6 +144,7 @@ public class PlayerMovement : MonoBehaviour
 
         else if (dirX == 0 && !isInAir && Input.GetAxisRaw("Vertical") < 0f && !isOnPassThrough && anim.GetBool("Climbing")==false)
         {
+            rb.gravityScale = 1;
             anim.ResetTrigger("Walking");
             anim.ResetTrigger("Running");
             anim.ResetTrigger("Idle");
@@ -234,6 +235,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (!InEscelator)
             isFalling = true;
+            //Debug.Log(rb.velocity.y + "  " + isFalling);
            
 
             anim.SetBool("isJumping", false);
@@ -349,11 +351,11 @@ public class PlayerMovement : MonoBehaviour
 
         if(OnLadder && rb.gravityScale == 0 && !stunned)
         {
-            if(anim.GetBool("Climbing")==true)
-            {
-                anim.SetBool("isJumping", false);
-                anim.SetBool("isDoubleJumping", false);
-            }
+          if(anim.GetBool("Climbing")==true)
+          {
+              anim.SetBool("isJumping", false);
+              anim.SetBool("isDoubleJumping", false);
+          }
 
           if((Input.GetKey(KeyCode.W)))
           {
@@ -361,22 +363,24 @@ public class PlayerMovement : MonoBehaviour
             anim.SetFloat("ClimbSpeed",1f);
             anim.SetBool("isGrounded", !isInAir);
           }          
-          if(Input.GetAxisRaw("Vertical") == 0f)
-          {
-            anim.SetFloat("ClimbSpeed",0f);
-             
-          }
-          if((Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.Space)))
+          
+          else if((Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.Space)))
           {
             if(isInAir)
             {
              anim.SetTrigger("Climbing");
              anim.SetFloat("ClimbSpeed",-1f);
-            }
-            
+            } 
             if(!isInAir)
-            anim.ResetTrigger("Climbing");
+             anim.ResetTrigger("Climbing");
           }
+      
+          else
+          {
+            anim.SetFloat("ClimbSpeed",0f);  
+          }
+
+
           
         }
     }
@@ -388,6 +392,8 @@ public class PlayerMovement : MonoBehaviour
               OnLadder = false;
               anim.ResetTrigger("Climbing");
               anim.SetBool("OnLadder", OnLadder);
+              if(isInAir)
+              jumpAmt=1;
        }
 
        if (collision.gameObject.GetComponent<Escelator>())

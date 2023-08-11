@@ -250,7 +250,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &496163775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -426,7 +426,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &839397074
 Transform:
   m_ObjectHideFlags: 0
@@ -931,7 +931,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4330631387982120829, guid: 75c819d341e7b534787b58b8e7d3df96, type: 3}
       propertyPath: m_Size.x
-      value: 1
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 4330631387982120829, guid: 75c819d341e7b534787b58b8e7d3df96, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.y
@@ -1004,11 +1004,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2052426329602708052, guid: 49b91c20ba8cc6249b9010246d083c77, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.4
+      value: 3.407
       objectReference: {fileID: 0}
     - target: {fileID: 2052426329602708052, guid: 49b91c20ba8cc6249b9010246d083c77, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.51
+      value: 0.49
       objectReference: {fileID: 0}
     - target: {fileID: 2052426329602708052, guid: 49b91c20ba8cc6249b9010246d083c77, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1046,9 +1046,17 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 519420032}
+    - target: {fileID: 2052426329602708057, guid: 49b91c20ba8cc6249b9010246d083c77, type: 3}
+      propertyPath: m_Size.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2052426329602708058, guid: 49b91c20ba8cc6249b9010246d083c77, type: 3}
       propertyPath: m_GravityScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2052426329602708058, guid: 49b91c20ba8cc6249b9010246d083c77, type: 3}
+      propertyPath: m_SleepingMode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2052426329602708059, guid: 49b91c20ba8cc6249b9010246d083c77, type: 3}
       propertyPath: m_SortingOrder
