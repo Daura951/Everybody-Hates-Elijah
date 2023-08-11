@@ -28,7 +28,7 @@ public class Ladder : MonoBehaviour
 
          if (OnLadder && !Stunned)
          {
-            if ((Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.Space)) || (Input.GetKey(KeyCode.S) && !grounded && !Input.GetKey(KeyCode.Space)))
+            if ((Input.GetAxisRaw("Vertical") > 0 && !Input.GetButton("Jump")) || (Input.GetAxisRaw("Vertical")<0 && !grounded && !Input.GetButton("Jump")))
             {
                 climb = true;
             }
@@ -40,11 +40,11 @@ public class Ladder : MonoBehaviour
          if(climb)
          {
           LadderCheck();
-          if (Input.GetKey(KeyCode.W))
+          if (Input.GetAxisRaw("Vertical") > 0)
           {
            player.transform.position += new Vector3(0,1,0) * Time.deltaTime * speed;
           }
-          else if (Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.Space) && !grounded)
+          else if (Input.GetAxisRaw("Vertical") < 0 && !Input.GetButton("Jump") && !grounded)
           {
            player.transform.position -= new Vector3(0,1,0) * Time.deltaTime * speed;
           }
@@ -53,12 +53,12 @@ public class Ladder : MonoBehaviour
 
     private void LadderCheck()
     {
-        if (Input.GetKey(KeyCode.Space) || grounded)
+        if (Input.GetButton("Jump") || grounded)
         {
             rb.gravityScale = PGravity;
             climb = false;
         } 
-        else if (Input.GetKey(KeyCode.W) || (Input.GetKey(KeyCode.S) && !grounded))
+        else if (Input.GetAxisRaw("Vertical") > 0 || (Input.GetAxisRaw("Vertical") < 0 && !grounded))
         {
             rb.velocity = new Vector2(0, 0);
             rb.gravityScale = 0;

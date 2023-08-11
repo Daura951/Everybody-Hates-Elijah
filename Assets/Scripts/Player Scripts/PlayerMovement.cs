@@ -193,7 +193,7 @@ public class PlayerMovement : MonoBehaviour
             if (OnLadder && anim.GetBool("Climbing"))
                 jumpAmt = 0;
 
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetButtonDown("Jump"))
             {
                 anim.ResetTrigger("Crouch");
                 anim.ResetTrigger("Idle");
@@ -224,7 +224,7 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-            else if (Input.GetKeyUp(KeyCode.Space))
+            else if (Input.GetButtonUp("Jump"))
             {
                 rb.velocity = new Vector2(rb.velocity.x, isFalling ? rb.velocity.y : 0.0f);
             }
@@ -248,7 +248,7 @@ public class PlayerMovement : MonoBehaviour
 
         anim.SetBool("isFalling", isFalling);
 
-        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+        if (Input.GetAxisRaw("Vertical") < 0)
         {
             if (currentPassThroughPlatform != null)
             {
@@ -356,14 +356,14 @@ public class PlayerMovement : MonoBehaviour
               anim.SetBool("isDoubleJumping", false);
           }
 
-          if((Input.GetKey(KeyCode.W)))
+          if(Input.GetAxisRaw("Vertical") > 0)
           {
             anim.SetTrigger("Climbing");
             anim.SetFloat("ClimbSpeed",1f);
             anim.SetBool("isGrounded", !isInAir);
           }          
           
-          else if((Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.Space)))
+          else if(Input.GetAxisRaw("Vertical") < 0 && !Input.GetButton("Jump"))
           {
             if(isInAir)
             {

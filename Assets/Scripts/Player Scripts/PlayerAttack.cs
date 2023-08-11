@@ -121,7 +121,7 @@ public class PlayerAttack : MonoBehaviour
 
 
 
-        else if (Input.GetButtonDown("Fire3") && !strongDone && Input.GetAxisRaw("Vertical")==0 && !playerMovement.isInAir)
+        else if (Input.GetButton("Fire3") && !strongDone && Input.GetAxisRaw("Vertical")==0 && !playerMovement.isInAir)
         {
             isAttacking = true;
             if (!strongStarted)
@@ -145,7 +145,7 @@ public class PlayerAttack : MonoBehaviour
 
         }
 
-        else if (Input.GetButtonDown("Fire3") && !strongDone && Input.GetAxisRaw("Vertical") > 0 && !playerMovement.isInAir)
+        else if (Input.GetButton("Fire3") && !strongDone && Input.GetAxisRaw("Vertical") > 0 && !playerMovement.isInAir)
         {
             isAttacking = true;
             if (!strongStarted)
@@ -169,7 +169,7 @@ public class PlayerAttack : MonoBehaviour
 
         }
 
-        else if (Input.GetButtonDown("Fire3") && !strongDone && Input.GetAxisRaw("Vertical") < 0 && !playerMovement.isInAir)
+        else if (Input.GetButton("Fire3") && !strongDone && Input.GetAxisRaw("Vertical") < 0 && !playerMovement.isInAir)
         {
             isAttacking = true;
             if (!strongStarted)
@@ -183,7 +183,7 @@ public class PlayerAttack : MonoBehaviour
             if (strongTimer < 1.2f)
             {
                 strongDamage += .001f;
-                print(strongDamage);
+                print(strongTimer);
             }
 
             if (strongTimer >= 2.2f)
@@ -201,7 +201,7 @@ public class PlayerAttack : MonoBehaviour
             anim.SetBool("isStrong", strongStarted);
             print(strongDamage);
             strongTimer = 0;
-            if (Input.GetKeyUp(KeyCode.I))
+            if (Input.GetButtonUp("Fire3"))
             {
                 strongDone = false;
             }
