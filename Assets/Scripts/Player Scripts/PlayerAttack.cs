@@ -98,21 +98,21 @@ public class PlayerAttack : MonoBehaviour
         }
 
 
-        else if (Input.GetButtonDown("Fire1") && !isAttacking && Input.GetAxisRaw("Vertical") < 0f && !playerMovement.isInAir)
+        else if (Input.GetButtonDown("Fire1") && !isAttacking && Input.GetAxisRaw("Vertical") < 0f)
         {
             isAttacking = true;
             isSpecial = true;
             print("DSpecial");
         }
 
-        else if (Input.GetButtonDown("Fire1") && !isAttacking && Input.GetAxisRaw("Vertical") > 0f && !playerMovement.isInAir)
+        else if (Input.GetButtonDown("Fire1") && !isAttacking && Input.GetAxisRaw("Vertical") > 0f)
         {
             isAttacking = true;
             isSpecial = true;
             print("USpecial");
         }
 
-        else if (Input.GetButtonDown("Fire1") && !isAttacking && Input.GetAxisRaw("Horizontal") != 0f && Input.GetAxisRaw("Vertical") == 0 && !playerMovement.isInAir)
+        else if (Input.GetButtonDown("Fire1") && !isAttacking && Input.GetAxisRaw("Horizontal") != 0f && Input.GetAxisRaw("Vertical") == 0)
         {
             isAttacking = true;
             isSpecial = true;

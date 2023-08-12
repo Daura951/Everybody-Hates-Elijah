@@ -147,7 +147,7 @@ public class PlayerMovement : MonoBehaviour
             anim.ResetTrigger("Running");
             anim.ResetTrigger("Idle");
             anim.SetTrigger("Crouch");
-            //isCrouch = true;
+            isCrouch = true;
         }
 
         else
@@ -162,12 +162,12 @@ public class PlayerMovement : MonoBehaviour
                 switch (Speed)
                 {
                     case 14f:
-                        //isCrouch = false;
+                        isCrouch = false;
                         anim.ResetTrigger("Walking");
                         break;
 
                     case 7f:
-                        // isCrouch = false;
+                        isCrouch = false;
                         anim.SetTrigger("Walking");
                         break;
                     case 3.5f:
