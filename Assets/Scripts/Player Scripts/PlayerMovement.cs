@@ -38,8 +38,6 @@ public class PlayerMovement : MonoBehaviour
     private Escelator Escelator;
     public bool OnEscelator, InEscelator = false;
 
-    private float lastY;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -73,7 +71,7 @@ public class PlayerMovement : MonoBehaviour
 
         isCrouch = anim.GetCurrentAnimatorStateInfo(0).IsName("Crouch");
 
-        if (Input.GetKey(KeyCode.LeftShift) && !isInAir && !isCrouch)
+        if (Input.GetButton("Run") && !isInAir && !isCrouch)
         {
             Speed = Run;
             anim.SetTrigger("Running");
@@ -88,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
             anim.ResetTrigger("Walking");
             anim.ResetTrigger("Running");
         }
-        else if (!Input.GetKey(KeyCode.LeftShift) && !isInAir && !isCrouch)
+        else if (!Input.GetButton("Run") && !isInAir && !isCrouch)
         {
             Speed = Walk;
             anim.ResetTrigger("Running");
@@ -154,7 +152,7 @@ public class PlayerMovement : MonoBehaviour
 
         else
         {
-            if (dirX != 0)
+            if (dirX != 0 && !attackScript.isAttacking)
                 transform.eulerAngles = new Vector2(0, dirX < 0 ? 180 : 0);
 
             isLeft = transform.eulerAngles.y == 0 ? false : true;

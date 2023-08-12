@@ -252,39 +252,55 @@ InputManager:
     negativeButton: 
     positiveButton: joystick button 8
     altNegativeButton: 
+    altPositiveButton: w
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: TauntH
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
     altPositiveButton: 
     gravity: 1000
     dead: 0.001
     sensitivity: 1000
     snap: 0
     invert: 0
-    type: 0
-    axis: 0
+    type: 2
+    axis: 5
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Submit
+    m_Name: TauntV
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: enter
+    positiveButton: 
     altNegativeButton: 
-    altPositiveButton: space
+    altPositiveButton: 
     gravity: 1000
     dead: 0.001
     sensitivity: 1000
     snap: 0
     invert: 0
-    type: 0
-    axis: 0
+    type: 2
+    axis: 6
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Cancel
+    m_Name: Run
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: escape
+    positiveButton: joystick button 8
     altNegativeButton: 
-    altPositiveButton: joystick button 1
+    altPositiveButton: left shift
     gravity: 1000
     dead: 0.001
     sensitivity: 1000

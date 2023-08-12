@@ -36,6 +36,26 @@ public class IdleBehavior : StateMachineBehaviour
             PlayerAttack.attackInstance.anim.Play("Up Tilt");
         }
 
+        else if (string.Equals(PlayerTaunt.TauntInstance.taunt , "Up") && Input.GetAxisRaw("Vertical") == 0 && PlayerTaunt.TauntInstance.anim.GetBool("Idle") == true && !PlayerTaunt.TauntInstance.PM.isInAir)
+        {
+            PlayerTaunt.TauntInstance.anim.Play("UpTaunt");
+        }
+
+        else if (string.Equals(PlayerTaunt.TauntInstance.taunt , "Down") && Input.GetAxisRaw("Vertical") == 0 && PlayerTaunt.TauntInstance.anim.GetBool("Idle") == true && !PlayerTaunt.TauntInstance.PM.isInAir)
+        {
+            PlayerTaunt.TauntInstance.anim.Play("DownTaunt");
+        }
+
+        else if (string.Equals(PlayerTaunt.TauntInstance.taunt , "Left") && Input.GetAxisRaw("Vertical") == 0 && PlayerTaunt.TauntInstance.anim.GetBool("Idle") == true && !PlayerTaunt.TauntInstance.PM.isInAir)
+        {
+            PlayerTaunt.TauntInstance.anim.Play("LeftTaunt");
+        }
+
+        else if (string.Equals(PlayerTaunt.TauntInstance.taunt , "Up") && Input.GetAxisRaw("Vertical") == 0 && PlayerTaunt.TauntInstance.anim.GetBool("Idle") == true && !PlayerTaunt.TauntInstance.PM.isInAir)
+        {
+            PlayerTaunt.TauntInstance.anim.Play("RightTaunt");
+        }
+
 
     }
 

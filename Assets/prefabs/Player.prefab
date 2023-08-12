@@ -594,6 +594,7 @@ GameObject:
   - component: {fileID: 2052426329602708063}
   - component: {fileID: 2052426329602708062}
   - component: {fileID: 6181224151700024480}
+  - component: {fileID: 7351917667133747164}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -753,7 +754,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
   sr: {fileID: 2052426329602708059}
-  anim: {fileID: 0}
   cam: {fileID: 0}
   offset: {x: 2.25, y: 1.5, z: -0.75}
   Walk: 7
@@ -843,6 +843,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d14c57a4be5fe04a8b0c8e021b42f0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7351917667133747164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2052426329602708061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48a6a8fdd4fd79841890323fc5feaab1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2052426329625543915
