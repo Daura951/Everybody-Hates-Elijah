@@ -123,6 +123,63 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &146485683
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 375220286594020129, guid: e2c6df1f83e35e74b9abcd53a606ca5e, type: 3}
+      propertyPath: m_Name
+      value: ConveyorBelt
+      objectReference: {fileID: 0}
+    - target: {fileID: 375220286594020140, guid: e2c6df1f83e35e74b9abcd53a606ca5e, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 375220286594020140, guid: e2c6df1f83e35e74b9abcd53a606ca5e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 10.151556
+      objectReference: {fileID: 0}
+    - target: {fileID: 375220286594020140, guid: e2c6df1f83e35e74b9abcd53a606ca5e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 6.506429
+      objectReference: {fileID: 0}
+    - target: {fileID: 375220286594020140, guid: e2c6df1f83e35e74b9abcd53a606ca5e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 375220286594020140, guid: e2c6df1f83e35e74b9abcd53a606ca5e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9848078
+      objectReference: {fileID: 0}
+    - target: {fileID: 375220286594020140, guid: e2c6df1f83e35e74b9abcd53a606ca5e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 375220286594020140, guid: e2c6df1f83e35e74b9abcd53a606ca5e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 375220286594020140, guid: e2c6df1f83e35e74b9abcd53a606ca5e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.17364816
+      objectReference: {fileID: 0}
+    - target: {fileID: 375220286594020140, guid: e2c6df1f83e35e74b9abcd53a606ca5e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 375220286594020140, guid: e2c6df1f83e35e74b9abcd53a606ca5e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 375220286594020140, guid: e2c6df1f83e35e74b9abcd53a606ca5e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 20
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e2c6df1f83e35e74b9abcd53a606ca5e, type: 3}
 --- !u!1 &287920832
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,7 +289,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &487552182
 PrefabInstance:
@@ -380,7 +437,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
@@ -487,7 +544,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &839397074
 Transform:
   m_ObjectHideFlags: 0
@@ -502,7 +559,7 @@ Transform:
   m_Children:
   - {fileID: 1329839579}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &839397075
 SpriteRenderer:
@@ -752,7 +809,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1011965075
 BoxCollider2D:
@@ -1186,7 +1243,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7417413966450255280, guid: 741eae5b65fafee408616694fe48275d, type: 3}
       propertyPath: TAKD
-      value: 1 45 5 3
+      value: 1 45 4 3
       objectReference: {fileID: 0}
     - target: {fileID: 7417413966450255281, guid: 741eae5b65fafee408616694fe48275d, type: 3}
       propertyPath: m_Name
