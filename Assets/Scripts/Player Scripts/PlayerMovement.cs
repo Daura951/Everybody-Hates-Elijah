@@ -137,7 +137,7 @@ public class PlayerMovement : MonoBehaviour
             anim.ResetTrigger("Running");
             anim.ResetTrigger("Crouch");
             anim.SetTrigger("Idle");
-            //isCrouch = false;
+            isCrouch = false;
         }
 
         else if (dirX == 0 && !isInAir && Input.GetAxisRaw("Vertical") < 0f && !isOnPassThrough && anim.GetBool("Climbing") == false)
@@ -162,12 +162,12 @@ public class PlayerMovement : MonoBehaviour
                 switch (Speed)
                 {
                     case 14f:
-                        isCrouch = false;
+                        //isCrouch = false;
                         anim.ResetTrigger("Walking");
                         break;
 
                     case 7f:
-                        isCrouch = false;
+                        // isCrouch = false;
                         anim.SetTrigger("Walking");
                         break;
                     case 3.5f:
