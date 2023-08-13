@@ -9,6 +9,7 @@ public class Stun : MonoBehaviour
     private float timer;
     private Rigidbody2D rb;
     PlayerMovement PM;
+    Health H;
     
     private Stun_Info SI;
     private float[] SITAKD;
@@ -18,7 +19,7 @@ public class Stun : MonoBehaviour
     {
        rb = GetComponent<Rigidbody2D>();
        PM = GetComponent<PlayerMovement>();
-       //SITAKD = new float[4];
+       H = GetComponent<Health>();
     }
 
     // Update is called once per frame
@@ -39,25 +40,52 @@ public class Stun : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D col)
+    void OnTriggerEnter2D(Collider2D col)
     {
       if(col.gameObject.GetComponent<Stun_Info>())
       {
-      if(!Stunned)
-      rb.velocity = new Vector2(0,0);
+       if(!Stunned)
+       rb.velocity = new Vector2(0,0);
             
-      Stunned = true;
+       Stunned = true;
       
 
        SI = col.gameObject.GetComponent<Stun_Info>();
        SITAKD = SI.GetTAKDInfo();
 
        timer += SITAKD[0];
+       /* 
        print("Time " + SITAKD[0]);
        print("Angle " + SITAKD[1]);
        print("Knockback " + SITAKD[2]);
-       print("Damage " + SITAKD[3]); 
+       print("Damage " + SITAKD[3]);
+       */
+       H.TakeDamage(SITAKD[3]);
+       GetHit(SITAKD[1], SITAKD[2]);
+      }
+    }
 
+    void OnCollisionEnter2D(Collision2D col)
+    {
+      if(col.gameObject.GetComponent<Stun_Info>())
+      {
+       if(!Stunned)
+       rb.velocity = new Vector2(0,0);
+            
+       Stunned = true;
+      
+
+       SI = col.gameObject.GetComponent<Stun_Info>();
+       SITAKD = SI.GetTAKDInfo();
+
+       timer += SITAKD[0];
+       /* 
+       print("Time " + SITAKD[0]);
+       print("Angle " + SITAKD[1]);
+       print("Knockback " + SITAKD[2]);
+       print("Damage " + SITAKD[3]);
+       */
+       H.TakeDamage(SITAKD[3]);
        GetHit(SITAKD[1], SITAKD[2]);
       }
     }
