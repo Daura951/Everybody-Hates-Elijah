@@ -25,12 +25,12 @@ public class IdleBehavior : StateMachineBehaviour
             PlayerAttack.attackInstance.stickyHand.SetActive(true);
         }
 
-        else if(PlayerAttack.attackInstance.isAttacking && Input.GetAxisRaw("Vertical") > 0f && !PlayerAttack.attackInstance.playerMovement.isInAir && PlayerAttack.attackInstance.isSpecial)
+        else if(PlayerAttack.attackInstance.isAttacking && Input.GetAxisRaw("Vertical") > 0f && PlayerAttack.attackInstance.isSpecial)
         {
             PlayerAttack.attackInstance.anim.Play("USpecial");
         }
 
-        else if (PlayerAttack.attackInstance.isAttacking && Input.GetAxisRaw("Vertical") > 0 && PlayerAttack.attackInstance.anim.GetBool("Idle")==true && !PlayerAttack.attackInstance.playerMovement.isInAir)
+        else if (PlayerAttack.attackInstance.isAttacking && Input.GetAxisRaw("Vertical") > 0 && PlayerAttack.attackInstance.anim.GetBool("Idle")==true && !PlayerAttack.attackInstance.playerMovement.isInAir && !PlayerAttack.attackInstance.isSpecial)
         {
             Debug.Log("Called!");
             PlayerAttack.attackInstance.anim.Play("Up Tilt");

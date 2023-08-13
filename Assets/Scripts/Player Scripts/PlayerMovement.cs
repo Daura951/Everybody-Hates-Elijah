@@ -137,7 +137,7 @@ public class PlayerMovement : MonoBehaviour
             anim.ResetTrigger("Running");
             anim.ResetTrigger("Crouch");
             anim.SetTrigger("Idle");
-            //isCrouch = false;
+            isCrouch = false;
         }
 
         else if (dirX == 0 && !isInAir && Input.GetAxisRaw("Vertical") < 0f && !isOnPassThrough && anim.GetBool("Climbing") == false)
@@ -147,7 +147,7 @@ public class PlayerMovement : MonoBehaviour
             anim.ResetTrigger("Running");
             anim.ResetTrigger("Idle");
             anim.SetTrigger("Crouch");
-            //isCrouch = true;
+            isCrouch = true;
         }
 
         else
