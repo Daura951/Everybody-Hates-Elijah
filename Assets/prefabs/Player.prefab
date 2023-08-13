@@ -595,7 +595,6 @@ GameObject:
   - component: {fileID: 2052426329602708062}
   - component: {fileID: 6181224151700024480}
   - component: {fileID: 7351917667133747164}
-  - component: {fileID: 5744346395765027063}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -858,23 +857,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48a6a8fdd4fd79841890323fc5feaab1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 0}
-  PM: {fileID: 0}
-  taunt: 
---- !u!114 &5744346395765027063
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2052426329602708061}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdd48c91ebaa94e4ea5d4b9522081e3f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MaxHealth: 0
-  health: 0
 --- !u!1 &2052426329625543915
 GameObject:
   m_ObjectHideFlags: 0
