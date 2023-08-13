@@ -305,7 +305,7 @@ public class PlayerMovement : MonoBehaviour
                 Escelator = null;
                 OnEscelator = false;
 
-                if (Input.GetKey(KeyCode.Space))
+                if (Input.GetButton("Jump"))
                 {
                     anim.ResetTrigger("Crouch");
                     anim.ResetTrigger("Idle");

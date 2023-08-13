@@ -49,7 +49,7 @@ public class Escelator : MonoBehaviour
         if(col.gameObject == player)
         {
             OnEscelator = false;
-            if(!Input.GetKey(KeyCode.Space))
+            if(!Input.GetButton("Jump"))
             {
             rb.velocity = new Vector2(0,0);
             }
