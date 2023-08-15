@@ -8,6 +8,7 @@ public class Enemy_Target : MonoBehaviour
     [Header("Pathfinding")]
     public Transform target;
     public float activationDistance = 50.0f;
+    public float targettingDistance = 100.0f;
     public float pathUpdateSeconds = 0.5f;
 
 
@@ -25,7 +26,9 @@ public class Enemy_Target : MonoBehaviour
 
     private Path path;
     private int currentWayPoint = 0;
-    private bool isGrounded = false;
+    private float tfBeforeJump;
+    public RaycastHit2D isGrounded;
+    public bool isAwake = false;
     Seeker seeker;
     Rigidbody2D rb;
 
@@ -73,16 +76,17 @@ public class Enemy_Target : MonoBehaviour
         
         //If we collided
         Vector3 startOffset = transform.position - new Vector3(0f, GetComponent<Collider2D>().bounds.extents.y + jumpCheckOffset); //Gets offset for raycast
-        isGrounded = Physics2D.Raycast(startOffset, -Vector3.up, 0.5f);
+        isGrounded = Physics2D.Raycast(startOffset, -Vector3.up, 0.05f);
 
         //Calculate Direction
         Vector2 direction = ((Vector2)path.vectorPath[currentWayPoint] - rb.position).normalized;
         Vector2 force = direction * speed * Time.deltaTime;
 
+
         //Jump time!
-        if(canJump && isGrounded)
+        if(canJump && isGrounded.collider!=null && isGrounded.collider.tag=="Platform")
         {
-            if(direction.y > jumpNodeHeightReq)
+            if (direction.y > jumpNodeHeightReq)
             {
                 rb.AddForce(Vector2.up * speed * jumpModifier);
             }
@@ -113,7 +117,19 @@ public class Enemy_Target : MonoBehaviour
 
     private bool TargetInDistance()
     {
-        return Vector2.Distance(transform.position, target.transform.position) < activationDistance;
+        if (isAwake)
+        {
+            return Vector2.Distance(transform.position, target.transform.position) < targettingDistance;
+        }
+        else
+        {
+            if(Vector2.Distance(transform.position, target.transform.position) < activationDistance)
+            {
+                isAwake = true;
+            }
+
+            return Vector2.Distance(transform.position, target.transform.position) < activationDistance;
+        }
     }
 
     private void OnPathComplete(Path p)

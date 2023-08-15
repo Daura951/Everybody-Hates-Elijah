@@ -141,7 +141,7 @@ AnimationClip:
     messageOptions: 0
   - time: 0.7
     functionName: USpecial
-    data: 10 65 200 0 400 16
+    data: 10 65 200 0 550 16
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0

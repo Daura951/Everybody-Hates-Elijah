@@ -200,6 +200,7 @@ public class PlayerAttack : MonoBehaviour
             strongStarted = false;
             anim.SetBool("isStrong", strongStarted);
             print(strongDamage);
+            strongDamage = 0;
             strongTimer = 0;
             if (Input.GetButtonUp("Fire3"))
             {
