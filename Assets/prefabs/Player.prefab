@@ -596,6 +596,7 @@ GameObject:
   - component: {fileID: 6181224151700024480}
   - component: {fileID: 7351917667133747164}
   - component: {fileID: 6687968942240609746}
+  - component: {fileID: 1780492543969253861}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -760,12 +761,12 @@ MonoBehaviour:
   Walk: 7
   jumpForce: 8
   fallingGravityFactor: 2
+  Speed: 0
   crouchMat: {fileID: 2100000, guid: 6ed032d1c2cd87c42a57a267c3a8c539, type: 2}
   RunMat: {fileID: 2100000, guid: b3667f6cfd912fe4386181334424e8c8, type: 2}
   isFalling: 0
   isInAir: 0
   isInLandingLag: 0
-  OnLadder: 0
   groundRays:
   - {fileID: 2052426328689145744}
   - {fileID: 2052426328807346244}
@@ -874,7 +875,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHealth: 0
-  health: 0
+--- !u!114 &1780492543969253861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2052426329602708061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb745284bfe308c46afbad7afdbfe72b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2052426329625543915
 GameObject:
   m_ObjectHideFlags: 0

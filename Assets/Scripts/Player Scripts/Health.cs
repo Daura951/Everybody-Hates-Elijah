@@ -6,7 +6,7 @@ public class Health : MonoBehaviour
 {
 
     public float MaxHealth;
-    public float health;
+    private float health;
 
 
     // Start is called before the first frame update
@@ -20,7 +20,7 @@ public class Health : MonoBehaviour
     {
         if(health <= 0)
         {
-            Destroy(this.gameObject);
+            health = 0;
         }   
     }
 
@@ -33,5 +33,15 @@ public class Health : MonoBehaviour
     public void TakeDamage(float hurt)
     {
       health -= hurt;
+    }
+
+    public float GetHealth()
+    {
+        return health;
+    }
+
+    public void ReHeal()
+    {
+        health = MaxHealth;
     }
 }

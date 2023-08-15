@@ -12,7 +12,8 @@ public class PlayerMovement : MonoBehaviour
     public Vector3 offset;
 
     public float Walk, jumpForce, fallingGravityFactor;
-    float Speed, Run, Crawl, scaledGravity, jumpAmt;
+    float Run, Crawl, scaledGravity, jumpAmt;
+    public float Speed;
 
     Material WalkMat;
     public Material crouchMat, RunMat;
@@ -24,7 +25,6 @@ public class PlayerMovement : MonoBehaviour
     public bool isInAir;
     public bool isInLandingLag = false;
     private bool isOnPassThrough = false;
-    public bool OnLadder = false;
     bool isCrouch = false;
 
     public Transform[] groundRays;
@@ -103,7 +103,9 @@ public class PlayerMovement : MonoBehaviour
 
         if (!stunned)
         {
+            if(!anim.GetBool("Climbing"))
             Move();
+
             Jump();
         }
         else
@@ -157,7 +159,7 @@ public class PlayerMovement : MonoBehaviour
 
             isLeft = transform.eulerAngles.y == 0 ? false : true;
 
-            if (!isInAir && !OnLadder)
+            if (!isInAir && !anim.GetBool("OnLadder"))
             {
                 switch (Speed)
                 {
@@ -188,7 +190,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!(jumpAmt == 0 && isInAir && !anim.GetBool("Climbing")) && !isInLandingLag && !attackScript.isAttacking)
         {
-            if (OnLadder && anim.GetBool("Climbing"))
+            if (anim.GetBool("Climbing"))
                 jumpAmt = 0;
 
             if (Input.GetButtonDown("Jump"))
@@ -324,22 +326,13 @@ public class PlayerMovement : MonoBehaviour
             }
             currentPassThroughPlatform = null;
 
-            if (OnLadder)
-                isInAir = OnLadder;
+            if (anim.GetBool("Climbing"))
+                isInAir = true;
         }
 
 
         if (rb.velocity.y != 0)
             isInAir = true;
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Ladder")
-        {
-            OnLadder = true;
-            anim.SetBool("OnLadder", OnLadder);
-        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -348,47 +341,13 @@ public class PlayerMovement : MonoBehaviour
         {
             InEscelator = true;
         }
-
-        if (OnLadder && rb.gravityScale == 0 && !stunned)
-        {
-          if(anim.GetBool("Climbing")==true)
-          {
-              anim.SetBool("isJumping", false);
-              anim.SetBool("isDoubleJumping", false);
-          }
-
-          if(Input.GetAxisRaw("Vertical") > 0)
-          {
-            anim.SetTrigger("Climbing");
-            anim.SetFloat("ClimbSpeed",1f);
-            anim.SetBool("isGrounded", !isInAir);
-          }          
-          
-          else if(Input.GetAxisRaw("Vertical") < 0 && !Input.GetButton("Jump"))
-          {
-            if(isInAir)
-            {
-             anim.SetTrigger("Climbing");
-             anim.SetFloat("ClimbSpeed",-1f);
-            } 
-            if(!isInAir)
-             anim.ResetTrigger("Climbing");
-          }
-      
-          else
-          {
-            anim.SetFloat("ClimbSpeed",0f);  
-          }
-        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
        if(collision.gameObject.tag == "Ladder")
        {
-              OnLadder = false;
-              anim.ResetTrigger("Climbing");
-              anim.SetBool("OnLadder", OnLadder);
+              Speed = Walk;
               if(isInAir)
               jumpAmt=1;
        }

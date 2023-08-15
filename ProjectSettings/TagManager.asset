@@ -11,6 +11,7 @@ TagManager:
   - Danger
   - Ladder
   - KnockBack
+  - Checkpoint
   layers:
   - Default
   - TransparentFX

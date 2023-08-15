@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4c585d304244b8b4481ae1077375b255
+guid: 5f6d3c2d76e345d49b5d8a439a8cedd3
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 293
+  spritePixelsToUnits: 313
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -105,13 +105,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: henry-stickmin-distraction-dance_0
+      name: ezgif.com-gif-maker (1)_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 498
-        width: 498
-        height: 498
+        y: 939
+        width: 313
+        height: 313
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -119,20 +119,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0c94ad018cad38146ae6acaeb30e6b65
-      internalID: -1800473267
+      spriteID: 14a2e28f7a12c54488e7cbcf7eb84630
+      internalID: -628040699
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: henry-stickmin-distraction-dance_1
+      name: ezgif.com-gif-maker (1)_1
       rect:
         serializedVersion: 2
-        x: 498
-        y: 498
-        width: 498
-        height: 498
+        x: 313
+        y: 939
+        width: 313
+        height: 313
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -140,20 +140,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dd96db802c0b65942aa69c27af505086
-      internalID: 365474307
+      spriteID: 9cb2235e1249fb44d81eaf1a9fc129d5
+      internalID: -820764916
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: henry-stickmin-distraction-dance_2
+      name: ezgif.com-gif-maker (1)_2
       rect:
         serializedVersion: 2
-        x: 996
-        y: 498
-        width: 498
-        height: 498
+        x: 626
+        y: 939
+        width: 313
+        height: 313
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -161,20 +161,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b7b970b3fdcc0704d83c0dc8cf3846b3
-      internalID: -640290571
+      spriteID: 871a667ef3637f9458d46ba05285fd9b
+      internalID: 1028281795
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: henry-stickmin-distraction-dance_3
+      name: ezgif.com-gif-maker (1)_3
       rect:
         serializedVersion: 2
-        x: 1494
-        y: 498
-        width: 498
-        height: 498
+        x: 939
+        y: 939
+        width: 313
+        height: 313
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -182,20 +182,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e7c14a87f0c9a264e80b262f7f247a5d
-      internalID: -515882776
+      spriteID: 1e19b78f3efe29946b005035a64ada97
+      internalID: -1684114582
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: henry-stickmin-distraction-dance_4
+      name: ezgif.com-gif-maker (1)_4
       rect:
         serializedVersion: 2
-        x: 1992
-        y: 498
-        width: 498
-        height: 498
+        x: 1252
+        y: 939
+        width: 313
+        height: 313
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -203,20 +203,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 047af6b984c1c35419e01bc4df60625a
-      internalID: -827208488
+      spriteID: 001abe5e4fa1ef042b360c1aa9269154
+      internalID: -505259196
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: henry-stickmin-distraction-dance_5
+      name: ezgif.com-gif-maker (1)_5
       rect:
         serializedVersion: 2
-        x: 2490
-        y: 498
-        width: 498
-        height: 498
+        x: 1565
+        y: 939
+        width: 313
+        height: 313
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -224,20 +224,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fc419ca8dda11a044b0f02f0b407e01c
-      internalID: 638117377
+      spriteID: 0697b6ae071cc6341904a6dae6dd6dc4
+      internalID: 1937943331
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: henry-stickmin-distraction-dance_6
+      name: ezgif.com-gif-maker (1)_6
       rect:
         serializedVersion: 2
-        x: 2988
-        y: 498
-        width: 498
-        height: 498
+        x: 0
+        y: 626
+        width: 313
+        height: 313
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -245,20 +245,251 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1da29280f5e9f034b8daadc023d548bc
-      internalID: 138389039
+      spriteID: cf95bc09562330c4fbf299dba0508049
+      internalID: 289537704
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: henry-stickmin-distraction-dance_7
+      name: ezgif.com-gif-maker (1)_7
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 626
+        width: 313
+        height: 313
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7c4a7a059ddc0449880340544a82cb2
+      internalID: 556280194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ezgif.com-gif-maker (1)_8
+      rect:
+        serializedVersion: 2
+        x: 626
+        y: 626
+        width: 313
+        height: 313
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d828b25967b17948b443ab86a91eacd
+      internalID: -664021568
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ezgif.com-gif-maker (1)_9
+      rect:
+        serializedVersion: 2
+        x: 939
+        y: 626
+        width: 313
+        height: 313
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96f132f2ee0f7a34ebd547139396633b
+      internalID: 1307824500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ezgif.com-gif-maker (1)_10
+      rect:
+        serializedVersion: 2
+        x: 1252
+        y: 626
+        width: 313
+        height: 313
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c1c668952ce7344aa63dcea677dfcba
+      internalID: -1039165296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ezgif.com-gif-maker (1)_11
+      rect:
+        serializedVersion: 2
+        x: 1565
+        y: 626
+        width: 313
+        height: 313
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88a02d03ae47ce144b6bcde4c97a2921
+      internalID: 1766472010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ezgif.com-gif-maker (1)_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 313
+        width: 313
+        height: 313
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 253df821d2bfe304a9056a67fb78b1f2
+      internalID: 978594930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ezgif.com-gif-maker (1)_13
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 313
+        width: 313
+        height: 313
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5033c88db2ebf64a9362684164e140d
+      internalID: -897862204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ezgif.com-gif-maker (1)_14
+      rect:
+        serializedVersion: 2
+        x: 626
+        y: 313
+        width: 313
+        height: 313
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b03f70c4d2cbc64ab7f5c76a1038e15
+      internalID: -980697991
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ezgif.com-gif-maker (1)_15
+      rect:
+        serializedVersion: 2
+        x: 939
+        y: 313
+        width: 313
+        height: 313
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 545fbbee87dbbed40a65c114893d4f74
+      internalID: 317865561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ezgif.com-gif-maker (1)_16
+      rect:
+        serializedVersion: 2
+        x: 1252
+        y: 313
+        width: 313
+        height: 313
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7311a643682bce343836067ab8b5264e
+      internalID: 1710043625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ezgif.com-gif-maker (1)_17
+      rect:
+        serializedVersion: 2
+        x: 1565
+        y: 313
+        width: 313
+        height: 313
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94d42f02ac633074fb22d591c6ba046c
+      internalID: 1564849712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ezgif.com-gif-maker (1)_18
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 498
-        height: 498
+        width: 313
+        height: 313
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -266,20 +497,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4f113e506bc2bf5488de7fcc90f726f8
-      internalID: -1509067085
+      spriteID: 57ba3bc1b1674824fa9dd2a91a95c9ed
+      internalID: 884797768
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: henry-stickmin-distraction-dance_8
+      name: ezgif.com-gif-maker (1)_19
       rect:
         serializedVersion: 2
-        x: 498
+        x: 313
         y: 0
-        width: 498
-        height: 498
+        width: 313
+        height: 313
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -287,20 +518,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 961976f7a82a1dc418ef33d15b70db1e
-      internalID: 911296543
+      spriteID: 5fdba3543289e714f8b9426648de79c1
+      internalID: 1187612389
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: henry-stickmin-distraction-dance_9
+      name: ezgif.com-gif-maker (1)_20
       rect:
         serializedVersion: 2
-        x: 996
+        x: 626
         y: 0
-        width: 498
-        height: 498
+        width: 313
+        height: 313
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -308,92 +539,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ad473ed404ab0a343b9a3bc1a9cc54f8
-      internalID: -2004239393
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: henry-stickmin-distraction-dance_10
-      rect:
-        serializedVersion: 2
-        x: 1494
-        y: 0
-        width: 498
-        height: 498
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b2cd9b26301a03e44864957b80d65cde
-      internalID: 388548816
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: henry-stickmin-distraction-dance_11
-      rect:
-        serializedVersion: 2
-        x: 1992
-        y: 0
-        width: 498
-        height: 498
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f52a01c3ee1927b4db0bfae4eb7adf7d
-      internalID: 1154206954
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: henry-stickmin-distraction-dance_12
-      rect:
-        serializedVersion: 2
-        x: 2490
-        y: 0
-        width: 498
-        height: 498
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 16a43eb1bb75bf34fb425f922e3b5695
-      internalID: -2046981233
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: henry-stickmin-distraction-dance_13
-      rect:
-        serializedVersion: 2
-        x: 2988
-        y: 0
-        width: 498
-        height: 498
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2103a948379515249bd091ed00415952
-      internalID: 1069239500
+      spriteID: 04a7ff96ca607814eaa6d200c694f19a
+      internalID: -695174074
       vertices: []
       indices: 
       edges: []
@@ -409,20 +556,27 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      henry-stickmin-distraction-dance_5: 638117377
-      henry-stickmin-distraction-dance_7: -1509067085
-      henry-stickmin-distraction-dance_3: -515882776
-      henry-stickmin-distraction-dance_6: 138389039
-      henry-stickmin-distraction-dance_8: 911296543
-      henry-stickmin-distraction-dance_9: -2004239393
-      henry-stickmin-distraction-dance_13: 1069239500
-      henry-stickmin-distraction-dance_10: 388548816
-      henry-stickmin-distraction-dance_0: -1800473267
-      henry-stickmin-distraction-dance_2: -640290571
-      henry-stickmin-distraction-dance_11: 1154206954
-      henry-stickmin-distraction-dance_12: -2046981233
-      henry-stickmin-distraction-dance_4: -827208488
-      henry-stickmin-distraction-dance_1: 365474307
+      ezgif.com-gif-maker (1)_3: -1684114582
+      ezgif.com-gif-maker (1)_7: 556280194
+      ezgif.com-gif-maker (1)_6: 289537704
+      ezgif.com-gif-maker (1)_2: 1028281795
+      ezgif.com-gif-maker (1)_9: 1307824500
+      ezgif.com-gif-maker (1)_14: -980697991
+      ezgif.com-gif-maker (1)_13: -897862204
+      ezgif.com-gif-maker (1)_18: 884797768
+      ezgif.com-gif-maker (1)_5: 1937943331
+      ezgif.com-gif-maker (1)_20: -695174074
+      ezgif.com-gif-maker (1)_19: 1187612389
+      ezgif.com-gif-maker (1)_12: 978594930
+      ezgif.com-gif-maker (1)_11: 1766472010
+      ezgif.com-gif-maker (1)_4: -505259196
+      ezgif.com-gif-maker (1)_0: -628040699
+      ezgif.com-gif-maker (1)_1: -820764916
+      ezgif.com-gif-maker (1)_16: 1710043625
+      ezgif.com-gif-maker (1)_17: 1564849712
+      ezgif.com-gif-maker (1)_15: 317865561
+      ezgif.com-gif-maker (1)_8: -664021568
+      ezgif.com-gif-maker (1)_10: -1039165296
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
