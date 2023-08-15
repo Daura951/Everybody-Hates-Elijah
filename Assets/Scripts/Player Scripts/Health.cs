@@ -6,7 +6,7 @@ public class Health : MonoBehaviour
 {
 
     public float MaxHealth;
-    private float health;
+    public float health;
 
 
     // Start is called before the first frame update
@@ -21,7 +21,7 @@ public class Health : MonoBehaviour
         if(health <= 0)
         {
             health = 0;
-        }   
+        }
     }
 
     void FixedUpdate()

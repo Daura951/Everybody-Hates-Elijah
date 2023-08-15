@@ -31,11 +31,13 @@ public class Enemy_Target : MonoBehaviour
     public bool isAwake = false;
     Seeker seeker;
     Rigidbody2D rb;
+    EnemyStun ES;
 
     private void Start()
     {
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
+        ES = GetComponent<EnemyStun>();
         target = GameObject.FindGameObjectsWithTag("Player")[0].transform;
 
 
@@ -45,8 +47,8 @@ public class Enemy_Target : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(TargetInDistance() && canFollow)
-        {
+        if(TargetInDistance() && canFollow && !ES.getIsStunned())
+        { 
             FollowPath();
         }
     }
@@ -139,5 +141,14 @@ public class Enemy_Target : MonoBehaviour
             path = p;
             currentWayPoint = 0;
         }
+    }
+
+    public bool GetIsLeft()
+    {
+        if( transform.localScale.x > 0)
+        return true;
+
+        else
+        return false;
     }
 }
