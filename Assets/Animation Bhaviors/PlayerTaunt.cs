@@ -29,24 +29,28 @@ public class PlayerTaunt : MonoBehaviour
         if (Input.GetAxisRaw("TauntH") > 0 &&  Input.GetAxisRaw("TauntV") == 0 && Input.GetAxisRaw("Vertical") == 0 && string.Equals(taunt , "") && anim.GetBool("Idle") == true && !PM.isInAir)
         {
             print("Right");
+            anim.SetBool("Taunt" , true);
             taunt = "Right";
         }
 
         else if (Input.GetAxisRaw("TauntH") < 0 && Input.GetAxisRaw("TauntV") == 0 && Input.GetAxisRaw("Vertical") == 0 && string.Equals(taunt , "") && anim.GetBool("Idle") == true && !PM.isInAir)
         {
             print("Left");
+            anim.SetBool("Taunt" , true);
             taunt = "Left";
         }
 
         else if (Input.GetAxisRaw("TauntV") > 0 && Input.GetAxisRaw("TauntH") == 0 && Input.GetAxisRaw("Vertical") == 0 && string.Equals(taunt , "") && anim.GetBool("Idle") == true && !PM.isInAir)
         {
             print("Up");
+            anim.SetBool("Taunt" , true);
             taunt = "Up";
         }
 
         else if (Input.GetAxisRaw("TauntV") < 0 && Input.GetAxisRaw("TauntH") == 0 && Input.GetAxisRaw("Vertical") == 0 && string.Equals(taunt , "") && anim.GetBool("Idle") == true && !PM.isInAir)
         {
             print("Down");
+            anim.SetBool("Taunt" , true);
             taunt = "Down";
         }
     }
@@ -54,5 +58,6 @@ public class PlayerTaunt : MonoBehaviour
     public void ResetTaunt()
     {
         taunt = "";
+        anim.SetBool("Taunt" , false);
     }
 }

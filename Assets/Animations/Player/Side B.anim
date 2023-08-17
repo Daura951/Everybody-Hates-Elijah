@@ -155,8 +155,8 @@ AnimationClip:
   m_Events:
   - time: 0.93333334
     functionName: SideB
-    data: 10 20 600 10000 0
+    data: 10 20 600 0 10000 0
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 0
+    intParameter: 6
     messageOptions: 0

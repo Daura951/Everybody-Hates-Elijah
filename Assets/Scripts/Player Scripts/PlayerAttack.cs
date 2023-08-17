@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -16,6 +17,10 @@ public class PlayerAttack : MonoBehaviour
     public bool strongDone = false;
     public float strongTimer = 0.0f;
     float strongDamage = 0.0f;
+
+    private string FilePath;
+    string[] Line;
+
     private void Awake()
     {
         stickyHand.SetActive(false);
@@ -24,8 +29,10 @@ public class PlayerAttack : MonoBehaviour
 
     private void Start()
     {
-        currentStats = new float[3];
+        currentStats = new float[4];
         anim = GetComponent<Animator>();
+        FilePath = Application.dataPath +"/ElijahAttackValues.txt";
+        Line = File.ReadAllLines(FilePath);
     }
 
     private void Update()
@@ -116,6 +123,12 @@ public class PlayerAttack : MonoBehaviour
         {
             isAttacking = true;
             isSpecial = true;
+
+            if (playerMovement.isInAir)
+        {
+            Physics2D.gravity = new Vector2(0, 0);
+        }
+
             print("FSpecial");
         }
 
@@ -212,167 +225,189 @@ public class PlayerAttack : MonoBehaviour
     }
 
 
-    public void Jab1(string stats)
+    public void Jab1(int L)
     {
         hitBoxes[0].SetActive(true);
-        string[] statSplit = stats.Split(" ");
-        currentStats[0] = float.Parse(statSplit[0]); //Damage
-        currentStats[1] = float.Parse(statSplit[1]); //Angle
-        currentStats[2] = float.Parse(statSplit[2]); //Knockback
+        string[] statSplit = Line[L].Split(" ");
+        currentStats[0] = float.Parse(statSplit[1]); //Damage
+        currentStats[1] = float.Parse(statSplit[2]); //Angle
+        currentStats[2] = float.Parse(statSplit[3]); //Knockback
+        currentStats[3] = float.Parse(statSplit[4]); //Time Stun 
     }
 
-    public void Jab2(string stats)
+    public void Jab2(int L)
     {
         hitBoxes[1].SetActive(true);
-        string[] statSplit = stats.Split(" ");
-        currentStats[0] = float.Parse(statSplit[0]); //Damage
-        currentStats[1] = float.Parse(statSplit[1]); //Angle
-        currentStats[2] = float.Parse(statSplit[2]); //Knockback
+        string[] statSplit = Line[L].Split(" ");
+        currentStats[0] = float.Parse(statSplit[1]); //Damage
+        currentStats[1] = float.Parse(statSplit[2]); //Angle
+        currentStats[2] = float.Parse(statSplit[3]); //Knockback
+        currentStats[3] = float.Parse(statSplit[4]); //Time Stun 
     }
 
-    public void Jab3(string stats)
+    public void Jab3(int L)
     {
         hitBoxes[2].SetActive(true);
-        string[] statSplit = stats.Split(" ");
-        currentStats[0] = float.Parse(statSplit[0]); //Damage
-        currentStats[1] = float.Parse(statSplit[1]); //Angle
-        currentStats[2] = float.Parse(statSplit[2]); //Knockback
+        string[] statSplit = Line[L].Split(" ");
+        currentStats[0] = float.Parse(statSplit[1]); //Damage
+        currentStats[1] = float.Parse(statSplit[2]); //Angle
+        currentStats[2] = float.Parse(statSplit[3]); //Knockback
+        currentStats[3] = float.Parse(statSplit[4]); //Time Stun 
     }
 
-    public void Nair(string stats)
+    public void Nair(int L)
     {
         hitBoxes[3].SetActive(true);
-        string[] statSplit = stats.Split(" ");
-        currentStats[0] = float.Parse(statSplit[0]); //Damage
-        currentStats[1] = float.Parse(statSplit[1]); //Angle
-        currentStats[2] = float.Parse(statSplit[2]); //Knockback
+        string[] statSplit = Line[L].Split(" ");
+        currentStats[0] = float.Parse(statSplit[1]); //Damage
+        currentStats[1] = float.Parse(statSplit[2]); //Angle
+        currentStats[2] = float.Parse(statSplit[3]); //Knockback
+        currentStats[3] = float.Parse(statSplit[4]); //Time Stun 
     }
-    public void DownB(string stats)
+    public void DownB(int L)
     {
         hitBoxes[4].SetActive(true);
-        string[] statSplit = stats.Split(" ");
-        currentStats[0] = float.Parse(statSplit[0]); //Damage
-        currentStats[1] = float.Parse(statSplit[1]); //Angle
-        currentStats[2] = float.Parse(statSplit[2]); //Knockback
+        string[] statSplit = Line[L].Split(" ");
+        currentStats[0] = float.Parse(statSplit[1]); //Damage
+        currentStats[1] = float.Parse(statSplit[2]); //Angle
+        currentStats[2] = float.Parse(statSplit[3]); //Knockback
+        currentStats[3] = float.Parse(statSplit[4]); //Time Stun 
     }
 
-    public void SideB(string stats)
+    public void SideB(int L)
     {
         hitBoxes[5].SetActive(true);
-        string[] statSplit = stats.Split(" ");
-        currentStats[0] = float.Parse(statSplit[0]); //Damage
-        currentStats[1] = float.Parse(statSplit[1]); //Angle
-        currentStats[2] = float.Parse(statSplit[2]); //Knockback
-        float XDir = float.Parse(statSplit[3]); //XDir
-        float yDir = float.Parse(statSplit[4]); //YDir
+        string[] statSplit = Line[L].Split(" ");
+        currentStats[0] = float.Parse(statSplit[1]); //Damage
+        currentStats[1] = float.Parse(statSplit[2]); //Angle
+        currentStats[2] = float.Parse(statSplit[3]); //Knockback
+        currentStats[3] = float.Parse(statSplit[4]); //Time Stun 
+        float XDir = float.Parse(statSplit[5]); //XDir
+        float yDir = float.Parse(statSplit[6]); //YDir
 
 
         playerMovement.rb.AddForce(new Vector2(playerMovement.GetIsLeft() ? -XDir : XDir, yDir));
     }
 
-    public void NeutralB(string stats)
+    public void NeutralB(int L)
     {
         hitBoxes[6].SetActive(true);
-        string[] statSplit = stats.Split(" ");
-        currentStats[0] = float.Parse(statSplit[0]); //Damage
-        currentStats[1] = float.Parse(statSplit[1]); //Angle
-        currentStats[2] = float.Parse(statSplit[2]); //Knockback
+        string[] statSplit = Line[L].Split(" ");
+        currentStats[0] = float.Parse(statSplit[1]); //Damage
+        currentStats[1] = float.Parse(statSplit[2]); //Angle
+        currentStats[2] = float.Parse(statSplit[3]); //Knockback
+        currentStats[3] = float.Parse(statSplit[4]); //Time Stun 
     }
 
 
-    public void UTilt(string stats)
+    public void UTilt(int L)
     {
         hitBoxes[7].SetActive(true);
-        string[] statSplit = stats.Split(" ");
-        currentStats[0] = float.Parse(statSplit[0]); //Damage
-        currentStats[1] = float.Parse(statSplit[1]); //Angle
-        currentStats[2] = float.Parse(statSplit[2]); //Knockback
+        string[] statSplit = Line[L].Split(" ");
+        currentStats[0] = float.Parse(statSplit[1]); //Damage
+        currentStats[1] = float.Parse(statSplit[2]); //Angle
+        currentStats[2] = float.Parse(statSplit[3]); //Knockback
+        currentStats[3] = float.Parse(statSplit[4]); //Time Stun 
     }
 
-    public void FTilt(string stats)
+    public void FTilt(int L)
     {
         hitBoxes[8].SetActive(true);
-        string[] statSplit = stats.Split(" ");
-        currentStats[0] = float.Parse(statSplit[0]); //Damage
-        currentStats[1] = float.Parse(statSplit[1]); //Angle
-        currentStats[2] = float.Parse(statSplit[2]); //Knockback
+        string[] statSplit = Line[L].Split(" ");
+        currentStats[0] = float.Parse(statSplit[1]); //Damage
+        currentStats[1] = float.Parse(statSplit[2]); //Angle
+        currentStats[2] = float.Parse(statSplit[3]); //Knockback
+        currentStats[3] = float.Parse(statSplit[4]); //Time Stun 
     }
 
-    public void DTilt(string stats)
+    public void DTilt(int L)
     {
         hitBoxes[9].SetActive(true);
-        string[] statSplit = stats.Split(" ");
-        currentStats[0] = float.Parse(statSplit[0]); //Damage
-        currentStats[1] = float.Parse(statSplit[1]); //Angle
-        currentStats[2] = float.Parse(statSplit[2]); //Knockback
+        string[] statSplit = Line[L].Split(" ");
+        currentStats[0] = float.Parse(statSplit[1]); //Damage
+        currentStats[1] = float.Parse(statSplit[2]); //Angle
+        currentStats[2] = float.Parse(statSplit[3]); //Knockback
+        currentStats[3] = float.Parse(statSplit[4]); //Time Stun 
     }
 
-    public void Fair(string stats)
+    public void Fair(int L)
     {
         hitBoxes[10].SetActive(true);
-        string[] statSplit = stats.Split(" ");
-        currentStats[0] = float.Parse(statSplit[0]); //Damage
-        currentStats[1] = float.Parse(statSplit[1]); //Angle
-        currentStats[2] = float.Parse(statSplit[2]); //Knockback
+        string[] statSplit = Line[L].Split(" ");
+        currentStats[0] = float.Parse(statSplit[1]); //Damage
+        currentStats[1] = float.Parse(statSplit[2]); //Angle
+        currentStats[2] = float.Parse(statSplit[3]); //Knockback
+        currentStats[3] = float.Parse(statSplit[4]); //Time Stun 
     }
 
-    public void Uair(string stats)
+    public void Uair(int L)
     {
         hitBoxes[11].SetActive(true);
-        string[] statSplit = stats.Split(" ");
-        currentStats[0] = float.Parse(statSplit[0]); //Damage
-        currentStats[1] = float.Parse(statSplit[1]); //Angle
-        currentStats[2] = float.Parse(statSplit[2]); //Knockback
+        string[] statSplit = Line[L].Split(" ");
+        currentStats[0] = float.Parse(statSplit[1]); //Damage
+        currentStats[1] = float.Parse(statSplit[2]); //Angle
+        currentStats[2] = float.Parse(statSplit[3]); //Knockback
+        currentStats[3] = float.Parse(statSplit[4]); //Time Stun 
     }
 
-    public void Dair(string stats)
+    public void Dair(int L)
     {
         hitBoxes[12].SetActive(true);
-        string[] statSplit = stats.Split(" ");
-        currentStats[0] = float.Parse(statSplit[0]); //Damage
-        currentStats[1] = float.Parse(statSplit[1]); //Angle
-        currentStats[2] = float.Parse(statSplit[2]); //Knockback
+        string[] statSplit = Line[L].Split(" ");
+        currentStats[0] = float.Parse(statSplit[1]); //Damage
+        currentStats[1] = float.Parse(statSplit[2]); //Angle
+        currentStats[2] = float.Parse(statSplit[3]); //Knockback
+        currentStats[3] = float.Parse(statSplit[4]); //Time Stun 
     }
 
-    public void FStrong(string stats)
+    public void FStrong(int L)
     {
         hitBoxes[13].SetActive(true);
-        string[] statSplit = stats.Split(" ");
-        currentStats[0] = float.Parse(statSplit[0]) + (float.Parse(statSplit[0])*strongDamage); //Damage
-        currentStats[1] = float.Parse(statSplit[1]); //Angle
-        currentStats[2] = float.Parse(statSplit[2]) + (float.Parse(statSplit[2]) * strongDamage); //Knockback
+        string[] statSplit = Line[L].Split(" ");
+        currentStats[0] = float.Parse(statSplit[1]) + (float.Parse(statSplit[1])*strongDamage); //Damage
+        currentStats[1] = float.Parse(statSplit[2]); //Angle
+        currentStats[2] = float.Parse(statSplit[3]) + (float.Parse(statSplit[3]) * strongDamage); //Knockback
+        currentStats[3] = float.Parse(statSplit[4]); //Time Stun
         strongDamage = 0.0f;
     }
 
-    public void UStrong(string stats)
+    public void UStrong(int L)
     {
         hitBoxes[14].SetActive(true);
-        string[] statSplit = stats.Split(" ");
-        currentStats[0] = float.Parse(statSplit[0]) + (float.Parse(statSplit[0]) * strongDamage); //Damage
-        currentStats[1] = float.Parse(statSplit[1]); //Angle
-        currentStats[2] = float.Parse(statSplit[2]) + (float.Parse(statSplit[2]) * strongDamage); //Knockback
+        string[] statSplit = Line[L].Split(" ");
+        currentStats[0] = float.Parse(statSplit[1]) + (float.Parse(statSplit[1])*strongDamage); //Damage
+        currentStats[1] = float.Parse(statSplit[2]); //Angle
+        currentStats[2] = float.Parse(statSplit[3]) + (float.Parse(statSplit[3]) * strongDamage); //Knockback
+        currentStats[3] = float.Parse(statSplit[4]); //Time Stun
         strongDamage = 0.0f;
     }
 
-    public void DStrong(string stats)
+    public void DStrong(int L)
     {
         hitBoxes[15].SetActive(true);
-        string[] statSplit = stats.Split(" ");
-        currentStats[0] = float.Parse(statSplit[0]) + (float.Parse(statSplit[0]) * strongDamage); //Damage
-        currentStats[1] = float.Parse(statSplit[1]); //Angle
-        currentStats[2] = float.Parse(statSplit[2]) + (float.Parse(statSplit[2]) * strongDamage); //Knockback
+        string[] statSplit = Line[L].Split(" ");
+        currentStats[0] = float.Parse(statSplit[1]) + (float.Parse(statSplit[1])*strongDamage); //Damage
+        currentStats[1] = float.Parse(statSplit[2]); //Angle
+        currentStats[2] = float.Parse(statSplit[3]) + (float.Parse(statSplit[3]) * strongDamage); //Knockback
+        currentStats[3] = float.Parse(statSplit[4]); //Time Stun
         strongDamage = 0.0f;
     }
 
-    public void USpecial(string stats)
+    public void USpecial(int L)
     {
-        string[] statSplit = stats.Split(" ");
-        hitBoxes[int.Parse(statSplit[5])].SetActive(true);
-        currentStats[0] = float.Parse(statSplit[0]); //Damage
-        currentStats[1] = float.Parse(statSplit[1]); //Angle
-        currentStats[2] = float.Parse(statSplit[2]); //Knockback
-        float XDir = float.Parse(statSplit[3]); //XDir
-        float yDir = float.Parse(statSplit[4]); //YDir
+        string[] statSplit = Line[L].Split(" ");
+        hitBoxes[int.Parse(statSplit[7])].SetActive(true);
+        currentStats[0] = float.Parse(statSplit[1]); //Damage
+        currentStats[1] = float.Parse(statSplit[2]); //Angle
+        currentStats[2] = float.Parse(statSplit[3]); //Knockback
+        currentStats[3] = float.Parse(statSplit[4]); //Time Stun
+        float XDir = float.Parse(statSplit[5]); //XDir
+        float yDir = float.Parse(statSplit[6]); //YDir
+
+        if (playerMovement.isInAir)
+        {
+            Physics2D.gravity = new Vector2(0, 0);
+        }
 
         playerMovement.rb.AddForce(new Vector2( XDir, yDir));
     }
@@ -382,6 +417,11 @@ public class PlayerAttack : MonoBehaviour
 
     void DespawnHitBox(int hitboxIndex)
     {
+    if (hitboxIndex==16)
+        {
+           isSpecial = false;
+        }
+
         hitBoxes[hitboxIndex].SetActive(false);
     }
 

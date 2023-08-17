@@ -4,23 +4,23 @@ using UnityEngine;
 
 public class Stun_Info : MonoBehaviour
 {
-	public string TAKD;
-	private float[] TAKDInfo;
+	public string DAKT;
+	private float[] DAKTInfo;
 
 	void Start()
 	{
-		TAKDInfo = new float[4];
+		DAKTInfo = new float[4];
 
-		string[] Info = TAKD.Split(" ");
-        TAKDInfo[0] = float.Parse(Info[0]); //TimeDelay
-        TAKDInfo[1] = float.Parse(Info[1]); //Angle
-        TAKDInfo[2] = float.Parse(Info[2]); //Knockback
-        TAKDInfo[3] = float.Parse(Info[3]); //Damage
+		string[] Info = DAKT.Split(" ");
+        DAKTInfo[0] = float.Parse(Info[0]); //Damage
+        DAKTInfo[1] = float.Parse(Info[1]); //Angle
+        DAKTInfo[2] = float.Parse(Info[2]); //Knockback
+        DAKTInfo[3] = float.Parse(Info[3]); //Time
 	}
 
-	public float[] GetTAKDInfo()
+	public float[] GetDAKTInfo()
 	{
-		return TAKDInfo;
+		return DAKTInfo;
 	}
 	
 }

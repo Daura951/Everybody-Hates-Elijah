@@ -80,8 +80,8 @@ AnimationClip:
   m_Events:
   - time: 0.2
     functionName: UTilt
-    data: 10 85 250
+    data: 10 85 250 0
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 0
+    intParameter: 8
     messageOptions: 0

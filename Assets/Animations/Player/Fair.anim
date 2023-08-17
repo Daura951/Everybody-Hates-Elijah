@@ -95,8 +95,8 @@ AnimationClip:
   m_Events:
   - time: 0.23333333
     functionName: Fair
-    data: 20 20 100
+    data: 20 20 100 0
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 0
+    intParameter: 11
     messageOptions: 0

@@ -1,0 +1,20 @@
+Jab - B
+
+UTilt - Up + B
+DTilt - Down + B 
+FTilt - Left/Right + B
+
+nair -  Jump + B
+Uair - Jump + Up + B
+Dair - Jump + Down + B
+Fair - Jump + Left/Right + B
+
+NSpecial - A
+DSpecial - Down + A
+USpecial - Up + A
+FSpecial - Left/Right + A
+
+FStrong - X
+UStrong - Up + X
+DStrong - Down + X
+

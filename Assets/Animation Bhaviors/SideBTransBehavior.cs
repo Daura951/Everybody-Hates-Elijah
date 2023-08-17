@@ -14,6 +14,8 @@ public class SideBTransBehavior : StateMachineBehaviour
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         PlayerAttack.attackInstance.isAttacking = false;
+        if(PlayerAttack.attackInstance.playerMovement.isInAir)
+            Physics2D.gravity = new Vector2(0 , -9.81f);
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

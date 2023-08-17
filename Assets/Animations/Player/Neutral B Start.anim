@@ -89,8 +89,8 @@ AnimationClip:
   m_Events:
   - time: 0
     functionName: NeutralB
-    data: 30 140 250
+    data: 30 140 250 0
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 0
+    intParameter: 7
     messageOptions: 0

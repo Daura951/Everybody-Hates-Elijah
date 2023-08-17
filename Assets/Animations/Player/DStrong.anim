@@ -80,8 +80,8 @@ AnimationClip:
   m_Events:
   - time: 0.2
     functionName: DStrong
-    data: 40 15 300
+    data: 40 15 300 0
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 0
+    intParameter: 16
     messageOptions: 0

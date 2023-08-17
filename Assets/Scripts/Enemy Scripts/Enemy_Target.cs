@@ -32,6 +32,7 @@ public class Enemy_Target : MonoBehaviour
     Seeker seeker;
     Rigidbody2D rb;
     EnemyStun ES;
+    Hit H;
 
     private void Start()
     {
@@ -39,6 +40,7 @@ public class Enemy_Target : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         ES = GetComponent<EnemyStun>();
         target = GameObject.FindGameObjectsWithTag("Player")[0].transform;
+        H = GetComponent<Hit>();
 
 
         InvokeRepeating("UpdatePath", 0f, pathUpdateSeconds);
@@ -47,8 +49,8 @@ public class Enemy_Target : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(TargetInDistance() && canFollow && !ES.getIsStunned())
-        { 
+        if (TargetInDistance() && canFollow && !ES.getIsStunned() && !H.getIsStunned())
+        {
             FollowPath();
         }
     }
@@ -85,16 +87,17 @@ public class Enemy_Target : MonoBehaviour
         Vector2 force = direction * speed * Time.deltaTime;
 
 
-        //Jump time!
-        if(canJump && isGrounded.collider!=null && isGrounded.collider.tag=="Platform")
-        {
-            if (direction.y > jumpNodeHeightReq)
+            //Jump time!
+            if (canJump && isGrounded.collider != null && isGrounded.collider.tag == "Platform")
             {
-                rb.AddForce(Vector2.up * speed * jumpModifier);
+                if (direction.y > jumpNodeHeightReq)
+                {
+                    rb.AddForce(Vector2.up * speed * jumpModifier);
+                }
             }
-        }
 
-        rb.AddForce(force);
+            rb.AddForce(new Vector2(force.x, 0.0f));
+ 
 
         float distance = Vector2.Distance(rb.position, path.vectorPath[currentWayPoint]);
         if(distance < nextWayPointDistance)

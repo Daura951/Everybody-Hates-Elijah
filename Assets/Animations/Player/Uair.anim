@@ -80,8 +80,8 @@ AnimationClip:
   m_Events:
   - time: 0.13333334
     functionName: Uair
-    data: 15 85 200
+    data: 15 85 200 0
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 0
+    intParameter: 12
     messageOptions: 0

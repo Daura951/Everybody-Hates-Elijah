@@ -86,10 +86,10 @@ AnimationClip:
   m_Events:
   - time: 0.13333334
     functionName: Nair
-    data: 30 45 300
+    data: 30 45 300 0
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 0
+    intParameter: 4
     messageOptions: 0
   - time: 0.33333334
     functionName: DespawnHitBox

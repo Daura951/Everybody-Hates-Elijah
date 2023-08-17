@@ -5,12 +5,20 @@ using UnityEngine;
 public class Hit : MonoBehaviour
 {
     private Rigidbody2D rb;
-    private bool isHit = false, isLeft = false;
+    Enemy_Target ET;
+    Health H;
+
+    private bool isHit = false, isLeft = false, Stunned;
+    private float timer;
     private float[] stats;
+
+
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+       rb = GetComponent<Rigidbody2D>();
+       ET = GetComponent<Enemy_Target>();
+       H = GetComponent<Health>();
     }
 
     // Update is called once per frame
@@ -18,7 +26,22 @@ public class Hit : MonoBehaviour
     {
         if(isHit)
         {
+            timer = stats[3];
+             Debug.Log(timer);
+            H.TakeDamage(stats[0]);
             GetHit(stats[2], stats[1]);
+        }
+
+        if(Stunned)
+        {
+           if(timer > 0)
+           {
+            timer-= Time.deltaTime;
+           }
+           else
+            timer = 0;
+           if(timer == 0)
+            Stunned=false;
         }
     }
 
@@ -33,6 +56,7 @@ public class Hit : MonoBehaviour
         }
 
         rb.AddForce(new Vector2(XComponent, YComponent));
+        Debug.Log("velocity  " +rb.velocity);
 
         isHit = false;
     }
@@ -44,7 +68,8 @@ public class Hit : MonoBehaviour
         if(collision.gameObject.tag == "Hitbox" && !(collision.gameObject.name == "StickyHandHitbox"))
         {
             stats = collision.transform.parent.gameObject.GetComponent<PlayerAttack>().GetCurrentStats();
-            isHit = true;
+             rb.velocity = new Vector2(0,0);
+            isHit = Stunned = true;
             isLeft = collision.transform.parent.gameObject.GetComponent<PlayerMovement>().GetIsLeft();
         }
 
@@ -52,7 +77,8 @@ public class Hit : MonoBehaviour
         {
             print("Gotcha!!!!");
             stats = collision.transform.parent.gameObject.GetComponent<PlayerAttack>().GetCurrentStats();
-            isHit = true;
+             rb.velocity = new Vector2(0,0);
+            isHit = Stunned = true;
             isLeft = collision.transform.parent.gameObject.GetComponent<PlayerMovement>().GetIsLeft();
             collision.transform.parent.gameObject.GetComponent<PlayerAttack>().isSticked = true;
             collision.transform.parent.gameObject.GetComponent<PlayerAttack>().stickyHand.GetComponent<StickyHand>().goBack = true;
@@ -60,5 +86,10 @@ public class Hit : MonoBehaviour
             collision.transform.parent.gameObject.GetComponent<PlayerAttack>().hitBoxes[6].GetComponent<CircleCollider2D>().enabled = false;
 
         }
+    }
+
+    public bool getIsStunned()
+    {
+        return Stunned;
     }
 }

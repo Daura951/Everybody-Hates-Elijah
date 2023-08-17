@@ -113,10 +113,10 @@ AnimationClip:
   m_Events:
   - time: 0.1
     functionName: USpecial
-    data: 10 110 100 0 0 17
+    data: 10 110 100 0 0 0 17
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 0
+    intParameter: 17
     messageOptions: 0
   - time: 0.15
     functionName: DespawnHitBox
@@ -127,10 +127,10 @@ AnimationClip:
     messageOptions: 0
   - time: 0.2
     functionName: USpecial
-    data: 10 30 100 0 0 18
+    data: 10 30 100 0 0 0 18
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 0
+    intParameter: 18
     messageOptions: 0
   - time: 0.25
     functionName: DespawnHitBox
@@ -141,8 +141,8 @@ AnimationClip:
     messageOptions: 0
   - time: 0.7
     functionName: USpecial
-    data: 10 65 200 0 550 16
+    data: 10 65 200 0 0 550 16
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 0
+    intParameter: 19
     messageOptions: 0

@@ -1,0 +1,21 @@
+0.Name Damage Angle Knockback StunTime XDir YDir HitBox
+1.Jab1 90 90 100 100
+2.Jab2 15 35 90 4
+3.jab3 20 45 150 0
+4.Nair 30 45 300 0
+5.DownB 5 80 90 0
+6.SideB 10 20 600 0 10000 0
+7.NeutralB 30 140 250 0
+8.Utilt 10 85 250 0
+9.FTilt 5 30 100 0
+10.DTilt 5 70 200 0
+11.Fair 20 20 100 0
+12.Uair 15 85 200 0
+13.Dair 15 280 200 0
+14.FStrong 40 35 300 0
+15.UStrong 40 89 300 0
+16.DStrong 40 15 300 0
+17.USpecial1 10 110 100 0 0 0 17
+18.USpecial2 10 30 100 0 0 0 18
+19.USpecial3 10 65 200 0 0 550 16
+

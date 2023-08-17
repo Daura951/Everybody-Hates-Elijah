@@ -89,8 +89,8 @@ AnimationClip:
   m_Events:
   - time: 0.3
     functionName: Dair
-    data: 15 280 200
+    data: 15 280 200 0
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 12
+    intParameter: 13
     messageOptions: 0

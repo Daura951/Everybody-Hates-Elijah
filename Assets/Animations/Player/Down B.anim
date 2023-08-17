@@ -101,8 +101,8 @@ AnimationClip:
   m_Events:
   - time: 0.36666667
     functionName: DownB
-    data: 5 80 90
+    data: 5 80 90 0
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 0
+    intParameter: 5
     messageOptions: 0

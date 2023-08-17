@@ -83,8 +83,8 @@ AnimationClip:
   m_Events:
   - time: 0.2
     functionName: Jab3
-    data: 20 45 150
+    data: 20 45 150 0
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 0
+    intParameter: 3
     messageOptions: 0

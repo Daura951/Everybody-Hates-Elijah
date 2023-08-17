@@ -12,7 +12,7 @@ public class EnemyStun : MonoBehaviour
     Health H;
     
     private Stun_Info SI;
-    private float[] SITAKD;
+    private float[] SIDAKT;
 
     // Start is called before the first frame update
     void Start()
@@ -51,17 +51,17 @@ public class EnemyStun : MonoBehaviour
       
 
        SI = col.gameObject.GetComponent<Stun_Info>();
-       SITAKD = SI.GetTAKDInfo();
+       SIDAKT = SI.GetDAKTInfo();
 
-       timer += SITAKD[0];
+       timer = SIDAKT[3];
        /* 
-       print("Time " + SITAKD[0]);
-       print("Angle " + SITAKD[1]);
-       print("Knockback " + SITAKD[2]);
-       print("Damage " + SITAKD[3]);
+       print("Damage " + SIDAKT[0]);
+       print("Angle " + SIDAKT[1]);
+       print("Knockback " + SIDAKT[2]);
+       print("Time " + SIDAKT[3]);
        */
-       H.TakeDamage(SITAKD[3]);
-       GetHit(SITAKD[1], SITAKD[2]);
+       H.TakeDamage(SIDAKT[0]);
+       GetHit(SIDAKT[1], SIDAKT[2]);
       }
     }
 
@@ -76,17 +76,17 @@ public class EnemyStun : MonoBehaviour
       
 
        SI = col.gameObject.GetComponent<Stun_Info>();
-       SITAKD = SI.GetTAKDInfo();
+       SIDAKT = SI.GetDAKTInfo();
 
-       timer += SITAKD[0];
+       timer = SIDAKT[3];
        /* 
-       print("Time " + SITAKD[0]);
-       print("Angle " + SITAKD[1]);
-       print("Knockback " + SITAKD[2]);
-       print("Damage " + SITAKD[3]);
+       print("Damage " + SIDAKT[0]);
+       print("Angle " + SIDAKT[1]);
+       print("Knockback " + SIDAKT[2]);
+       print("Time " + SIDAKT[3]);
        */
-       H.TakeDamage(SITAKD[3]);
-       GetHit(SITAKD[1], SITAKD[2]);
+       H.TakeDamage(SIDAKT[0]);
+       GetHit(SIDAKT[1], SIDAKT[2]);
       }
     }
 

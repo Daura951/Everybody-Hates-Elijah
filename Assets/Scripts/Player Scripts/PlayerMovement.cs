@@ -101,14 +101,14 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
-        if (!stunned)
+        if (!stunned && !anim.GetBool("Taunt"))
         {
             if(!anim.GetBool("Climbing"))
             Move();
 
             Jump();
         }
-        else
+        else if (stunned)
         {
             anim.ResetTrigger("Walking");
             anim.ResetTrigger("Running");
@@ -261,6 +261,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.gameObject.tag == "Platform" || collision.gameObject.tag == "PassThroughPlatform")
         {
+
+            Physics2D.gravity = new Vector2(0 , -9.81f);
+
             if (collision.gameObject.GetComponent<Escelator>())
                 Escelator = collision.gameObject.GetComponent<Escelator>();
 
