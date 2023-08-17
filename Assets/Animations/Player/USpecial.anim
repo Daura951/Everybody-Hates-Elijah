@@ -146,3 +146,10 @@ AnimationClip:
     floatParameter: 0
     intParameter: 19
     messageOptions: 0
+  - time: 0.96666664
+    functionName: DespawnHitBox
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 16
+    messageOptions: 0

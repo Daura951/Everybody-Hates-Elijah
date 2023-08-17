@@ -417,10 +417,10 @@ public class PlayerAttack : MonoBehaviour
 
     void DespawnHitBox(int hitboxIndex)
     {
-    if (hitboxIndex==16)
-        {
-           isSpecial = false;
-        }
+        if (hitboxIndex==16)
+            {
+               isSpecial = false;
+            }
 
         hitBoxes[hitboxIndex].SetActive(false);
     }
