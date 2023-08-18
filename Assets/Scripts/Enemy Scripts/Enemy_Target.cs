@@ -29,10 +29,28 @@ public class Enemy_Target : MonoBehaviour
     private float tfBeforeJump;
     public RaycastHit2D isGrounded;
     public bool isAwake = false;
+    private bool isAttacking = false;
     Seeker seeker;
     Rigidbody2D rb;
     EnemyStun ES;
     Hit H;
+
+
+
+    public struct Attack
+    {
+        public float attackDistance;
+        public string attackName;
+
+        public Attack(float distance, string name)
+        {
+            this.attackDistance = distance;
+            this.attackName = name;
+        }
+    }
+
+    private Attack[] attacks;
+
 
     private void Start()
     {
@@ -41,7 +59,9 @@ public class Enemy_Target : MonoBehaviour
         ES = GetComponent<EnemyStun>();
         target = GameObject.FindGameObjectsWithTag("Player")[0].transform;
         H = GetComponent<Hit>();
-
+        attacks = new Attack[2];
+        attacks[0] = new Attack(2f, "punch");
+        attacks[1] = new Attack(1f, "kick");
 
         InvokeRepeating("UpdatePath", 0f, pathUpdateSeconds);
 
@@ -57,8 +77,21 @@ public class Enemy_Target : MonoBehaviour
 
     private void UpdatePath()
     {
+
+        for(int i = 0; i < attacks.Length; i++)
+        {
+            if (Vector3.Distance(target.position, transform.position) <= attacks[i].attackDistance && Vector3.Distance(target.position, transform.position) > attacks[i].attackDistance - .5f)
+            {
+                print(attacks[i].attackName);
+                isAttacking = true;
+                break;
+            }
+
+            else isAttacking = false;
+        }
+
         //If we can follow the player and the player is in distance and if we have calculated the current path
-        if(canFollow && TargetInDistance() && seeker.IsDone())
+        if(canFollow && TargetInDistance() && seeker.IsDone() && !isAttacking)
         {
             //Get a new path
             seeker.StartPath(rb.position, target.position, OnPathComplete);
