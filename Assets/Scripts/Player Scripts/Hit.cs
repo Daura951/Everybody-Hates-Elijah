@@ -24,7 +24,9 @@ public class Hit : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isHit)
+
+        Debug.Log("velocity  " + rb.velocity);
+        if (isHit)
         {
             timer = stats[3];
              Debug.Log(timer);
@@ -56,7 +58,6 @@ public class Hit : MonoBehaviour
         }
 
         rb.AddForce(new Vector2(XComponent, YComponent));
-        Debug.Log("velocity  " +rb.velocity);
 
         isHit = false;
     }
