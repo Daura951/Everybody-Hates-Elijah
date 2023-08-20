@@ -265,7 +265,7 @@ public class PlayerMovement : MonoBehaviour
 
         anim.SetBool("isFalling", isFalling);
 
-        if (Input.GetAxisRaw("Vertical") < 0 && !attackScript.isAttacking)
+        if (Input.GetAxisRaw("Vertical") < 0)
         {
             if (currentPassThroughPlatform != null)
             {
@@ -392,10 +392,14 @@ public class PlayerMovement : MonoBehaviour
 
         BoxCollider2D platformCol = currentPassThroughPlatform.GetComponent<BoxCollider2D>();
         yield return new WaitForSeconds(crouchTimer);
-        Physics2D.IgnoreCollision(playerCollider, platformCol);
-        yield return new WaitForSeconds(.5f);
-        Physics2D.IgnoreCollision(playerCollider, platformCol, false);
-        isOnPassThrough = false;
+        if (!attackScript.isAttacking)
+        { 
+            Physics2D.IgnoreCollision(playerCollider, platformCol);
+            yield return new WaitForSeconds(.5f);
+            Physics2D.IgnoreCollision(playerCollider, platformCol, false);
+            isOnPassThrough = false;
+        }
+        
        
     }
 
