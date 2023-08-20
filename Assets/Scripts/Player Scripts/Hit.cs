@@ -25,7 +25,6 @@ public class Hit : MonoBehaviour
     void Update()
     {
 
-        Debug.Log("velocity  " + rb.velocity);
         if (isHit)
         {
             timer = stats[3];
@@ -78,7 +77,6 @@ public class Hit : MonoBehaviour
         {
             print("Gotcha!!!!");
             stats = collision.transform.parent.gameObject.GetComponent<PlayerAttack>().GetCurrentStats();
-             rb.velocity = new Vector2(0,0);
             isHit = Stunned = true;
             isLeft = collision.transform.parent.gameObject.GetComponent<PlayerMovement>().GetIsLeft();
             collision.transform.parent.gameObject.GetComponent<PlayerAttack>().isSticked = true;

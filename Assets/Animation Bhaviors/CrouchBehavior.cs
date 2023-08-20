@@ -16,8 +16,6 @@ public class CrouchBehavior : StateMachineBehaviour
         if (PlayerAttack.attackInstance.isAttacking && PlayerAttack.attackInstance.isSpecial)
         {
             PlayerAttack.attackInstance.anim.Play("Down B");
-            PlayerAttack.attackInstance.isAttacking = false;
-            PlayerAttack.attackInstance.isSpecial = false;
         }
 
         else if(PlayerAttack.attackInstance.isAttacking)

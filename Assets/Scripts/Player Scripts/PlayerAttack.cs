@@ -7,7 +7,7 @@ using System.IO;
 public class PlayerAttack : MonoBehaviour
 {
     public Animator anim;
-    public bool isAttacking = false, isSpecial = false, isSticked = false;
+    public bool isAttacking, isSpecial = false, isSticked = false;
     public static PlayerAttack attackInstance;
     public GameObject[] hitBoxes;
     public GameObject stickyHand;
@@ -17,6 +17,9 @@ public class PlayerAttack : MonoBehaviour
     public bool strongDone = false;
     public float strongTimer = 0.0f;
     float strongDamage = 0.0f;
+
+    Stun S;
+    private bool stunned;
 
     private string FilePath;
     string[] Line;
@@ -31,14 +34,14 @@ public class PlayerAttack : MonoBehaviour
     {
         currentStats = new float[4];
         anim = GetComponent<Animator>();
-        FilePath = Application.dataPath +"/ElijahAttackValues.txt";
+        S = GetComponent<Stun>();
+        FilePath = Application.dataPath + "/ElijahAttackValues.txt";
         Line = File.ReadAllLines(FilePath);
     }
 
     private void Update()
     {
-
-        //print(isAttacking);
+        stunned = S.getIsStunned();
         Attack();
     }
 
@@ -47,57 +50,57 @@ public class PlayerAttack : MonoBehaviour
 
 
         //Jab if statement
-        if (Input.GetButtonDown("Fire2") && Input.GetAxisRaw("Vertical") == 0 && !isAttacking && anim.GetBool("Idle") == true && !playerMovement.isInAir)
+        if (Input.GetButtonDown("Fire2") && Input.GetAxisRaw("Vertical") == 0 && !isAttacking && anim.GetBool("Idle") == true && !playerMovement.isInAir && !stunned)
         {
             print("Jab");
             isSpecial = false;
             isAttacking = true;
         }
 
-        else if (Input.GetButtonDown("Fire2") && !isAttacking && Input.GetAxisRaw("Vertical") > 0 && anim.GetBool("Idle") && !playerMovement.isInAir)
+        else if (Input.GetButtonDown("Fire2") && !isAttacking && Input.GetAxisRaw("Vertical") > 0 && anim.GetBool("Idle") && !playerMovement.isInAir && !stunned)
         {
             print("UTilt");
             isAttacking = true;
         }
 
-        else if (Input.GetButtonDown("Fire2") && !isAttacking && Input.GetAxisRaw("Vertical") < 0 && anim.GetBool("Crouch") && !playerMovement.isInAir)
+        else if (Input.GetButtonDown("Fire2") && !isAttacking && Input.GetAxisRaw("Vertical") < 0 && anim.GetBool("Crouch") && !playerMovement.isInAir && !stunned)
         {
             print("DTilt");
             isAttacking = true;
         }
 
-        else if (Input.GetButtonDown("Fire2") && !isAttacking && Input.GetAxisRaw("Horizontal") != 0 && !playerMovement.isInAir)
+        else if (Input.GetButtonDown("Fire2") && !isAttacking && Input.GetAxisRaw("Horizontal") != 0 && !playerMovement.isInAir && !stunned)
         {
             print("FTilt");
             isAttacking = true;
         }
 
-        else if (Input.GetButtonDown("Fire2") && !isAttacking && Input.GetAxisRaw("Vertical") == 0 && Input.GetAxisRaw("Horizontal") == 0 && playerMovement.isInAir)
+        else if (Input.GetButtonDown("Fire2") && !isAttacking && Input.GetAxisRaw("Vertical") == 0 && Input.GetAxisRaw("Horizontal") == 0 && playerMovement.isInAir && !stunned)
         {
             isAttacking = true;
             print("Nair");
         }
 
-        else if (Input.GetButtonDown("Fire2") && !isAttacking && Input.GetAxisRaw("Vertical") > 0 && playerMovement.isInAir)
+        else if (Input.GetButtonDown("Fire2") && !isAttacking && Input.GetAxisRaw("Vertical") > 0 && playerMovement.isInAir && !stunned)
         {
             print("Uair");
             isAttacking = true;
         }
 
-        else if (Input.GetButtonDown("Fire2") && !isAttacking && Input.GetAxisRaw("Vertical") < 0 && playerMovement.isInAir)
+        else if (Input.GetButtonDown("Fire2") && !isAttacking && Input.GetAxisRaw("Vertical") < 0 && playerMovement.isInAir && !stunned)
         {
             print("Dair");
             isAttacking = true;
         }
 
-        else if (Input.GetButtonDown("Fire2") && !isAttacking && Input.GetAxisRaw("Horizontal") != 0 && playerMovement.isInAir)
+        else if (Input.GetButtonDown("Fire2") && !isAttacking && Input.GetAxisRaw("Horizontal") != 0 && playerMovement.isInAir && !stunned)
         {
             print("Fair");
             isAttacking = true;
         }
 
 
-        else if (Input.GetButtonDown("Fire1") && !isAttacking && anim.GetBool("Idle") == true && !playerMovement.isInAir && Input.GetAxisRaw("Vertical") == 0f && Input.GetAxisRaw("Horizontal") == 0f && !playerMovement.isInAir)
+        else if (Input.GetButtonDown("Fire1") && !isAttacking && anim.GetBool("Idle") == true && !playerMovement.isInAir && Input.GetAxisRaw("Vertical") == 0f && Input.GetAxisRaw("Horizontal") == 0f && !playerMovement.isInAir && !stunned)
         {
             print("NSpecial");
             isSpecial = true;
@@ -105,36 +108,36 @@ public class PlayerAttack : MonoBehaviour
         }
 
 
-        else if (Input.GetButtonDown("Fire1") && !isAttacking && Input.GetAxisRaw("Vertical") < 0f)
+        else if (Input.GetButtonDown("Fire1") && !isAttacking && Input.GetAxisRaw("Vertical") < 0f && !stunned)
         {
             isAttacking = true;
             isSpecial = true;
             print("DSpecial");
         }
 
-        else if (Input.GetButtonDown("Fire1") && !isAttacking && Input.GetAxisRaw("Vertical") > 0f)
+        else if (Input.GetButtonDown("Fire1") && !isAttacking && Input.GetAxisRaw("Vertical") > 0f && !stunned)
         {
             isAttacking = true;
             isSpecial = true;
             print("USpecial");
         }
 
-        else if (Input.GetButtonDown("Fire1") && !isAttacking && Input.GetAxisRaw("Horizontal") != 0f && Input.GetAxisRaw("Vertical") == 0)
+        else if (Input.GetButtonDown("Fire1") && !isAttacking && Input.GetAxisRaw("Horizontal") != 0f && Input.GetAxisRaw("Vertical") == 0 && !stunned)
         {
             isAttacking = true;
             isSpecial = true;
 
             if (playerMovement.isInAir)
-        {
-            Physics2D.gravity = new Vector2(0, 0);
-        }
+            {
+                Physics2D.gravity = new Vector2(0, 0);
+            }
 
             print("FSpecial");
         }
 
 
 
-        else if (Input.GetButton("Fire3") && !strongDone && Input.GetAxisRaw("Vertical")==0 && !playerMovement.isInAir)
+        else if (Input.GetButton("Fire3") && !strongDone && Input.GetAxisRaw("Vertical") == 0 && !playerMovement.isInAir && !stunned && !isAttacking && !isSpecial)
         {
             isAttacking = true;
             if (!strongStarted)
@@ -145,7 +148,7 @@ public class PlayerAttack : MonoBehaviour
             }
             strongTimer += Time.deltaTime;
 
-            if(strongTimer < 1.2f)
+            if (strongTimer < 1.2f)
             {
                 strongDamage += .001f;
                 print(strongDamage);
@@ -158,7 +161,7 @@ public class PlayerAttack : MonoBehaviour
 
         }
 
-        else if (Input.GetButton("Fire3") && !strongDone && Input.GetAxisRaw("Vertical") > 0 && !playerMovement.isInAir)
+        else if (Input.GetButton("Fire3") && !strongDone && Input.GetAxisRaw("Vertical") > 0 && !playerMovement.isInAir && !stunned && !isAttacking && !isSpecial)
         {
             isAttacking = true;
             if (!strongStarted)
@@ -182,7 +185,7 @@ public class PlayerAttack : MonoBehaviour
 
         }
 
-        else if (Input.GetButton("Fire3") && !strongDone && Input.GetAxisRaw("Vertical") < 0 && !playerMovement.isInAir)
+        else if (Input.GetButton("Fire3") && !strongDone && Input.GetAxisRaw("Vertical") < 0 && !playerMovement.isInAir && !stunned && !isAttacking && !isSpecial)
         {
             isAttacking = true;
             if (!strongStarted)
@@ -207,7 +210,7 @@ public class PlayerAttack : MonoBehaviour
         }
 
 
-        else if (Input.GetButtonUp("Fire3") || strongDone)
+        else if ((Input.GetButtonUp("Fire3") || strongDone) && strongStarted && !isSpecial)
         {
             print("Releasing strong");
             strongStarted = false;
@@ -364,7 +367,7 @@ public class PlayerAttack : MonoBehaviour
     {
         hitBoxes[13].SetActive(true);
         string[] statSplit = Line[L].Split(" ");
-        currentStats[0] = float.Parse(statSplit[1]) + (float.Parse(statSplit[1])*strongDamage); //Damage
+        currentStats[0] = float.Parse(statSplit[1]) + (float.Parse(statSplit[1]) * strongDamage); //Damage
         currentStats[1] = float.Parse(statSplit[2]); //Angle
         currentStats[2] = float.Parse(statSplit[3]) + (float.Parse(statSplit[3]) * strongDamage); //Knockback
         currentStats[3] = float.Parse(statSplit[4]); //Time Stun
@@ -375,7 +378,7 @@ public class PlayerAttack : MonoBehaviour
     {
         hitBoxes[14].SetActive(true);
         string[] statSplit = Line[L].Split(" ");
-        currentStats[0] = float.Parse(statSplit[1]) + (float.Parse(statSplit[1])*strongDamage); //Damage
+        currentStats[0] = float.Parse(statSplit[1]) + (float.Parse(statSplit[1]) * strongDamage); //Damage
         currentStats[1] = float.Parse(statSplit[2]); //Angle
         currentStats[2] = float.Parse(statSplit[3]) + (float.Parse(statSplit[3]) * strongDamage); //Knockback
         currentStats[3] = float.Parse(statSplit[4]); //Time Stun
@@ -386,7 +389,7 @@ public class PlayerAttack : MonoBehaviour
     {
         hitBoxes[15].SetActive(true);
         string[] statSplit = Line[L].Split(" ");
-        currentStats[0] = float.Parse(statSplit[1]) + (float.Parse(statSplit[1])*strongDamage); //Damage
+        currentStats[0] = float.Parse(statSplit[1]) + (float.Parse(statSplit[1]) * strongDamage); //Damage
         currentStats[1] = float.Parse(statSplit[2]); //Angle
         currentStats[2] = float.Parse(statSplit[3]) + (float.Parse(statSplit[3]) * strongDamage); //Knockback
         currentStats[3] = float.Parse(statSplit[4]); //Time Stun
@@ -409,7 +412,7 @@ public class PlayerAttack : MonoBehaviour
             Physics2D.gravity = new Vector2(0, 0);
         }
 
-        playerMovement.rb.AddForce(new Vector2( XDir, yDir));
+        playerMovement.rb.AddForce(new Vector2(XDir, yDir));
     }
 
 
@@ -417,10 +420,10 @@ public class PlayerAttack : MonoBehaviour
 
     void DespawnHitBox(int hitboxIndex)
     {
-        if (hitboxIndex==16)
-            {
-               isSpecial = false;
-            }
+        if (hitboxIndex == 16)
+        {
+            isSpecial = false;
+        }
 
         hitBoxes[hitboxIndex].SetActive(false);
     }

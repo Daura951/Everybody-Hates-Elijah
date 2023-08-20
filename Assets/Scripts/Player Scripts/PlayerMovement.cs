@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+
+    [Header("Components")]
     public Rigidbody2D rb;
     public SpriteRenderer sr;
     private Collider2D playerCollider;
@@ -15,37 +17,42 @@ public class PlayerMovement : MonoBehaviour
     float Run, Crawl, scaledGravity, jumpAmt;
     public float Speed;
 
-    Material WalkMat;
+
     public Material crouchMat, RunMat;
 
     private GameObject currentPassThroughPlatform;
 
+    [Header("Movement")]
     public bool isFalling = false;
     private bool isLeft = false;
     public bool isInAir;
     public bool isInLandingLag = false;
     private bool isOnPassThrough = false;
     bool isCrouch = false;
+    public float crouchTimer = .5f;
+    public float terminalVelocityY =  -10f;
 
     public Transform[] groundRays;
     public float rayRange = 5f;
 
+    [Header("Attacks")]
     public PlayerAttack attackScript;
 
     private Stun S;
     private bool stunned;
 
+    [Header("Escelator")]
     private Escelator Escelator;
     public bool OnEscelator, InEscelator = false;
 
     // Start is called before the first frame update
     void Start()
     {
+
         rb = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<Collider2D>();
         anim = GetComponent<Animator>();
         attackScript = GetComponent<PlayerAttack>();
-        WalkMat = sr.material;
         Speed = Walk;
         Run = Walk * 2;
         Crawl = Walk / 2;
@@ -55,7 +62,10 @@ public class PlayerMovement : MonoBehaviour
 
         S = GetComponent<Stun>();
 
-
+        if(terminalVelocityY > 0)
+        {
+            terminalVelocityY *= -1;
+        }
     }
 
     // Update is called once per frame
@@ -126,6 +136,11 @@ public class PlayerMovement : MonoBehaviour
             else isFalling = false;
             anim.SetBool("isFalling", isFalling);
         }
+
+        if(rb.velocity.y < terminalVelocityY)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, terminalVelocityY);
+        }
     }
 
     void Move()
@@ -173,7 +188,7 @@ public class PlayerMovement : MonoBehaviour
                         anim.SetTrigger("Walking");
                         break;
                     case 3.5f:
-                        //  isCrouch = true;
+                        //isCrouch = true;
                         anim.ResetTrigger("Walking");
                         break;
 
@@ -208,12 +223,14 @@ public class PlayerMovement : MonoBehaviour
                     switch (jumpAmt)
                     {
                         case 1:
-                            anim.SetBool("isJumping", true);
-                            anim.SetBool("isDoubleJumping", false);
+                            if(isInLandingLag==false)
+                                anim.SetBool("isJumping", true);
+                                anim.SetBool("isDoubleJumping", false);
                             break;
                         case 2:
                             anim.SetBool("isJumping", false);
                             anim.SetBool("isDoubleJumping", true);
+                            rb.gravityScale = 1.0f;
                             break;
                     }
                     rb.velocity = new Vector2(rb.velocity.x, jumpForce);
@@ -248,7 +265,7 @@ public class PlayerMovement : MonoBehaviour
 
         anim.SetBool("isFalling", isFalling);
 
-        if (Input.GetAxisRaw("Vertical") < 0)
+        if (Input.GetAxisRaw("Vertical") < 0 && !attackScript.isAttacking)
         {
             if (currentPassThroughPlatform != null)
             {
@@ -276,13 +293,16 @@ public class PlayerMovement : MonoBehaviour
             if (rb.velocity.y == 0 || Escelator != null)
                 isInAir = false;
 
-            anim.SetBool("isGrounded", !isInAir);
+
 
             RaycastHit2D hitGround = Physics2D.Raycast(groundRays[0].transform.position, -Vector2.up * rayRange);
+            Debug.DrawRay(groundRays[0].position, -Vector2.up * rayRange);
 
             if (collision.gameObject.tag == "PassThroughPlatform")
             {
-                isOnPassThrough = true;
+                if(crouchTimer <= .1f)
+                    isOnPassThrough = true;
+                
                 if (hitGround.collider.tag == "PassThroughPlatform" && !isInAir)
                 {
                     jumpAmt = 0;
@@ -293,10 +313,15 @@ public class PlayerMovement : MonoBehaviour
             {
                 jumpAmt = 0;
                 isOnPassThrough = false;
+                anim.SetBool("isGrounded", !isInAir);
             }
 
-            if(rb.velocity.y==0)
+            if (collision.gameObject.transform.position.y < transform.position.y)
+            {
                 jumpAmt = 0;
+                anim.SetBool("isGrounded", true);
+            }
+            
         }
     }
 
@@ -325,17 +350,17 @@ public class PlayerMovement : MonoBehaviour
             RaycastHit2D hitGround = Physics2D.Raycast(groundRays[1].transform.position, -Vector2.up * rayRange);
             if (!isInAir && collision.gameObject.tag == "Platform" && hitGround.collider.tag == "Platform" || collision.gameObject.tag == "PassThroughPlatform" && hitGround.collider.tag == "PassThroughPlatform")
             {
+                if(collision.gameObject.transform.position.y < transform.position.y)
                 jumpAmt = 1;
             }
             currentPassThroughPlatform = null;
 
             if (anim.GetBool("Climbing"))
                 isInAir = true;
+
+            if (rb.velocity.y != 0)
+                isInAir = true;
         }
-
-
-        if (rb.velocity.y != 0)
-            isInAir = true;
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -364,10 +389,14 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator DisableCollision()
     {
+
         BoxCollider2D platformCol = currentPassThroughPlatform.GetComponent<BoxCollider2D>();
+        yield return new WaitForSeconds(crouchTimer);
         Physics2D.IgnoreCollision(playerCollider, platformCol);
         yield return new WaitForSeconds(.5f);
         Physics2D.IgnoreCollision(playerCollider, platformCol, false);
+        isOnPassThrough = false;
+       
     }
 
     public bool GetIsLeft()

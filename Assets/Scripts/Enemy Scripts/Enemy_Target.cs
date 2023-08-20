@@ -80,7 +80,7 @@ public class Enemy_Target : MonoBehaviour
 
         for(int i = 0; i < attacks.Length; i++)
         {
-            if (Vector3.Distance(target.position, transform.position) <= attacks[i].attackDistance && Vector3.Distance(target.position, transform.position) > attacks[i].attackDistance - .5f)
+            if (Vector3.Distance(target.position, transform.position) <= attacks[i].attackDistance && Vector3.Distance(target.position, transform.position) > attacks[i].attackDistance - .5f && !ES.getIsStunned() && !H.getIsStunned())
             {
                 print(attacks[i].attackName);
                 isAttacking = true;

@@ -1172,6 +1172,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
   sr: {fileID: 4926932388033835191}
+  headCollider: {fileID: 0}
   cam: {fileID: 0}
   offset: {x: 2.25, y: 1.5, z: -0.75}
   Walk: 7
@@ -1183,6 +1184,8 @@ MonoBehaviour:
   isFalling: 0
   isInAir: 0
   isInLandingLag: 0
+  crouchTimer: 0.5
+  terminalVelocityY: -10
   groundRays:
   - {fileID: 4926932388560026259}
   - {fileID: 4926932387516199093}
