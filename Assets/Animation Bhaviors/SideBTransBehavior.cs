@@ -26,6 +26,7 @@ public class SideBTransBehavior : StateMachineBehaviour
     {
         PlayerAttack.attackInstance.isAttacking = false;
         PlayerAttack.attackInstance.isSpecial = false;
+        PlayerAttack.attackInstance.isExecutedOnce = false;
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

@@ -73,6 +73,10 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("JumpSqaut"))
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+
         stunned = S.getIsStunned();
 
         if (Escelator != null)
@@ -212,7 +216,6 @@ public class PlayerMovement : MonoBehaviour
 
             if (Input.GetButtonDown("Jump"))
             {
-                anim.ResetTrigger("Crouch");
                 anim.ResetTrigger("Idle");
                 anim.ResetTrigger("Climbing");
                 isInAir = true;
@@ -235,9 +238,11 @@ public class PlayerMovement : MonoBehaviour
                             rb.gravityScale = 1.0f;
                             break;
                     }
+
+                    if(anim.GetCurrentAnimatorClipInfo(0)[0].clip.name !="Crouch")
                     rb.velocity = new Vector2(rb.velocity.x, jumpForce);
 
-
+                    print(anim.GetCurrentAnimatorClipInfo(0)[0].clip.name);
                 }
             }
 

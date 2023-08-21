@@ -135,6 +135,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1118812275856739094, guid: d3c6d510df13af54b8b7edd8cdfc3e22, type: 3}
+      propertyPath: m_SurfaceArc
+      value: 160
+      objectReference: {fileID: 0}
     - target: {fileID: 1118812275856739095, guid: d3c6d510df13af54b8b7edd8cdfc3e22, type: 3}
       propertyPath: m_Name
       value: PassThroughPlatform
