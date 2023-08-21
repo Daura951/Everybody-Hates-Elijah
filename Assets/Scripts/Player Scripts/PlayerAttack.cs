@@ -15,6 +15,7 @@ public class PlayerAttack : MonoBehaviour
     public PlayerMovement playerMovement;
     public bool strongStarted = false;
     public bool strongDone = false;
+    public bool isExecutedOnce = false;
     public float strongTimer = 0.0f;
     float strongDamage = 0.0f;
 
@@ -288,6 +289,13 @@ public class PlayerAttack : MonoBehaviour
         float XDir = float.Parse(statSplit[5]); //XDir
         float yDir = float.Parse(statSplit[6]); //YDir
 
+        if(!isExecutedOnce)
+        {
+            Physics2D.gravity = new Vector2(0, 0);
+            playerMovement.rb.velocity = new Vector2(playerMovement.rb.velocity.x,0);
+            isExecutedOnce = true;
+        }
+
 
         playerMovement.rb.AddForce(new Vector2(playerMovement.GetIsLeft() ? -XDir : XDir, yDir));
     }
@@ -407,9 +415,11 @@ public class PlayerAttack : MonoBehaviour
         float XDir = float.Parse(statSplit[5]); //XDir
         float yDir = float.Parse(statSplit[6]); //YDir
 
-        if (playerMovement.isInAir)
+        if (!isExecutedOnce)
         {
             Physics2D.gravity = new Vector2(0, 0);
+            playerMovement.rb.velocity = new Vector2(playerMovement.rb.velocity.x, 0);
+            isExecutedOnce = true;
         }
 
         playerMovement.rb.AddForce(new Vector2(XDir, yDir));
