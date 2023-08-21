@@ -29,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
     public bool isInAir;
     public bool isInLandingLag = false;
     private bool isOnPassThrough = false;
+    private bool isCoroutineRunning = false;    
     bool isCrouch = false;
     public float crouchTimer = .5f;
     public float terminalVelocityY =  -10f;
@@ -158,7 +159,7 @@ public class PlayerMovement : MonoBehaviour
             isCrouch = false;
         }
 
-        else if (dirX == 0 && !isInAir && Input.GetAxisRaw("Vertical") < 0f && !isOnPassThrough && anim.GetBool("Climbing") == false)
+        else if (dirX == 0 && !isInAir && Input.GetAxisRaw("Vertical") < 0f && anim.GetBool("Climbing") == false)
         {
             rb.gravityScale = 1;
             anim.ResetTrigger("Walking");
@@ -268,7 +269,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetAxisRaw("Vertical") < 0)
         {
-            if (currentPassThroughPlatform != null)
+            if (currentPassThroughPlatform != null && !isCoroutineRunning)
             {
                 StartCoroutine(DisableCollision());
             }
@@ -301,8 +302,8 @@ public class PlayerMovement : MonoBehaviour
 
             if (collision.gameObject.tag == "PassThroughPlatform")
             {
-                if(crouchTimer <= .1f)
-                    isOnPassThrough = true;
+                print("Passthrough");
+                isOnPassThrough = true;
                 
                 if (hitGround.collider.tag == "PassThroughPlatform" && !isInAir)
                 {
@@ -310,7 +311,7 @@ public class PlayerMovement : MonoBehaviour
                 }
                 currentPassThroughPlatform = collision.gameObject;
             }
-            if (collision != null && collision.gameObject.tag == "Platform" && hitGround.collider.tag == "Platform")
+            else if (collision != null && collision.gameObject.tag == "Platform" && hitGround.collider.tag == "Platform")
             {
                 jumpAmt = 0;
                 isOnPassThrough = false;
@@ -390,16 +391,17 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator DisableCollision()
     {
-
+        isCoroutineRunning = true;
         BoxCollider2D platformCol = currentPassThroughPlatform.GetComponent<BoxCollider2D>();
         yield return new WaitForSeconds(crouchTimer);
-        if (!attackScript.isAttacking)
-        { 
+        if (!attackScript.isAttacking && isOnPassThrough)
+        {
             Physics2D.IgnoreCollision(playerCollider, platformCol);
             yield return new WaitForSeconds(.5f);
             Physics2D.IgnoreCollision(playerCollider, platformCol, false);
-            isOnPassThrough = false;
         }
+        else isOnPassThrough = true;
+        isCoroutineRunning = false;
         
        
     }
@@ -427,5 +429,10 @@ public class PlayerMovement : MonoBehaviour
     public bool GetIsStunned()
     {
         return stunned;
+    }
+
+    public void SetIsOnPassThrough(bool newPT)
+    {
+        isOnPassThrough = newPT;
     }
 }

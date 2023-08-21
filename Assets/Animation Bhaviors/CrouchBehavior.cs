@@ -16,12 +16,16 @@ public class CrouchBehavior : StateMachineBehaviour
         if (PlayerAttack.attackInstance.isAttacking && PlayerAttack.attackInstance.isSpecial)
         {
             PlayerAttack.attackInstance.anim.Play("Down B");
+            PlayerAttack.attackInstance.playerMovement.SetIsOnPassThrough(false);
         }
 
         else if(PlayerAttack.attackInstance.isAttacking)
         {
             PlayerAttack.attackInstance.anim.Play("DTilt");
+            PlayerAttack.attackInstance.playerMovement.SetIsOnPassThrough(false);
         }
+
+       
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
