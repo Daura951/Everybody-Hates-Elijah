@@ -68,7 +68,8 @@ public class Hit : MonoBehaviour
         if(collision.gameObject.tag == "Hitbox" && !(collision.gameObject.name == "StickyHandHitbox"))
         {
             stats = collision.transform.parent.gameObject.GetComponent<PlayerAttack>().GetCurrentStats();
-             rb.velocity = new Vector2(0,0);
+            if(stats[2] !=0)
+            rb.velocity = new Vector2(0,0);
             isHit = Stunned = true;
             isLeft = collision.transform.parent.gameObject.GetComponent<PlayerMovement>().GetIsLeft();
         }
@@ -77,6 +78,9 @@ public class Hit : MonoBehaviour
         {
             print("Gotcha!!!!");
             stats = collision.transform.parent.gameObject.GetComponent<PlayerAttack>().GetCurrentStats();
+            if(stats[2] !=0)
+            rb.velocity = new Vector2(0,0);
+
             isHit = Stunned = true;
             isLeft = collision.transform.parent.gameObject.GetComponent<PlayerMovement>().GetIsLeft();
             collision.transform.parent.gameObject.GetComponent<PlayerAttack>().isSticked = true;
