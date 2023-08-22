@@ -25,6 +25,7 @@ public class PlayerAttack : MonoBehaviour
     private string FilePath;
     string[] Line;
 
+
     private void Awake()
     {
         stickyHand.SetActive(false);
@@ -138,7 +139,7 @@ public class PlayerAttack : MonoBehaviour
 
 
 
-        else if (Input.GetButton("Fire3") && !strongDone && Input.GetAxisRaw("Vertical") == 0 && !playerMovement.isInAir && !stunned && !isSpecial)
+        else if (Input.GetButton("Fire3") && !strongDone && !isAttacking && Input.GetAxisRaw("Vertical") == 0 && !playerMovement.isInAir && !stunned && !isSpecial)
         {
             isAttacking = true;
             if (!strongStarted)
@@ -147,22 +148,9 @@ public class PlayerAttack : MonoBehaviour
                 anim.SetBool("isStrong", strongStarted);
                 anim.Play("FStrong Startup");
             }
-            strongTimer += Time.deltaTime;
-
-            if (strongTimer < 1.2f)
-            {
-                strongDamage += .001f;
-                print(strongDamage);
-            }
-
-            if (strongTimer >= 2.2f)
-            {
-                strongDone = true;
-            }
-
         }
 
-        else if (Input.GetButton("Fire3") && !strongDone && Input.GetAxisRaw("Vertical") > 0 && !playerMovement.isInAir && !stunned && !isSpecial)
+        else if (Input.GetButton("Fire3") && !strongDone && !isAttacking && Input.GetAxisRaw("Vertical") > 0 && !playerMovement.isInAir && !stunned && !isSpecial)
         {
             isAttacking = true;
             if (!strongStarted)
@@ -171,22 +159,10 @@ public class PlayerAttack : MonoBehaviour
                 anim.SetBool("isStrong", strongStarted);
                 anim.Play("UStrong Startup");
             }
-            strongTimer += Time.deltaTime;
-            print(strongTimer);
-
-            if (strongTimer < 1.2f)
-            {
-                strongDamage += .001f;
-            }
-
-            if (strongTimer >= 2.2f)
-            {
-                strongDone = true;
-            }
 
         }
 
-        else if (Input.GetButton("Fire3") && !strongDone && Input.GetAxisRaw("Vertical") < 0 && !playerMovement.isInAir && !stunned  && !isSpecial)
+        else if (Input.GetButton("Fire3") && !strongDone && !isAttacking && Input.GetAxisRaw("Vertical") < 0 && !playerMovement.isInAir && !stunned  && !isSpecial)
         {
             isAttacking = true;
             if (!strongStarted)
@@ -195,7 +171,11 @@ public class PlayerAttack : MonoBehaviour
                 anim.SetBool("isStrong", strongStarted);
                 anim.Play("DStrong Startup");
             }
-            strongTimer += Time.deltaTime;
+        }
+
+        else if(Input.GetButton("Fire3") && !strongDone && strongStarted && isAttacking)
+        {
+           strongTimer += Time.deltaTime;
 
             if (strongTimer < 1.2f)
             {
@@ -207,7 +187,6 @@ public class PlayerAttack : MonoBehaviour
             {
                 strongDone = true;
             }
-
         }
 
 
