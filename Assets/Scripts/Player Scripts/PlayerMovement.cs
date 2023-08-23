@@ -122,6 +122,7 @@ public class PlayerMovement : MonoBehaviour
             if(!anim.GetBool("Climbing"))
             Move();
 
+            if(!PlayerAttack.attackInstance.isExecutedOnce)
             Jump();
         }
         else if (stunned)
@@ -319,6 +320,7 @@ public class PlayerMovement : MonoBehaviour
             else if (collision != null && collision.gameObject.tag == "Platform" && hitGround.collider.tag == "Platform")
             {
                 jumpAmt = 0;
+                PlayerAttack.attackInstance.isExecutedOnce = false;
                 isOnPassThrough = false;
                 anim.SetBool("isGrounded", !isInAir);
             }
@@ -326,6 +328,7 @@ public class PlayerMovement : MonoBehaviour
             if (collision.gameObject.transform.position.y < transform.position.y)
             {
                 jumpAmt = 0;
+                PlayerAttack.attackInstance.isExecutedOnce = false;
                 anim.SetBool("isGrounded", true);
             }
             

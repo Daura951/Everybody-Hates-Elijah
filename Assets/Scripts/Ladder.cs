@@ -5,6 +5,7 @@ using UnityEngine;
 public class Ladder : MonoBehaviour
 {
     PlayerMovement PM;
+    PlayerAttack PA;
     Rigidbody2D rb;
     private Animator anim;
     GameObject player;
@@ -12,13 +13,14 @@ public class Ladder : MonoBehaviour
 
     public float speed = 1;
     private float PGravity;
-    public bool OnLadder , climb , grounded , Stunned;
+    public bool OnLadder , climb , grounded , Stunned , attacking;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         PM = player.GetComponent<PlayerMovement>();
+        PA = player.GetComponent<PlayerAttack>();
         rb = player.GetComponent<Rigidbody2D>();
         anim = player.GetComponent<Animator>();
         PGravity = rb.gravityScale;
@@ -29,8 +31,9 @@ public class Ladder : MonoBehaviour
     {
          grounded = !PM.GetIsInAir();
          Stunned = PM.GetIsStunned();
+         attacking = PA.GetAttacking();
 
-         if (OnLadder && !Stunned)
+         if (OnLadder && !Stunned && !attacking)
          {
             if ((Input.GetAxisRaw("Vertical") > 0 && !Input.GetButton("Jump")) || (Input.GetAxisRaw("Vertical")<0 && !grounded && !Input.GetButton("Jump")))
             {
@@ -44,6 +47,7 @@ public class Ladder : MonoBehaviour
          
          if(climb)
          {
+         PlayerAttack.attackInstance.isExecutedOnce = false;
           LadderCheck();
           
           if (Input.GetAxisRaw("Vertical") > 0)
@@ -118,5 +122,10 @@ public class Ladder : MonoBehaviour
             anim.ResetTrigger("Climbing");
             rb.gravityScale = PGravity;
         }
+    }
+
+    public bool GetOnLadder()
+    {
+        return climb;
     }
 }

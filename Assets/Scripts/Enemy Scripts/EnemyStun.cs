@@ -9,7 +9,7 @@ public class EnemyStun : MonoBehaviour
     private float timer;
     private Rigidbody2D rb;
     Enemy_Target ET;
-    Health H;
+    EnemyHealth H;
     
     private Stun_Info SI;
     private float[] SIDAKT;
@@ -19,7 +19,7 @@ public class EnemyStun : MonoBehaviour
     {
        rb = GetComponent<Rigidbody2D>();
        ET = GetComponent<Enemy_Target>();
-       H = GetComponent<Health>();
+       H = GetComponent<EnemyHealth>();
     }
 
     // Update is called once per frame

@@ -6,7 +6,7 @@ public class Hit : MonoBehaviour
 {
     private Rigidbody2D rb;
     Enemy_Target ET;
-    Health H;
+    EnemyHealth H;
 
     private bool isHit = false, isLeft = false, Stunned;
     private float timer;
@@ -18,7 +18,7 @@ public class Hit : MonoBehaviour
     {
        rb = GetComponent<Rigidbody2D>();
        ET = GetComponent<Enemy_Target>();
-       H = GetComponent<Health>();
+       H = GetComponent<EnemyHealth>();
     }
 
     // Update is called once per frame

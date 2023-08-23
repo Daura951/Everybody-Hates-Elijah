@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Stun : MonoBehaviour
 {
-    private bool Stunned;
+    public bool Stunned;
     private bool isLeft;
     private float timer;
     private Rigidbody2D rb;

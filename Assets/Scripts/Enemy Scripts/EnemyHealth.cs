@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Health : MonoBehaviour
+public class EnemyHealth : MonoBehaviour
 {
 
     public float MaxHealth;
@@ -33,7 +33,6 @@ public class Health : MonoBehaviour
     public void TakeDamage(float hurt)
     {
       health -= hurt;
-       PlayerAttack.attackInstance.isExecutedOnce = false;
     }
 
     public float GetHealth()
