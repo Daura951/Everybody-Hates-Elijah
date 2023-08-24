@@ -8,6 +8,7 @@ public class ReSpawn : MonoBehaviour
     PlayerMovement PM;
     Rigidbody2D rb; 
     Stun s;
+    Animator anim;
     Vector2 ReSpawnPoint;
 
 
@@ -18,6 +19,7 @@ public class ReSpawn : MonoBehaviour
       PM = GetComponent<PlayerMovement>();
       rb = GetComponent<Rigidbody2D>();
       s = GetComponent<Stun>();
+      anim = GetComponent<Animator>();
       ReSpawnPoint = new Vector2(PM.transform.position.x , PM.transform.position.y); 
     }
 
@@ -28,7 +30,15 @@ public class ReSpawn : MonoBehaviour
         {
         rb.velocity = new Vector2(0f , 0f);
         PM.transform.position = ReSpawnPoint;
-        s.Stunned = false;
+
+        if(s.Stunned)
+        {
+            anim.SetBool("Stunned",!s.Stunned);
+
+         s.Stunned = false;
+        }
+
+        
         H.ReHeal();
         }
     }

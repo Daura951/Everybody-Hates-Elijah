@@ -6,28 +6,39 @@ using System.IO;
 
 public class PlayerAttack : MonoBehaviour
 {
+
+    [Header("Objects")]
     public Animator anim;
-    public bool isAttacking, isSpecial = false, isSticked = false;
+    public PlayerMovement playerMovement;
+    private Ladder Ladder;
     public static PlayerAttack attackInstance;
+    Stun S;
+    private Rigidbody2D rb;
+
+    public bool isAttacking, isSpecial = false, isSticked = false;
+    
     public GameObject[] hitBoxes;
     public GameObject stickyHand;
     private float[] currentStats;
-    public PlayerMovement playerMovement;
+    
     public bool strongStarted = false;
     public bool strongDone = false;
     public bool isExecutedOnce = false;
     public float strongTimer = 0.0f;
     float strongDamage = 0.0f;
 
-    Stun S;
+    
     private bool stunned;
 
     private string FilePath;
     string[] Line;
 
-    private Ladder Ladder;
+    
     public bool OnLadder;
 
+    public bool ASideB = false, SideBS = false;
+    public float distance , Speed =1;
+    public Vector3 target;
 
     private void Awake()
     {
@@ -40,6 +51,7 @@ public class PlayerAttack : MonoBehaviour
         currentStats = new float[4];
         anim = GetComponent<Animator>();
         S = GetComponent<Stun>();
+        rb = GetComponent<Rigidbody2D>();
         FilePath = Application.dataPath + "/ElijahAttackValues.txt";
         Line = File.ReadAllLines(FilePath);
     }
@@ -51,9 +63,21 @@ public class PlayerAttack : MonoBehaviour
         if(Ladder != null)
         OnLadder = Ladder.GetOnLadder();
 
+        if(playerMovement.GetAnim().GetBool("isGrounded")==true)
+        {
+            //If we collided despawn the air hitboxes!
+            DespawnHitBox(3);
+            DespawnHitBox(10);
+            DespawnHitBox(11);
+            DespawnHitBox(12);
+        }
 
-        if(!OnLadder)
+
+        if(!OnLadder && !ASideB)
         Attack();
+
+        if(ASideB)
+        SideBMove();
     }
 
     void Attack()
@@ -137,11 +161,9 @@ public class PlayerAttack : MonoBehaviour
         {
             isAttacking = true;
             isSpecial = true;
-
-            if (playerMovement.isInAir)
-            {
-                Physics2D.gravity = new Vector2(0, 0);
-            }
+            SideBS = true;
+            rb.gravityScale = 0;
+            playerMovement.rb.velocity = new Vector2(playerMovement.rb.velocity.x, 0);
 
             print("FSpecial");
         }
@@ -220,6 +242,12 @@ public class PlayerAttack : MonoBehaviour
 
     }
 
+    public void SideBMove()
+    {
+        transform.position = Vector2.MoveTowards(transform.position, target, Speed * Time.deltaTime);
+            if(transform.position == target)
+                ASideB = false;
+    }
 
     public void Jab1(int L)
     {
@@ -278,18 +306,6 @@ public class PlayerAttack : MonoBehaviour
         currentStats[1] = float.Parse(statSplit[2]); //Angle
         currentStats[2] = float.Parse(statSplit[3]); //Knockback
         currentStats[3] = float.Parse(statSplit[4]); //Time Stun 
-        float XDir = float.Parse(statSplit[5]); //XDir
-        float yDir = float.Parse(statSplit[6]); //YDir
-
-        if(!isExecutedOnce)
-        {
-            Physics2D.gravity = new Vector2(0, 0);
-            playerMovement.rb.velocity = new Vector2(playerMovement.rb.velocity.x,0);
-            isExecutedOnce = true;
-        }
-
-
-        playerMovement.rb.AddForce(new Vector2(playerMovement.GetIsLeft() ? -XDir : XDir, yDir));
     }
 
     public void NeutralB(int L)
@@ -448,6 +464,21 @@ public class PlayerAttack : MonoBehaviour
     void DespawnStickyHand()
     {
         stickyHand.SetActive(false);
+    }
+
+    void SideBDone()
+    {
+        SideBS = false;
+        rb.gravityScale = 1;
+    }
+
+    void ActivateSideB()
+    {
+        ASideB = true;
+        if(!playerMovement.GetIsLeft())
+        target = new Vector3 (transform.position.x + distance , transform.position.y , transform.position.z);
+        else
+        target = new Vector3 (transform.position.x - distance , transform.position.y , transform.position.z);
     }
 
     public void SetStrongDone(bool newStrongDone)

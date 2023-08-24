@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
     public Vector3 offset;
 
     public float Walk, jumpForce, fallingGravityFactor;
-    float Run, Crawl, scaledGravity, jumpAmt;
+    public float Run, Crawl, scaledGravity, jumpAmt;
     public float Speed;
 
 
@@ -25,10 +25,10 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Movement")]
     public bool isFalling = false;
-    private bool isLeft = false;
+    public bool isLeft = false;
     public bool isInAir;
     public bool isInLandingLag = false;
-    private bool isOnPassThrough = false;
+    public bool isOnPassThrough = false;
     private bool isCoroutineRunning = false;    
     bool isCrouch = false;
     public float crouchTimer = .5f;
@@ -266,6 +266,7 @@ public class PlayerMovement : MonoBehaviour
             anim.SetBool("isDoubleJumping", false);
             anim.SetBool("isGrounded", !isFalling);
             anim.ResetTrigger("Crouch");
+            if(!PlayerAttack.attackInstance.SideBS)
             rb.gravityScale = scaledGravity;
         }
         else isFalling = false;
@@ -442,5 +443,10 @@ public class PlayerMovement : MonoBehaviour
     public void SetIsOnPassThrough(bool newPT)
     {
         isOnPassThrough = newPT;
+    }
+
+    public Animator GetAnim()
+    {
+        return anim;
     }
 }

@@ -18,7 +18,7 @@ public class SideBTransBehavior : StateMachineBehaviour
         {
             animator.SetBool("isGrounded", false);
             Physics2D.gravity = new Vector2(0 , -9.81f);
-        }
+        } 
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

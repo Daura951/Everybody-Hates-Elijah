@@ -8,6 +8,7 @@ public class Stun : MonoBehaviour
     private bool isLeft;
     private float timer;
     private Rigidbody2D rb;
+    private Animator anim;
     PlayerMovement PM;
     Health H;
     
@@ -19,6 +20,7 @@ public class Stun : MonoBehaviour
     {
        rb = GetComponent<Rigidbody2D>();
        PM = GetComponent<PlayerMovement>();
+       anim = GetComponent<Animator>();
        H = GetComponent<Health>();
     }
 
@@ -37,6 +39,7 @@ public class Stun : MonoBehaviour
             timer = 0;
            if(timer == 0)
             Stunned=false;
+            anim.SetBool("Stunned",Stunned);
         }
     }
 
@@ -48,7 +51,11 @@ public class Stun : MonoBehaviour
        rb.velocity = new Vector2(0,0);
             
        Stunned = true;
+       anim.SetBool("Stunned",Stunned);
+       anim.Play("Stunned");
       
+       if(PlayerAttack.attackInstance.ASideB)
+       PlayerAttack.attackInstance.ASideB = false;
 
        SI = col.gameObject.GetComponent<Stun_Info>();
        SIDAKT = SI.GetDAKTInfo();
@@ -73,6 +80,8 @@ public class Stun : MonoBehaviour
        rb.velocity = new Vector2(0,0);
             
        Stunned = true;
+       anim.SetBool("Stunned",Stunned);
+       anim.Play("Stunned");
       
 
        SI = col.gameObject.GetComponent<Stun_Info>();
