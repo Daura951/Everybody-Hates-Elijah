@@ -190,7 +190,7 @@ public class PlayerMovement : MonoBehaviour
                         anim.ResetTrigger("Walking");
                         break;
 
-                    case 7f:
+                    case 9f:
                         // isCrouch = false;
                         anim.SetTrigger("Walking");
                         break;
@@ -251,7 +251,7 @@ public class PlayerMovement : MonoBehaviour
 
             else if (Input.GetButtonUp("Jump"))
             {
-                rb.velocity = new Vector2(rb.velocity.x, isFalling ? rb.velocity.y : 0.0f);
+                rb.velocity = new Vector2(rb.velocity.x, isFalling ? rb.velocity.y : rb.velocity.y/2);
             }
         }
 

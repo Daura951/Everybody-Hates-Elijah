@@ -78,7 +78,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.26, y: -0.51}
-  m_Size: {x: 0.68, y: 0.84}
+  m_Size: {x: 0.68, y: 1.37}
   m_Direction: 0
 --- !u!50 &4926932387666239039
 Rigidbody2D:
@@ -259,7 +259,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.88, y: 0.2}
-  m_Size: {x: 0.48, y: 1.62}
+  m_Size: {x: 1.21, y: 1.62}
   m_Direction: 0
 --- !u!1 &4926932387843896905
 GameObject:
@@ -1174,15 +1174,21 @@ MonoBehaviour:
   sr: {fileID: 4926932388033835191}
   cam: {fileID: 0}
   offset: {x: 2.25, y: 1.5, z: -0.75}
-  Walk: 7
+  Walk: 9
   jumpForce: 8
-  fallingGravityFactor: 2
+  fallingGravityFactor: 4
+  Run: 0
+  Crawl: 0
+  scaledGravity: 0
+  jumpAmt: 0
   Speed: 0
   crouchMat: {fileID: 2100000, guid: 6ed032d1c2cd87c42a57a267c3a8c539, type: 2}
   RunMat: {fileID: 2100000, guid: b3667f6cfd912fe4386181334424e8c8, type: 2}
   isFalling: 0
+  isLeft: 0
   isInAir: 0
   isInLandingLag: 0
+  isOnPassThrough: 0
   crouchTimer: 0.2
   terminalVelocityY: -10
   groundRays:
@@ -1205,6 +1211,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 4926932388033835188}
+  playerMovement: {fileID: 4926932388033835189}
   isAttacking: 0
   isSpecial: 0
   isSticked: 0
@@ -1229,10 +1236,16 @@ MonoBehaviour:
   - {fileID: 4926932387861385607}
   - {fileID: 4926932387843896905}
   stickyHand: {fileID: 4926932387889446034}
-  playerMovement: {fileID: 4926932388033835189}
   strongStarted: 0
   strongDone: 0
+  isExecutedOnce: 0
   strongTimer: 0
+  OnLadder: 0
+  ASideB: 0
+  SideBS: 0
+  distance: 0
+  Speed: 1
+  target: {x: 0, y: 0, z: 0}
 --- !u!95 &4926932388033835188
 Animator:
   serializedVersion: 4
@@ -1265,6 +1278,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d14c57a4be5fe04a8b0c8e021b42f0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Stunned: 0
 --- !u!114 &4926932388033835186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1514,7 +1528,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.25, y: 0}
-  m_Size: {x: 0.53, y: 1.6}
+  m_Size: {x: 1, y: 2}
   m_Direction: 0
 --- !u!1 &4926932388991120535
 GameObject:
@@ -1563,7 +1577,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.1, y: -0.54}
-  m_Size: {x: 0.67, y: 0.84}
+  m_Size: {x: 0.67, y: 1.16}
   m_Direction: 0
 --- !u!50 &4926932388991120528
 Rigidbody2D:
@@ -1773,7 +1787,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.39, y: -0.46}
-  m_Size: {x: 0.59, y: 1.06}
+  m_Size: {x: 0.59, y: 1.66}
   m_Direction: 0
 --- !u!50 &4926932389412758536
 Rigidbody2D:
@@ -1864,7 +1878,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.16}
-  m_Size: {x: 0.65, y: 1.18}
+  m_Size: {x: 1.06, y: 1.18}
   m_Direction: 0
 --- !u!1 &4926932389528207690
 GameObject:
