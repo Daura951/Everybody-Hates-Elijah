@@ -215,7 +215,7 @@ public class PlayerMovement : MonoBehaviour
             if (anim.GetBool("Climbing"))
                 jumpAmt = 0;
 
-            if (Input.GetButtonDown("Jump"))
+            if (Input.GetButtonDown("Jump") && !anim.GetAnimatorTransitionInfo(0).IsName("Idle -> Crouch"))
             {
                 anim.ResetTrigger("Idle");
                 anim.ResetTrigger("Climbing");
