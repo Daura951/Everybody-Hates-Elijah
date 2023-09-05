@@ -326,7 +326,7 @@ public class PlayerMovement : MonoBehaviour
                 anim.SetBool("isGrounded", !isInAir);
             }
 
-            if (collision.gameObject.transform.position.y < transform.position.y)
+            if (collision.gameObject.transform.position.y+.5f < transform.position.y)
             {
                 jumpAmt = 0;
                 PlayerAttack.attackInstance.isExecutedOnce = false;
