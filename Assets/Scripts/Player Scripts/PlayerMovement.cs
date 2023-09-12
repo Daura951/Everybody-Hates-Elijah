@@ -176,7 +176,7 @@ public class PlayerMovement : MonoBehaviour
 
         else
         {
-            if (dirX != 0 && !attackScript.isAttacking)
+            if (dirX != 0 && !attackScript.isAttacking && !isInAir)
                 transform.eulerAngles = new Vector2(0, dirX < 0 ? 180 : 0);
 
             isLeft = transform.eulerAngles.y == 0 ? false : true;

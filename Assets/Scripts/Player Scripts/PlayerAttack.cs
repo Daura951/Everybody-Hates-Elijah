@@ -128,9 +128,15 @@ public class PlayerAttack : MonoBehaviour
             isAttacking = true;
         }
 
-        else if (Input.GetButtonDown("Fire1") && !isAttacking && Input.GetAxisRaw("Horizontal") != 0 && playerMovement.isInAir && !stunned &&!isExecutedOnce)
+        else if (Input.GetButtonDown("Fire1") && !isAttacking && ((playerMovement.transform.rotation.y == 0 && Input.GetAxisRaw("Horizontal") >0) || (playerMovement.transform.rotation.y < 0 && Input.GetAxisRaw("Horizontal") < 0))  && playerMovement.isInAir && !stunned &&!isExecutedOnce)
         {
             print("Fair");
+            isAttacking = true;
+        }
+
+        else if (Input.GetButtonDown("Fire1") && !isAttacking && playerMovement.isInAir && !stunned && ((playerMovement.transform.rotation.y == 0 && Input.GetAxisRaw("Horizontal") < 0) || (playerMovement.transform.rotation.y < 0 && Input.GetAxisRaw("Horizontal") > 0)))
+        {
+            print("Bair");
             isAttacking = true;
         }
 
@@ -167,6 +173,7 @@ public class PlayerAttack : MonoBehaviour
 
             print("FSpecial");
         }
+
 
 
 
@@ -218,6 +225,7 @@ public class PlayerAttack : MonoBehaviour
                 strongDone = true;
             }
         }
+
 
 
         else if ((Input.GetButtonUp("Fire3") || strongDone) && strongStarted && !isSpecial)
@@ -372,6 +380,16 @@ public class PlayerAttack : MonoBehaviour
     public void Dair(int L)
     {
         hitBoxes[12].SetActive(true);
+        string[] statSplit = Line[L].Split(" ");
+        currentStats[0] = float.Parse(statSplit[1]); //Damage
+        currentStats[1] = float.Parse(statSplit[2]); //Angle
+        currentStats[2] = float.Parse(statSplit[3]); //Knockback
+        currentStats[3] = float.Parse(statSplit[4]); //Time Stun 
+    }
+
+    public void Bair(int L)
+    {
+        hitBoxes[19].SetActive(true);
         string[] statSplit = Line[L].Split(" ");
         currentStats[0] = float.Parse(statSplit[1]); //Damage
         currentStats[1] = float.Parse(statSplit[2]); //Angle

@@ -31,9 +31,15 @@ public class SingleJumpBheavior : StateMachineBehaviour
             PlayerAttack.attackInstance.isAttacking = false;
         }
 
-        else if (PlayerAttack.attackInstance.isAttacking && Input.GetAxisRaw("Horizontal") != 0 && !PlayerAttack.attackInstance.isSpecial)
+        else if (PlayerAttack.attackInstance.isAttacking && ((PlayerAttack.attackInstance.playerMovement.transform.rotation.y == 0 && Input.GetAxisRaw("Horizontal") > 0) || (PlayerAttack.attackInstance.playerMovement.transform.rotation.y < 0 && Input.GetAxisRaw("Horizontal") < 0)) && !PlayerAttack.attackInstance.isSpecial)
         {
             PlayerAttack.attackInstance.anim.Play("Fair");
+            PlayerAttack.attackInstance.isAttacking = false;
+        }
+
+        else if (PlayerAttack.attackInstance.isAttacking && ((PlayerAttack.attackInstance.playerMovement.transform.rotation.y == 0 && Input.GetAxisRaw("Horizontal") < 0) || (PlayerAttack.attackInstance.playerMovement.transform.rotation.y < 0 && Input.GetAxisRaw("Horizontal") > 0)) && !PlayerAttack.attackInstance.isSpecial)
+        {
+            PlayerAttack.attackInstance.anim.Play("Bair");
             PlayerAttack.attackInstance.isAttacking = false;
         }
 
