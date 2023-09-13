@@ -104,7 +104,7 @@ public class PlayerAttack : MonoBehaviour
             isAttacking = true;
         }
 
-        else if (Input.GetButtonDown("Fire1") && !isAttacking && Input.GetAxisRaw("Horizontal") != 0 && !playerMovement.isInAir && !stunned)
+        else if (Input.GetButtonDown("Fire1") && !isAttacking && Input.GetAxisRaw("Horizontal") != 0 && !playerMovement.isInAir && !stunned && !anim.GetBool("Running"))
         {
             print("FTilt");
             isAttacking = true;
@@ -137,6 +137,12 @@ public class PlayerAttack : MonoBehaviour
         else if (Input.GetButtonDown("Fire1") && !isAttacking && playerMovement.isInAir && !stunned && ((playerMovement.transform.rotation.y == 0 && Input.GetAxisRaw("Horizontal") < 0) || (playerMovement.transform.rotation.y < 0 && Input.GetAxisRaw("Horizontal") > 0)))
         {
             print("Bair");
+            isAttacking = true;
+        }
+
+        else if(Input.GetButtonDown("Fire1") && !isAttacking && Input.GetAxisRaw("Horizontal")!=0 && anim.GetBool("Running") && !isSpecial)
+        {
+            print("Dash");
             isAttacking = true;
         }
 
@@ -347,6 +353,17 @@ public class PlayerAttack : MonoBehaviour
         currentStats[3] = float.Parse(statSplit[4]); //Time Stun 
     }
 
+
+    public void Dash(int L)
+    {
+        hitBoxes[20].SetActive(true);
+        string[] statSplit = Line[L].Split(" ");
+        currentStats[0] = float.Parse(statSplit[1]); //Damage
+        currentStats[1] = float.Parse(statSplit[2]); //Angle
+        currentStats[2] = float.Parse(statSplit[3]); //Knockback
+        currentStats[3] = float.Parse(statSplit[4]); //Time Stun 
+    }
+
     public void DTilt(int L)
     {
         hitBoxes[9].SetActive(true);
@@ -490,7 +507,7 @@ public class PlayerAttack : MonoBehaviour
         rb.gravityScale = 1;
     }
 
-    void ActivateSideB()
+    void ActivateSideB(float distance)
     {
         ASideB = true;
         if(!playerMovement.GetIsLeft())
@@ -498,6 +515,7 @@ public class PlayerAttack : MonoBehaviour
         else
         target = new Vector3 (transform.position.x - distance , transform.position.y , transform.position.z);
     }
+
 
     public void SetStrongDone(bool newStrongDone)
     {
