@@ -13,7 +13,7 @@ public class Transition1Behavior : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if(PlayerAttack.attackInstance.isAttacking)
+        if(PlayerAttack.attackInstance.isAttacking && Input.GetAxisRaw("Vertical")==0)
         {
             PlayerAttack.attackInstance.anim.Play("Jab 2 Start");
         }
