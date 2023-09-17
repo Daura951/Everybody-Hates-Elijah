@@ -243,7 +243,6 @@ public class PlayerMovement : MonoBehaviour
                     if(anim.GetCurrentAnimatorClipInfo(0)[0].clip.name !="Crouch")
                     rb.velocity = new Vector2(rb.velocity.x, jumpForce);
 
-                    print(anim.GetCurrentAnimatorClipInfo(0)[0].clip.name);
                 }
             }
 
@@ -411,9 +410,11 @@ public class PlayerMovement : MonoBehaviour
         }
         else isOnPassThrough = true;
         isCoroutineRunning = false;
-        
-       
+             
     }
+
+
+    //ACCESSORS AND MUTATORS
 
     public bool GetIsLeft()
     {
