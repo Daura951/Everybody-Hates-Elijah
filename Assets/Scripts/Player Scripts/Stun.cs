@@ -74,29 +74,38 @@ public class Stun : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-      if(col.gameObject.GetComponent<Stun_Info>())
-      {
-       if(!Stunned)
-       rb.velocity = new Vector2(0,0);
+        if(col.gameObject.GetComponent<Stun_Info>())
+        {
+            if(!Stunned)
+            rb.velocity = new Vector2(0,0);
             
-       Stunned = true;
-       anim.SetBool("Stunned",Stunned);
-       anim.Play("Stunned");
+            Stunned = true;
+            anim.SetBool("Stunned",Stunned);
+            anim.Play("Stunned");
       
 
-       SI = col.gameObject.GetComponent<Stun_Info>();
-       SIDAKT = SI.GetDAKTInfo();
+            SI = col.gameObject.GetComponent<Stun_Info>();
+            SIDAKT = SI.GetDAKTInfo();
 
-       timer = SIDAKT[3];
-       /* 
-       print("Damage " + SIDAKT[0]);
-       print("Angle " + SIDAKT[1]);
-       print("Knockback " + SIDAKT[2]);
-       print("Time " + SIDAKT[3]);
-       */
-       H.TakeDamage(SIDAKT[0]);
-       GetHit(SIDAKT[1], SIDAKT[2]);
-      }
+            timer = SIDAKT[3];
+            /* 
+            print("Damage " + SIDAKT[0]);
+            print("Angle " + SIDAKT[1]);
+            print("Knockback " + SIDAKT[2]);
+            print("Time " + SIDAKT[3]);
+            */
+            H.TakeDamage(SIDAKT[0]);
+            GetHit(SIDAKT[1], SIDAKT[2]);
+
+            if(gameObject.tag=="Player")
+            {
+                gameObject.GetComponent<PlayerMovement>().ChangeHealth();
+                gameObject.GetComponent<PlayerMovement>().GetAnim().SetBool("isFalling", true);
+            }
+
+
+       
+        }
     }
 
     private void GetHit(float angle , float Kb)

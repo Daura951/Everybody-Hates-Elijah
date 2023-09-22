@@ -30,8 +30,6 @@ public class Bullet : MonoBehaviour
     {
         if(collision.gameObject.tag=="Player")
         {
-            collision.gameObject.GetComponent<Health>().TakeDamage(damage);
-            collision.gameObject.GetComponent<PlayerMovement>().ChangeHealth();
             Destroy(this.gameObject);
         }
     }
