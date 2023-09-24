@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-
-    public float MaxHealth;
-    public float health;
+    [SerializeField] private int lives;
+    [SerializeField] private float MaxHealth;
+    [SerializeField] private float health;
 
 
     // Start is called before the first frame update
@@ -21,7 +21,12 @@ public class Health : MonoBehaviour
         if(health <= 0)
         {
             health = 0;
+            lives--;
         }
+
+        
+            if(lives == 0)
+                Destroy(this.gameObject);
     }
 
     void FixedUpdate()
@@ -41,8 +46,18 @@ public class Health : MonoBehaviour
         return health;
     }
 
+    public float GetLives()
+    {
+        return lives;
+    }
+
     public void ReHeal()
     {
         health = MaxHealth;
+    }
+
+    public void Heal(float H)
+    {
+        health += H;
     }
 }

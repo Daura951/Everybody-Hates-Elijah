@@ -26,7 +26,7 @@ public class ReSpawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if( H.GetHealth() == 0)
+        if( H.GetHealth() == 0 && H.GetLives()>0)
         {
         rb.velocity = new Vector2(0f , 0f);
         PM.transform.position = ReSpawnPoint;

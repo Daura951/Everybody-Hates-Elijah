@@ -21,7 +21,7 @@ public class Bullet : MonoBehaviour
 
         if (timer >= timeOnScreen)
         {
-            Destroy(this);
+            Destroy(this.gameObject);
         }
         else timer += Time.deltaTime;
     }

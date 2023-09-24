@@ -460,6 +460,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void ChangeHealth()
     {
-        healthText.text = ""+GetComponent<Health>().health;
+        healthText.text = ""+GetComponent<Health>().GetHealth();
     }
 }
