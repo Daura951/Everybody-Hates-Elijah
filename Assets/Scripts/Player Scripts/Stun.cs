@@ -101,6 +101,7 @@ public class Stun : MonoBehaviour
             {
                 gameObject.GetComponent<PlayerMovement>().ChangeHealth();
                 gameObject.GetComponent<PlayerMovement>().GetAnim().SetBool("isFalling", true);
+                gameObject.GetComponent<PlayerMovement>().isInAir = true;
             }
 
 

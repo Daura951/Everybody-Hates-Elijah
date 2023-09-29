@@ -5,6 +5,8 @@ using Pathfinding;
 
 public class Enemy_Target : MonoBehaviour
 {
+    public Animator anim;
+
     [Header("Pathfinding")]
     public Transform target;
     public float activationDistance = 50.0f;
@@ -72,6 +74,13 @@ public class Enemy_Target : MonoBehaviour
         if (TargetInDistance() && canFollow && !ES.getIsStunned() && !H.getIsStunned())
         {
             FollowPath();
+
+            if (rb.velocity.x == 0)
+            {
+                anim.SetBool("isRunning", false);
+            }
+            else anim.SetBool("isRunning", true);
+
         }
     }
 
@@ -143,11 +152,11 @@ public class Enemy_Target : MonoBehaviour
         {
             if(rb.velocity.x > .05f)
             {
-                transform.localScale = new Vector3(-1f * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+                transform.localScale = new Vector3(1f * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             }
             else if(rb.velocity.x < -0.05f)
             {
-                transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+                transform.localScale = new Vector3(-1f*Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             }
         }
 

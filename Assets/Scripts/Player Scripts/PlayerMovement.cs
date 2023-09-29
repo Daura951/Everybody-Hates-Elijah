@@ -131,13 +131,14 @@ public class PlayerMovement : MonoBehaviour
 
             if(!PlayerAttack.attackInstance.isExecutedOnce)
             Jump();
+            print("Hello");
         }
+
         else if (stunned)
         {
             anim.ResetTrigger("Walking");
             anim.ResetTrigger("Running");
             anim.ResetTrigger("Crouch");
-            anim.SetTrigger("Idle");
             if (rb.velocity.y < 0.0f)
             {
                 isFalling = true;

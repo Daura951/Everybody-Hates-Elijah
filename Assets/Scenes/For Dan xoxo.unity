@@ -749,13 +749,14 @@ GameObject:
   - component: {fileID: 839397084}
   - component: {fileID: 839397085}
   - component: {fileID: 839397086}
+  - component: {fileID: 839397087}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &839397074
 Transform:
   m_ObjectHideFlags: 0
@@ -764,7 +765,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 839397073}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.45, y: 1.22, z: 0}
+  m_LocalPosition: {x: 0.353, y: 0.692, z: 0}
   m_LocalScale: {x: 1.1659606, y: 1.5745, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -814,7 +815,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 80ebbf870e2b15b4398dcc1c69c994a0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d610208c34742164fb714a4d3c41ff06, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -870,6 +871,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e55a8cf46d12e547bd2a0fbc8dc96f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 839397087}
   target: {fileID: 2065872486}
   activationDistance: 7
   targettingDistance: 14
@@ -928,14 +930,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.001992, y: 1}
+    oldSize: {x: 1.5, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.001992, y: 1}
+  m_Size: {x: 1.001992, y: 0.9}
   m_EdgeRadius: 0
 --- !u!114 &839397085
 MonoBehaviour:
@@ -963,6 +965,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 1000
   health: 0
+--- !u!95 &839397087
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 839397073}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 734adf7d0dbe9194d961934dd4b9d7d5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &859868561
 GameObject:
   m_ObjectHideFlags: 0
@@ -980,7 +1002,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &859868562
 MonoBehaviour:
   m_ObjectHideFlags: 0
