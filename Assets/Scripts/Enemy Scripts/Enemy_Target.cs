@@ -82,6 +82,11 @@ public class Enemy_Target : MonoBehaviour
             else anim.SetBool("isRunning", true);
 
         }
+        else
+        {
+            print("uwu");
+            anim.SetBool("isRunning", false);
+        }
     }
 
     private void UpdatePath()

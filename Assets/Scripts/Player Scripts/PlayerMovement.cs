@@ -131,7 +131,6 @@ public class PlayerMovement : MonoBehaviour
 
             if(!PlayerAttack.attackInstance.isExecutedOnce)
             Jump();
-            print("Hello");
         }
 
         else if (stunned)
