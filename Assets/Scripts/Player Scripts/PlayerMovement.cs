@@ -293,7 +293,11 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.gameObject.tag == "Platform" || collision.gameObject.tag == "PassThroughPlatform")
         {
-
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("USpecial"))
+                 {
+  
+              }
+            else
             Physics2D.gravity = new Vector2(0 , -9.81f);
 
             if (collision.gameObject.GetComponent<Escelator>())
@@ -315,6 +319,8 @@ public class PlayerMovement : MonoBehaviour
 
             if (collision.gameObject.tag == "PassThroughPlatform")
             {
+
+
                 print("Passthrough");
                 isOnPassThrough = true;
                 

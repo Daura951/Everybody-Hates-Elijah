@@ -10,6 +10,7 @@ public class ReSpawn : MonoBehaviour
     Stun s;
     Animator anim;
     Vector2 ReSpawnPoint;
+    float L;
 
 
     // Start is called before the first frame update
@@ -20,14 +21,16 @@ public class ReSpawn : MonoBehaviour
       rb = GetComponent<Rigidbody2D>();
       s = GetComponent<Stun>();
       anim = GetComponent<Animator>();
+      L = H.GetLives();
       ReSpawnPoint = new Vector2(PM.transform.position.x , PM.transform.position.y); 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if( H.GetHealth() == 0 && H.GetLives()>0)
+        if(H.GetLives()>0 && L>H.GetLives())
         {
+        L=H.GetLives();
         rb.velocity = new Vector2(0f , 0f);
         PM.transform.position = ReSpawnPoint;
 

@@ -24,6 +24,9 @@ public class SideBTransBehavior : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        if(PlayerAttack.attackInstance.playerMovement.GetAnim().GetCurrentAnimatorStateInfo (0).IsName("Single Jump Fall"))
+        PlayerAttack.attackInstance.playerMovement.rb.gravityScale = PlayerAttack.attackInstance.playerMovement.scaledGravity;
+
         PlayerAttack.attackInstance.isAttacking = false;
         PlayerAttack.attackInstance.isSpecial = false;
     }
