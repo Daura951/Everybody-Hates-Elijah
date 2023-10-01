@@ -62,8 +62,8 @@ public class Enemy_Target : MonoBehaviour
         target = GameObject.FindGameObjectsWithTag("Player")[0].transform;
         H = GetComponent<Hit>();
         attacks = new Attack[2];
-        attacks[0] = new Attack(2f, "punch");
-        attacks[1] = new Attack(1f, "kick");
+        attacks[0] = new Attack(2f, "isPunching");
+        attacks[1] = new Attack(1f, "isKicking");
 
         InvokeRepeating("UpdatePath", 0f, pathUpdateSeconds);
 
@@ -84,7 +84,6 @@ public class Enemy_Target : MonoBehaviour
         }
         else
         {
-            print("uwu");
             anim.SetBool("isRunning", false);
         }
     }
@@ -96,12 +95,16 @@ public class Enemy_Target : MonoBehaviour
         {
             if (Vector3.Distance(target.position, transform.position) <= attacks[i].attackDistance && Vector3.Distance(target.position, transform.position) > attacks[i].attackDistance - .5f && !ES.getIsStunned() && !H.getIsStunned())
             {
-                print(attacks[i].attackName);
+                anim.SetBool(attacks[i].attackName, true);
                 isAttacking = true;
                 break;
             }
 
-            else isAttacking = false;
+            else
+            {
+                anim.SetBool(attacks[i].attackName, false);
+            }
+            isAttacking = false;
         }
 
         //If we can follow the player and the player is in distance and if we have calculated the current path

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ec4c14a391c9f164587633ae4e0ebdd0
+guid: f5eaa30f7ffc83d4489e7e384d846127
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -117,7 +117,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Basic male kick_0
+      name: Punch  2_0
       rect:
         serializedVersion: 2
         x: 0
@@ -131,14 +131,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4118ff2200f068b45a514efed7e1f0b9
-      internalID: 766985888
+      spriteID: 7a4dd0905bb280441a45bdb48b33586a
+      internalID: -1985190829
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Basic male kick_1
+      name: Punch  2_1
       rect:
         serializedVersion: 2
         x: 1200
@@ -152,14 +152,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 149fc5c0a7caac74f999ffc198adca5c
-      internalID: -322143795
+      spriteID: 4fa5d62b295883d4e897b36709f8a686
+      internalID: 306416800
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Basic male kick_2
+      name: Punch  2_2
       rect:
         serializedVersion: 2
         x: 2400
@@ -173,14 +173,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2c0efe5676602c54f9a4e806b58fc802
-      internalID: 1443045525
+      spriteID: 490bf50fce3a9ac42b5438e8aea351f2
+      internalID: -1869631656
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Basic male kick_3
+      name: Punch  2_3
       rect:
         serializedVersion: 2
         x: 3600
@@ -194,14 +194,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 40fb6cf683abd3445b9fe330964bc8ec
-      internalID: 1060195324
+      spriteID: 4221505920b9c2040aeceb9c3ae9175a
+      internalID: -1243446075
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Basic male kick_4
+      name: Punch  2_4
       rect:
         serializedVersion: 2
         x: 4800
@@ -215,14 +215,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 41f13aab120ac294c9217478f25e851b
-      internalID: 1836769398
+      spriteID: 73329334d80decc48b26630cad34d289
+      internalID: 993878244
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Basic male kick_5
+      name: Punch  2_5
       rect:
         serializedVersion: 2
         x: 6000
@@ -236,14 +236,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 88fd4fe4f6490574883b08eaa699540b
-      internalID: -596068003
+      spriteID: d9f556b6e3b6def43b64659ccfe10979
+      internalID: 57171828
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Basic male kick_6
+      name: Punch  2_6
       rect:
         serializedVersion: 2
         x: 7200
@@ -257,14 +257,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c34336cce16774143b6bd8b66dfb4682
-      internalID: -884742701
+      spriteID: c8db767f474406446a463c494dbad6ec
+      internalID: -1085940798
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Basic male kick_7
+      name: Punch  2_7
       rect:
         serializedVersion: 2
         x: 8400
@@ -278,14 +278,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a71fa4c40fccf14419ef2c2f32fd2be6
-      internalID: 1956325228
+      spriteID: f032f4f464621614392819eb43a00ab7
+      internalID: -1550126562
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Basic male kick_8
+      name: Punch  2_8
       rect:
         serializedVersion: 2
         x: 0
@@ -299,71 +299,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a388ba436793e244aa267e4e34ccf832
-      internalID: -693948219
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Basic male kick_9
-      rect:
-        serializedVersion: 2
-        x: 4800
-        y: 0
-        width: 1200
-        height: 800
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0f1e74413532aed43b2897f895ae7797
-      internalID: 16017405
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Basic male kick_10
-      rect:
-        serializedVersion: 2
-        x: 6000
-        y: 0
-        width: 1200
-        height: 800
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9dbafa5762d3cb2428b4297757e69882
-      internalID: 1723992692
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Basic male kick_11
-      rect:
-        serializedVersion: 2
-        x: 7200
-        y: 0
-        width: 1200
-        height: 800
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: eac28f8985050fe4f84e8d8503fbb06c
-      internalID: -612392747
+      spriteID: 7bac8c8281af5274794995dbaffbbb68
+      internalID: -647927334
       vertices: []
       indices: 
       edges: []
@@ -379,18 +316,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Basic male kick_3: 1060195324
-      Basic male kick_7: 1956325228
-      Basic male kick_4: 1836769398
-      Basic male kick_2: 1443045525
-      Basic male kick_0: 766985888
-      Basic male kick_6: -884742701
-      Basic male kick_10: 1723992692
-      Basic male kick_8: -693948219
-      Basic male kick_5: -596068003
-      Basic male kick_11: -612392747
-      Basic male kick_1: -322143795
-      Basic male kick_9: 16017405
+      Punch  2_3: -1243446075
+      Punch  2_7: -1550126562
+      Punch  2_5: 57171828
+      Punch  2_6: -1085940798
+      Punch  2_0: -1985190829
+      Punch  2_1: 306416800
+      Punch  2_2: -1869631656
+      Punch  2_4: 993878244
+      Punch  2_8: -647927334
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
