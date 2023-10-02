@@ -84,7 +84,7 @@ public class PlayerAttack : MonoBehaviour
     {
 
 
-        //Jab if statement
+        //Control Detection
         if (Input.GetButtonDown("Fire1") && Input.GetAxisRaw("Vertical") == 0 && !isAttacking && anim.GetBool("Idle") == true && !playerMovement.isInAir && !stunned)
         {
             print("Jab");
@@ -362,7 +362,7 @@ public class PlayerAttack : MonoBehaviour
         currentStats[1] = float.Parse(statSplit[2]); //Angle
         currentStats[2] = float.Parse(statSplit[3]); //Knockback
         currentStats[3] = float.Parse(statSplit[4]); //Time Stun
-        playerMovement.dashDisable = true;
+        playerMovement.dashDisable = true;           //So that if the player holds dash key, the won't move as soon as dash finishes
     }
 
     public void DTilt(int L)
