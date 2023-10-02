@@ -38,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
 
     public Transform[] groundRays;
     public float rayRange = 5f;
+    public bool dashDisable = false;
 
     [Header("Attacks")]
     public PlayerAttack attackScript;
@@ -160,9 +161,15 @@ public class PlayerMovement : MonoBehaviour
     void Move()
     {
         float dirX = Input.GetAxisRaw("Horizontal");
-        rb.velocity = new Vector2(isInLandingLag || (attackScript.isAttacking && !isInAir) || isCrouch || attackScript.isSpecial ? 0 : dirX * Speed, rb.velocity.y);
 
-        if (dirX == 0 && !isInAir && Input.GetAxisRaw("Vertical") >= 0f)
+        if(dirX==0)
+        {
+            dashDisable = false;
+        }
+
+        rb.velocity = new Vector2(isInLandingLag || (attackScript.isAttacking && !isInAir) || isCrouch || attackScript.isSpecial || dashDisable ? 0 : dirX * Speed, rb.velocity.y);
+
+        if (dirX == 0 && !isInAir && Input.GetAxisRaw("Vertical") >= 0f || dashDisable)
         {
             anim.ResetTrigger("Walking");
             anim.ResetTrigger("Running");

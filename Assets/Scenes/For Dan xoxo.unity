@@ -1503,6 +1503,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lava Floor
       objectReference: {fileID: 0}
+    - target: {fileID: 7417413966450255281, guid: 741eae5b65fafee408616694fe48275d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7417413966450255309, guid: 741eae5b65fafee408616694fe48275d, type: 3}
       propertyPath: m_RootOrder
       value: 1

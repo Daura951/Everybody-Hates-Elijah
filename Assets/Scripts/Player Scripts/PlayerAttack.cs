@@ -110,31 +110,31 @@ public class PlayerAttack : MonoBehaviour
             isAttacking = true;
         }
 
-        else if (Input.GetButtonDown("Fire1") && !isAttacking && Input.GetAxisRaw("Vertical") == 0 && Input.GetAxisRaw("Horizontal") == 0 && playerMovement.isInAir && !stunned &&!isExecutedOnce)
+        else if ((Input.GetButtonDown("Fire1") || Input.GetButton("Fire3")) && !isAttacking && Input.GetAxisRaw("Vertical") == 0 && Input.GetAxisRaw("Horizontal") == 0 && playerMovement.isInAir && !stunned &&!isExecutedOnce)
         {
             isAttacking = true;
             print("Nair");
         }
 
-        else if (Input.GetButtonDown("Fire1") && !isAttacking && Input.GetAxisRaw("Vertical") > 0 && playerMovement.isInAir && !stunned &&!isExecutedOnce)
+        else if ((Input.GetButtonDown("Fire1") || Input.GetButton("Fire3")) && !isAttacking && Input.GetAxisRaw("Vertical") > 0 && playerMovement.isInAir && !stunned &&!isExecutedOnce)
         {
             print("Uair");
             isAttacking = true;
         }
 
-        else if (Input.GetButtonDown("Fire1") && !isAttacking && Input.GetAxisRaw("Vertical") < 0 && playerMovement.isInAir && !stunned &&!isExecutedOnce)
+        else if ((Input.GetButtonDown("Fire1") || Input.GetButton("Fire3")) && !isAttacking && Input.GetAxisRaw("Vertical") < 0 && playerMovement.isInAir && !stunned &&!isExecutedOnce)
         {
             print("Dair");
             isAttacking = true;
         }
 
-        else if (Input.GetButtonDown("Fire1") && !isAttacking && ((playerMovement.transform.rotation.y == 0 && Input.GetAxisRaw("Horizontal") >0) || (playerMovement.transform.rotation.y < 0 && Input.GetAxisRaw("Horizontal") < 0))  && playerMovement.isInAir && !stunned &&!isExecutedOnce)
+        else if ((Input.GetButtonDown("Fire1") || Input.GetButton("Fire3")) && !isAttacking && ((playerMovement.transform.rotation.y == 0 && Input.GetAxisRaw("Horizontal") >0) || (playerMovement.transform.rotation.y < 0 && Input.GetAxisRaw("Horizontal") < 0))  && playerMovement.isInAir && !stunned &&!isExecutedOnce)
         {
             print("Fair");
             isAttacking = true;
         }
 
-        else if (Input.GetButtonDown("Fire1") && !isAttacking && playerMovement.isInAir && !stunned && ((playerMovement.transform.rotation.y == 0 && Input.GetAxisRaw("Horizontal") < 0) || (playerMovement.transform.rotation.y < 0 && Input.GetAxisRaw("Horizontal") > 0)))
+        else if ((Input.GetButtonDown("Fire1") || Input.GetButton("Fire3")) && !isAttacking && playerMovement.isInAir && !stunned && ((playerMovement.transform.rotation.y == 0 && Input.GetAxisRaw("Horizontal") < 0) || (playerMovement.transform.rotation.y < 0 && Input.GetAxisRaw("Horizontal") > 0)))
         {
             print("Bair");
             isAttacking = true;
@@ -361,7 +361,8 @@ public class PlayerAttack : MonoBehaviour
         currentStats[0] = float.Parse(statSplit[1]); //Damage
         currentStats[1] = float.Parse(statSplit[2]); //Angle
         currentStats[2] = float.Parse(statSplit[3]); //Knockback
-        currentStats[3] = float.Parse(statSplit[4]); //Time Stun 
+        currentStats[3] = float.Parse(statSplit[4]); //Time Stun
+        playerMovement.dashDisable = true;
     }
 
     public void DTilt(int L)
