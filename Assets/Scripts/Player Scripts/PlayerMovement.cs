@@ -95,12 +95,17 @@ public class PlayerMovement : MonoBehaviour
 
         isCrouch = anim.GetCurrentAnimatorStateInfo(0).IsName("Crouch");
 
-        if (Input.GetButton("Run") && !isInAir && !isCrouch)
+        if (Input.GetButton("Run") && !isInAir && !isCrouch && !dashDisable)
         {
             Speed = Run;
             anim.SetTrigger("Running");
             anim.ResetTrigger("Walking");
 
+        }
+        else if(dashDisable && Input.GetAxisRaw("Horizontal")!=0)
+        {
+            anim.SetTrigger("Walking");
+            Speed = 9f;
         }
 
         else if (Input.GetAxisRaw("Vertical") < 0f && !isInAir && isCrouch)
@@ -162,14 +167,14 @@ public class PlayerMovement : MonoBehaviour
     {
         float dirX = Input.GetAxisRaw("Horizontal");
 
-        if(dirX==0)
+        if(Input.GetButtonUp("Run"))
         {
             dashDisable = false;
         }
 
-        rb.velocity = new Vector2(isInLandingLag || (attackScript.isAttacking && !isInAir) || isCrouch || attackScript.isSpecial || dashDisable ? 0 : dirX * Speed, rb.velocity.y);
+        rb.velocity = new Vector2(isInLandingLag || (attackScript.isAttacking && !isInAir) || isCrouch || attackScript.isSpecial ? 0 : dirX * Speed, rb.velocity.y);
 
-        if (dirX == 0 && !isInAir && Input.GetAxisRaw("Vertical") >= 0f || dashDisable)
+        if (dirX == 0 && !isInAir && Input.GetAxisRaw("Vertical") >= 0f)
         {
             anim.ResetTrigger("Walking");
             anim.ResetTrigger("Running");
