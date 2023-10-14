@@ -1,18 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class Health : MonoBehaviour
 {
     [SerializeField] private int lives;
     [SerializeField] private float MaxHealth;
     [SerializeField] private float health;
 
+    public Slider slider;
+    public Image healthBar;
 
     // Start is called before the first frame update
     void Start()
     {
-      health = MaxHealth;  
+        health = MaxHealth;
+        slider.maxValue = 1;
+        slider.value = 1;
+
     }
 
     // Update is called once per frame
@@ -31,8 +36,23 @@ public class Health : MonoBehaviour
 
     void FixedUpdate()
     {
+        slider.value = health / MaxHealth;
+
         if(health > MaxHealth)
             health = MaxHealth;
+
+        if(slider.value > .6f)
+        {
+            healthBar.color = new Color(0, 255, 0, 1);
+        }
+        if (slider.value <= .6f && slider.value > .3f)
+        {
+            healthBar.color = new Color(255, 255, 0, 1);
+        }
+        else if (slider.value <= .3f)
+        {
+            healthBar.color = new Color(255, 0, 0, 1);
+        }
     }
 
     public void TakeDamage(float hurt)

@@ -36,18 +36,23 @@ public class Enemy_Target : MonoBehaviour
     Rigidbody2D rb;
     EnemyStun ES;
     Hit H;
+    private EnemyHealth health;
 
 
+    [Header("Hitbox")]
+    public GameObject[] hitboxes;
 
     public struct Attack
     {
         public float attackDistance;
         public string attackName;
+        public int damage;
 
-        public Attack(float distance, string name)
+        public Attack(float distance, string name, int damage)
         {
             this.attackDistance = distance;
             this.attackName = name;
+            this.damage = damage;
         }
     }
 
@@ -61,9 +66,10 @@ public class Enemy_Target : MonoBehaviour
         ES = GetComponent<EnemyStun>();
         target = GameObject.FindGameObjectsWithTag("Player")[0].transform;
         H = GetComponent<Hit>();
+        health = GetComponent<EnemyHealth>();
         attacks = new Attack[2];
-        attacks[0] = new Attack(2f, "isPunching");
-        attacks[1] = new Attack(1f, "isKicking");
+        attacks[0] = new Attack(2f, "isPunching", 10);
+        attacks[1] = new Attack(1f, "isKicking", 5);
 
         InvokeRepeating("UpdatePath", 0f, pathUpdateSeconds);
 
@@ -71,7 +77,7 @@ public class Enemy_Target : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (TargetInDistance() && canFollow && !ES.getIsStunned() && !H.getIsStunned())
+        if (TargetInDistance() && canFollow && !ES.getIsStunned() && !H.getIsStunned() && health.GetHealth() > 0)
         {
             FollowPath();
 
@@ -85,6 +91,12 @@ public class Enemy_Target : MonoBehaviour
         else
         {
             anim.SetBool("isRunning", false);
+
+            if(health.GetHealth() <=0)
+            {
+                anim.SetBool("isDead", true);
+            }
+
         }
     }
 
@@ -203,5 +215,29 @@ public class Enemy_Target : MonoBehaviour
 
         else
         return false;
+    }
+
+    public void DespawnHitbox(int HBIndex)
+    {
+        hitboxes[HBIndex].SetActive(false);
+    }
+
+    public void Punch()
+    {
+        hitboxes[0].SetActive(true);
+    }
+
+    public void Kick()
+    {
+        hitboxes[1].SetActive(true);
+    }
+
+    public void DespawnEnemy()
+    {
+        for(int i = 0; i < hitboxes.Length; i++)
+        {
+            DespawnHitbox(i);
+        }
+        Destroy(this.gameObject);
     }
 }

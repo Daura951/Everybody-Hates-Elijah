@@ -1245,7 +1245,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   sr: {fileID: 4926932388033835191}
   cam: {fileID: 0}
-  offset: {x: 2.25, y: 1.5, z: -0.75}
+  offset: {x: 2.25, y: 2.5, z: -0.75}
   Walk: 9
   jumpForce: 8
   fallingGravityFactor: 4
@@ -1267,9 +1267,11 @@ MonoBehaviour:
   - {fileID: 4926932388560026259}
   - {fileID: 4926932387516199093}
   rayRange: 5
+  dashDisable: 0
   attackScript: {fileID: 4926932388033835190}
   OnEscelator: 0
   InEscelator: 0
+  healthText: {fileID: 0}
 --- !u!114 &4926932388033835190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1380,6 +1382,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55b2ce75e9e4fe5439fc9696e4c9d4df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lives: 0
   MaxHealth: 10
   health: 0
 --- !u!114 &4926932388033835184

@@ -72,6 +72,14 @@ public class PlayerAttack : MonoBehaviour
             DespawnHitBox(12);
         }
 
+        if(stunned)
+        {
+            for(int i = 0; i < hitBoxes.Length; i++)
+            {
+                DespawnHitBox(i);
+            }
+        }
+
 
         if(!OnLadder && !ASideB)
         Attack();

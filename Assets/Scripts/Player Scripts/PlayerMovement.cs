@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody2D rb;
     public SpriteRenderer sr;
     private Collider2D playerCollider;
-    private Animator anim;
+    public Animator anim;
     public Transform cam;
     public Vector3 offset;
 
@@ -43,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Attacks")]
     public PlayerAttack attackScript;
 
-    private Stun S;
+    public Stun S;
     private bool stunned;
 
     [Header("Escelator")]
@@ -53,6 +53,8 @@ public class PlayerMovement : MonoBehaviour
 
 
     public TextMeshProUGUI healthText;
+
+    public int curDamage = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -398,6 +400,14 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "EHitbox")
+        {
+            print("Die Elijah!");
+        }
+    }
+
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.GetComponent<Escelator>() && rb.velocity.y < 0f)
@@ -478,6 +488,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void ChangeHealth()
     {
-        healthText.text = ""+GetComponent<Health>().GetHealth();
+
     }
 }

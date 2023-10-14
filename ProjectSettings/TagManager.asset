@@ -12,6 +12,7 @@ TagManager:
   - Ladder
   - KnockBack
   - Checkpoint
+  - EHitbox
   layers:
   - Default
   - TransparentFX
@@ -23,7 +24,7 @@ TagManager:
   - HitBox
   - Wind
   - Platform
-  - 
+  - EHitbox
   - 
   - 
   - 
