@@ -25,7 +25,7 @@ public class EnemyStun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {   
-        isLeft = ET.GetIsLeft();
+        isLeft = /*ET.GetIsLeft()*/ true;
 
         if(Stunned)
         {

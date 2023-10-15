@@ -2,11 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Hit : MonoBehaviour
+public class ObjectHit : MonoBehaviour
 {
     private Rigidbody2D rb;
-    Enemy_Target ET;
-    EnemyHealth H;
+    ObjectHealth OH;
 
     public bool isHit = false, isLeft = false, Stunned;
     private float timer;
@@ -16,9 +15,8 @@ public class Hit : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       rb = GetComponent<Rigidbody2D>();
-       ET = GetComponent<Enemy_Target>();
-       H = GetComponent<EnemyHealth>();
+        rb = GetComponent<Rigidbody2D>();
+        OH = GetComponent<ObjectHealth>();
     }
 
     // Update is called once per frame
@@ -28,21 +26,21 @@ public class Hit : MonoBehaviour
         if (isHit)
         {
             timer = stats[3];
-             Debug.Log(timer);
-            H.TakeDamage(stats[0]);
+            Debug.Log(timer);
+            OH.TakeDamage(stats[0]);
             GetHit(stats[2], stats[1]);
         }
 
-        if(Stunned)
+        if (Stunned)
         {
-           if(timer > 0)
-           {
-            timer-= Time.deltaTime;
-           }
-           else
-            timer = 0;
-           if(timer == 0)
-            Stunned=false;
+            if (timer > 0)
+            {
+                timer -= Time.deltaTime;
+            }
+            else
+                timer = 0;
+            if (timer == 0)
+                Stunned = false;
         }
     }
 
@@ -51,7 +49,7 @@ public class Hit : MonoBehaviour
         float XComponent = Mathf.Cos(angle * (Mathf.PI / 180)) * knockBack;
         float YComponent = Mathf.Sin(angle * (Mathf.PI / 180)) * knockBack;
 
-        if(isLeft)
+        if (isLeft)
         {
             XComponent *= -1;
         }
@@ -65,21 +63,21 @@ public class Hit : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
 
-        if(collision.gameObject.tag == "Hitbox" && !(collision.gameObject.name == "StickyHandHitbox"))
+        if (collision.gameObject.tag == "Hitbox" && !(collision.gameObject.name == "StickyHandHitbox"))
         {
             stats = collision.transform.parent.gameObject.GetComponent<PlayerAttack>().GetCurrentStats();
-            if(stats[2] !=0)
-            rb.velocity = new Vector2(0,0);
+            if (stats[2] != 0)
+                rb.velocity = new Vector2(0, 0);
             isHit = Stunned = true;
             isLeft = collision.transform.parent.gameObject.GetComponent<PlayerMovement>().GetIsLeft();
         }
 
-        else if(collision.gameObject.tag == "Hitbox" && collision.gameObject.name== "StickyHandHitbox")
+        else if (collision.gameObject.tag == "Hitbox" && collision.gameObject.name == "StickyHandHitbox")
         {
             print("Gotcha!!!!");
             stats = collision.transform.parent.gameObject.GetComponent<PlayerAttack>().GetCurrentStats();
-            if(stats[2] !=0)
-            rb.velocity = new Vector2(0,0);
+            if (stats[2] != 0)
+                rb.velocity = new Vector2(0, 0);
 
             isHit = Stunned = true;
             isLeft = collision.transform.parent.gameObject.GetComponent<PlayerMovement>().GetIsLeft();
