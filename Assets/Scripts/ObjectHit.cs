@@ -10,6 +10,7 @@ public class ObjectHit : MonoBehaviour
     public bool isHit = false, isLeft = false, Stunned;
     private float timer;
     private float[] stats;
+    private Animator anim;
 
 
     // Start is called before the first frame update
@@ -17,17 +18,19 @@ public class ObjectHit : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         OH = GetComponent<ObjectHealth>();
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        if (isHit)
+        if (isHit && !anim.GetBool("isDead"))
         {
             timer = stats[3];
             Debug.Log(timer);
             OH.TakeDamage(stats[0]);
+            anim.Play("TurretDamage", -1, 0);
             GetHit(stats[2], stats[1]);
         }
 

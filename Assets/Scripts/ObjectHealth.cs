@@ -24,6 +24,7 @@ public class ObjectHealth : MonoBehaviour
         {
             health = 0;
             sp.sprite = s;
+            GetComponent<Animator>().SetBool("isDead", true);
         }
     }
 
