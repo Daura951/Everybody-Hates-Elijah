@@ -343,20 +343,15 @@ public class PlayerMovement : MonoBehaviour
                     jumpAmt = 0;
                 }
                 currentPassThroughPlatform = collision.gameObject;
+                anim.SetBool("isGrounded", isOnPassThrough);
             }
-            else if (collision != null && collision.gameObject.tag == "Platform" && hitGround.collider.tag == "Platform")
+           
+            if (collision.gameObject.tag == "Platform")
             {
                 jumpAmt = 0;
                 PlayerAttack.attackInstance.isExecutedOnce = false;
                 isOnPassThrough = false;
                 anim.SetBool("isGrounded", !isInAir);
-            }
-
-            if (collision.gameObject.transform.position.y+.5f < transform.position.y)
-            {
-                jumpAmt = 0;
-                PlayerAttack.attackInstance.isExecutedOnce = false;
-                anim.SetBool("isGrounded", true);
             }
             
         }
@@ -367,7 +362,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.gameObject.tag == "PassThroughPlatform" || collision.gameObject.tag == "Platform")
         {
-            if (collision.gameObject.GetComponent<Escelator>())
+            if (!collision.gameObject.GetComponent<Escelator>())
             {
                 Escelator = null;
                 OnEscelator = false;

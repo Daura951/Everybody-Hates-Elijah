@@ -2972,7 +2972,7 @@ PrefabInstance:
       objectReference: {fileID: 2065872488}
     - target: {fileID: 4926932388033835189, guid: 49b91c20ba8cc6249b9010246d083c77, type: 3}
       propertyPath: rayRange
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4926932388033835189, guid: 49b91c20ba8cc6249b9010246d083c77, type: 3}
       propertyPath: healthText
