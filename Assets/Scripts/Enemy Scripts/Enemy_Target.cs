@@ -42,6 +42,13 @@ public class Enemy_Target : MonoBehaviour
     [Header("Hitbox")]
     public GameObject[] hitboxes;
 
+    [Header("Grabs")]
+    public bool isGrabbed = false;
+    private float grabTimer = 0f;
+    public bool[] whichThrow = { false, false, false, false };
+    //{UThrow, FThrow, BThrow, BThrow}
+
+
     public struct Attack
     {
         public float attackDistance;
@@ -77,7 +84,7 @@ public class Enemy_Target : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (TargetInDistance() && canFollow && !ES.getIsStunned() && !H.getIsStunned() && health.GetHealth() > 0)
+        if (TargetInDistance() && canFollow && !ES.getIsStunned() && !H.getIsStunned() && health.GetHealth() > 0 && !isGrabbed)
         {
             FollowPath();
 
@@ -88,7 +95,7 @@ public class Enemy_Target : MonoBehaviour
             else anim.SetBool("isRunning", true);
 
         }
-        else
+        else if(!isGrabbed)
         {
             anim.SetBool("isRunning", false);
 
@@ -98,27 +105,78 @@ public class Enemy_Target : MonoBehaviour
             }
 
         }
+
+        if(isGrabbed)
+        {
+
+            for(int i = 0; i < hitboxes.Length; i++)
+            {
+                DespawnHitbox(i);
+            }
+
+            if (grabTimer < target.gameObject.GetComponent<PlayerAttack>().maxGrabTime && health.health > 0)
+            {
+                grabTimer += Time.deltaTime;
+                GetComponent<Animator>().SetTrigger("isGrabbed 0");
+                GetComponent<Animator>().SetBool("isGrabbed", true);
+
+                for (int i = 0; i < whichThrow.Length; i++)
+                {
+                    if (whichThrow[i])
+                    {
+                        if (target.gameObject.GetComponent<PlayerMovement>().isLeft)
+                        {
+                            this.transform.position = new Vector2((target.position.x - target.gameObject.GetComponent<PlayerAttack>().throwingOffsets[i].x), target.position.y + target.gameObject.GetComponent<PlayerAttack>().throwingOffsets[i].y);
+                            transform.localScale = new Vector3(1f * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+                        }
+
+                        else
+                        {
+                            this.transform.position = new Vector2(target.position.x + target.gameObject.GetComponent<PlayerAttack>().throwingOffsets[i].x, target.position.y + target.gameObject.GetComponent<PlayerAttack>().throwingOffsets[i].y);
+                            transform.localScale = new Vector3(-1f * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+                        }
+                    }
+                    whichThrow[i] = false;
+                }
+            }
+
+            else isGrabbed = false;
+        }
+
+        else
+        {
+            grabTimer = 0;
+            GetComponent<Animator>().ResetTrigger("isGrabbed 0");
+            GetComponent<Animator>().SetBool("isGrabbed", false);
+            target.gameObject.GetComponent<Animator>().SetBool("hasGrabbedEnemy", false);
+            this.transform.parent = null;
+            rb.gravityScale = 1;
+            grabTimer = 0;
+            target.gameObject.GetComponent<PlayerAttack>().isGrab = false;
+            target.gameObject.GetComponent<PlayerAttack>().currentlyGrabbedEnemy = null;
+        }
     }
 
     private void UpdatePath()
     {
-
-        for(int i = 0; i < attacks.Length; i++)
+        if (!isGrabbed)
         {
-            if (Vector3.Distance(target.position, transform.position) <= attacks[i].attackDistance && Vector3.Distance(target.position, transform.position) > attacks[i].attackDistance - .5f && !ES.getIsStunned() && !H.getIsStunned())
+            for (int i = 0; i < attacks.Length; i++)
             {
-                anim.SetBool(attacks[i].attackName, true);
-                isAttacking = true;
-                break;
-            }
+                if (Vector3.Distance(target.position, transform.position) <= attacks[i].attackDistance && Vector3.Distance(target.position, transform.position) > attacks[i].attackDistance - .5f && !ES.getIsStunned() && !H.getIsStunned())
+                {
+                    anim.SetBool(attacks[i].attackName, true);
+                    isAttacking = true;
+                    break;
+                }
 
-            else
-            {
-                anim.SetBool(attacks[i].attackName, false);
+                else
+                {
+                    anim.SetBool(attacks[i].attackName, false);
+                }
+                isAttacking = false;
             }
-            isAttacking = false;
         }
-
         //If we can follow the player and the player is in distance and if we have calculated the current path
         if(canFollow && TargetInDistance() && seeker.IsDone() && !isAttacking)
         {
@@ -239,5 +297,34 @@ public class Enemy_Target : MonoBehaviour
             DespawnHitbox(i);
         }
         Destroy(this.gameObject);
+    }
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.name == "Grab Hitbox")
+        {
+            isGrabbed = true;
+
+            target.gameObject.GetComponent<Animator>().SetBool("hasGrabbedEnemy", true);
+            target.gameObject.GetComponent<PlayerAttack>().currentlyGrabbedEnemy = this;
+            rb.velocity = new Vector2(0, 0);
+            GetComponent<Animator>().SetTrigger("isGrabbed 0");
+            GetComponent<Animator>().SetBool("isGrabbed", true);
+
+            if (target.gameObject.GetComponent<PlayerMovement>().isLeft)
+            {
+                this.transform.position = new Vector2((target.position.x - target.gameObject.GetComponent<PlayerAttack>().grabOffset.x), target.position.y + target.gameObject.GetComponent<PlayerAttack>().grabOffset.y);
+                transform.localScale = new Vector3(1f * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+            }
+
+            else
+            {
+                this.transform.position = new Vector2(target.position.x + target.gameObject.GetComponent<PlayerAttack>().grabOffset.x, target.position.y + target.gameObject.GetComponent<PlayerAttack>().grabOffset.y);
+                transform.localScale = new Vector3(-1f * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+            }
+            this.transform.parent = target;
+            rb.gravityScale = 0;
+        }
     }
 }

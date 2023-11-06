@@ -13,7 +13,7 @@ public class IdleBehavior : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (PlayerAttack.attackInstance.isAttacking && Input.GetAxisRaw("Vertical") == 0 && PlayerAttack.attackInstance.anim.GetBool("Idle") == true && !PlayerAttack.attackInstance.playerMovement.isInAir && !PlayerAttack.attackInstance.isSpecial)
+        if (PlayerAttack.attackInstance.isAttacking && Input.GetAxisRaw("Vertical") == 0 && PlayerAttack.attackInstance.anim.GetBool("Idle") == true && !PlayerAttack.attackInstance.playerMovement.isInAir && !PlayerAttack.attackInstance.isSpecial && !PlayerAttack.attackInstance.isGrab)
         {
             PlayerAttack.attackInstance.anim.Play("Jab 1 Start");
         }
@@ -34,6 +34,11 @@ public class IdleBehavior : StateMachineBehaviour
         {
             Debug.Log("Called!");
             PlayerAttack.attackInstance.anim.Play("Up Tilt");
+        }
+
+        else if(PlayerAttack.attackInstance.isAttacking && Input.GetAxisRaw("Horizontal") == 0f && Input.GetAxisRaw("Vertical") == 0 && PlayerAttack.attackInstance.isGrab)
+        {
+            PlayerAttack.attackInstance.anim.Play("Grabbing");
         }
 
         else if (string.Equals(PlayerTaunt.TauntInstance.taunt , "Up") && Input.GetAxisRaw("Vertical") == 0 && PlayerTaunt.TauntInstance.anim.GetBool("Idle") == true && !PlayerTaunt.TauntInstance.PM.isInAir)
@@ -62,8 +67,11 @@ public class IdleBehavior : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if(!PlayerAttack.attackInstance.stickyHand.activeSelf)
+        if (!PlayerAttack.attackInstance.stickyHand.activeSelf)
+        {
             PlayerAttack.attackInstance.isAttacking = false;
+        }
+            
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

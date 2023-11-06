@@ -50,6 +50,11 @@ public class PlayerMovement : MonoBehaviour
     private Escelator Escelator;
     public bool OnEscelator, InEscelator = false;
 
+    [Header("LedgeGrab")]
+    public bool grabbing;
+
+
+
 
 
     public TextMeshProUGUI healthText;
@@ -132,7 +137,7 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
-        if (!stunned && !anim.GetBool("Taunt"))
+        if (!stunned && !anim.GetBool("Taunt") && !grabbing)
         {
             if(!anim.GetBool("Climbing"))
             Move();
@@ -174,7 +179,7 @@ public class PlayerMovement : MonoBehaviour
             dashDisable = false;
         }
 
-        rb.velocity = new Vector2(isInLandingLag || (attackScript.isAttacking && !isInAir) || isCrouch || attackScript.isSpecial ? 0 : dirX * Speed, rb.velocity.y);
+        rb.velocity = new Vector2(isInLandingLag || (attackScript.isAttacking && !isInAir) || isCrouch || attackScript.isSpecial  || anim.GetBool("hasGrabbedEnemy") ? 0 : dirX * Speed, rb.velocity.y);
 
         if (dirX == 0 && !isInAir && Input.GetAxisRaw("Vertical") >= 0f)
         {
@@ -197,7 +202,7 @@ public class PlayerMovement : MonoBehaviour
 
         else
         {
-            if (dirX != 0 && !attackScript.isAttacking && !isInAir)
+            if (dirX != 0 && !attackScript.isAttacking && !isInAir && !anim.GetBool("hasGrabbedEnemy"))
                 transform.eulerAngles = new Vector2(0, dirX < 0 ? 180 : 0);
 
             isLeft = transform.eulerAngles.y == 0 ? false : true;
@@ -231,7 +236,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Jump()
     {
-        if (!(jumpAmt == 0 && isInAir && !anim.GetBool("Climbing")) && !isInLandingLag && !attackScript.isAttacking)
+        if (!(jumpAmt == 0 && isInAir && !anim.GetBool("Climbing")) && !isInLandingLag && !attackScript.isAttacking && !anim.GetBool("hasGrabbedEnemy"))
         {
             if (anim.GetBool("Climbing"))
                 jumpAmt = 0;
@@ -346,7 +351,7 @@ public class PlayerMovement : MonoBehaviour
                 anim.SetBool("isGrounded", isOnPassThrough);
             }
            
-            if (collision.gameObject.tag == "Platform")
+            if (collision.gameObject.tag == "Platform" && !grabbing && !isInAir)
             {
                 jumpAmt = 0;
                 PlayerAttack.attackInstance.isExecutedOnce = false;
@@ -375,7 +380,6 @@ public class PlayerMovement : MonoBehaviour
                     anim.SetBool("isGrounded", !isInAir);
                     anim.SetBool("isJumping", true);
                     anim.SetBool("isDoubleJumping", false);
-                    jumpAmt = 1;
                 }
             }
 

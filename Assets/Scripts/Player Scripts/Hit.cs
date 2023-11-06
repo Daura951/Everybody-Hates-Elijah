@@ -28,7 +28,7 @@ public class Hit : MonoBehaviour
         if (isHit)
         {
             timer = stats[3];
-             Debug.Log(timer);
+            // Debug.Log(timer);
             H.TakeDamage(stats[0]);
             GetHit(stats[2], stats[1]);
         }
@@ -41,8 +41,11 @@ public class Hit : MonoBehaviour
            }
            else
             timer = 0;
-           if(timer == 0)
-            Stunned=false;
+            if (timer == 0)
+            {
+                Stunned = false;
+                rb.velocity = new Vector2(0, 0);
+            }
         }
     }
 
@@ -65,16 +68,21 @@ public class Hit : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
 
-        if(collision.gameObject.tag == "Hitbox" && !(collision.gameObject.name == "StickyHandHitbox"))
+        if(collision.gameObject.tag == "Hitbox" && !(collision.gameObject.name == "StickyHandHitbox") && collision.gameObject.name != "Grab Hiitbox")
         {
             stats = collision.transform.parent.gameObject.GetComponent<PlayerAttack>().GetCurrentStats();
             if(stats[2] !=0)
             rb.velocity = new Vector2(0,0);
             isHit = Stunned = true;
             isLeft = collision.transform.parent.gameObject.GetComponent<PlayerMovement>().GetIsLeft();
+
+            if(collision.gameObject.name== "Pummel Hitbox")
+            {
+                GetComponent<Animator>().Play("Grab Hurt");
+            }
         }
 
-        else if(collision.gameObject.tag == "Hitbox" && collision.gameObject.name== "StickyHandHitbox")
+        else if(collision.gameObject.tag == "Hitbox" && collision.gameObject.name== "StickyHandHitbox" && collision.gameObject.name!="Grab Hiitbox")
         {
             print("Gotcha!!!!");
             stats = collision.transform.parent.gameObject.GetComponent<PlayerAttack>().GetCurrentStats();
@@ -89,6 +97,13 @@ public class Hit : MonoBehaviour
             collision.transform.parent.gameObject.GetComponent<PlayerAttack>().hitBoxes[6].GetComponent<CircleCollider2D>().enabled = false;
 
         }
+
+        if(collision.gameObject.name=="Dash  Hitbox")
+        {
+            collision.transform.parent.GetComponent<PlayerMovement>().rb.velocity = new Vector2(0, 0);
+        }
+
+        rb.velocity = new Vector2(0, 0);
     }
 
     public bool getIsStunned()

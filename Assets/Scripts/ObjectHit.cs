@@ -66,7 +66,7 @@ public class ObjectHit : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
 
-        if (collision.gameObject.tag == "Hitbox" && !(collision.gameObject.name == "StickyHandHitbox"))
+        if (collision.gameObject.tag == "Hitbox" && !(collision.gameObject.name == "StickyHandHitbox") && collision.gameObject.name != "Grab Hitbox")
         {
             stats = collision.transform.parent.gameObject.GetComponent<PlayerAttack>().GetCurrentStats();
             if (stats[2] != 0)
@@ -75,7 +75,7 @@ public class ObjectHit : MonoBehaviour
             isLeft = collision.transform.parent.gameObject.GetComponent<PlayerMovement>().GetIsLeft();
         }
 
-        else if (collision.gameObject.tag == "Hitbox" && collision.gameObject.name == "StickyHandHitbox")
+        else if (collision.gameObject.tag == "Hitbox" && collision.gameObject.name == "StickyHandHitbox" && collision.gameObject.name != "Grab Hitbox")
         {
             print("Gotcha!!!!");
             stats = collision.transform.parent.gameObject.GetComponent<PlayerAttack>().GetCurrentStats();

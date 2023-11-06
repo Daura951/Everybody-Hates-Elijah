@@ -15,7 +15,7 @@ public class PlayerAttack : MonoBehaviour
     Stun S;
     private Rigidbody2D rb;
 
-    public bool isAttacking, isSpecial = false, isSticked = false;
+    public bool isAttacking, isSpecial = false, isSticked = false, isGrab=false;
     
     public GameObject[] hitBoxes;
     public GameObject stickyHand;
@@ -39,6 +39,13 @@ public class PlayerAttack : MonoBehaviour
     public bool ASideB = false, SideBS = false;
     public float distance , Speed =1;
     public Vector3 target;
+
+    [Header("Grabbing")]
+    public Vector2 grabOffset;
+    public Vector2 playerDThrowOffset;
+    public float maxGrabTime;
+    public Enemy_Target currentlyGrabbedEnemy;
+    public Vector2[] throwingOffsets;
 
     private void Awake()
     {
@@ -81,7 +88,7 @@ public class PlayerAttack : MonoBehaviour
         }
 
 
-        if(!OnLadder && !ASideB)
+        if(!OnLadder && !ASideB && !playerMovement.grabbing)
         Attack();
 
         if(ASideB)
@@ -93,62 +100,62 @@ public class PlayerAttack : MonoBehaviour
 
 
         //Control Detection
-        if (Input.GetButtonDown("Fire1") && Input.GetAxisRaw("Vertical") == 0 && !isAttacking && anim.GetBool("Idle") == true && !playerMovement.isInAir && !stunned)
+        if (Input.GetButtonDown("Fire1") && Input.GetAxisRaw("Vertical") == 0 && !isAttacking && anim.GetBool("Idle") == true && !playerMovement.isInAir && !stunned && !isGrab)
         {
             print("Jab");
             isSpecial = false;
             isAttacking = true;
         }
 
-        else if (Input.GetButtonDown("Fire1") && !isAttacking && Input.GetAxisRaw("Vertical") > 0 && anim.GetBool("Idle") && !playerMovement.isInAir && !stunned)
+        else if (Input.GetButtonDown("Fire1") && !isAttacking && Input.GetAxisRaw("Vertical") > 0 && anim.GetBool("Idle") && !playerMovement.isInAir && !stunned && !isGrab)
         {
             print("UTilt");
             isAttacking = true;
         }
 
-        else if (Input.GetButtonDown("Fire1") && !isAttacking && Input.GetAxisRaw("Vertical") < 0 && anim.GetBool("Crouch") && !playerMovement.isInAir && !stunned)
+        else if (Input.GetButtonDown("Fire1") && !isAttacking && Input.GetAxisRaw("Vertical") < 0 && anim.GetBool("Crouch") && !playerMovement.isInAir && !stunned && !isGrab)
         {
             print("DTilt");
             isAttacking = true;
         }
 
-        else if (Input.GetButtonDown("Fire1") && !isAttacking && Input.GetAxisRaw("Horizontal") != 0 && !playerMovement.isInAir && !stunned && !anim.GetBool("Running"))
+        else if (Input.GetButtonDown("Fire1") && !isAttacking && Input.GetAxisRaw("Horizontal") != 0 && !playerMovement.isInAir && !stunned && !anim.GetBool("Running") && !isGrab)
         {
             print("FTilt");
             isAttacking = true;
         }
 
-        else if ((Input.GetButtonDown("Fire1") || Input.GetButton("Fire3")) && !isAttacking && Input.GetAxisRaw("Vertical") == 0 && Input.GetAxisRaw("Horizontal") == 0 && playerMovement.isInAir && !stunned &&!isExecutedOnce)
+        else if ((Input.GetButtonDown("Fire1") || Input.GetButton("Fire3")) && !Input.GetButtonDown("Grab") && !isAttacking && Input.GetAxisRaw("Vertical") == 0 && Input.GetAxisRaw("Horizontal") == 0 && playerMovement.isInAir && !stunned &&!isExecutedOnce && !isGrab)
         {
             isAttacking = true;
             print("Nair");
         }
 
-        else if ((Input.GetButtonDown("Fire1") || Input.GetButton("Fire3")) && !isAttacking && Input.GetAxisRaw("Vertical") > 0 && playerMovement.isInAir && !stunned &&!isExecutedOnce)
+        else if ((Input.GetButtonDown("Fire1") || Input.GetButton("Fire3")) && !isAttacking && Input.GetAxisRaw("Vertical") > 0 && playerMovement.isInAir && !stunned &&!isExecutedOnce && !isGrab)
         {
             print("Uair");
             isAttacking = true;
         }
 
-        else if ((Input.GetButtonDown("Fire1") || Input.GetButton("Fire3")) && !isAttacking && Input.GetAxisRaw("Vertical") < 0 && playerMovement.isInAir && !stunned &&!isExecutedOnce)
+        else if ((Input.GetButtonDown("Fire1") || Input.GetButton("Fire3")) && !isAttacking && Input.GetAxisRaw("Vertical") < 0 && playerMovement.isInAir && !stunned &&!isExecutedOnce && !isGrab)
         {
             print("Dair");
             isAttacking = true;
         }
 
-        else if ((Input.GetButtonDown("Fire1") || Input.GetButton("Fire3")) && !isAttacking && ((playerMovement.transform.rotation.y == 0 && Input.GetAxisRaw("Horizontal") >0) || (playerMovement.transform.rotation.y < 0 && Input.GetAxisRaw("Horizontal") < 0))  && playerMovement.isInAir && !stunned &&!isExecutedOnce)
+        else if ((Input.GetButtonDown("Fire1") || Input.GetButton("Fire3")) && !isAttacking && ((playerMovement.transform.rotation.y == 0 && Input.GetAxisRaw("Horizontal") >0) || (playerMovement.transform.rotation.y < 0 && Input.GetAxisRaw("Horizontal") < 0))  && playerMovement.isInAir && !stunned &&!isExecutedOnce && !isGrab)
         {
             print("Fair");
             isAttacking = true;
         }
 
-        else if ((Input.GetButtonDown("Fire1") || Input.GetButton("Fire3")) && !isAttacking && playerMovement.isInAir && !stunned && ((playerMovement.transform.rotation.y == 0 && Input.GetAxisRaw("Horizontal") < 0) || (playerMovement.transform.rotation.y < 0 && Input.GetAxisRaw("Horizontal") > 0)))
+        else if ((Input.GetButtonDown("Fire1") || Input.GetButton("Fire3")) && !isAttacking && playerMovement.isInAir && !stunned && ((playerMovement.transform.rotation.y == 0 && Input.GetAxisRaw("Horizontal") < 0) || (playerMovement.transform.rotation.y < 0 && Input.GetAxisRaw("Horizontal") > 0)) && !isGrab)
         {
             print("Bair");
             isAttacking = true;
         }
 
-        else if(Input.GetButtonDown("Fire1") && !isAttacking && Input.GetAxisRaw("Horizontal")!=0 && anim.GetBool("Running") && !isSpecial)
+        else if(Input.GetButtonDown("Fire1") && !isAttacking && Input.GetAxisRaw("Horizontal")!=0 && anim.GetBool("Running") && !isSpecial && !isGrab)
         {
             print("Dash");
             isAttacking = true;
@@ -188,6 +195,51 @@ public class PlayerAttack : MonoBehaviour
             print("FSpecial");
         }
 
+        else if (Input.GetButtonDown("Grab") && !isAttacking && Input.GetAxisRaw("Horizontal") == 0f && Input.GetAxisRaw("Vertical") == 0 && !stunned && !isExecutedOnce && !playerMovement.isInAir && !stunned)
+        {
+            print("Grab");
+            isAttacking = true;
+            isSpecial = false;
+            isGrab = true;
+
+        }
+
+
+        else if (Input.GetButtonDown("Fire1") && Input.GetAxisRaw("Vertical") == 0 && Input.GetAxisRaw("Horizontal") == 0 && !isAttacking && anim.GetBool("hasGrabbedEnemy") == true && !playerMovement.isInAir && !stunned && isGrab)
+        {
+            print("Pummel");
+            isSpecial = false;
+            isAttacking = true;
+        }
+
+
+        else if(Input.GetButtonDown("Fire1") && Input.GetAxisRaw("Vertical")==0 && !isAttacking && ((playerMovement.transform.rotation.y == 0 && Input.GetAxisRaw("Horizontal") < 0) || (playerMovement.transform.rotation.y < 0 && Input.GetAxisRaw("Horizontal") > 0)) && isGrab)
+        {
+            print("BThrow");
+            isGrab = true;
+            isAttacking = true;
+        }
+
+        else if (Input.GetButtonDown("Fire1") && Input.GetAxisRaw("Vertical") == 0 && !isAttacking && ((playerMovement.transform.rotation.y == 0 && Input.GetAxisRaw("Horizontal") > 0) || (playerMovement.transform.rotation.y < 0 && Input.GetAxisRaw("Horizontal") < 0)) && isGrab)
+        {
+            print("FThrow");
+            isGrab = true;
+            isAttacking = true;
+        }
+
+        else if (Input.GetButtonDown("Fire1") && Input.GetAxisRaw("Vertical") <0 && !isAttacking && Input.GetAxisRaw("Horizontal")==0 && isGrab)
+        {
+            print("DThrow");
+            isGrab = true;
+            isAttacking = true;
+        }
+
+        else if (Input.GetButtonDown("Fire1") && Input.GetAxisRaw("Vertical") > 0 && !isAttacking && Input.GetAxisRaw("Horizontal") == 0 && isGrab)
+        {
+            print("UThrow");
+            isGrab = true;
+            isAttacking = true;
+        }
 
 
 
@@ -260,6 +312,7 @@ public class PlayerAttack : MonoBehaviour
         {
           strongDone = false;
         }
+
 
 
     }
@@ -477,6 +530,79 @@ public class PlayerAttack : MonoBehaviour
         playerMovement.rb.AddForce(new Vector2(XDir, yDir));
     }
 
+    public void Grab(int L)
+    {
+        hitBoxes[21].SetActive(true);
+        string[] statSplit = Line[L].Split(" ");
+        currentStats[0] = float.Parse(statSplit[1]); //Damage
+        currentStats[1] = float.Parse(statSplit[2]); //Angle
+        currentStats[2] = float.Parse(statSplit[3]); //Knockback
+        currentStats[3] = float.Parse(statSplit[4]); //Time Stun 
+
+
+    }
+
+    public void Pummel(int L)
+    {
+        hitBoxes[22].SetActive(true);
+        string[] statSplit = Line[L].Split(" ");
+        currentStats[0] = float.Parse(statSplit[1]); //Damage
+        currentStats[1] = float.Parse(statSplit[2]); //Angle
+        currentStats[2] = float.Parse(statSplit[3]); //Knockback
+        currentStats[3] = float.Parse(statSplit[4]); //Time Stun 
+    }
+
+
+    public void UThrow(int L)
+    {
+        hitBoxes[23].SetActive(true);
+        string[] statSplit = Line[L].Split(" ");
+        currentStats[0] = float.Parse(statSplit[1]); //Damage
+        currentStats[1] = float.Parse(statSplit[2]); //Angle
+        currentStats[2] = float.Parse(statSplit[3]); //Knockback
+        currentStats[3] = float.Parse(statSplit[4]); //Time Stun 
+        currentlyGrabbedEnemy.isGrabbed = false;
+    }
+
+    public void FThrow(int L)
+    {
+        hitBoxes[24].SetActive(true);
+        string[] statSplit = Line[L].Split(" ");
+        currentStats[0] = float.Parse(statSplit[1]); //Damage
+        currentStats[1] = float.Parse(statSplit[2]); //Angle
+        currentStats[2] = float.Parse(statSplit[3]); //Knockback
+        currentStats[3] = float.Parse(statSplit[4]); //Time Stun 
+        currentlyGrabbedEnemy.isGrabbed = false;
+    }
+
+    public void BThrow(int L)
+    {
+        hitBoxes[25].SetActive(true);
+        string[] statSplit = Line[L].Split(" ");
+        currentStats[0] = float.Parse(statSplit[1]); //Damage
+        currentStats[1] = float.Parse(statSplit[2]); //Angle
+        currentStats[2] = float.Parse(statSplit[3]); //Knockback
+        currentStats[3] = float.Parse(statSplit[4]); //Time Stun 
+        currentlyGrabbedEnemy.isGrabbed = false;
+    }
+
+    public void DThrow(int L)
+    {
+        string[] statSplit = Line[L].Split(" ");
+        hitBoxes[int.Parse(statSplit[7])].SetActive(true);
+        currentStats[0] = float.Parse(statSplit[1]); //Damage
+        currentStats[1] = float.Parse(statSplit[2]); //Angle
+        currentStats[2] = float.Parse(statSplit[3]); //Knockback
+        currentStats[3] = float.Parse(statSplit[4]); //Time Stun 
+
+        if (currentlyGrabbedEnemy != null)
+        {
+            currentlyGrabbedEnemy.isGrabbed = false;
+            playerMovement.transform.position = new Vector2(playerMovement.transform.position.x, playerMovement.transform.position.y + playerDThrowOffset.y);
+        }
+    }
+
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
        if(collision.gameObject.tag == "Ladder")
@@ -495,7 +621,7 @@ public class PlayerAttack : MonoBehaviour
     }
 
 
-    void DespawnHitBox(int hitboxIndex)
+    public void DespawnHitBox(int hitboxIndex)
     {
         if (hitboxIndex == 16)
         {
@@ -541,3 +667,4 @@ public class PlayerAttack : MonoBehaviour
         return isAttacking;
     }
 }
+    
