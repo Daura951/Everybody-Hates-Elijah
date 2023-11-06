@@ -243,7 +243,7 @@ public class PlayerAttack : MonoBehaviour
 
 
 
-        else if (Input.GetButton("Fire3") && !strongDone && !isAttacking && Input.GetAxisRaw("Vertical") == 0 && !playerMovement.isInAir && !stunned && !isSpecial )
+        else if (Input.GetButton("Fire3") && !strongDone && !isAttacking && Input.GetAxisRaw("Vertical") == 0 && !playerMovement.isInAir && !stunned && !isSpecial && !isGrab )
         {
             isAttacking = true;
             if (!strongStarted)
@@ -254,7 +254,7 @@ public class PlayerAttack : MonoBehaviour
             }
         }
 
-        else if (Input.GetButton("Fire3") && !strongDone && !isAttacking && Input.GetAxisRaw("Vertical") > 0 && !playerMovement.isInAir && !stunned && !isSpecial )
+        else if (Input.GetButton("Fire3") && !strongDone && !isAttacking && Input.GetAxisRaw("Vertical") > 0 && !playerMovement.isInAir && !stunned && !isSpecial && !isGrab )
         {
             isAttacking = true;
             if (!strongStarted)
@@ -266,7 +266,7 @@ public class PlayerAttack : MonoBehaviour
 
         }
 
-        else if (Input.GetButton("Fire3") && !strongDone && !isAttacking && Input.GetAxisRaw("Vertical") < 0 && !playerMovement.isInAir && !stunned  && !isSpecial )
+        else if (Input.GetButton("Fire3") && !strongDone && !isAttacking && Input.GetAxisRaw("Vertical") < 0 && !playerMovement.isInAir && !stunned  && !isSpecial && !isGrab)
         {
             isAttacking = true;
             if (!strongStarted)
