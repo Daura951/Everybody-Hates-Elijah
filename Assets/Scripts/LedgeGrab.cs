@@ -159,50 +159,53 @@ public class LedgeGrab : MonoBehaviour
             if (greenBox)
                 g = greenBox.gameObject;
 
-            rb.velocity = Vector2.zero;
-            rb.gravityScale = 0;
 
-
-            if (transform.position.x < g.transform.position.x)
+            if (g.CompareTag("Platform"))
             {
-                transform.position = new Vector2(g.transform.position.x - (g.transform.localScale.x / 2) - .1f, g.transform.position.y);
+                rb.velocity = Vector2.zero;
+                rb.gravityScale = 0;
 
-                if (transform.localEulerAngles.y != 0)
-                    transform.eulerAngles = new Vector2(0, !pm.GetIsLeft() ? 180 : 0);
+
+                if (transform.position.x < g.transform.position.x)
+                {
+                    transform.position = new Vector2(g.transform.position.x - (g.transform.localScale.x / 2) - .1f, g.transform.position.y);
+
+                    if (transform.localEulerAngles.y != 0)
+                        transform.eulerAngles = new Vector2(0, !pm.GetIsLeft() ? 180 : 0);
+                }
+                else
+                {
+                    transform.position = new Vector2(g.transform.position.x + (g.transform.localScale.x / 2) + .1f, g.transform.position.y);
+
+                    if (transform.localEulerAngles.y == 0)
+                        transform.eulerAngles = new Vector2(0, !pm.GetIsLeft() ? 180 : 0);
+                }
+
+
+
+                pm.grabbing = true;
+                reGrab = false;
+                timer1 = timer = 0;
+                anim.SetBool("isJumping", false);
+                anim.SetBool("isDoubleJumping", false);
+                anim.SetBool("isFalling", false);
+                anim.Play("Ledge grab");
+                PA.isAttacking = PA.isSpecial = PA.isExecutedOnce = PA.SideBS = PA.ASideB = false;
+                if (pm.jumpAmt == 2)
+                    pm.jumpAmt = 1;
+
+                if (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0)
+                {
+                    grab = false;
+                }
+
+
+                for (int i = 0; i < PA.hitBoxes.Length; i++)
+                {
+                    PA.DespawnHitBox(i);
+                }
+
             }
-            else
-            {
-                transform.position = new Vector2(g.transform.position.x + (g.transform.localScale.x / 2) + .1f, g.transform.position.y);
-
-                if (transform.localEulerAngles.y == 0)
-                    transform.eulerAngles = new Vector2(0, !pm.GetIsLeft() ? 180 : 0);
-            }
-
-
-
-            pm.grabbing = true;
-            reGrab = false;
-            timer1 = timer = 0;
-            anim.SetBool("isJumping", false);
-            anim.SetBool("isDoubleJumping", false);
-            anim.SetBool("isFalling", false);
-            anim.Play("Ledge grab");
-            PA.isAttacking = PA.isSpecial = PA.isExecutedOnce = PA.SideBS = PA.ASideB = false;
-            if (pm.jumpAmt == 2)
-                pm.jumpAmt = 1;
-
-            if (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0)
-            {
-                grab = false;
-            }
-
-
-            for (int i = 0; i < PA.hitBoxes.Length; i++)
-            {
-                PA.DespawnHitBox(i);
-            }
-
-
         }
 
         if ((!greenBox && !redBox) || anim.GetBool("isGrounded"))
