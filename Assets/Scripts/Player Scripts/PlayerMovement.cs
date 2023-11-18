@@ -35,6 +35,8 @@ public class PlayerMovement : MonoBehaviour
     bool isCrouch = false;
     public float crouchTimer = .5f;
     public float terminalVelocityY =  -10f;
+    private Vector2 smoothVector;
+    private Vector2 smoothVelocity;
 
     public Transform[] groundRays;
     public float rayRange = 5f;
@@ -179,7 +181,11 @@ public class PlayerMovement : MonoBehaviour
             dashDisable = false;
         }
 
-        rb.velocity = new Vector2(isInLandingLag || (attackScript.isAttacking && !isInAir) || isCrouch || attackScript.isSpecial  || anim.GetBool("hasGrabbedEnemy") ? 0 : dirX * Speed, rb.velocity.y);
+        smoothVector = Vector2.SmoothDamp(smoothVector, new Vector2(dirX*Speed, 0.0f), ref smoothVelocity, .1f);
+
+
+        //ternary is here so that I don't actually change dirX. dirX is needed elsewhere.
+        rb.velocity = new Vector2(isInLandingLag || (attackScript.isAttacking && !isInAir) || isCrouch || attackScript.isSpecial  || anim.GetBool("hasGrabbedEnemy") ? 0 :  (dirX >0 ? dirX * smoothVector.x : -dirX * smoothVector.x), rb.velocity.y);
 
         if (dirX == 0 && !isInAir && Input.GetAxisRaw("Vertical") >= 0f)
         {
