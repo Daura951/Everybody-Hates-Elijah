@@ -47,6 +47,9 @@ public class PlayerAttack : MonoBehaviour
     public Enemy_Target currentlyGrabbedEnemy;
     public Vector2[] throwingOffsets;
 
+
+    private int revFSpecialIndex = 0;
+
     private void Awake()
     {
         stickyHand.SetActive(false);
@@ -603,6 +606,21 @@ public class PlayerAttack : MonoBehaviour
     }
 
 
+
+    public void DetectReverseFSpecial()
+    {
+        revFSpecialIndex = 0;
+        if (playerMovement.transform.rotation.y == 0 && Input.GetAxisRaw("Horizontal") < 0)
+        {
+            revFSpecialIndex = 1;
+        }
+        else if (playerMovement.transform.rotation.y < 0 && Input.GetAxisRaw("Horizontal") > 0)
+        {
+            revFSpecialIndex = 2;
+        }
+    }
+
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
        if(collision.gameObject.tag == "Ladder")
@@ -644,11 +662,16 @@ public class PlayerAttack : MonoBehaviour
 
     void ActivateSideB(float distance)
     {
+        if(revFSpecialIndex!=0)
+        {
+            distance /= 2;
+        }
+
         ASideB = true;
-        if(!playerMovement.GetIsLeft())
-        target = new Vector3 (transform.position.x + distance , transform.position.y , transform.position.z);
+        if (!playerMovement.GetIsLeft() && revFSpecialIndex == 0 || revFSpecialIndex == 2)
+            target = new Vector3 (transform.position.x + distance , transform.position.y , transform.position.z);
         else
-        target = new Vector3 (transform.position.x - distance , transform.position.y , transform.position.z);
+            target = new Vector3 (transform.position.x - distance , transform.position.y , transform.position.z);
     }
 
 
