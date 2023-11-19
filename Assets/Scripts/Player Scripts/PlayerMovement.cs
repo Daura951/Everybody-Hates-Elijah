@@ -35,6 +35,8 @@ public class PlayerMovement : MonoBehaviour
     bool isCrouch = false;
     public float crouchTimer = .5f;
     public float terminalVelocityY =  -10f;
+    private Vector2 smoothVector;
+    private Vector2 smoothVelocity;
 
     public Transform[] groundRays;
     public float rayRange = 5f;
@@ -179,7 +181,19 @@ public class PlayerMovement : MonoBehaviour
             dashDisable = false;
         }
 
-        rb.velocity = new Vector2(isInLandingLag || (attackScript.isAttacking && !isInAir) || isCrouch || attackScript.isSpecial  || anim.GetBool("hasGrabbedEnemy") ? 0 : dirX * Speed, rb.velocity.y);
+<<<<<<< HEAD
+        smoothVector = Vector2.SmoothDamp(smoothVector, new Vector2(dirX * Speed, 0.0f), ref smoothVelocity, .1f);
+
+        //ternart is here so that I dont actually change dirx. dirx is needed elsewhere.
+        rb.velocity = new Vector2(isInLandingLag || (attackScript.isAttacking && !isInAir) || isCrouch ||  attackScript.isSpecial  || anim.GetBool("hasGrabbedEnemy") ? 0 : (dirX > 0 ? dirX * smoothVector.x : -dirX * smoothVector.x), rb.velocity.y);
+
+=======
+        smoothVector = Vector2.SmoothDamp(smoothVector, new Vector2(dirX*Speed, 0.0f), ref smoothVelocity, .1f);
+
+
+        //ternary is here so that I don't actually change dirX. dirX is needed elsewhere.
+        rb.velocity = new Vector2(isInLandingLag || (attackScript.isAttacking && !isInAir) || isCrouch || attackScript.isSpecial  || anim.GetBool("hasGrabbedEnemy") ? 0 :  (dirX >0 ? dirX * smoothVector.x : -dirX * smoothVector.x), rb.velocity.y);
+>>>>>>> 878eeb5e72f6a26b0fb1ef93ef811e9ba2bebbf3
 
         if (dirX == 0 && !isInAir && Input.GetAxisRaw("Vertical") >= 0f)
         {
@@ -310,7 +324,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Platform" || collision.gameObject.tag == "PassThroughPlatform")
+        if (collision.gameObject.tag == "Platform" || collision.gameObject.tag == "PassThroughPlatform" || collision.gameObject.tag == "MovingPlatform")
         {
             if (anim.GetCurrentAnimatorStateInfo(0).IsName("USpecial") && collision.gameObject.tag=="PassThroughPlatform")
             {
@@ -351,7 +365,7 @@ public class PlayerMovement : MonoBehaviour
                 anim.SetBool("isGrounded", isOnPassThrough);
             }
            
-            if (collision.gameObject.tag == "Platform" && !grabbing && !isInAir)
+            if ((collision.gameObject.tag == "Platform" || collision.gameObject.tag == "MovingPlatform") && !grabbing && !isInAir)
             {
                 jumpAmt = 0;
                 PlayerAttack.attackInstance.isExecutedOnce = false;

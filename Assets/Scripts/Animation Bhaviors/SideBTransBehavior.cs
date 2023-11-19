@@ -27,6 +27,7 @@ public class SideBTransBehavior : StateMachineBehaviour
         if(PlayerAttack.attackInstance.playerMovement.GetAnim().GetCurrentAnimatorStateInfo (0).IsName("Single Jump Fall"))
         PlayerAttack.attackInstance.playerMovement.rb.gravityScale = PlayerAttack.attackInstance.playerMovement.scaledGravity;
 
+        PlayerAttack.attackInstance.playerMovement.anim.SetBool("isJumping", false);
         PlayerAttack.attackInstance.isAttacking = false;
         PlayerAttack.attackInstance.isSpecial = false;
     }
