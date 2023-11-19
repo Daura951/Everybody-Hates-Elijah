@@ -168,14 +168,14 @@ public class LedgeGrab : MonoBehaviour
 
                 if (transform.position.x < g.transform.position.x)
                 {
-                    transform.position = new Vector2(g.transform.position.x - (g.transform.localScale.x / 2) - .1f, g.transform.position.y);
+                    transform.position = new Vector2(g.transform.position.x - (g.transform.localScale.x / 2) - .1f, (g.transform.position.y+((g.transform.localScale.y)*0.5f)-1.1f));
 
                     if (transform.localEulerAngles.y != 0)
                         transform.eulerAngles = new Vector2(0, !pm.GetIsLeft() ? 180 : 0);
                 }
                 else
                 {
-                    transform.position = new Vector2(g.transform.position.x + (g.transform.localScale.x / 2) + .1f, g.transform.position.y);
+                    transform.position = new Vector2(g.transform.position.x + (g.transform.localScale.x / 2) + .1f, (g.transform.position.y + ((g.transform.localScale.y) * 0.5f) - 1.1f));
 
                     if (transform.localEulerAngles.y == 0)
                         transform.eulerAngles = new Vector2(0, !pm.GetIsLeft() ? 180 : 0);
@@ -220,12 +220,12 @@ public class LedgeGrab : MonoBehaviour
     {
         if (transform.position.x < g.transform.position.x)
         {
-            transform.position = new Vector2(g.transform.position.x - (g.transform.localScale.x / 2) + .5f, g.transform.position.y + 1.1f);
+            transform.position = new Vector2(transform.position.x +3.5f, (g.transform.position.y + ((g.transform.localScale.y) * 0.5f) + .8f));
 
         }
         else
         {
-            transform.position = new Vector2(g.transform.position.x + (g.transform.localScale.x / 2) - .5f, g.transform.position.y + 1.1f);
+            transform.position = new Vector2(transform.position.x -3.5f, (g.transform.position.y + ((g.transform.localScale.y) * 0.5f) + .8f));
 
         }
         pm.grabbing = false;
@@ -237,12 +237,12 @@ public class LedgeGrab : MonoBehaviour
     {
         if (transform.position.x < g.transform.position.x)
         {
-            transform.position = new Vector2(g.transform.position.x - (g.transform.localScale.x / 2) + .5f, g.transform.position.y + 1.1f);
+            transform.position = new Vector2(transform.position.x + 2f, g.transform.position.y + 2f);
 
         }
         else
         {
-            transform.position = new Vector2(g.transform.position.x + (g.transform.localScale.x / 2) - .5f, g.transform.position.y + 1.1f);
+            transform.position = new Vector2(transform.position.x - 2f, g.transform.position.y + 2f);
 
         }
         pm.grabbing = false;

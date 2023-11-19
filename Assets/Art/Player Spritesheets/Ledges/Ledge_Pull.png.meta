@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 04feab3dce73afe44b5a4b70ff6359b6
+guid: 804697459a9d8694996d4a9c7e01b877
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -105,211 +105,253 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Ledge attack_0
+      name: Ledge_Pull_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 800
-        width: 1200
-        height: 800
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        y: 4050
+        width: 2400
+        height: 1350
+      alignment: 9
+      pivot: {x: 0.31, y: 0.34}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2df243ff3cf345a4aabe3906253e7f53
-      internalID: -868953695
+      spriteID: 19376b961c4ce4b4d9a703c75dd6522a
+      internalID: -578625432
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ledge attack_1
-      rect:
-        serializedVersion: 2
-        x: 1200
-        y: 800
-        width: 1200
-        height: 800
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ecbd5ef32e9334f4c9a160891e41576e
-      internalID: -506199079
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ledge attack_2
+      name: Ledge_Pull_1
       rect:
         serializedVersion: 2
         x: 2400
-        y: 800
-        width: 1200
-        height: 800
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        y: 4050
+        width: 2400
+        height: 1350
+      alignment: 9
+      pivot: {x: 0.31, y: 0.34}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: da852b7268cb17f4388fb9adc536af77
-      internalID: 292081884
+      spriteID: 550a659b3b3ed0040aa2f7242170102c
+      internalID: 769713024
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ledge attack_3
-      rect:
-        serializedVersion: 2
-        x: 3600
-        y: 800
-        width: 1200
-        height: 800
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b7a45a1be00238e4fa1c6ca3a47358b6
-      internalID: 607202272
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ledge attack_4
+      name: Ledge_Pull_2
       rect:
         serializedVersion: 2
         x: 4800
-        y: 800
-        width: 1200
-        height: 800
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        y: 4050
+        width: 2400
+        height: 1350
+      alignment: 9
+      pivot: {x: 0.31, y: 0.34}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e75081cc312d7f54ba63608dfe556c90
-      internalID: -1495013635
+      spriteID: fe404a3c4b5fe5940a78543e0adb6f8b
+      internalID: -1187842129
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ledge attack_5
+      name: Ledge_Pull_3
       rect:
         serializedVersion: 2
-        x: 6000
-        y: 800
-        width: 1200
-        height: 800
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 0
+        y: 2700
+        width: 2400
+        height: 1350
+      alignment: 9
+      pivot: {x: 0.31, y: 0.34}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fa57a2b9dd0e4e7438157786f000620e
-      internalID: -1694620562
+      spriteID: 58b96d11c984fd84cb5789044ec5f902
+      internalID: 707132709
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ledge attack_6
+      name: Ledge_Pull_4
       rect:
         serializedVersion: 2
-        x: 7200
-        y: 800
-        width: 1200
-        height: 800
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 2400
+        y: 2700
+        width: 2400
+        height: 1350
+      alignment: 9
+      pivot: {x: 0.31, y: 0.34}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ceacec1f45a738645a1147848ef5bf61
-      internalID: -344136159
+      spriteID: 920c612ebd11dff499e042cc004e0bd2
+      internalID: 1037223971
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ledge attack_7
+      name: Ledge_Pull_5
       rect:
         serializedVersion: 2
-        x: 8400
-        y: 800
-        width: 1200
-        height: 800
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 4800
+        y: 2700
+        width: 2400
+        height: 1350
+      alignment: 9
+      pivot: {x: 0.31, y: 0.34}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d262999172c655f4f813bc8b9137de88
-      internalID: -1354781348
+      spriteID: c6d557423fd848e47a42db04c5f84e15
+      internalID: 1945958984
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ledge attack_8
+      name: Ledge_Pull_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1350
+        width: 2400
+        height: 1350
+      alignment: 9
+      pivot: {x: 0.31, y: 0.34}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c5742db6a72bdf49997d4b06be2db97
+      internalID: -528181088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ledge_Pull_7
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 1350
+        width: 2400
+        height: 1350
+      alignment: 9
+      pivot: {x: 0.31, y: 0.34}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7dbbd2ab8971f594f96b956f33d60d21
+      internalID: 867168667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ledge_Pull_8
+      rect:
+        serializedVersion: 2
+        x: 4800
+        y: 1350
+        width: 2400
+        height: 1350
+      alignment: 9
+      pivot: {x: 0.31, y: 0.34}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c885e7c759112a40ab420078ce9a557
+      internalID: -708747858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ledge_Pull_9
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1200
-        height: 800
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 2400
+        height: 1350
+      alignment: 9
+      pivot: {x: 0.31, y: 0.34}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 462a75a83afa20342af32ad6d8be6653
-      internalID: 478644056
+      spriteID: 1f2fc4e453b00c04da77a72b61589e5b
+      internalID: -480445161
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ledge attack_9
+      name: Ledge_Pull_10
       rect:
         serializedVersion: 2
-        x: 1200
+        x: 2400
         y: 0
-        width: 1200
-        height: 800
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 2400
+        height: 1350
+      alignment: 9
+      pivot: {x: 0.31, y: 0.34}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: af3f7d326a8cb1146b664939aadec8fc
-      internalID: -2037163360
+      spriteID: 84c868c2095a8ea43be449b5f15db8d2
+      internalID: 1739508464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ledge_Pull_11
+      rect:
+        serializedVersion: 2
+        x: 4800
+        y: 0
+        width: 2400
+        height: 1350
+      alignment: 9
+      pivot: {x: 0.31, y: 0.34}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e1ccb45fba4bffd4fb42c2ba06ad0f5c
+      internalID: 204727198
       vertices: []
       indices: 
       edges: []
@@ -325,16 +367,18 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Ledge attack_4: -1495013635
-      Ledge attack_9: -2037163360
-      Ledge attack_6: -344136159
-      Ledge attack_1: -506199079
-      Ledge attack_7: -1354781348
-      Ledge attack_8: 478644056
-      Ledge attack_3: 607202272
-      Ledge attack_5: -1694620562
-      Ledge attack_2: 292081884
-      Ledge attack_0: -868953695
+      Ledge_Pull_9: -480445161
+      Ledge_Pull_4: 1037223971
+      Ledge_Pull_8: -708747858
+      Ledge_Pull_3: 707132709
+      Ledge_Pull_5: 1945958984
+      Ledge_Pull_10: 1739508464
+      Ledge_Pull_6: -528181088
+      Ledge_Pull_7: 867168667
+      Ledge_Pull_2: -1187842129
+      Ledge_Pull_0: -578625432
+      Ledge_Pull_1: 769713024
+      Ledge_Pull_11: 204727198
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
