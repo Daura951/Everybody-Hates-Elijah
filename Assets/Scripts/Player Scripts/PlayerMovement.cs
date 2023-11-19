@@ -31,10 +31,10 @@ public class PlayerMovement : MonoBehaviour
     public bool isInAir;
     public bool isInLandingLag = false;
     public bool isOnPassThrough = false;
-    private bool isCoroutineRunning = false;    
+    private bool isCoroutineRunning = false;
     bool isCrouch = false;
     public float crouchTimer = .5f;
-    public float terminalVelocityY =  -10f;
+    public float terminalVelocityY = -10f;
     private Vector2 smoothVector;
     private Vector2 smoothVelocity;
 
@@ -81,7 +81,7 @@ public class PlayerMovement : MonoBehaviour
 
         S = GetComponent<Stun>();
 
-        if(terminalVelocityY > 0)
+        if (terminalVelocityY > 0)
         {
             terminalVelocityY *= -1;
         }
@@ -111,7 +111,7 @@ public class PlayerMovement : MonoBehaviour
             anim.ResetTrigger("Walking");
 
         }
-        else if(dashDisable && Input.GetAxisRaw("Horizontal")!=0)
+        else if (dashDisable && Input.GetAxisRaw("Horizontal") != 0)
         {
             anim.SetTrigger("Walking");
             Speed = 9f;
@@ -141,11 +141,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (!stunned && !anim.GetBool("Taunt") && !grabbing)
         {
-            if(!anim.GetBool("Climbing"))
-            Move();
+            if (!anim.GetBool("Climbing"))
+                Move();
 
-            if(!PlayerAttack.attackInstance.isExecutedOnce)
-            Jump();
+            if (!PlayerAttack.attackInstance.isExecutedOnce)
+                Jump();
         }
 
         else if (stunned)
@@ -166,7 +166,7 @@ public class PlayerMovement : MonoBehaviour
             anim.SetBool("isFalling", isFalling);
         }
 
-        if(rb.velocity.y < terminalVelocityY)
+        if (rb.velocity.y < terminalVelocityY)
         {
             rb.velocity = new Vector2(rb.velocity.x, terminalVelocityY);
         }
@@ -176,16 +176,15 @@ public class PlayerMovement : MonoBehaviour
     {
         float dirX = Input.GetAxisRaw("Horizontal");
 
-        if(Input.GetButtonUp("Run"))
+        if (Input.GetButtonUp("Run"))
         {
             dashDisable = false;
         }
-
-        smoothVector = Vector2.SmoothDamp(smoothVector, new Vector2(dirX*Speed, 0.0f), ref smoothVelocity, .1f);
+        smoothVector = Vector2.SmoothDamp(smoothVector, new Vector2(dirX * Speed, 0.0f), ref smoothVelocity, .1f);
 
 
         //ternary is here so that I don't actually change dirX. dirX is needed elsewhere.
-        rb.velocity = new Vector2(isInLandingLag || (attackScript.isAttacking && !isInAir) || isCrouch || attackScript.isSpecial  || anim.GetBool("hasGrabbedEnemy") ? 0 :  (dirX >0 ? dirX * smoothVector.x : -dirX * smoothVector.x), rb.velocity.y);
+        rb.velocity = new Vector2(isInLandingLag || (attackScript.isAttacking && !isInAir) || isCrouch || attackScript.isSpecial || anim.GetBool("hasGrabbedEnemy") ? 0 : (dirX > 0 ? dirX * smoothVector.x : -dirX * smoothVector.x), rb.velocity.y);
 
         if (dirX == 0 && !isInAir && Input.GetAxisRaw("Vertical") >= 0f)
         {
@@ -261,9 +260,9 @@ public class PlayerMovement : MonoBehaviour
                     switch (jumpAmt)
                     {
                         case 1:
-                            if(isInLandingLag==false)
+                            if (isInLandingLag == false)
                                 anim.SetBool("isJumping", true);
-                                anim.SetBool("isDoubleJumping", false);
+                            anim.SetBool("isDoubleJumping", false);
                             break;
                         case 2:
                             anim.SetBool("isJumping", false);
@@ -272,8 +271,8 @@ public class PlayerMovement : MonoBehaviour
                             break;
                     }
 
-                    if(anim.GetCurrentAnimatorClipInfo(0)[0].clip.name !="Crouch")
-                    rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+                    if (anim.GetCurrentAnimatorClipInfo(0)[0].clip.name != "Crouch")
+                        rb.velocity = new Vector2(rb.velocity.x, jumpForce);
 
                 }
             }
@@ -282,7 +281,7 @@ public class PlayerMovement : MonoBehaviour
 
             else if (Input.GetButtonUp("Jump"))
             {
-                rb.velocity = new Vector2(rb.velocity.x, isFalling ? rb.velocity.y : rb.velocity.y/2);
+                rb.velocity = new Vector2(rb.velocity.x, isFalling ? rb.velocity.y : rb.velocity.y / 2);
             }
         }
 
@@ -290,15 +289,15 @@ public class PlayerMovement : MonoBehaviour
         if (rb.velocity.y < 0.0f && Escelator == null)
         {
             if (!InEscelator)
-            isFalling = true;
+                isFalling = true;
             //Debug.Log(rb.velocity.y + "  " + isFalling);
 
             anim.SetBool("isJumping", false);
             anim.SetBool("isDoubleJumping", false);
             anim.SetBool("isGrounded", !isFalling);
             anim.ResetTrigger("Crouch");
-            if(!PlayerAttack.attackInstance.SideBS)
-            rb.gravityScale = scaledGravity;
+            if (!PlayerAttack.attackInstance.SideBS)
+                rb.gravityScale = scaledGravity;
         }
         else isFalling = false;
 
@@ -316,14 +315,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Platform" || collision.gameObject.tag == "PassThroughPlatform")
+        if (collision.gameObject.tag == "Platform" || collision.gameObject.tag == "PassThroughPlatform" || collision.gameObject.tag == "MovingPlatform")
         {
-            if (anim.GetCurrentAnimatorStateInfo(0).IsName("USpecial") && collision.gameObject.tag=="PassThroughPlatform")
+            if (anim.GetCurrentAnimatorStateInfo(0).IsName("USpecial") && collision.gameObject.tag == "PassThroughPlatform")
             {
-  
+
             }
             else
-            Physics2D.gravity = new Vector2(0 , -9.81f);
+                Physics2D.gravity = new Vector2(0, -9.81f);
 
             if (collision.gameObject.GetComponent<Escelator>())
                 Escelator = collision.gameObject.GetComponent<Escelator>();
@@ -348,7 +347,7 @@ public class PlayerMovement : MonoBehaviour
 
                 print("Passthrough");
                 isOnPassThrough = true;
-                
+
                 if (hitGround.collider.tag == "PassThroughPlatform" && !isInAir)
                 {
                     jumpAmt = 0;
@@ -356,15 +355,15 @@ public class PlayerMovement : MonoBehaviour
                 currentPassThroughPlatform = collision.gameObject;
                 anim.SetBool("isGrounded", isOnPassThrough);
             }
-           
-            if (collision.gameObject.tag == "Platform" && !grabbing && !isInAir)
+
+            if ((collision.gameObject.tag == "Platform" || collision.gameObject.tag == "MovingPlatform") && !grabbing && !isInAir)
             {
                 jumpAmt = 0;
                 PlayerAttack.attackInstance.isExecutedOnce = false;
                 isOnPassThrough = false;
                 anim.SetBool("isGrounded", !isInAir);
             }
-            
+
         }
     }
 
@@ -392,8 +391,8 @@ public class PlayerMovement : MonoBehaviour
             RaycastHit2D hitGround = Physics2D.Raycast(groundRays[1].transform.position, -Vector2.up * rayRange);
             if (!isInAir && collision.gameObject.tag == "Platform" && hitGround.collider.tag == "Platform" || collision.gameObject.tag == "PassThroughPlatform" && hitGround.collider.tag == "PassThroughPlatform")
             {
-                if(collision.gameObject.transform.position.y < transform.position.y)
-                jumpAmt = 1;
+                if (collision.gameObject.transform.position.y < transform.position.y)
+                    jumpAmt = 1;
             }
             currentPassThroughPlatform = null;
 
@@ -407,7 +406,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "EHitbox")
+        if (collision.gameObject.tag == "EHitbox")
         {
             print("Die Elijah!");
         }
@@ -423,17 +422,17 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-       if(collision.gameObject.tag == "Ladder")
-       {
-              Speed = Walk;
-              if(isInAir)
-              jumpAmt=1;
-       }
+        if (collision.gameObject.tag == "Ladder")
+        {
+            Speed = Walk;
+            if (isInAir)
+                jumpAmt = 1;
+        }
 
-       if (collision.gameObject.GetComponent<Escelator>())
-       {
+        if (collision.gameObject.GetComponent<Escelator>())
+        {
             InEscelator = false;
-       }
+        }
     }
 
 
@@ -450,7 +449,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else isOnPassThrough = true;
         isCoroutineRunning = false;
-             
+
     }
 
 

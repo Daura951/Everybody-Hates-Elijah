@@ -15,29 +15,29 @@ public class PlayerAttack : MonoBehaviour
     Stun S;
     private Rigidbody2D rb;
 
-    public bool isAttacking, isSpecial = false, isSticked = false, isGrab=false;
-    
+    public bool isAttacking, isSpecial = false, isSticked = false, isGrab = false;
+
     public GameObject[] hitBoxes;
     public GameObject stickyHand;
     private float[] currentStats;
-    
+
     public bool strongStarted = false;
     public bool strongDone = false;
     public bool isExecutedOnce = false;
     public float strongTimer = 0.0f;
     float strongDamage = 0.0f;
 
-    
+
     private bool stunned;
 
     private string FilePath;
     string[] Line;
 
-    
+
     public bool OnLadder;
 
     public bool ASideB = false, SideBS = false;
-    public float distance , Speed =1;
+    public float distance, Speed = 1;
     public Vector3 target;
 
     [Header("Grabbing")]
@@ -46,7 +46,6 @@ public class PlayerAttack : MonoBehaviour
     public float maxGrabTime;
     public Enemy_Target currentlyGrabbedEnemy;
     public Vector2[] throwingOffsets;
-
 
     private int revFSpecialIndex = 0;
 
@@ -70,10 +69,10 @@ public class PlayerAttack : MonoBehaviour
     {
         stunned = S.getIsStunned();
 
-        if(Ladder != null)
-        OnLadder = Ladder.GetOnLadder();
+        if (Ladder != null)
+            OnLadder = Ladder.GetOnLadder();
 
-        if(playerMovement.GetAnim().GetBool("isGrounded")==true)
+        if (playerMovement.GetAnim().GetBool("isGrounded") == true)
         {
             //If we collided despawn the air hitboxes!
             DespawnHitBox(3);
@@ -82,20 +81,20 @@ public class PlayerAttack : MonoBehaviour
             DespawnHitBox(12);
         }
 
-        if(stunned)
+        if (stunned)
         {
-            for(int i = 0; i < hitBoxes.Length; i++)
+            for (int i = 0; i < hitBoxes.Length; i++)
             {
                 DespawnHitBox(i);
             }
         }
 
 
-        if(!OnLadder && !ASideB && !playerMovement.grabbing)
-        Attack();
+        if (!OnLadder && !ASideB && !playerMovement.grabbing)
+            Attack();
 
-        if(ASideB)
-        SideBMove();
+        if (ASideB)
+            SideBMove();
     }
 
     void Attack()
@@ -128,25 +127,25 @@ public class PlayerAttack : MonoBehaviour
             isAttacking = true;
         }
 
-        else if ((Input.GetButtonDown("Fire1") || Input.GetButton("Fire3")) && !Input.GetButtonDown("Grab") && !isAttacking && Input.GetAxisRaw("Vertical") == 0 && Input.GetAxisRaw("Horizontal") == 0 && playerMovement.isInAir && !stunned &&!isExecutedOnce && !isGrab)
+        else if ((Input.GetButtonDown("Fire1") || Input.GetButton("Fire3")) && !Input.GetButtonDown("Grab") && !isAttacking && Input.GetAxisRaw("Vertical") == 0 && Input.GetAxisRaw("Horizontal") == 0 && playerMovement.isInAir && !stunned && !isExecutedOnce && !isGrab)
         {
             isAttacking = true;
             print("Nair");
         }
 
-        else if ((Input.GetButtonDown("Fire1") || Input.GetButton("Fire3")) && !isAttacking && Input.GetAxisRaw("Vertical") > 0 && playerMovement.isInAir && !stunned &&!isExecutedOnce && !isGrab)
+        else if ((Input.GetButtonDown("Fire1") || Input.GetButton("Fire3")) && !isAttacking && Input.GetAxisRaw("Vertical") > 0 && playerMovement.isInAir && !stunned && !isExecutedOnce && !isGrab)
         {
             print("Uair");
             isAttacking = true;
         }
 
-        else if ((Input.GetButtonDown("Fire1") || Input.GetButton("Fire3")) && !isAttacking && Input.GetAxisRaw("Vertical") < 0 && playerMovement.isInAir && !stunned &&!isExecutedOnce && !isGrab)
+        else if ((Input.GetButtonDown("Fire1") || Input.GetButton("Fire3")) && !isAttacking && Input.GetAxisRaw("Vertical") < 0 && playerMovement.isInAir && !stunned && !isExecutedOnce && !isGrab)
         {
             print("Dair");
             isAttacking = true;
         }
 
-        else if ((Input.GetButtonDown("Fire1") || Input.GetButton("Fire3")) && !isAttacking && ((playerMovement.transform.rotation.y == 0 && Input.GetAxisRaw("Horizontal") >0) || (playerMovement.transform.rotation.y < 0 && Input.GetAxisRaw("Horizontal") < 0))  && playerMovement.isInAir && !stunned &&!isExecutedOnce && !isGrab)
+        else if ((Input.GetButtonDown("Fire1") || Input.GetButton("Fire3")) && !isAttacking && ((playerMovement.transform.rotation.y == 0 && Input.GetAxisRaw("Horizontal") > 0) || (playerMovement.transform.rotation.y < 0 && Input.GetAxisRaw("Horizontal") < 0)) && playerMovement.isInAir && !stunned && !isExecutedOnce && !isGrab)
         {
             print("Fair");
             isAttacking = true;
@@ -158,7 +157,7 @@ public class PlayerAttack : MonoBehaviour
             isAttacking = true;
         }
 
-        else if(Input.GetButtonDown("Fire1") && !isAttacking && Input.GetAxisRaw("Horizontal")!=0 && anim.GetBool("Running") && !isSpecial && !isGrab)
+        else if (Input.GetButtonDown("Fire1") && !isAttacking && Input.GetAxisRaw("Horizontal") != 0 && anim.GetBool("Running") && !isSpecial && !isGrab)
         {
             print("Dash");
             isAttacking = true;
@@ -173,7 +172,7 @@ public class PlayerAttack : MonoBehaviour
         }
 
 
-        else if (Input.GetButtonDown("Fire2") && !isAttacking && Input.GetAxisRaw("Vertical") < 0f && !stunned &&!isExecutedOnce)
+        else if (Input.GetButtonDown("Fire2") && !isAttacking && Input.GetAxisRaw("Vertical") < 0f && !stunned && !isExecutedOnce)
         {
             isAttacking = true;
             isSpecial = true;
@@ -187,7 +186,7 @@ public class PlayerAttack : MonoBehaviour
             print("USpecial");
         }
 
-        else if (Input.GetButtonDown("Fire2") && !isAttacking && Input.GetAxisRaw("Horizontal") != 0f && Input.GetAxisRaw("Vertical") == 0 && !stunned &&!isExecutedOnce)
+        else if (Input.GetButtonDown("Fire2") && !isAttacking && Input.GetAxisRaw("Horizontal") != 0f && Input.GetAxisRaw("Vertical") == 0 && !stunned && !isExecutedOnce)
         {
             isAttacking = true;
             isSpecial = true;
@@ -216,7 +215,7 @@ public class PlayerAttack : MonoBehaviour
         }
 
 
-        else if(Input.GetButtonDown("Fire1") && Input.GetAxisRaw("Vertical")==0 && !isAttacking && ((playerMovement.transform.rotation.y == 0 && Input.GetAxisRaw("Horizontal") < 0) || (playerMovement.transform.rotation.y < 0 && Input.GetAxisRaw("Horizontal") > 0)) && isGrab)
+        else if (Input.GetButtonDown("Fire1") && Input.GetAxisRaw("Vertical") == 0 && !isAttacking && ((playerMovement.transform.rotation.y == 0 && Input.GetAxisRaw("Horizontal") < 0) || (playerMovement.transform.rotation.y < 0 && Input.GetAxisRaw("Horizontal") > 0)) && isGrab)
         {
             print("BThrow");
             isGrab = true;
@@ -230,7 +229,7 @@ public class PlayerAttack : MonoBehaviour
             isAttacking = true;
         }
 
-        else if (Input.GetButtonDown("Fire1") && Input.GetAxisRaw("Vertical") <0 && !isAttacking && Input.GetAxisRaw("Horizontal")==0 && isGrab)
+        else if (Input.GetButtonDown("Fire1") && Input.GetAxisRaw("Vertical") < 0 && !isAttacking && Input.GetAxisRaw("Horizontal") == 0 && isGrab)
         {
             print("DThrow");
             isGrab = true;
@@ -246,7 +245,7 @@ public class PlayerAttack : MonoBehaviour
 
 
 
-        else if (Input.GetButton("Fire3") && !strongDone && !isAttacking && Input.GetAxisRaw("Vertical") == 0 && !playerMovement.isInAir && !stunned && !isSpecial && !isGrab )
+        else if (Input.GetButton("Fire3") && !strongDone && !isAttacking && Input.GetAxisRaw("Vertical") == 0 && !playerMovement.isInAir && !stunned && !isSpecial && !isGrab)
         {
             isAttacking = true;
             if (!strongStarted)
@@ -257,7 +256,7 @@ public class PlayerAttack : MonoBehaviour
             }
         }
 
-        else if (Input.GetButton("Fire3") && !strongDone && !isAttacking && Input.GetAxisRaw("Vertical") > 0 && !playerMovement.isInAir && !stunned && !isSpecial && !isGrab )
+        else if (Input.GetButton("Fire3") && !strongDone && !isAttacking && Input.GetAxisRaw("Vertical") > 0 && !playerMovement.isInAir && !stunned && !isSpecial && !isGrab)
         {
             isAttacking = true;
             if (!strongStarted)
@@ -269,7 +268,7 @@ public class PlayerAttack : MonoBehaviour
 
         }
 
-        else if (Input.GetButton("Fire3") && !strongDone && !isAttacking && Input.GetAxisRaw("Vertical") < 0 && !playerMovement.isInAir && !stunned  && !isSpecial && !isGrab)
+        else if (Input.GetButton("Fire3") && !strongDone && !isAttacking && Input.GetAxisRaw("Vertical") < 0 && !playerMovement.isInAir && !stunned && !isSpecial && !isGrab)
         {
             isAttacking = true;
             if (!strongStarted)
@@ -280,9 +279,9 @@ public class PlayerAttack : MonoBehaviour
             }
         }
 
-        else if(Input.GetButton("Fire3") && !strongDone && strongStarted && isAttacking)
+        else if (Input.GetButton("Fire3") && !strongDone && strongStarted && isAttacking)
         {
-           strongTimer += Time.deltaTime;
+            strongTimer += Time.deltaTime;
 
             if (strongTimer < 1.2f)
             {
@@ -307,13 +306,13 @@ public class PlayerAttack : MonoBehaviour
             strongTimer = 0;
             strongDone = false;
 
-            if(Input.GetButton("Fire3"))
+            if (Input.GetButton("Fire3"))
                 strongDone = true;
         }
 
-        else if ((Input.GetButtonUp("Fire3") &&  strongDone))
+        else if ((Input.GetButtonUp("Fire3") && strongDone))
         {
-          strongDone = false;
+            strongDone = false;
         }
 
 
@@ -323,8 +322,8 @@ public class PlayerAttack : MonoBehaviour
     public void SideBMove()
     {
         transform.position = Vector2.MoveTowards(transform.position, target, Speed * Time.deltaTime);
-            if(transform.position == target)
-                ASideB = false;
+        if (transform.position == target)
+            ASideB = false;
     }
 
     public void Jab1(int L)
@@ -605,8 +604,6 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-
-
     public void DetectReverseFSpecial()
     {
         revFSpecialIndex = 0;
@@ -620,22 +617,21 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
-       if(collision.gameObject.tag == "Ladder")
-       {
+        if (collision.gameObject.tag == "Ladder")
+        {
             Ladder = collision.gameObject.GetComponent<Ladder>();
-       }
+        }
     }
-    
+
     private void OnTriggerExit2D(Collider2D collision)
     {
-       if(collision.gameObject.tag == "Ladder")
-       {
-           Ladder = null;
-           OnLadder = false;
-       }
+        if (collision.gameObject.tag == "Ladder")
+        {
+            Ladder = null;
+            OnLadder = false;
+        }
     }
 
 
@@ -662,16 +658,16 @@ public class PlayerAttack : MonoBehaviour
 
     void ActivateSideB(float distance)
     {
-        if(revFSpecialIndex!=0)
+        if (revFSpecialIndex != 0)
         {
             distance /= 2;
         }
 
         ASideB = true;
         if (!playerMovement.GetIsLeft() && revFSpecialIndex == 0 || revFSpecialIndex == 2)
-            target = new Vector3 (transform.position.x + distance , transform.position.y , transform.position.z);
+            target = new Vector3(transform.position.x + distance, transform.position.y, transform.position.z);
         else
-            target = new Vector3 (transform.position.x - distance , transform.position.y , transform.position.z);
+            target = new Vector3(transform.position.x - distance, transform.position.y, transform.position.z);
     }
 
 
@@ -690,4 +686,3 @@ public class PlayerAttack : MonoBehaviour
         return isAttacking;
     }
 }
-    
