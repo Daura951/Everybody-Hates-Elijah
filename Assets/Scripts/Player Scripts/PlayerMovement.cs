@@ -181,11 +181,13 @@ public class PlayerMovement : MonoBehaviour
             dashDisable = false;
         }
 
+
         smoothVector = Vector2.SmoothDamp(smoothVector, new Vector2(dirX*Speed, 0.0f), ref smoothVelocity, .1f);
 
 
         //ternary is here so that I don't actually change dirX. dirX is needed elsewhere.
         rb.velocity = new Vector2(isInLandingLag || (attackScript.isAttacking && !isInAir) || isCrouch || attackScript.isSpecial  || anim.GetBool("hasGrabbedEnemy") ? 0 :  (dirX >0 ? dirX * smoothVector.x : -dirX * smoothVector.x), rb.velocity.y);
+
 
         if (dirX == 0 && !isInAir && Input.GetAxisRaw("Vertical") >= 0f)
         {

@@ -607,6 +607,7 @@ public class PlayerAttack : MonoBehaviour
 
 
 
+
     public void DetectReverseFSpecial()
     {
         revFSpecialIndex = 0;
@@ -662,6 +663,7 @@ public class PlayerAttack : MonoBehaviour
 
     void ActivateSideB(float distance)
     {
+
         if(revFSpecialIndex!=0)
         {
             distance /= 2;
@@ -670,8 +672,12 @@ public class PlayerAttack : MonoBehaviour
         ASideB = true;
         if (!playerMovement.GetIsLeft() && revFSpecialIndex == 0 || revFSpecialIndex == 2)
             target = new Vector3 (transform.position.x + distance , transform.position.y , transform.position.z);
+
+        ASideB = true;
+        if(!playerMovement.GetIsLeft())
+        target = new Vector3 (transform.position.x + distance , transform.position.y , transform.position.z);
         else
-            target = new Vector3 (transform.position.x - distance , transform.position.y , transform.position.z);
+        target = new Vector3 (transform.position.x - distance , transform.position.y , transform.position.z);
     }
 
 
