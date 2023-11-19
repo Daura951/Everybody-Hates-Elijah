@@ -13,8 +13,6 @@ TagManager:
   - KnockBack
   - Checkpoint
   - EHitbox
-  - MovingPlatform
-  - Wall
   layers:
   - Default
   - TransparentFX
