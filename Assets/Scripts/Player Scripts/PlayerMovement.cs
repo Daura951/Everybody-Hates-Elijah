@@ -57,10 +57,6 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-
-
-    public TextMeshProUGUI healthText;
-
     public int curDamage = 0;
 
     // Start is called before the first frame update
@@ -221,7 +217,7 @@ public class PlayerMovement : MonoBehaviour
                         anim.ResetTrigger("Walking");
                         break;
 
-                    case 9f:
+                    case 7f:
                         // isCrouch = false;
                         anim.SetTrigger("Walking");
                         break;
@@ -279,11 +275,13 @@ public class PlayerMovement : MonoBehaviour
 
 
 
+
             else if (Input.GetButtonUp("Jump"))
             {
                 rb.velocity = new Vector2(rb.velocity.x, isFalling ? rb.velocity.y : rb.velocity.y / 2);
             }
         }
+
 
 
         if (rb.velocity.y < 0.0f && Escelator == null)
@@ -344,14 +342,21 @@ public class PlayerMovement : MonoBehaviour
             if (collision.gameObject.tag == "PassThroughPlatform")
             {
 
+                if (!attackScript.isAttacking && rb.velocity.y == 0)
+                {
+                    anim.SetBool("isFalling", false);
+                    jumpAmt = 0;
+                    PlayerAttack.attackInstance.isExecutedOnce = false;
 
-                print("Passthrough");
+                }
+
                 isOnPassThrough = true;
 
                 if (hitGround.collider.tag == "PassThroughPlatform" && !isInAir)
                 {
                     jumpAmt = 0;
                 }
+                else jumpAmt = 0;
                 currentPassThroughPlatform = collision.gameObject;
                 anim.SetBool("isGrounded", isOnPassThrough);
             }

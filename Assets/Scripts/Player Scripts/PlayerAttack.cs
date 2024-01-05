@@ -72,6 +72,8 @@ public class PlayerAttack : MonoBehaviour
         if (Ladder != null)
             OnLadder = Ladder.GetOnLadder();
 
+
+
         if (playerMovement.GetAnim().GetBool("isGrounded") == true)
         {
             //If we collided despawn the air hitboxes!
@@ -521,6 +523,7 @@ public class PlayerAttack : MonoBehaviour
         currentStats[3] = float.Parse(statSplit[4]); //Time Stun
         float XDir = float.Parse(statSplit[5]); //XDir
         float yDir = float.Parse(statSplit[6]); //YDir
+        playerMovement.jumpAmt = 0;
 
         if (!isExecutedOnce)
         {

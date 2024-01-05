@@ -28,6 +28,7 @@ public class SideBTransBehavior : StateMachineBehaviour
         PlayerAttack.attackInstance.playerMovement.rb.gravityScale = PlayerAttack.attackInstance.playerMovement.scaledGravity;
 
         PlayerAttack.attackInstance.playerMovement.anim.SetBool("isJumping", false);
+        PlayerAttack.attackInstance.playerMovement.anim.SetBool("isDoubleJumping", false);
         PlayerAttack.attackInstance.isAttacking = false;
         PlayerAttack.attackInstance.isSpecial = false;
     }

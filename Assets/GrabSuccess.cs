@@ -53,7 +53,6 @@ public class GrabSuccess : StateMachineBehaviour
     void SetThrow()
     {
         PlayerAttack.attackInstance.isAttacking = false;
-        PlayerAttack.attackInstance.currentlyGrabbedEnemy.GetComponent<Animator>().SetBool("isInThrow", true);
         PlayerAttack.attackInstance.currentlyGrabbedEnemy.GetComponent<Animator>().SetBool("isGrabbed", false);
         PlayerAttack.attackInstance.currentlyGrabbedEnemy.GetComponent<Animator>().ResetTrigger("isGrabbed 0");
     }

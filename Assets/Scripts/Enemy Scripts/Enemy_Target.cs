@@ -44,6 +44,7 @@ public class Enemy_Target : MonoBehaviour
 
     [Header("Grabs")]
     public bool isGrabbed = false;
+    public bool grabee = false;
     private float grabTimer = 0f;
     public bool[] whichThrow = { false, false, false, false };
     //{UThrow, FThrow, BThrow, BThrow}
@@ -143,7 +144,7 @@ public class Enemy_Target : MonoBehaviour
             else isGrabbed = false;
         }
 
-        else
+        else if(grabee && !isGrabbed)
         {
             grabTimer = 0;
             GetComponent<Animator>().ResetTrigger("isGrabbed 0");
@@ -151,6 +152,7 @@ public class Enemy_Target : MonoBehaviour
             target.gameObject.GetComponent<Animator>().SetBool("hasGrabbedEnemy", false);
             this.transform.parent = null;
             rb.gravityScale = 1;
+            grabee = false;
             grabTimer = 0;
             target.gameObject.GetComponent<PlayerAttack>().isGrab = false;
             target.gameObject.GetComponent<PlayerAttack>().currentlyGrabbedEnemy = null;
@@ -305,6 +307,7 @@ public class Enemy_Target : MonoBehaviour
         if (collision.gameObject.name == "Grab Hitbox")
         {
             isGrabbed = true;
+            grabee = true;
 
             target.gameObject.GetComponent<Animator>().SetBool("hasGrabbedEnemy", true);
             target.gameObject.GetComponent<PlayerAttack>().currentlyGrabbedEnemy = this;
