@@ -844,7 +844,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6230189140579287205, guid: eca454f4089d167458bbffb88d514453, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 4.7606
       objectReference: {fileID: 0}
     - target: {fileID: 6230189140579287205, guid: eca454f4089d167458bbffb88d514453, type: 3}
       propertyPath: m_LocalPosition.x
@@ -852,7 +852,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6230189140579287205, guid: eca454f4089d167458bbffb88d514453, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.5
+      value: 1.6197
       objectReference: {fileID: 0}
     - target: {fileID: 6230189140579287205, guid: eca454f4089d167458bbffb88d514453, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1044,6 +1044,7 @@ MonoBehaviour:
   - {fileID: 309161163}
   - {fileID: 131167203}
   isGrabbed: 0
+  grabee: 0
   whichThrow: 00000000
 --- !u!114 &630679550
 MonoBehaviour:
