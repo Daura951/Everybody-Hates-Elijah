@@ -37,8 +37,11 @@ public class Stun : MonoBehaviour
            }
            else
             timer = 0;
-           if(timer == 0)
-            Stunned=false;
+            if (timer == 0)
+            {
+                Stunned = false;
+                rb.gravityScale = 1f;
+            }
             anim.SetBool("Stunned",Stunned);
         }
     }
