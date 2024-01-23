@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class LedgeGrab : MonoBehaviour
 {
-    public bool reGrab = true, action = false, grab = true, isLeft;
-    Collider2D greenBox, redBox;
+    public bool reGrab = true, action = false, grab = false, isLeft;
+    Collider2D redBox;
     GameObject g;
-    private float greenX, redX;
+    private float redX;
     private Rigidbody2D rb;
 
     [Header("ledge colliders")]
     public float redXOff;
-    public float redYOff, redXSize, redYSize, greenXOff, greenYOff, greenXSize, greenYSize;
+    public float redYOff, redXSize, redYSize;
 
 
     public LayerMask groundMask;
@@ -33,7 +33,6 @@ public class LedgeGrab : MonoBehaviour
         PA = GetComponent<PlayerAttack>();
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        greenX = greenXOff;
         redX = redXOff;
     }
 
@@ -43,14 +42,18 @@ public class LedgeGrab : MonoBehaviour
         isLeft = pm.GetIsLeft();
         anim.SetBool("Grabbing", pm.grabbing);
 
-        if (!pm.grabbing)
+
+
+        if (!pm.grabbing && Input.GetAxisRaw("Vertical") >= 0f)
         {
             Grab();
             action = false;
         }
 
+        // timers for falling and inputs to leave
         if (pm.grabbing && !action)
         {
+
             if (timer1 >= holding)
             {
                 anim.Play("Ledge idle");
@@ -137,45 +140,45 @@ public class LedgeGrab : MonoBehaviour
     {
         if (transform.eulerAngles.y == 0)
         {
-            greenXOff = greenX;
             redXOff = redX;
         }
         else
         {
-            greenXOff = -greenX;
             redXOff = -redX;
         }
-
-
-        greenBox = Physics2D.OverlapBox(new Vector2(transform.position.x + (greenXOff * transform.localScale.x), transform.position.y + greenYOff), new Vector2(greenXSize, greenYSize), 0f, groundMask);
+        
         redBox = Physics2D.OverlapBox(new Vector2(transform.position.x + (redXOff * transform.localScale.x), transform.position.y + redYOff), new Vector2(redXSize, redYSize), 0f, groundMask);
 
+        if (!redBox)
+            reGrab = true;
+        
+        if (!reGrab)
+            grab = false;
 
-        if ((!greenBox && redBox && !pm.grabbing && !pm.GetIsStunned() && reGrab) || ((greenBox || redBox) && (PA.SideBS || PA.ASideB)))
+        if (( redBox && !pm.grabbing && !pm.GetIsStunned()) || ( redBox && (PA.SideBS || PA.ASideB)))
         {
 
             if (redBox)
                 g = redBox.gameObject;
-            if (greenBox)
-                g = greenBox.gameObject;
 
 
-            if (g.CompareTag("Platform"))
+            if (g.CompareTag("Grab") && reGrab)
             {
+                Debug.Log("grab and go");
                 rb.velocity = Vector2.zero;
                 rb.gravityScale = 0;
+                reGrab = false;
 
 
                 if (transform.position.x < g.transform.position.x)
                 {
-                    transform.position = new Vector2(g.transform.position.x - (g.transform.localScale.x / 2) - .1f, (g.transform.position.y+((g.transform.localScale.y)*0.5f)-1.1f));
-
+                    transform.position = new Vector2((g.transform.position.x - (g.transform.localScale.x * 0.5f) - (transform.localScale.x * .35f)) , (g.transform.position.y - (((1f-g.transform.localScale.y)/.25f)*.125f)) );
                     if (transform.localEulerAngles.y != 0)
                         transform.eulerAngles = new Vector2(0, !pm.GetIsLeft() ? 180 : 0);
                 }
                 else
                 {
-                    transform.position = new Vector2(g.transform.position.x + (g.transform.localScale.x / 2) + .1f, (g.transform.position.y + ((g.transform.localScale.y) * 0.5f) - 1.1f));
+                    transform.position = new Vector2((g.transform.position.x + (g.transform.localScale.x * 0.5f) + (transform.localScale.x * .35f)), (g.transform.position.y - (((1f - g.transform.localScale.y) / .25f) * .125f)));
 
                     if (transform.localEulerAngles.y == 0)
                         transform.eulerAngles = new Vector2(0, !pm.GetIsLeft() ? 180 : 0);
@@ -184,13 +187,12 @@ public class LedgeGrab : MonoBehaviour
 
 
                 pm.grabbing = true;
-                reGrab = false;
                 timer1 = timer = 0;
                 anim.SetBool("isJumping", false);
                 anim.SetBool("isDoubleJumping", false);
                 anim.SetBool("isFalling", false);
                 anim.Play("Ledge grab");
-                PA.isAttacking = PA.isSpecial = PA.isExecutedOnce = PA.SideBS = PA.ASideB = false;
+                pm.isFalling = pm.isInAir = PA.isAttacking = PA.isSpecial = PA.isExecutedOnce = PA.SideBS = PA.ASideB = false;
                 if (pm.jumpAmt == 2)
                     pm.jumpAmt = 1;
 
@@ -205,14 +207,8 @@ public class LedgeGrab : MonoBehaviour
                     PA.DespawnHitBox(i);
                 }
 
-            }
+            }    
         }
-
-        if ((!greenBox && !redBox) || anim.GetBool("isGrounded"))
-        {
-            reGrab = true;
-        }
-
     }
 
 
@@ -220,12 +216,11 @@ public class LedgeGrab : MonoBehaviour
     {
         if (transform.position.x < g.transform.position.x)
         {
-            transform.position = new Vector2(transform.position.x +3.5f, (g.transform.position.y + ((g.transform.localScale.y) * 0.5f) + .8f));
-
+            transform.position = new Vector2(transform.position.x +1.85f, (transform.position.y + (g.transform.localScale.y * 0.5f) + (transform.localScale.y))-.25f);
         }
         else
         {
-            transform.position = new Vector2(transform.position.x -3.5f, (g.transform.position.y + ((g.transform.localScale.y) * 0.5f) + .8f));
+            transform.position = new Vector2(transform.position.x - 1.85f, (transform.position.y + (g.transform.localScale.y * 0.5f) + (transform.localScale.y)) - .25f);
 
         }
         pm.grabbing = false;
@@ -233,21 +228,38 @@ public class LedgeGrab : MonoBehaviour
 
     }
 
+
+
     public void Attack()
     {
         if (transform.position.x < g.transform.position.x)
         {
-            transform.position = new Vector2(transform.position.x + 2f, g.transform.position.y + 2f);
-
+            transform.position = new Vector2(transform.position.x + 1.5f, (transform.position.y + 1.02f));
         }
         else
         {
-            transform.position = new Vector2(transform.position.x - 2f, g.transform.position.y + 2f);
+            transform.position = new Vector2(transform.position.x - 1.5f, (transform.position.y + 1.02f));
 
         }
         pm.grabbing = false;
         rb.gravityScale = 1f;
 
+    }
+
+    public void CamUpdate(string XY)
+    {
+        string[] Info = XY.Split(" ");
+        float x = float.Parse(Info[0]);
+        float y = float.Parse(Info[1]);
+        if (transform.position.x < g.transform.position.x)
+        {
+            pm.cam.position = pm.transform.position + pm.offset + new Vector3(x, y, -0.75f);
+        }
+        else
+        {
+            pm.cam.position = pm.transform.position + pm.offset + new Vector3(-x, y, -0.75f);
+
+        }
     }
 
     private void Reseting(float a, float b)
@@ -287,7 +299,5 @@ public class LedgeGrab : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(new Vector2(transform.position.x + (redXOff * transform.localScale.x), transform.position.y + redYOff), new Vector2(redXSize, redYSize));
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(new Vector2(transform.position.x + (greenXOff * transform.localScale.x), transform.position.y + greenYOff), new Vector2(greenXSize, greenYSize));
     }
 }
