@@ -15,6 +15,7 @@ TagManager:
   - EHitbox
   - MovingPlatform
   - Wall
+  - Grab
   layers:
   - Default
   - TransparentFX
@@ -27,7 +28,7 @@ TagManager:
   - Wind
   - Platform
   - EHitbox
-  - 
+  - Platform2
   - 
   - 
   - 
