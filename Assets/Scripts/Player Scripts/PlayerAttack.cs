@@ -24,6 +24,8 @@ public class PlayerAttack : MonoBehaviour
     public bool strongStarted = false;
     public bool strongDone = false;
     public bool isExecutedOnce = false;
+    public bool bypassMoveBlock = false;
+    public bool isInHelpless = false;
     public float strongTimer = 0.0f;
     float strongDamage = 0.0f;
 
@@ -184,7 +186,9 @@ public class PlayerAttack : MonoBehaviour
         else if (Input.GetButtonDown("Fire2") && !isAttacking && Input.GetAxisRaw("Vertical") > 0f && !stunned && !isExecutedOnce)
         {
             isAttacking = true;
+            bypassMoveBlock = true;
             isSpecial = true;
+            isInHelpless = true;
             print("USpecial");
         }
 
@@ -623,6 +627,14 @@ public class PlayerAttack : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.tag == "Wall")
+        {
+            ASideB = false;
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Wall")
         {
             ASideB = false;
         }

@@ -54,6 +54,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("LedgeGrab")]
     public bool grabbing;
+    public LedgeGrab lg;
 
 
 
@@ -68,6 +69,7 @@ public class PlayerMovement : MonoBehaviour
         playerCollider = GetComponent<Collider2D>();
         anim = GetComponent<Animator>();
         attackScript = GetComponent<PlayerAttack>();
+        lg = GetComponent<LedgeGrab>();
         Speed = Walk;
         Run = Walk * 2;
         Crawl = Walk / 2;
@@ -96,7 +98,9 @@ public class PlayerMovement : MonoBehaviour
             OnEscelator = Escelator.GetOnEscelator();
 
         isInLandingLag = anim.GetCurrentAnimatorStateInfo(0).IsName("Fall 2 Idle");
-        cam.position = this.transform.position + offset;
+
+        if(!lg.action)
+            cam.position = this.transform.position + offset;
 
         isCrouch = anim.GetCurrentAnimatorStateInfo(0).IsName("Crouch");
 
@@ -180,8 +184,16 @@ public class PlayerMovement : MonoBehaviour
 
 
         //ternary is here so that I don't actually change dirX. dirX is needed elsewhere.
-        rb.velocity = new Vector2(isInLandingLag || (attackScript.isAttacking && !isInAir) || isCrouch || attackScript.isSpecial || anim.GetBool("hasGrabbedEnemy") ? 0 : (dirX > 0 ? dirX * smoothVector.x : -dirX * smoothVector.x), rb.velocity.y);
 
+        if (!attackScript.bypassMoveBlock)
+        {
+            rb.velocity = new Vector2(isInLandingLag || (attackScript.isAttacking && !isInAir) || isCrouch || attackScript.isSpecial || anim.GetBool("hasGrabbedEnemy") ? 0 : (dirX > 0 ? dirX * smoothVector.x : -dirX * smoothVector.x), rb.velocity.y);
+        }
+        else
+        {
+            Speed = Crawl;
+            rb.velocity = new Vector2((dirX > 0 ? dirX * smoothVector.x : -dirX * smoothVector.x), rb.velocity.y);
+        }
         if (dirX == 0 && !isInAir && Input.GetAxisRaw("Vertical") >= 0f)
         {
             anim.ResetTrigger("Walking");
@@ -367,6 +379,13 @@ public class PlayerMovement : MonoBehaviour
                 PlayerAttack.attackInstance.isExecutedOnce = false;
                 isOnPassThrough = false;
                 anim.SetBool("isGrounded", !isInAir);
+            }
+
+
+            if (attackScript.isInHelpless)
+            {
+                GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+                attackScript.isInHelpless = !attackScript.isInHelpless;
             }
 
         }
