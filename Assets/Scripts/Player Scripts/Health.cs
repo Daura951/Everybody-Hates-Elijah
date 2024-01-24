@@ -10,6 +10,8 @@ public class Health : MonoBehaviour
 
     public Slider slider;
     public Image healthBar;
+    public AudioSource AS;
+    public AudioSource Off;
 
     // Start is called before the first frame update
     void Start()
@@ -23,15 +25,21 @@ public class Health : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!AS.isPlaying && !Off.isPlaying)
+            AS.Play();
+
+
         if(health <= 0)
         {
             health = 0;
             lives--;
         }
 
-        
-            if(lives == 0)
-                Destroy(this.gameObject);
+
+        if (lives == 0)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     void FixedUpdate()
@@ -59,6 +67,8 @@ public class Health : MonoBehaviour
     {
       health -= hurt;
        PlayerAttack.attackInstance.isExecutedOnce = false;
+        AS.Pause();
+        Off.Play();
     }
 
     public float GetHealth()
