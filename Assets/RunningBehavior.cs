@@ -13,11 +13,17 @@ public class RunningBehavior : StateMachineBehaviour
     //OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (PlayerAttack.attackInstance.isAttacking)
+        if (PlayerAttack.attackInstance.isAttacking && !PlayerAttack.attackInstance.isSpecial)
         {
             PlayerAttack.attackInstance.anim.Play("Dash");
             PlayerAttack.attackInstance.isAttacking = false;
         }
+        if (PlayerAttack.attackInstance.isAttacking && PlayerAttack.attackInstance.isSpecial)
+        {
+            PlayerAttack.attackInstance.anim.Play("Side B");
+        }
+
+
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

@@ -33,7 +33,7 @@ public class Stun : MonoBehaviour
         {
            if(timer > 0)
            {
-            timer-= Time.deltaTime;
+                timer-= Time.deltaTime;
            }
            else
             timer = 0;
@@ -43,6 +43,9 @@ public class Stun : MonoBehaviour
                 rb.gravityScale = 1f;
             }
             anim.SetBool("Stunned",Stunned);
+            Physics2D.gravity = new Vector2(0, -9.81f);
+            rb.gravityScale = 2;
+
         }
     }
 

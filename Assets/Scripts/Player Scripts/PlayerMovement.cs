@@ -343,7 +343,7 @@ public class PlayerMovement : MonoBehaviour
 
             rb.gravityScale /= rb.gravityScale == scaledGravity ? scaledGravity : 1.0f;
 
-            if (rb.velocity.y == 0 || Escelator != null)
+            if (rb.velocity.y == 0 || Escelator != null )
                 isInAir = false;
 
 
@@ -364,7 +364,7 @@ public class PlayerMovement : MonoBehaviour
 
                 isOnPassThrough = true;
 
-                if (hitGround.collider.tag == "PassThroughPlatform" && !isInAir)
+                if (hitGround.collider.tag == "PassThroughPlatform" && !isInAir )
                 {
                     jumpAmt = 0;
                 }
@@ -382,7 +382,7 @@ public class PlayerMovement : MonoBehaviour
             }
 
 
-            if (attackScript.isInHelpless)
+            if (attackScript.isInHelpless && rb.velocity.y ==0)
             {
                 GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
                 attackScript.isInHelpless = !attackScript.isInHelpless;
