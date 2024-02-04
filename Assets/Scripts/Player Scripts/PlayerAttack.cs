@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using System.IO;
 
 public class PlayerAttack : MonoBehaviour
@@ -18,6 +19,7 @@ public class PlayerAttack : MonoBehaviour
     public bool isAttacking, isSpecial = false, isSticked = false, isGrab = false;
 
     public GameObject[] hitBoxes;
+    
     public GameObject stickyHand;
     private float[] currentStats;
 
@@ -31,6 +33,7 @@ public class PlayerAttack : MonoBehaviour
 
 
     private bool stunned;
+
 
     private string FilePath;
     string[] Line;
@@ -51,9 +54,33 @@ public class PlayerAttack : MonoBehaviour
 
     private int revFSpecialIndex = 0;
 
+
+    [Header("Shielding")]
+    public GameObject Shield;
+    public Animator ShieldAnim;
+    public bool shielding = false;
+    public bool shieldHeld = false;
+    public bool ShieldStun = false;
+    public float ShieldTimer,StunTimer, SL;
+    private float AVGShieldTime,StoredShieldTime,StoredStunTime;
+
+    [Header("SoundEffects")]
+    public AudioSource AS;
+    public AudioClip Strong1;
+    public AudioClip Strong2;
+    public AudioClip Strong3;
+    public AudioClip Strong4;
+    public AudioClip Punch;
+
+
+
+
+
+
     private void Awake()
     {
         stickyHand.SetActive(false);
+        Shield.SetActive(false);
         attackInstance = this;
     }
 
@@ -65,6 +92,11 @@ public class PlayerAttack : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         FilePath = Application.dataPath + "/ElijahAttackValues.txt";
         Line = File.ReadAllLines(FilePath);
+        StoredShieldTime = ShieldTimer -1f;
+        StoredStunTime = StunTimer - 1f;
+        AVGShieldTime = (1f-SL) / ShieldTimer;
+        ShieldTimer = 0;
+        StunTimer = 0;
     }
 
     private void Update()
@@ -73,6 +105,50 @@ public class PlayerAttack : MonoBehaviour
 
         if (Ladder != null)
             OnLadder = Ladder.GetOnLadder();
+
+        if (!shielding && ShieldTimer != 0 && !ShieldStun)
+        {
+          ShieldTimer -= Time.deltaTime;
+            if (ShieldTimer <= 0)
+                ShieldTimer = 0;
+
+        }
+
+        if (shielding && !ShieldStun)
+        {
+
+            if (ShieldTimer < StoredShieldTime)
+            {
+                ShieldTimer += Time.deltaTime;
+                float scale = 1f - (AVGShieldTime * ShieldTimer);
+                Shield.transform.localScale = new Vector3(scale, scale, 1f);
+            }
+            else
+                ShieldTimer = StoredShieldTime;
+            if (ShieldTimer == StoredShieldTime)
+            {
+                StunTimer = 0;
+                ShieldStun = true;
+                ShieldAnim.Play("ShieldBreak");
+                anim.Play("ShieldPop");
+            }
+        }
+
+        if(ShieldStun)
+        {
+            if (StunTimer < StoredStunTime)
+            {
+                StunTimer += Time.deltaTime;
+            }
+            else
+                StunTimer = StoredStunTime;
+            if(StunTimer== StoredStunTime)
+            {
+                ShieldStun = false;
+                ShieldOff();
+            }
+        }
+  
 
 
 
@@ -94,7 +170,7 @@ public class PlayerAttack : MonoBehaviour
         }
 
 
-        if (!OnLadder && !ASideB && !playerMovement.grabbing)
+        if (!OnLadder && !ASideB && !playerMovement.grabbing && !ShieldStun)
             Attack();
 
         if (ASideB)
@@ -212,7 +288,6 @@ public class PlayerAttack : MonoBehaviour
 
         }
 
-
         else if (Input.GetButtonDown("Fire1") && Input.GetAxisRaw("Vertical") == 0 && Input.GetAxisRaw("Horizontal") == 0 && !isAttacking && anim.GetBool("hasGrabbedEnemy") == true && !playerMovement.isInAir && !stunned && isGrab)
         {
             print("Pummel");
@@ -322,6 +397,26 @@ public class PlayerAttack : MonoBehaviour
         }
 
 
+        else if ((Gamepad.current.rightTrigger.isPressed || Gamepad.current.leftTrigger.isPressed || Input.GetButtonDown("Shield")) && Input.GetAxisRaw("Horizontal") == 0f && Input.GetAxisRaw("Vertical") == 0 && !stunned && !isExecutedOnce && !playerMovement.isInAir && !shielding && !shieldHeld)
+        {
+            print("Shield");
+            shieldHeld = shielding = true;
+            anim.Play("ShieldBlock");
+            anim.SetBool("isShielding", true);
+            Shield.SetActive(true);
+            
+        }
+
+        if(!Gamepad.current.rightTrigger.isPressed && !Gamepad.current.leftTrigger.isPressed && !Input.GetButton("Shield"))
+        {
+            shieldHeld = false;
+        }
+
+
+        if((shielding && !shieldHeld) || playerMovement.isInAir || isAttacking || (Input.GetAxisRaw("Horizontal") != 0f && !ShieldStun) || (Input.GetAxisRaw("Vertical") != 0 && !ShieldStun) )
+        {
+            ShieldOff();
+        }
 
     }
 
@@ -332,9 +427,22 @@ public class PlayerAttack : MonoBehaviour
             ASideB = false;
     }
 
+    public void ShieldOff()
+    {
+        if(!ShieldStun)
+        {
+            shielding = false;
+            anim.SetBool("isShielding", false);
+            ShieldStun = false;
+        }
+        Shield.SetActive(false);
+
+    }
+
     public void Jab1(int L)
     {
         hitBoxes[0].SetActive(true);
+        AS.PlayOneShot(Punch);
         string[] statSplit = Line[L].Split(" ");
         currentStats[0] = float.Parse(statSplit[1]); //Damage
         currentStats[1] = float.Parse(statSplit[2]); //Angle
@@ -345,6 +453,7 @@ public class PlayerAttack : MonoBehaviour
     public void Jab2(int L)
     {
         hitBoxes[1].SetActive(true);
+        AS.PlayOneShot(Punch);
         string[] statSplit = Line[L].Split(" ");
         currentStats[0] = float.Parse(statSplit[1]); //Damage
         currentStats[1] = float.Parse(statSplit[2]); //Angle
@@ -355,6 +464,7 @@ public class PlayerAttack : MonoBehaviour
     public void Jab3(int L)
     {
         hitBoxes[2].SetActive(true);
+        AS.PlayOneShot(Punch);
         string[] statSplit = Line[L].Split(" ");
         currentStats[0] = float.Parse(statSplit[1]); //Damage
         currentStats[1] = float.Parse(statSplit[2]); //Angle
@@ -487,6 +597,7 @@ public class PlayerAttack : MonoBehaviour
     public void FStrong(int L)
     {
         hitBoxes[13].SetActive(true);
+        StrongCry();
         string[] statSplit = Line[L].Split(" ");
         currentStats[0] = float.Parse(statSplit[1]) + (float.Parse(statSplit[1]) * strongDamage); //Damage
         currentStats[1] = float.Parse(statSplit[2]); //Angle
@@ -498,6 +609,7 @@ public class PlayerAttack : MonoBehaviour
     public void UStrong(int L)
     {
         hitBoxes[14].SetActive(true);
+        StrongCry();
         string[] statSplit = Line[L].Split(" ");
         currentStats[0] = float.Parse(statSplit[1]) + (float.Parse(statSplit[1]) * strongDamage); //Damage
         currentStats[1] = float.Parse(statSplit[2]); //Angle
@@ -509,6 +621,7 @@ public class PlayerAttack : MonoBehaviour
     public void DStrong(int L)
     {
         hitBoxes[15].SetActive(true);
+        StrongCry();
         string[] statSplit = Line[L].Split(" ");
         currentStats[0] = float.Parse(statSplit[1]) + (float.Parse(statSplit[1]) * strongDamage); //Damage
         currentStats[1] = float.Parse(statSplit[2]); //Angle
@@ -520,6 +633,7 @@ public class PlayerAttack : MonoBehaviour
     public void USpecial(int L)
     {
         string[] statSplit = Line[L].Split(" ");
+        
         hitBoxes[int.Parse(statSplit[7])].SetActive(true);
         currentStats[0] = float.Parse(statSplit[1]); //Damage
         currentStats[1] = float.Parse(statSplit[2]); //Angle
@@ -534,6 +648,7 @@ public class PlayerAttack : MonoBehaviour
             Physics2D.gravity = new Vector2(0, 0);
             playerMovement.rb.velocity = new Vector2(playerMovement.rb.velocity.x, 0);
             isExecutedOnce = true;
+            AS.PlayOneShot(playerMovement.FXjump);
         }
 
         playerMovement.rb.AddForce(new Vector2(XDir, yDir));
@@ -707,5 +822,19 @@ public class PlayerAttack : MonoBehaviour
     public bool GetAttacking()
     {
         return isAttacking;
+    }
+
+    public void StrongCry()
+    {
+        float pick = UnityEngine.Random.Range(1, 5);
+        Debug.Log(pick);
+        if (pick == 1)
+            AS.PlayOneShot(Strong1, 1f);
+        if (pick == 2)
+            AS.PlayOneShot(Strong2, 1f);
+        if (pick == 3)
+            AS.PlayOneShot(Strong3, 1f);
+        if (pick == 4)
+            AS.PlayOneShot(Strong4, 1f);
     }
 }

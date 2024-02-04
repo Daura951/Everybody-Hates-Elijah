@@ -264,7 +264,8 @@ public class LedgeGrab : MonoBehaviour
 
     private void Reseting(float a, float b)
     {
-        action = true;
+        if (Input.GetAxisRaw("Vertical") >= 0)
+            action = true;
         GetOff(a, b);
         pm.grabbing = false;
 

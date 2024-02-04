@@ -9,6 +9,7 @@ public class ReSpawn : MonoBehaviour
     Rigidbody2D rb; 
     Stun s;
     Animator anim;
+    AudioSource AS;
     Vector2 ReSpawnPoint;
     float L;
 
@@ -18,6 +19,7 @@ public class ReSpawn : MonoBehaviour
     {
       H = GetComponent<Health>();
       PM = GetComponent<PlayerMovement>();
+        AS = GetComponent<AudioSource>();
       rb = GetComponent<Rigidbody2D>();
       s = GetComponent<Stun>();
       anim = GetComponent<Animator>();
@@ -32,7 +34,7 @@ public class ReSpawn : MonoBehaviour
         {
         L=H.GetLives();
         rb.velocity = new Vector2(0f , 0f);
-        PM.transform.position = ReSpawnPoint;
+        
 
         if(s.Stunned)
         {
@@ -40,9 +42,10 @@ public class ReSpawn : MonoBehaviour
 
          s.Stunned = false;
         }
-
-        
-        H.ReHeal();
+            print("Respawn");
+                PM.transform.position = ReSpawnPoint;
+                H.ReHeal();
+            
         }
     }
 
