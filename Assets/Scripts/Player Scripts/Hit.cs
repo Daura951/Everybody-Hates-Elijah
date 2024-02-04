@@ -13,7 +13,6 @@ public class Hit : MonoBehaviour
     private float[] stats;
 
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +24,7 @@ public class Hit : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (isHit)
         {
             timer = stats[3];
@@ -51,7 +51,6 @@ public class Hit : MonoBehaviour
 
     private void GetHit(float knockBack, float angle)
     {
-
         float XComponent = Mathf.Cos(angle * (Mathf.PI / 180)) * knockBack;
         float YComponent = Mathf.Sin(angle * (Mathf.PI / 180)) * knockBack;
 

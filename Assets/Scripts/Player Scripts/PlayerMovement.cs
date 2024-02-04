@@ -37,9 +37,6 @@ public class PlayerMovement : MonoBehaviour
     public float terminalVelocityY = -10f;
     private Vector2 smoothVector;
     private Vector2 smoothVelocity;
-    [Range(1,10)]
-    public float DIFactor = 4f;
-
 
     public Transform[] groundRays;
     public float rayRange = 5f;
@@ -66,7 +63,6 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        isInAir = true;
         ChangeHealth();
 
         rb = GetComponent<Rigidbody2D>();
@@ -145,17 +141,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (!stunned && !anim.GetBool("Taunt") && !grabbing)
         {
-            if(isInAir)
-                Speed = Walk;
-
             if (!anim.GetBool("Climbing"))
                 Move();
 
             if (!PlayerAttack.attackInstance.isExecutedOnce)
                 Jump();
-
-            anim.SetBool("isGrounded", !isInAir);
-            anim.SetBool("isFalling", isFalling);
         }
 
         else if (stunned)
@@ -173,7 +163,7 @@ public class PlayerMovement : MonoBehaviour
                 rb.gravityScale = scaledGravity;
             }
             else isFalling = false;
-            anim.SetBool("isFalling", true);
+            anim.SetBool("isFalling", isFalling);
         }
 
         if (rb.velocity.y < terminalVelocityY)
@@ -193,40 +183,17 @@ public class PlayerMovement : MonoBehaviour
         smoothVector = Vector2.SmoothDamp(smoothVector, new Vector2(dirX * Speed, 0.0f), ref smoothVelocity, .1f);
 
 
-        //Additional logic for stunning and getting hit. Need to figure out way to improve it
-
-        float xForce = (dirX < 0 ? -Speed : Speed) / 2;
-        
-        if(dirX == 0 && isInAir && rb.velocity.x == 0 || !isInAir)
-        {
-            xForce = 0;
-        }
-
-        else if(dirX== 0 && isInAir && rb.velocity.x != 0)
-        {
-            xForce = (rb.velocity.x < 0 ? -Speed : Speed) / 2;
-        }
+        //ternary is here so that I don't actually change dirX. dirX is needed elsewhere.
 
         if (!attackScript.bypassMoveBlock)
         {
-            rb.velocity = new Vector2(isInLandingLag || (attackScript.isAttacking && !isInAir) || isCrouch || attackScript.isSpecial || anim.GetBool("hasGrabbedEnemy") ? 0 : (dirX > 0 ? dirX * smoothVector.x : -dirX * smoothVector.x)+ (xForce), rb.velocity.y);
+            rb.velocity = new Vector2(isInLandingLag || (attackScript.isAttacking && !isInAir) || isCrouch || attackScript.isSpecial || anim.GetBool("hasGrabbedEnemy") ? 0 : (dirX > 0 ? dirX * smoothVector.x : -dirX * smoothVector.x), rb.velocity.y);
         }
-
         else
         {
             Speed = Crawl;
             rb.velocity = new Vector2((dirX > 0 ? dirX * smoothVector.x : -dirX * smoothVector.x), rb.velocity.y);
         }
-
-        if(rb.velocity.x > Speed)
-        {
-            rb.velocity = new Vector2(Speed, rb.velocity.y);
-        }
-        else if(rb.velocity.x < -Speed)
-        {
-            rb.velocity = new Vector2(-Speed, rb.velocity.y);
-        }
-
         if (dirX == 0 && !isInAir && Input.GetAxisRaw("Vertical") >= 0f)
         {
             anim.ResetTrigger("Walking");
@@ -360,11 +327,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.gameObject.tag == "Platform" || collision.gameObject.tag == "PassThroughPlatform" || collision.gameObject.tag == "MovingPlatform")
         {
-            S.isAirSpin = false;
-
             if (anim.GetCurrentAnimatorStateInfo(0).IsName("USpecial") && collision.gameObject.tag == "PassThroughPlatform")
             {
-                //Do nothing
+
             }
             else
                 Physics2D.gravity = new Vector2(0, -9.81f);
@@ -416,12 +381,13 @@ public class PlayerMovement : MonoBehaviour
                 anim.SetBool("isGrounded", !isInAir);
             }
 
-        }
 
-        if (attackScript.isInHelpless && rb.velocity.y == 0)
-        {
-            GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
-            attackScript.isInHelpless = !attackScript.isInHelpless;
+            if (attackScript.isInHelpless && rb.velocity.y ==0)
+            {
+                GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+                attackScript.isInHelpless = !attackScript.isInHelpless;
+            }
+
         }
     }
 
@@ -464,7 +430,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
+        if (collision.gameObject.tag == "EHitbox")
+        {
+            print("Die Elijah!");
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)

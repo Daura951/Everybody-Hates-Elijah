@@ -5,22 +5,15 @@ using UnityEngine;
 public class Stun : MonoBehaviour
 {
     public bool Stunned;
-    public bool isAirSpin = false;
     private bool isLeft;
     private float timer;
     private Rigidbody2D rb;
     private Animator anim;
-    [Range(1,100)]
-    public float stunMultiplier;
     PlayerMovement PM;
     Health H;
     
     private Stun_Info SI;
     private float[] SIDAKT;
-    public float DIDegreeRestriction = 18f;
-
-    [SerializeField]
-    private float terminalVelocity = 40;
 
     // Start is called before the first frame update
     void Start()
@@ -44,65 +37,45 @@ public class Stun : MonoBehaviour
            }
            else
             timer = 0;
-            if (timer == 0 && !isAirSpin)
+            if (timer == 0)
             {
                 Stunned = false;
                 rb.gravityScale = 1f;
             }
-            else if(timer == 0 && isAirSpin)
-            {
-                if(Input.GetAxis("Horizontal") != 0)
-                {
-                    Stunned = false;
-                    isAirSpin = false;
-                }
-            }
             anim.SetBool("Stunned",Stunned);
             Physics2D.gravity = new Vector2(0, -9.81f);
             rb.gravityScale = 2;
-
-            if(rb.velocity.x >= terminalVelocity || rb.velocity.x < -terminalVelocity)
-            {
-                print("Terminal Velocity!");
-                isAirSpin = true;
-            }
-            anim.SetBool("isAirStunned", isAirSpin);
 
         }
     }
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if(col.gameObject.GetComponent<Stun_Info>())
-        {
-            if(!Stunned)
-            rb.velocity = new Vector2(0,0);
+      if(col.gameObject.GetComponent<Stun_Info>())
+      {
+       if(!Stunned)
+       rb.velocity = new Vector2(0,0);
             
-
-            Stunned = true;
-            anim.SetBool("Stunned",Stunned);
-            anim.Play("Stunned");
+       Stunned = true;
+       anim.SetBool("Stunned",Stunned);
+       anim.Play("Stunned");
       
-            if(PlayerAttack.attackInstance.ASideB)
-            PlayerAttack.attackInstance.ASideB = false;
+       if(PlayerAttack.attackInstance.ASideB)
+       PlayerAttack.attackInstance.ASideB = false;
 
-            SI = col.gameObject.GetComponent<Stun_Info>();
-            SIDAKT = SI.GetDAKTInfo();
+       SI = col.gameObject.GetComponent<Stun_Info>();
+       SIDAKT = SI.GetDAKTInfo();
 
-
-            timer = SIDAKT[3];
-            /*
-            print("Damage " + SIDAKT[0]);
-            print("Angle " + SIDAKT[1]);
-            print("Knockback " + SIDAKT[2]);
-            print("Time " + SIDAKT[3]);*/
-       
-            H.TakeDamage(SIDAKT[0]);
-            GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
-            GetHit(SIDAKT[1], SIDAKT[2]);
-
-
-        }
+       timer = SIDAKT[3];
+       /* 
+       print("Damage " + SIDAKT[0]);
+       print("Angle " + SIDAKT[1]);
+       print("Knockback " + SIDAKT[2]);
+       print("Time " + SIDAKT[3]);
+       */
+       H.TakeDamage(SIDAKT[0]);
+       GetHit(SIDAKT[1], SIDAKT[2]);
+      }
     }
 
     void OnCollisionEnter2D(Collision2D col)
@@ -115,9 +88,9 @@ public class Stun : MonoBehaviour
             Stunned = true;
             anim.SetBool("Stunned",Stunned);
             anim.Play("Stunned");
+      
 
-            SI = col.gameObject.GetComponent<Stun_Info>(); //Polymorphism FTW
-
+            SI = col.gameObject.GetComponent<Stun_Info>();
             SIDAKT = SI.GetDAKTInfo();
 
             timer = SIDAKT[3];
@@ -144,35 +117,17 @@ public class Stun : MonoBehaviour
 
     private void GetHit(float angle , float Kb)
     {
-        /*
-         * 
-         * TODO DI needs more work
-        float DIAmount = Mathf.Atan2(Input.GetAxis("Vertical"), Input.GetAxis("Horizontal")) * (180 / Mathf.PI);
-
-        if (angle + DIAmount > angle + DIDegreeRestriction)
-        {
-            angle += DIDegreeRestriction;
-        }
-        else if (angle + DIAmount < angle - DIDegreeRestriction)
-        {
-            angle -= DIDegreeRestriction;
-        }
-        else angle += DIAmount;
-        */
-
         float XComponent = Mathf.Cos(angle * (Mathf.PI / 180)) * Kb;
         float YComponent = Mathf.Sin(angle * (Mathf.PI / 180)) * Kb;
 
-        float healthWeight = (H.GetMaxHealth() / H.GetHealth()) * stunMultiplier;
-        angle += H.GetHealth() < .5 ? 0 : 10;
+        
 
         if(!isLeft)
         {
             XComponent *= -1;
         }
 
-        rb.AddForce((new Vector2(XComponent, YComponent) * healthWeight) , ForceMode2D.Impulse);
-        print(rb.velocity);
+        rb.AddForce(new Vector2(XComponent, YComponent) , ForceMode2D.Impulse);
     }
 
     public bool getIsStunned()

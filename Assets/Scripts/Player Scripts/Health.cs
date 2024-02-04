@@ -150,9 +150,4 @@ public class Health : MonoBehaviour
     {
         health += H;
     }
-
-    public float GetMaxHealth()
-    {
-        return MaxHealth;
-    }
 }
