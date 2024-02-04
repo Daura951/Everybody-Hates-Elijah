@@ -143,7 +143,7 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
-        if (!stunned && !anim.GetBool("Taunt") && !grabbing)
+        if (!stunned && !anim.GetBool("Taunt") && !grabbing && !attackScript.ShieldStun)
         {
             if(isInAir)
                 Speed = Walk;
