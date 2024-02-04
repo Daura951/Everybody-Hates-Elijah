@@ -83,7 +83,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa42b190b61b33347b3c2632eedf9dda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DAKT: 
   attackType: 1
 --- !u!1 &7478764645473139900
 GameObject:
@@ -432,7 +431,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa42b190b61b33347b3c2632eedf9dda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DAKT: 
   attackType: 0
 --- !u!1 &7478764646160358547
 GameObject:

@@ -648,7 +648,7 @@ public class PlayerAttack : MonoBehaviour
             Physics2D.gravity = new Vector2(0, 0);
             playerMovement.rb.velocity = new Vector2(playerMovement.rb.velocity.x, 0);
             isExecutedOnce = true;
-            AS.PlayOneShot(playerMovement.FXjump);
+           // AS.PlayOneShot(playerMovement.FXjump);
         }
 
         playerMovement.rb.AddForce(new Vector2(XDir, yDir));
