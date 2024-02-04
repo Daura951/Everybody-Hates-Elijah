@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7478764645433649073}
   - component: {fileID: 7478764645433649078}
   - component: {fileID: 7478764645433649079}
-  - component: {fileID: 7478764645433649072}
+  - component: {fileID: 2936928265474515898}
   m_Layer: 10
   m_Name: Kick Hitbox
   m_TagString: EHitbox
@@ -71,7 +71,7 @@ CapsuleCollider2D:
   m_Offset: {x: -0.06, y: -0.33}
   m_Size: {x: 0.3, y: 1}
   m_Direction: 0
---- !u!114 &7478764645433649072
+--- !u!114 &2936928265474515898
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -80,10 +80,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 7478764645433649076}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b31fcb4b7ae4624dbadfad6945ed17f, type: 3}
+  m_Script: {fileID: 11500000, guid: fa42b190b61b33347b3c2632eedf9dda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DAKT: 10 70 10 1.5
+  DAKT: 
+  attackType: 1
 --- !u!1 &7478764645473139900
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,6 +246,7 @@ MonoBehaviour:
   - {fileID: 7478764645876710153}
   - {fileID: 7478764645433649076}
   isGrabbed: 0
+  grabee: 0
   whichThrow: 00000000
 --- !u!114 &7478764645473139893
 MonoBehaviour:
@@ -358,7 +360,7 @@ GameObject:
   - component: {fileID: 7478764645876710154}
   - component: {fileID: 7478764645876710155}
   - component: {fileID: 7478764645876710152}
-  - component: {fileID: 7478764645876710149}
+  - component: {fileID: 4177218881156554684}
   m_Layer: 10
   m_Name: Punch HitBox
   m_TagString: EHitbox
@@ -418,7 +420,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &7478764645876710149
+--- !u!114 &4177218881156554684
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -427,10 +429,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 7478764645876710153}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b31fcb4b7ae4624dbadfad6945ed17f, type: 3}
+  m_Script: {fileID: 11500000, guid: fa42b190b61b33347b3c2632eedf9dda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DAKT: 15 60 15 2
+  DAKT: 
+  attackType: 0
 --- !u!1 &7478764646160358547
 GameObject:
   m_ObjectHideFlags: 0

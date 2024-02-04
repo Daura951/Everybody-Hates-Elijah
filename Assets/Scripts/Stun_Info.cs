@@ -2,21 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Stun_Info : MonoBehaviour
+//Abstract class that contains the basics of what a stun is. Enemy and environment stun uses ths as a superclass. Makes things more orerly for designers
+public abstract class Stun_Info : MonoBehaviour
 {
-	public string DAKT;
-	private float[] DAKTInfo;
+	protected float[] DAKTInfo;
 
-	void Start()
-	{
-		DAKTInfo = new float[4];
-
-		string[] Info = DAKT.Split(" ");
-        DAKTInfo[0] = float.Parse(Info[0]); //Damage
-        DAKTInfo[1] = float.Parse(Info[1]); //Angle
-        DAKTInfo[2] = float.Parse(Info[2]); //Knockback
-        DAKTInfo[3] = float.Parse(Info[3]); //Time
-	}
+	public abstract void CalculateStunVals();
 
 	public float[] GetDAKTInfo()
 	{
