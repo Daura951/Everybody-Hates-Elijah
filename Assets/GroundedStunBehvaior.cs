@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Transition3Behavior : StateMachineBehaviour
+public class GroundedStunBehvaior : StateMachineBehaviour
 {
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -13,26 +13,14 @@ public class Transition3Behavior : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (Input.GetAxisRaw("Vertical") > 0 && PlayerAttack.attackInstance.anim.GetBool("Idle") == true && !PlayerAttack.attackInstance.playerMovement.isInAir && !PlayerAttack.attackInstance.isSpecial)
-        {
-            PlayerAttack.attackInstance.anim.Play("Up Tilt");
-        }
-
-        else if (Input.GetButtonDown("Fire1") && Input.GetAxisRaw("Vertical") < 0 && PlayerAttack.attackInstance.anim.GetBool("Crouch") && !PlayerAttack.attackInstance.playerMovement.isInAir && !PlayerAttack.attackInstance.isGrab)
-        {
-            PlayerAttack.attackInstance.anim.Play("DTilt");
-        }
-
-        else if (Input.GetButtonDown("Fire1") && Input.GetAxisRaw("Horizontal") != 0 && !PlayerAttack.attackInstance.playerMovement.isInAir && !PlayerAttack.attackInstance.anim.GetBool("Running") && !PlayerAttack.attackInstance.isGrab)
-        {
-            PlayerAttack.attackInstance.anim.Play("Forward Tilt");
-        }
+        Stun.stunInstance.isAirSpin = false;
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        PlayerAttack.attackInstance.isAttacking = false;
+        Stun.stunInstance.isAirSpin = false;
+        Stun.stunInstance.PM.anim.SetBool("isAirStunned", false);
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

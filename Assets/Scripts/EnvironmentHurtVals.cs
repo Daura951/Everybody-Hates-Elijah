@@ -11,7 +11,7 @@ public class EnvironmentHurtVals
 
     public static Dictionary<AttackTypes, string> environmentHurtValues = new Dictionary<AttackTypes, string>
         {
-            {AttackTypes.Lava, "5 35 15 .5" },
+            {AttackTypes.Lava, "5 90 15 .5" },
             {AttackTypes.Death, "100000000 0 0 0" }
         };
 

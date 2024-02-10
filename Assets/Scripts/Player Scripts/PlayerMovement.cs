@@ -39,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 smoothVelocity;
     [Range(1,10)]
     public float DIFactor = 4f;
+    private bool canApplyAirMovement = true;
 
 
     public Transform[] groundRays;
@@ -47,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Attacks")]
     public PlayerAttack attackScript;
+    public ShieldScript SS;
 
     public Stun S;
     private bool stunned;
@@ -57,9 +59,11 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("LedgeGrab")]
     public bool grabbing;
-    public LedgeGrab lg;
+    LedgeGrab lg;
 
+    Health H;
 
+    float globalDirX;
 
     public int curDamage = 0;
 
@@ -74,6 +78,8 @@ public class PlayerMovement : MonoBehaviour
         anim = GetComponent<Animator>();
         attackScript = GetComponent<PlayerAttack>();
         lg = GetComponent<LedgeGrab>();
+        H = GetComponent<Health>();
+            
         Speed = Walk;
         Run = Walk * 2;
         Crawl = Walk / 2;
@@ -92,6 +98,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        globalDirX = Input.GetAxisRaw("Horizontal");
 
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("JumpSqaut"))
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
@@ -103,7 +110,7 @@ public class PlayerMovement : MonoBehaviour
 
         isInLandingLag = anim.GetCurrentAnimatorStateInfo(0).IsName("Fall 2 Idle");
 
-        if(!lg.action)
+        if(!lg.action && !H.dead)
             cam.position = this.transform.position + offset;
 
         isCrouch = anim.GetCurrentAnimatorStateInfo(0).IsName("Crouch");
@@ -143,8 +150,10 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
-        if (!stunned && !anim.GetBool("Taunt") && !grabbing && !attackScript.ShieldStun)
+        if (!stunned && !anim.GetBool("Taunt") && !grabbing && !attackScript.ShieldStun && !S.isAirSpin && !anim.GetBool("isAirStunned") && !H.dead && !SS.ShieldStun)
         {
+
+
             if(isInAir)
                 Speed = Walk;
 
@@ -155,7 +164,21 @@ public class PlayerMovement : MonoBehaviour
                 Jump();
 
             anim.SetBool("isGrounded", !isInAir);
-            anim.SetBool("isFalling", isFalling);
+
+            if (rb.velocity.y < 0 )
+            {
+                anim.SetBool("isFalling", isFalling);
+            }
+            else anim.SetBool("isFalling", isInAir);
+        }
+
+        else if(!stunned && S.isAirSpin)
+        {
+            if (globalDirX != 0 && S.isAirSpin)
+            {
+                S.isAirSpin = false;
+                anim.SetBool("isAirStunned", S.isAirSpin);
+            }
         }
 
         else if (stunned)
@@ -173,6 +196,8 @@ public class PlayerMovement : MonoBehaviour
                 rb.gravityScale = scaledGravity;
             }
             else isFalling = false;
+
+
             anim.SetBool("isFalling", true);
         }
 
@@ -193,18 +218,30 @@ public class PlayerMovement : MonoBehaviour
         smoothVector = Vector2.SmoothDamp(smoothVector, new Vector2(dirX * Speed, 0.0f), ref smoothVelocity, .1f);
 
 
+
+
         //Additional logic for stunning and getting hit. Need to figure out way to improve it
 
-        float xForce = (dirX < 0 ? -Speed : Speed) / 2;
-        
-        if(dirX == 0 && isInAir && rb.velocity.x == 0 || !isInAir)
-        {
-            xForce = 0;
-        }
+        float xForce = 0;
 
-        else if(dirX== 0 && isInAir && rb.velocity.x != 0)
+        if (!dashDisable && canApplyAirMovement)
         {
-            xForce = (rb.velocity.x < 0 ? -Speed : Speed) / 2;
+             xForce = (dirX < 0 ? -Speed : Speed) / 2;
+
+
+            if (dirX == 0 && isInAir && rb.velocity.x == 0 || !isInAir)
+            {
+                xForce = 0;
+            }
+
+            else if (dirX == 0 && isInAir && rb.velocity.x != 0)
+            {
+                xForce = (rb.velocity.x < 0 ? -Speed : Speed) / 2;
+            }
+        }
+        else if(!canApplyAirMovement && dirX!=0)
+        {
+            canApplyAirMovement = !canApplyAirMovement;
         }
 
         if (!attackScript.bypassMoveBlock)
@@ -313,10 +350,13 @@ public class PlayerMovement : MonoBehaviour
                     }
 
                     if (anim.GetCurrentAnimatorClipInfo(0)[0].clip.name != "Crouch")
+                    {
                         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+                        anim.SetBool("isFalling", false);
+                    }
 
                 }
-            }
+            } 
 
 
 
@@ -358,9 +398,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Platform" || collision.gameObject.tag == "PassThroughPlatform" || collision.gameObject.tag == "MovingPlatform")
+        if ((collision.gameObject.tag == "Platform" || collision.gameObject.tag == "PassThroughPlatform" || collision.gameObject.tag == "MovingPlatform") && collision.gameObject.tag != "Wall")
         {
-            S.isAirSpin = false;
 
             if (anim.GetCurrentAnimatorStateInfo(0).IsName("USpecial") && collision.gameObject.tag == "PassThroughPlatform")
             {
@@ -413,7 +452,14 @@ public class PlayerMovement : MonoBehaviour
                 jumpAmt = 0;
                 PlayerAttack.attackInstance.isExecutedOnce = false;
                 isOnPassThrough = false;
-                anim.SetBool("isGrounded", !isInAir);
+            }
+
+            if(S.isAirSpin)
+            {
+                print("End As");
+                stunned = false;
+                anim.SetBool("Stunned", false);
+                anim.SetBool("isFalling", false);
             }
 
         }
@@ -443,6 +489,7 @@ public class PlayerMovement : MonoBehaviour
                     anim.SetBool("isGrounded", !isInAir);
                     anim.SetBool("isJumping", true);
                     anim.SetBool("isDoubleJumping", false);
+                    anim.SetBool("isFalling", false);
                 }
             }
 
@@ -473,6 +520,8 @@ public class PlayerMovement : MonoBehaviour
         {
             InEscelator = true;
         }
+
+
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -549,4 +598,17 @@ public class PlayerMovement : MonoBehaviour
     {
 
     }
+
+ 
+
+    public bool getCanApplyAirMovement()
+    {
+        return canApplyAirMovement;
+    }
+
+    public void setcanApplyAirMovement(bool canApplyAirMovement)
+    {
+        this.canApplyAirMovement = canApplyAirMovement;
+    }
+
 }

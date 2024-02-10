@@ -10,9 +10,9 @@ public class Stun : MonoBehaviour
     private float timer;
     private Rigidbody2D rb;
     private Animator anim;
-    [Range(1,100)]
+
     public float stunMultiplier;
-    PlayerMovement PM;
+    public PlayerMovement PM;
     Health H;
     
     private Stun_Info SI;
@@ -22,6 +22,10 @@ public class Stun : MonoBehaviour
     [SerializeField]
     private float terminalVelocity = 40;
 
+    public static Stun stunInstance;
+
+    PlayerAttack pa;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +33,9 @@ public class Stun : MonoBehaviour
        PM = GetComponent<PlayerMovement>();
        anim = GetComponent<Animator>();
        H = GetComponent<Health>();
+       pa = GetComponent<PlayerAttack>();
+       stunInstance = this;
+       stunMultiplier = 10 / H.GetMaxHealth();
     }
 
     // Update is called once per frame
@@ -38,24 +45,19 @@ public class Stun : MonoBehaviour
 
         if(Stunned)
         {
+            PM.setcanApplyAirMovement(false);
+           Physics2D.IgnoreLayerCollision(3, 12,true);
            if(timer > 0)
            {
                 timer-= Time.deltaTime;
            }
            else
             timer = 0;
-            if (timer == 0 && !isAirSpin)
+            if (timer == 0)
             {
                 Stunned = false;
                 rb.gravityScale = 1f;
-            }
-            else if(timer == 0 && isAirSpin)
-            {
-                if(Input.GetAxis("Horizontal") != 0)
-                {
-                    Stunned = false;
-                    isAirSpin = false;
-                }
+                Physics2D.IgnoreLayerCollision(3, 12, false);
             }
             anim.SetBool("Stunned",Stunned);
             Physics2D.gravity = new Vector2(0, -9.81f);
@@ -63,17 +65,16 @@ public class Stun : MonoBehaviour
 
             if(rb.velocity.x >= terminalVelocity || rb.velocity.x < -terminalVelocity)
             {
-                print("Terminal Velocity!");
                 isAirSpin = true;
+                anim.SetBool("isAirStunned", isAirSpin);
             }
-            anim.SetBool("isAirStunned", isAirSpin);
 
         }
     }
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if(col.gameObject.GetComponent<Stun_Info>())
+        if(col.gameObject.GetComponent<Stun_Info>() && !H.dead)
         {
             if(!Stunned)
             rb.velocity = new Vector2(0,0);
@@ -89,25 +90,27 @@ public class Stun : MonoBehaviour
             SI = col.gameObject.GetComponent<Stun_Info>();
             SIDAKT = SI.GetDAKTInfo();
 
+            if(SI is EnvironmentalStun_info)
+            {
+                PM.setcanApplyAirMovement(false);
+            }
 
-            timer = SIDAKT[3];
-            /*
-            print("Damage " + SIDAKT[0]);
-            print("Angle " + SIDAKT[1]);
-            print("Knockback " + SIDAKT[2]);
-            print("Time " + SIDAKT[3]);*/
-       
+
             H.TakeDamage(SIDAKT[0]);
-            GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
-            GetHit(SIDAKT[1], SIDAKT[2]);
 
+            if (!pa.shielding)
+            {
+                timer = SIDAKT[3];
+                GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+                GetHit(SIDAKT[1], SIDAKT[2]);
+            }
 
         }
     }
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if(col.gameObject.GetComponent<Stun_Info>())
+        if(col.gameObject.GetComponent<Stun_Info>() && !H.dead)
         {
             if(!Stunned)
             rb.velocity = new Vector2(0,0);
@@ -119,16 +122,13 @@ public class Stun : MonoBehaviour
             SI = col.gameObject.GetComponent<Stun_Info>(); //Polymorphism FTW
 
             SIDAKT = SI.GetDAKTInfo();
-
-            timer = SIDAKT[3];
-            /* 
-            print("Damage " + SIDAKT[0]);
-            print("Angle " + SIDAKT[1]);
-            print("Knockback " + SIDAKT[2]);
-            print("Time " + SIDAKT[3]);
-            */
             H.TakeDamage(SIDAKT[0]);
-            GetHit(SIDAKT[1], SIDAKT[2]);
+
+            if (!pa.shielding)
+            {
+                timer = SIDAKT[3];
+                GetHit(SIDAKT[1], SIDAKT[2]);
+            }
 
             if(gameObject.tag=="Player")
             {

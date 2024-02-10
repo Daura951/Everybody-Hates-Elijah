@@ -16,6 +16,21 @@ public class Transition2Behavior : StateMachineBehaviour
         {
             PlayerAttack.attackInstance.anim.Play("Jab 3");
         }
+
+        else if (Input.GetAxisRaw("Vertical") > 0 && PlayerAttack.attackInstance.anim.GetBool("Idle") == true && !PlayerAttack.attackInstance.playerMovement.isInAir && !PlayerAttack.attackInstance.isSpecial)
+        {
+            PlayerAttack.attackInstance.anim.Play("Up Tilt");
+        }
+
+        else if (Input.GetButtonDown("Fire1") && Input.GetAxisRaw("Vertical") < 0 && PlayerAttack.attackInstance.anim.GetBool("Crouch") && !PlayerAttack.attackInstance.playerMovement.isInAir && !PlayerAttack.attackInstance.isGrab)
+        {
+            PlayerAttack.attackInstance.anim.Play("DTilt");
+        }
+
+        else if (Input.GetButtonDown("Fire1") && Input.GetAxisRaw("Horizontal") != 0 && !PlayerAttack.attackInstance.playerMovement.isInAir && !PlayerAttack.attackInstance.anim.GetBool("Running") && !PlayerAttack.attackInstance.isGrab)
+        {
+            PlayerAttack.attackInstance.anim.Play("Forward Tilt");
+        }
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

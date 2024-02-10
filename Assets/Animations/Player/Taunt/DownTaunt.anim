@@ -35,13 +35,13 @@ AnimationClip:
       value: {fileID: 247717762, guid: ac6ed00c0996dc84ba5e7c40b027aaf2, type: 3}
     - time: 0.23333333
       value: {fileID: 421477702, guid: ac6ed00c0996dc84ba5e7c40b027aaf2, type: 3}
-    - time: 0.26666668
+    - time: 0.56666666
       value: {fileID: -1233542276, guid: ac6ed00c0996dc84ba5e7c40b027aaf2, type: 3}
-    - time: 0.3
+    - time: 0.6
       value: {fileID: -908935424, guid: ac6ed00c0996dc84ba5e7c40b027aaf2, type: 3}
-    - time: 0.33333334
+    - time: 0.6333333
       value: {fileID: 210276280, guid: ac6ed00c0996dc84ba5e7c40b027aaf2, type: 3}
-    - time: 0.36666667
+    - time: 0.6666667
       value: {fileID: 1909595204, guid: ac6ed00c0996dc84ba5e7c40b027aaf2, type: 3}
     attribute: m_Sprite
     path: 
@@ -79,7 +79,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.38333336
+    m_StopTime: 0.68333334
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -99,7 +99,7 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.36666667
+  - time: 0.6666667
     functionName: ResetTaunt
     data: 
     objectReferenceParameter: {fileID: 0}
