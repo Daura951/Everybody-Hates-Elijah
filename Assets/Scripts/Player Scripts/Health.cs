@@ -4,13 +4,18 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Health : MonoBehaviour
 {
-    [SerializeField] private int lives;
+    public int lives;
     [SerializeField] private float MaxHealth;
     [SerializeField] private float health;
 
     public Slider slider;
     public Image healthBar;
     public AudioSource AS;
+    public bool dead = false;
+
+    PlayerAttack PA;
+    public GameObject Shield;
+    ShieldScript SS;
 
     [Header("Hurt Sound")]
     public float lowLim;
@@ -32,6 +37,8 @@ public class Health : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        PA = GetComponent<PlayerAttack>();
+        SS = Shield.GetComponent<ShieldScript>();
         health = MaxHealth;
         slider.maxValue = 1;
         slider.value = 1;
@@ -41,19 +48,11 @@ public class Health : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(health <= 0)
-        {
-            health = 0;
-            lives--;
-            if (lives != 0)
-                AS.PlayOneShot(Death);
-        }
 
-
-        if (lives == 0)
-        {
-            Destroy(this.gameObject);
-        }
+        if (health <= 0)
+            dead = true;
+        else
+            dead = false;
     }
 
     void FixedUpdate()
@@ -62,6 +61,8 @@ public class Health : MonoBehaviour
 
         if(health > MaxHealth)
             health = MaxHealth;
+        if (health < 0)
+            health = 0;
 
         if(slider.value > .6f)
         {
@@ -79,54 +80,68 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(float hurt)
     {
-      health -= hurt;
 
-        if (!AS.isPlaying)
+        if (PA.shielding)
         {
-
-
-            if (hurt < lowLim && health >= MaxHealth*.5)
-            {
-                float pick = Random.Range(1, 7);
-                Debug.Log(pick);
-                if (pick == 1)
-                    AS.PlayOneShot(lh1, 1f);
-                if (pick == 2)
-                    AS.PlayOneShot(lh2, 1f);
-                if (pick == 3)
-                    AS.PlayOneShot(lh3, 1f);
-                if (pick == 4)
-                    AS.PlayOneShot(grunt, 1f);
-            }
-
-            else if ((hurt < medLim && health >= MaxHealth * .5) || (hurt < lowLim && health < MaxHealth * .5) )
-            {
-                float pick = Random.Range(1, 5);
-                Debug.Log(pick);
-
-                if (pick == 1)
-                    AS.PlayOneShot(mh1, 1f);
-                if (pick == 2)
-                    AS.PlayOneShot(mh2, 1f);
-                if (pick == 3)
-                    AS.PlayOneShot(mh3, 1f);
-            }
-
+            if (hurt < lowLim && health >= MaxHealth * .5)
+                SS.ShieldDamag(1);
+            else if ((hurt < medLim && health >= MaxHealth * .5) || (hurt < lowLim && health < MaxHealth * .5))
+                SS.ShieldDamag(2);
             else if ((hurt < medLim && health <= MaxHealth * .5) || hurt >= medLim)
-            {
-                float pick = Random.Range(1, 4);
-                Debug.Log(pick);
-
-                if (pick == 1)
-                    AS.PlayOneShot(hh1, 1f);
-                if (pick == 2)
-                    AS.PlayOneShot(hh2, 1f);
-                if (pick == 3)
-                    AS.PlayOneShot(hh3, 1f);
-            }
-
+                SS.ShieldDamag(3);
         }
 
+
+        else
+        {
+            health -= hurt;
+
+            if (!AS.isPlaying)
+            {
+
+
+                if (hurt < lowLim && health >= MaxHealth * .5)
+                {
+                    float pick = Random.Range(1, 7);
+                    Debug.Log(pick);
+                    if (pick == 1)
+                        AS.PlayOneShot(lh1, 1f);
+                    if (pick == 2)
+                        AS.PlayOneShot(lh2, 1f);
+                    if (pick == 3)
+                        AS.PlayOneShot(lh3, 1f);
+                    if (pick == 4)
+                        AS.PlayOneShot(grunt, 1f);
+                }
+
+                else if ((hurt < medLim && health >= MaxHealth * .5) || (hurt < lowLim && health < MaxHealth * .5))
+                {
+                    float pick = Random.Range(1, 5);
+                    Debug.Log(pick);
+
+                    if (pick == 1)
+                        AS.PlayOneShot(mh1, 1f);
+                    if (pick == 2)
+                        AS.PlayOneShot(mh2, 1f);
+                    if (pick == 3)
+                        AS.PlayOneShot(mh3, 1f);
+                }
+
+                else if ((hurt < medLim && health <= MaxHealth * .5) || hurt >= medLim)
+                {
+                    float pick = Random.Range(1, 4);
+                    Debug.Log(pick);
+
+                    if (pick == 1)
+                        AS.PlayOneShot(hh1, 1f);
+                    if (pick == 2)
+                        AS.PlayOneShot(hh2, 1f);
+                    if (pick == 3)
+                        AS.PlayOneShot(hh3, 1f);
+                }
+
+            }
+        }
 
         PlayerAttack.attackInstance.isExecutedOnce = false;
     }

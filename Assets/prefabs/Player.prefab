@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 1062189274}
   - component: {fileID: 1062189275}
   - component: {fileID: 1062189277}
-  - component: {fileID: 1062189276}
+  - component: {fileID: 2039391857786086364}
+  - component: {fileID: 7391807778850897890}
   m_Layer: 0
   m_Name: Shield
   m_TagString: Untagged
@@ -102,7 +103,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0.027234072, y: -0.08184327}
   m_Size: {x: 1.4453919, y: 1.2819883}
   m_Direction: 1
---- !u!95 &1062189276
+--- !u!95 &2039391857786086364
 Animator:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -122,6 +123,23 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &7391807778850897890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1062189273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d316a43eb9a29234e97fda13d4b5092c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 4926932388718786732}
+  ShieldStun: 0
+  ShieldTimer: 0
+  StunTimer: 0
+  SL: 0
 --- !u!1 &1633070039424670320
 GameObject:
   m_ObjectHideFlags: 0
@@ -1584,7 +1602,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -1576920168, guid: f52f596b2936317418f29cb3bbd4fdc4, type: 3}
+  m_Sprite: {fileID: 455683733, guid: fdf18618e6ff429418a31cd9b64cadcd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1633,7 +1651,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.35}
-    oldSize: {x: 2.4005861, y: 1.6000001}
+    oldSize: {x: 2.3999999, y: 1.603125}
     newSize: {x: 2.1823509, y: 1.4545455}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -1676,20 +1694,19 @@ MonoBehaviour:
   isOnPassThrough: 0
   crouchTimer: 0.2
   terminalVelocityY: -10
+  DIFactor: 4
   groundRays:
   - {fileID: 4926932388560026259}
   - {fileID: 4926932387516199093}
   rayRange: 2
   dashDisable: 0
   attackScript: {fileID: 4926932388033835190}
+  SS: {fileID: 7391807778850897890}
   S: {fileID: 4926932388033835187}
   OnEscelator: 0
   InEscelator: 0
   grabbing: 0
-  lg: {fileID: 0}
-  AS: {fileID: 1922164418}
-  FXjump: {fileID: 8300000, guid: 8413915ef18fd184c83f501e7145cbed, type: 3}
-  FXland: {fileID: 8300000, guid: 160e5d6e1a311994db49a5400f879e47, type: 3}
+  lg: {fileID: 8294672910334269911}
   curDamage: 0
 --- !u!114 &4926932388033835190
 MonoBehaviour:
@@ -1760,13 +1777,8 @@ MonoBehaviour:
   - {x: -1, y: 0}
   - {x: 0, y: 0}
   Shield: {fileID: 1062189273}
-  ShieldAnim: {fileID: 1062189276}
   shielding: 0
   shieldHeld: 0
-  ShieldStun: 0
-  ShieldTimer: 4
-  StunTimer: 2
-  SL: 0.2
   AS: {fileID: 1922164418}
   Strong1: {fileID: 8300000, guid: 0af7e8d67f6c95c448b5354f5af8492d, type: 3}
   Strong2: {fileID: 8300000, guid: 1855784b049e84843a05ccae58b9e16d, type: 3}
@@ -1783,7 +1795,7 @@ Animator:
   m_GameObject: {fileID: 4926932388718786732}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 03038ffd9a0b5674093bc302ae65cbeb, type: 2}
+  m_Controller: {fileID: 9100000, guid: ea942b4ad55c5cd4d8ea13830d564b2b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1806,6 +1818,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Stunned: 0
+  isAirSpin: 0
+  stunMultiplier: 1
+  DIDegreeRestriction: 18
+  terminalVelocity: 40
 --- !u!114 &4926932388033835186
 MonoBehaviour:
   m_ObjectHideFlags: 0
