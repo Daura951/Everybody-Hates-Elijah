@@ -11,7 +11,10 @@ public class ReSpawn : MonoBehaviour
     Animator anim;
     AudioSource AS;
     Vector2 ReSpawnPoint;
-    float L;
+
+    public bool Waitroom = false;
+    public bool complete = false;
+    public AudioClip Scream;
 
 
     // Start is called before the first frame update
@@ -23,34 +26,53 @@ public class ReSpawn : MonoBehaviour
       rb = GetComponent<Rigidbody2D>();
       s = GetComponent<Stun>();
       anim = GetComponent<Animator>();
-      L = H.GetLives();
       ReSpawnPoint = new Vector2(PM.transform.position.x , PM.transform.position.y); 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(H.GetLives()>0 && L>H.GetLives())
+        if(H.dead)
         {
-        L=H.GetLives();
-        rb.velocity = new Vector2(0f , 0f);
-        
+            if(!Waitroom)
+            {
+                Waitroom = true;
+                H.lives--;
+                AS.PlayOneShot(Scream);
+                StartCoroutine(ScreamOfDeath(Scream.length));
+            }
+            if(complete && H.lives > 0)
+            {
+                rb.velocity = new Vector2(0f, 0f);
+                if (s.Stunned)
+                {
+                    anim.SetBool("Stunned", !s.Stunned);
 
-        if(s.Stunned)
-        {
-            anim.SetBool("Stunned",!s.Stunned);
-
-         s.Stunned = false;
-        }
-            print("Respawn");
+                    s.Stunned = false;
+                }
                 PM.transform.position = ReSpawnPoint;
                 H.ReHeal();
-            
+                Waitroom = complete = false;
+            }
+            if(complete && H.lives ==0)
+            {
+                print("DIE DIE DIE");
+                Destroy(this.gameObject);
+            }
+
+
         }
     }
 
     public void NewCheckPoint(Vector2 c)
     {
         ReSpawnPoint = c ;
+    }
+
+
+    IEnumerator ScreamOfDeath(float d)
+    {
+        yield return new WaitForSeconds(d);
+        complete = true;
     }
 }

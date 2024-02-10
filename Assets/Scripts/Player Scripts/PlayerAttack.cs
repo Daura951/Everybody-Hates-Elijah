@@ -11,6 +11,7 @@ public class PlayerAttack : MonoBehaviour
     [Header("Objects")]
     public Animator anim;
     public PlayerMovement playerMovement;
+    Health H;
     private Ladder Ladder;
     public static PlayerAttack attackInstance;
     Stun S;
@@ -57,12 +58,9 @@ public class PlayerAttack : MonoBehaviour
 
     [Header("Shielding")]
     public GameObject Shield;
-    public Animator ShieldAnim;
+    ShieldScript SS;
     public bool shielding = false;
     public bool shieldHeld = false;
-    public bool ShieldStun = false;
-    public float ShieldTimer,StunTimer, SL;
-    private float AVGShieldTime,StoredShieldTime,StoredStunTime;
 
     [Header("SoundEffects")]
     public AudioSource AS;
@@ -89,14 +87,11 @@ public class PlayerAttack : MonoBehaviour
         currentStats = new float[4];
         anim = GetComponent<Animator>();
         S = GetComponent<Stun>();
+        H = GetComponent<Health>();
+        SS = Shield.GetComponent<ShieldScript>();
         rb = GetComponent<Rigidbody2D>();
         FilePath = Application.dataPath + "/ElijahAttackValues.txt";
         Line = File.ReadAllLines(FilePath);
-        StoredShieldTime = ShieldTimer -1f;
-        StoredStunTime = StunTimer - 1f;
-        AVGShieldTime = (1f-SL) / ShieldTimer;
-        ShieldTimer = 0;
-        StunTimer = 0;
     }
 
     private void Update()
@@ -106,49 +101,14 @@ public class PlayerAttack : MonoBehaviour
         if (Ladder != null)
             OnLadder = Ladder.GetOnLadder();
 
-        if (!shielding && ShieldTimer != 0 && !ShieldStun)
+
+        if (!shielding && SS.ShieldTimer != 0 && !SS.ShieldStun && SS.ActiveOnce)
         {
-          ShieldTimer -= Time.deltaTime;
-            if (ShieldTimer <= 0)
-                ShieldTimer = 0;
+            SS.ShieldTimer -= Time.deltaTime;
+            if (SS.ShieldTimer <= 0)
+                SS.ShieldTimer = 0;
 
         }
-
-        if (shielding && !ShieldStun)
-        {
-
-            if (ShieldTimer < StoredShieldTime)
-            {
-                ShieldTimer += Time.deltaTime;
-                float scale = 1f - (AVGShieldTime * ShieldTimer);
-                Shield.transform.localScale = new Vector3(scale, scale, 1f);
-            }
-            else
-                ShieldTimer = StoredShieldTime;
-            if (ShieldTimer == StoredShieldTime)
-            {
-                StunTimer = 0;
-                ShieldStun = true;
-                ShieldAnim.Play("ShieldBreak");
-                anim.Play("ShieldPop");
-            }
-        }
-
-        if(ShieldStun)
-        {
-            if (StunTimer < StoredStunTime)
-            {
-                StunTimer += Time.deltaTime;
-            }
-            else
-                StunTimer = StoredStunTime;
-            if(StunTimer== StoredStunTime)
-            {
-                ShieldStun = false;
-                ShieldOff();
-            }
-        }
-  
 
 
 
@@ -170,7 +130,7 @@ public class PlayerAttack : MonoBehaviour
         }
 
 
-        if (!OnLadder && !ASideB && !playerMovement.grabbing && !ShieldStun)
+        if (!OnLadder && !ASideB && !playerMovement.grabbing && !SS.ShieldStun && !H.dead)
             Attack();
 
         if (ASideB)
@@ -400,7 +360,7 @@ public class PlayerAttack : MonoBehaviour
         else if ((Gamepad.current.rightTrigger.isPressed || Gamepad.current.leftTrigger.isPressed || Input.GetButtonDown("Shield")) && Input.GetAxisRaw("Horizontal") == 0f && Input.GetAxisRaw("Vertical") == 0 && !stunned && !isExecutedOnce && !playerMovement.isInAir && !shielding && !shieldHeld)
         {
             print("Shield");
-            shieldHeld = shielding = true;
+            shieldHeld = shielding = Shield.GetComponent<SpriteRenderer>().enabled = true;
             anim.Play("ShieldBlock");
             anim.SetBool("isShielding", true);
             Shield.SetActive(true);
@@ -413,7 +373,7 @@ public class PlayerAttack : MonoBehaviour
         }
 
 
-        if((shielding && !shieldHeld) || playerMovement.isInAir || isAttacking || (Input.GetAxisRaw("Horizontal") != 0f && !ShieldStun) || (Input.GetAxisRaw("Vertical") != 0 && !ShieldStun) )
+        if((shielding && !shieldHeld) || playerMovement.isInAir || isAttacking || (Input.GetAxisRaw("Horizontal") != 0f && !SS.ShieldStun) || (Input.GetAxisRaw("Vertical") != 0 && !SS.ShieldStun) )
         {
             ShieldOff();
         }
@@ -429,13 +389,15 @@ public class PlayerAttack : MonoBehaviour
 
     public void ShieldOff()
     {
-        if(!ShieldStun)
+        if (!SS.ShieldStun && !S.isAirSpin)
         {
             shielding = false;
             anim.SetBool("isShielding", false);
-            ShieldStun = false;
+            Shield.SetActive(false);
         }
-        Shield.SetActive(false);
+      else
+          Shield.GetComponent<SpriteRenderer>().enabled = false;
+       
 
     }
 
