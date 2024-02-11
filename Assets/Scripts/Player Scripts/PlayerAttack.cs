@@ -69,6 +69,7 @@ public class PlayerAttack : MonoBehaviour
     public AudioClip Strong3;
     public AudioClip Strong4;
     public AudioClip Punch;
+    public AudioClip Kick;
 
 
 
@@ -437,6 +438,7 @@ public class PlayerAttack : MonoBehaviour
     public void Nair(int L)
     {
         hitBoxes[3].SetActive(true);
+        AS.PlayOneShot(Kick);
         string[] statSplit = Line[L].Split(" ");
         currentStats[0] = float.Parse(statSplit[1]); //Damage
         currentStats[1] = float.Parse(statSplit[2]); //Angle

@@ -8,6 +8,8 @@ public class ShieldScript : MonoBehaviour
     PlayerAttack PA;
     Animator ShieldAnim;
     Animator PAnim;
+    AudioSource AS;
+    public AudioClip AC;
     public bool ShieldStun = false , ActiveOnce = false;
     public float ShieldTimer, StunTimer, SL;
     private float AVGShieldTime, StoredShieldTime, StoredStunTime;
@@ -19,6 +21,7 @@ public class ShieldScript : MonoBehaviour
     void Awake()
     {
         PA = Player.GetComponent<PlayerAttack>();
+        AS = Player.GetComponent<AudioSource>();
         ShieldAnim = GetComponent<Animator>();
         PAnim=Player.GetComponent<Animator>();
         ActiveOnce = true;
@@ -57,6 +60,7 @@ public class ShieldScript : MonoBehaviour
                 PA.shielding = false;
                 ShieldAnim.Play("ShieldBreak");
                 PAnim.Play("ShieldPop");
+                AS.PlayOneShot(AC);
             }
         }
 

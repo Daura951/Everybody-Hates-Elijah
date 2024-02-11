@@ -30,7 +30,7 @@ public class Health : MonoBehaviour
     public AudioClip hh1;
     public AudioClip hh2;
     public AudioClip hh3;
-    public AudioClip Death;
+
 
 
 
