@@ -150,14 +150,13 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
-        if (!stunned && !anim.GetBool("Taunt") && !grabbing && !attackScript.ShieldStun && !S.isAirSpin && !anim.GetBool("isAirStunned") && !H.dead && !SS.ShieldStun)
+        if (!stunned && !anim.GetBool("Taunt") && !grabbing && !S.isAirSpin && !anim.GetBool("isAirStunned") && !H.dead && !SS.ShieldStun)
         {
-
 
             if(isInAir)
                 Speed = Walk;
 
-            if (!anim.GetBool("Climbing"))
+            if (!anim.GetBool("Climbing") && !anim.GetBool("isAirStunned"))
                 Move();
 
             if (!PlayerAttack.attackInstance.isExecutedOnce)
@@ -178,8 +177,18 @@ public class PlayerMovement : MonoBehaviour
             {
                 S.isAirSpin = false;
                 anim.SetBool("isAirStunned", S.isAirSpin);
+
             }
         }
+
+        else if(!stunned)
+        {
+            if (globalDirX != 0)
+            {
+                anim.SetBool("isLaying", false);
+            }
+        }
+
 
         else if (stunned)
         {
@@ -456,10 +465,10 @@ public class PlayerMovement : MonoBehaviour
 
             if(S.isAirSpin)
             {
-                print("End As");
                 stunned = false;
                 anim.SetBool("Stunned", false);
                 anim.SetBool("isFalling", false);
+                anim.SetBool("isGrounded", true);
             }
 
         }

@@ -11,8 +11,9 @@ public class Stun : MonoBehaviour
     private Rigidbody2D rb;
     private Animator anim;
 
-    public float stunMultiplier;
+    private float stunMultiplier;
     public PlayerMovement PM;
+    public float elijahGoFarFloat = 10;
     Health H;
     
     private Stun_Info SI;
@@ -67,6 +68,7 @@ public class Stun : MonoBehaviour
             {
                 isAirSpin = true;
                 anim.SetBool("isAirStunned", isAirSpin);
+                anim.SetBool("isLaying", true);
             }
 
         }
@@ -90,20 +92,22 @@ public class Stun : MonoBehaviour
             SI = col.gameObject.GetComponent<Stun_Info>();
             SIDAKT = SI.GetDAKTInfo();
 
-            if(SI is EnvironmentalStun_info)
-            {
-                PM.setcanApplyAirMovement(false);
-            }
 
 
-            H.TakeDamage(SIDAKT[0]);
 
             if (!pa.shielding)
             {
+                if (SI is EnvironmentalStun_info)
+                {
+                    PM.setcanApplyAirMovement(false);
+                }
+
                 timer = SIDAKT[3];
                 GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
                 GetHit(SIDAKT[1], SIDAKT[2]);
+                H.TakeDamage(SIDAKT[0]);
             }
+            else H.TakeDamage(SIDAKT[0] / 2);
 
         }
     }
@@ -163,7 +167,15 @@ public class Stun : MonoBehaviour
         float XComponent = Mathf.Cos(angle * (Mathf.PI / 180)) * Kb;
         float YComponent = Mathf.Sin(angle * (Mathf.PI / 180)) * Kb;
 
-        float healthWeight = (H.GetMaxHealth() / H.GetHealth()) * stunMultiplier;
+        float healthWeight = 0;
+
+        if (H.GetHealth() > 0)
+        {
+            healthWeight = ((H.GetMaxHealth() / H.GetHealth()) * stunMultiplier) * elijahGoFarFloat;
+            
+        }
+        else healthWeight = ((H.GetMaxHealth() / 1f) * stunMultiplier) * elijahGoFarFloat;
+
         angle += H.GetHealth() < .5 ? 0 : 10;
 
         if(!isLeft)
@@ -172,7 +184,6 @@ public class Stun : MonoBehaviour
         }
 
         rb.AddForce((new Vector2(XComponent, YComponent) * healthWeight) , ForceMode2D.Impulse);
-        print(rb.velocity);
     }
 
     public bool getIsStunned()
