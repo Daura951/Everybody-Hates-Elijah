@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +13,7 @@ public class Stun : MonoBehaviour
     private Animator anim;
 
     private float stunMultiplier;
-    public PlayerMovement PM;
+    private PlayerMovement PM;
     public float elijahGoFarFloat = 10;
     Health H;
     
@@ -64,11 +65,16 @@ public class Stun : MonoBehaviour
             Physics2D.gravity = new Vector2(0, -9.81f);
             rb.gravityScale = 2;
 
+            anim.SetBool("isGrounded", true);
+
+
             if(rb.velocity.x >= terminalVelocity || rb.velocity.x < -terminalVelocity)
             {
                 isAirSpin = true;
                 anim.SetBool("isAirStunned", isAirSpin);
                 anim.SetBool("isLaying", true);
+                anim.SetBool("canLayAttack", true);
+                PM.isInGetup = true;
             }
 
         }
@@ -148,6 +154,8 @@ public class Stun : MonoBehaviour
 
     private void GetHit(float angle , float Kb)
     {
+
+
         /*
          * 
          * TODO DI needs more work
@@ -171,10 +179,10 @@ public class Stun : MonoBehaviour
 
         if (H.GetHealth() > 0)
         {
-            healthWeight = ((H.GetMaxHealth() / H.GetHealth()) * stunMultiplier) * elijahGoFarFloat;
+            healthWeight = ((H.GetMaxHealth() / H.GetHealth()) * stunMultiplier);
             
         }
-        else healthWeight = ((H.GetMaxHealth() / 1f) * stunMultiplier) * elijahGoFarFloat;
+        else healthWeight = ((H.GetMaxHealth() / 1f) * stunMultiplier);
 
         angle += H.GetHealth() < .5 ? 0 : 10;
 
@@ -189,5 +197,10 @@ public class Stun : MonoBehaviour
     public bool getIsStunned()
     {
         return Stunned;
+    }
+
+    public PlayerMovement getPM()
+    {
+        return PM;
     }
 }
