@@ -2972,6 +2972,7 @@ Transform:
   - {fileID: 151427089023779167}
   - {fileID: 5229870643715141677}
   - {fileID: 1062189274}
+  - {fileID: 1905209824656909614}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3109,6 +3110,7 @@ MonoBehaviour:
   crouchTimer: 0.2
   terminalVelocityY: -10
   DIFactor: 4
+  isInGetup: 0
   groundRays:
   - {fileID: 4926932388560026259}
   - {fileID: 4926932387516199093}
@@ -3167,6 +3169,7 @@ MonoBehaviour:
   - {fileID: 6434533744899772389}
   - {fileID: 5668978527210181341}
   - {fileID: 3810302137110026734}
+  - {fileID: 8454956738111915877}
   stickyHand: {fileID: 4926932387889446034}
   strongStarted: 0
   strongDone: 0
@@ -3196,6 +3199,7 @@ MonoBehaviour:
   Hand:
   - {fileID: 5507882954986392699}
   - {fileID: 2845828424898299797}
+  Grunts: []
   SmallGrunts: []
   MedGrunts: []
   LargeGrunts: []
@@ -4577,6 +4581,76 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1.01, y: 0.06}
   m_Direction: 0
+--- !u!1 &8454956738111915877
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1905209824656909614}
+  - component: {fileID: 1898664919698270674}
+  - component: {fileID: 1292143332401404924}
+  m_Layer: 7
+  m_Name: Getup Hitbox
+  m_TagString: Hitbox
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1905209824656909614
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8454956738111915877}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4926932388033835194}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &1898664919698270674
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8454956738111915877}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!70 &1292143332401404924
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8454956738111915877}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.27}
+  m_Size: {x: 1.96, y: 0.78}
+  m_Direction: 1
 --- !u!1 &8884287672340114729
 GameObject:
   m_ObjectHideFlags: 0
