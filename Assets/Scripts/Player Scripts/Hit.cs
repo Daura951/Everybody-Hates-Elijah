@@ -7,6 +7,7 @@ public class Hit : MonoBehaviour
     private Rigidbody2D rb;
     Enemy_Target ET;
     EnemyHealth H;
+    public GameObject Player;
 
     public bool isHit = false, isLeft = false, Stunned;
     private float timer;
@@ -71,11 +72,11 @@ public class Hit : MonoBehaviour
 
         if(collision.gameObject.tag == "Hitbox" && !(collision.gameObject.name == "StickyHandHitbox") && collision.gameObject.name != "Grab Hiitbox")
         {
-            stats = collision.transform.parent.gameObject.GetComponent<PlayerAttack>().GetCurrentStats();
+            stats = Player.GetComponent<PlayerAttack>().GetCurrentStats();
             if(stats[2] !=0)
             rb.velocity = new Vector2(0,0);
             isHit = Stunned = true;
-            isLeft = collision.transform.parent.gameObject.GetComponent<PlayerMovement>().GetIsLeft();
+            isLeft = Player.GetComponent<PlayerMovement>().GetIsLeft();
 
             if(collision.gameObject.name== "Pummel Hitbox")
             {
@@ -86,16 +87,16 @@ public class Hit : MonoBehaviour
         else if(collision.gameObject.tag == "Hitbox" && collision.gameObject.name== "StickyHandHitbox" && collision.gameObject.name!="Grab Hiitbox")
         {
             print("Gotcha!!!!");
-            stats = collision.transform.parent.gameObject.GetComponent<PlayerAttack>().GetCurrentStats();
+            stats = Player.GetComponent<PlayerAttack>().GetCurrentStats();
             if(stats[2] !=0)
             rb.velocity = new Vector2(0,0);
 
             isHit = Stunned = true;
-            isLeft = collision.transform.parent.gameObject.GetComponent<PlayerMovement>().GetIsLeft();
-            collision.transform.parent.gameObject.GetComponent<PlayerAttack>().isSticked = true;
-            collision.transform.parent.gameObject.GetComponent<PlayerAttack>().stickyHand.GetComponent<StickyHand>().goBack = true;
-            collision.transform.parent.gameObject.GetComponent<PlayerAttack>().hitBoxes[6].GetComponent<StickyHand>().goBack = true;
-            collision.transform.parent.gameObject.GetComponent<PlayerAttack>().hitBoxes[6].GetComponent<CircleCollider2D>().enabled = false;
+            isLeft = Player.GetComponent<PlayerMovement>().GetIsLeft();
+            Player.GetComponent<PlayerAttack>().isSticked = true;
+            Player.GetComponent<PlayerAttack>().stickyHand.GetComponent<StickyHand>().goBack = true;
+            Player.GetComponent<PlayerAttack>().hitBoxes[6].GetComponent<StickyHand>().goBack = true;
+            Player.GetComponent<PlayerAttack>().hitBoxes[6].GetComponent<CircleCollider2D>().enabled = false;
 
         }
 
