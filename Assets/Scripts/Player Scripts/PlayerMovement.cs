@@ -40,6 +40,7 @@ public class PlayerMovement : MonoBehaviour
     [Range(1,10)]
     public float DIFactor = 4f;
     private bool canApplyAirMovement = true;
+    public bool isInGetup = false;
 
 
     public Transform[] groundRays;
@@ -67,9 +68,12 @@ public class PlayerMovement : MonoBehaviour
 
     public int curDamage = 0;
 
+    public static PlayerMovement instance;
+
     // Start is called before the first frame update
     void Start()
     {
+        instance = this;
         isInAir = true;
         ChangeHealth();
 
@@ -110,7 +114,7 @@ public class PlayerMovement : MonoBehaviour
 
         isInLandingLag = anim.GetCurrentAnimatorStateInfo(0).IsName("Fall 2 Idle");
 
-        if(!lg.action && !H.dead)
+        if (!lg.action && !H.dead)
             cam.position = this.transform.position + offset;
 
         isCrouch = anim.GetCurrentAnimatorStateInfo(0).IsName("Crouch");
@@ -150,65 +154,7 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
-        if (!stunned && !anim.GetBool("Taunt") && !grabbing && !S.isAirSpin && !anim.GetBool("isAirStunned") && !H.dead && !SS.ShieldStun)
-        {
-
-            if(isInAir)
-                Speed = Walk;
-
-            if (!anim.GetBool("Climbing") && !anim.GetBool("isAirStunned"))
-                Move();
-
-            if (!PlayerAttack.attackInstance.isExecutedOnce)
-                Jump();
-
-            anim.SetBool("isGrounded", !isInAir);
-
-            if (rb.velocity.y < 0 )
-            {
-                anim.SetBool("isFalling", isFalling);
-            }
-            else anim.SetBool("isFalling", isInAir);
-        }
-
-        else if(!stunned && S.isAirSpin)
-        {
-            if (globalDirX != 0 && S.isAirSpin)
-            {
-                S.isAirSpin = false;
-                anim.SetBool("isAirStunned", S.isAirSpin);
-
-            }
-        }
-
-        else if(!stunned)
-        {
-            if (globalDirX != 0)
-            {
-                anim.SetBool("isLaying", false);
-            }
-        }
-
-
-        else if (stunned)
-        {
-            anim.ResetTrigger("Walking");
-            anim.ResetTrigger("Running");
-            anim.ResetTrigger("Crouch");
-            if (rb.velocity.y < 0.0f)
-            {
-                isFalling = true;
-                anim.SetBool("isJumping", false);
-                anim.SetBool("isDoubleJumping", false);
-                anim.SetBool("isGrounded", !isInAir);
-                anim.ResetTrigger("Crouch");
-                rb.gravityScale = scaledGravity;
-            }
-            else isFalling = false;
-
-
-            anim.SetBool("isFalling", true);
-        }
+        DetermineMovementStates();
 
         if (rb.velocity.y < terminalVelocityY)
         {
@@ -225,7 +171,6 @@ public class PlayerMovement : MonoBehaviour
             dashDisable = false;
         }
         smoothVector = Vector2.SmoothDamp(smoothVector, new Vector2(dirX * Speed, 0.0f), ref smoothVelocity, .1f);
-
 
 
 
@@ -256,6 +201,10 @@ public class PlayerMovement : MonoBehaviour
         if (!attackScript.bypassMoveBlock)
         {
             rb.velocity = new Vector2(isInLandingLag || (attackScript.isAttacking && !isInAir) || isCrouch || attackScript.isSpecial || anim.GetBool("hasGrabbedEnemy") ? 0 : (dirX > 0 ? dirX * smoothVector.x : -dirX * smoothVector.x)+ (xForce), rb.velocity.y);
+
+  
+          
+          
         }
 
         else
@@ -405,6 +354,74 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+
+    private void DetermineMovementStates()
+    {
+        if (!stunned && !anim.GetBool("Taunt") && !grabbing && !S.isAirSpin && !anim.GetBool("isAirStunned") && !anim.GetBool("isLaying") && !H.dead && !SS.ShieldStun && !isInGetup)
+        {
+
+            if (isInAir)
+                Speed = Walk;
+
+            if (!anim.GetBool("Climbing") && !anim.GetBool("isAirStunned") && !anim.GetBool("isLaying"))
+                Move();            
+
+            if (!PlayerAttack.attackInstance.isExecutedOnce)
+                Jump();
+
+            anim.SetBool("isGrounded", !isInAir);
+
+            if (rb.velocity.y < 0)
+            {
+                anim.SetBool("isFalling", isFalling);
+            }
+            else anim.SetBool("isFalling", isInAir);
+        }
+
+        else if (!stunned && S.isAirSpin)
+        {
+            if (globalDirX != 0 && S.isAirSpin)
+            {
+                S.isAirSpin = false;
+                anim.SetBool("isAirStunned", S.isAirSpin);
+
+            }
+        }
+
+        else if (!stunned)
+        {
+            if (globalDirX != 0)
+            {
+                anim.SetBool("isLaying", false);
+            }
+
+            else if (Input.GetButtonDown("Fire1") || Input.GetButtonDown("Fire2") || Input.GetButton("Fire3"))
+            {
+                anim.SetBool("canLayAttack", false);
+            }
+        }
+
+
+        else if (stunned)
+        {
+            anim.ResetTrigger("Walking");
+            anim.ResetTrigger("Running");
+            anim.ResetTrigger("Crouch");
+            if (rb.velocity.y < 0.0f)
+            {
+                isFalling = true;
+                anim.SetBool("isJumping", false);
+                anim.SetBool("isDoubleJumping", false);
+                anim.SetBool("isGrounded", !isInAir);
+                anim.ResetTrigger("Crouch");
+                rb.gravityScale = scaledGravity;
+            }
+            else isFalling = false;
+            anim.SetBool("isJumping", false);
+            anim.SetBool("isFalling", true);
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if ((collision.gameObject.tag == "Platform" || collision.gameObject.tag == "PassThroughPlatform" || collision.gameObject.tag == "MovingPlatform") && collision.gameObject.tag != "Wall")
@@ -470,6 +487,7 @@ public class PlayerMovement : MonoBehaviour
                 anim.SetBool("isFalling", false);
                 anim.SetBool("isGrounded", true);
             }
+            else anim.SetBool("isGrounded", true);
 
         }
 
