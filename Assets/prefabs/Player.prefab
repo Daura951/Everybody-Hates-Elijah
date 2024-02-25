@@ -1404,7 +1404,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: f492d279a2f3e3d46a8b0a463bde40c0, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -1500,7 +1500,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 5f0c2e69b366d58419d7f1bac1c7e3e7, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -2490,7 +2490,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.18
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -3985,7 +3985,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bdcf974cfd2bf34d9052e97ffa3d601, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ASfx: {fileID: 0}
+  ASfx: {fileID: 5612411764068146880}
   Hit:
   - {fileID: 8300000, guid: 3accd6e7640b00645a79fc74d48d5cf8, type: 3}
   Miss: {fileID: 0}
@@ -4463,13 +4463,55 @@ MonoBehaviour:
   Hand:
   - {fileID: 5507882954986392699}
   - {fileID: 2845828424898299797}
-  Grunts: []
-  SpecialSource: []
-  SmallGrunts: []
-  MedGrunts: []
-  LargeGrunts: []
-  StrongGrunts: []
-  SpecialSounds: []
+  Grunts:
+  - {fileID: 1543126970521106182}
+  - {fileID: 9064418563770313218}
+  - {fileID: 7974994177152456342}
+  - {fileID: 8953323561950387189}
+  SpecialSource:
+  - {fileID: 8041637270559416784}
+  - {fileID: 2653653610429640653}
+  - {fileID: 8790385136866496266}
+  SmallGrunts:
+  - {fileID: 8300000, guid: b1ce67c542954694982be66e7595d42e, type: 3}
+  - {fileID: 8300000, guid: 0279aefc44135814b9b0164af7b60654, type: 3}
+  - {fileID: 8300000, guid: 8095f69a2d818ba499526298ec973989, type: 3}
+  - {fileID: 8300000, guid: 0a77c8aea8f099144966b548975404de, type: 3}
+  - {fileID: 8300000, guid: 51262ccff4c2a664eb0731596331b2b0, type: 3}
+  - {fileID: 8300000, guid: 9f5e2e6619b5f1a46a22e1041b982bea, type: 3}
+  - {fileID: 8300000, guid: 8ceaf83bb29b49549ae381d148a27003, type: 3}
+  - {fileID: 8300000, guid: 50d07a4a0857660498fc5495cff0eefc, type: 3}
+  - {fileID: 8300000, guid: 238b5fedbd900be4bac65fd47c9d4c5e, type: 3}
+  - {fileID: 8300000, guid: 12935d415104b0b43855f5f75d153403, type: 3}
+  - {fileID: 8300000, guid: 342474d54b003ef4a92b8d71dbf68dff, type: 3}
+  - {fileID: 8300000, guid: e6aaf3362415ffb408b94c3c66065efd, type: 3}
+  - {fileID: 8300000, guid: 8e9cc4ccfb8bc194291b6be0df07a6e1, type: 3}
+  - {fileID: 8300000, guid: 6af41e0aa82264e4b8c86ff18ab702be, type: 3}
+  MedGrunts:
+  - {fileID: 8300000, guid: bbb0866436168e5458c8f100657fdda2, type: 3}
+  - {fileID: 8300000, guid: 7fcbf56727dd22042a9ade850d8d3c5b, type: 3}
+  - {fileID: 8300000, guid: 20fbe44756650584d8a8e4a18a84d496, type: 3}
+  - {fileID: 8300000, guid: 885c7c5ee6788a548b4110b9907ee9ad, type: 3}
+  - {fileID: 8300000, guid: 5e8136f11fd675b42aa66723439594db, type: 3}
+  - {fileID: 8300000, guid: d89f67f30a76fba44b24af1b73e2e409, type: 3}
+  - {fileID: 8300000, guid: 4b2d6206fa965df4981fe8319bba40fb, type: 3}
+  - {fileID: 8300000, guid: f00fcd7bbaea7b641b71ede310a6060d, type: 3}
+  LargeGrunts:
+  - {fileID: 8300000, guid: 88e30a95b00bc4d468fa2e5229619515, type: 3}
+  - {fileID: 8300000, guid: d693d9036fde3c84f93f4440a1165233, type: 3}
+  - {fileID: 8300000, guid: a9ac8ce5dd6aa2b4483e0fedb5bbc4e9, type: 3}
+  - {fileID: 8300000, guid: 71a3ad9876b8fc64fa8ae0a72b439d60, type: 3}
+  - {fileID: 8300000, guid: 6d7096e1e2051b54f920734a1f42ed1e, type: 3}
+  - {fileID: 8300000, guid: 92d57124472a4df43a1855fcef4fdd64, type: 3}
+  StrongGrunts:
+  - {fileID: 8300000, guid: 0af7e8d67f6c95c448b5354f5af8492d, type: 3}
+  - {fileID: 8300000, guid: 1855784b049e84843a05ccae58b9e16d, type: 3}
+  - {fileID: 8300000, guid: c62fa555a2566824985a60b01f6c5036, type: 3}
+  - {fileID: 8300000, guid: 87cffb0ed29548744bd5fcdcc007a2cc, type: 3}
+  SpecialSounds:
+  - {fileID: 8300000, guid: e9061bda5c311894b87233bcdc115c23, type: 3}
+  - {fileID: 8300000, guid: d616228f9e64df445917d9af421c266c, type: 3}
+  - {fileID: 8300000, guid: 856c99410023b0446a923e3df202efdd, type: 3}
 --- !u!95 &4926932388033835188
 Animator:
   serializedVersion: 4
@@ -4540,6 +4582,7 @@ MonoBehaviour:
   slider: {fileID: 0}
   healthBar: {fileID: 0}
   AS: {fileID: 1922164418}
+  healthAnim: {fileID: 0}
   dead: 0
   Shield: {fileID: 1062189273}
   lowLim: 5
@@ -4804,6 +4847,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CameraPosition: {x: 0, y: 0, z: 0}
   screenSize: {x: 0, y: 0}
+  center: {x: 0, y: 0, z: 0}
 --- !u!1 &4926932388764442920
 GameObject:
   m_ObjectHideFlags: 0
