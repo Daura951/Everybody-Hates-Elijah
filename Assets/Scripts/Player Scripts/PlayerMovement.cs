@@ -69,6 +69,7 @@ public class PlayerMovement : MonoBehaviour
     public int curDamage = 0;
 
     public static PlayerMovement instance;
+    public bool lockCam = false;
 
     // Start is called before the first frame update
     void Start()
@@ -114,7 +115,7 @@ public class PlayerMovement : MonoBehaviour
 
         isInLandingLag = anim.GetCurrentAnimatorStateInfo(0).IsName("Fall 2 Idle");
 
-        if (!lg.action && !H.dead)
+        if (!lg.action && !H.dead && !lockCam)
             cam.position = this.transform.position + offset;
 
         isCrouch = anim.GetCurrentAnimatorStateInfo(0).IsName("Crouch");

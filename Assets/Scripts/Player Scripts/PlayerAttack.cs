@@ -66,14 +66,13 @@ public class PlayerAttack : MonoBehaviour
     public AudioSource AS;
     public AudioSource[] Hand;
     public AudioSource[] Grunts;
+    public AudioSource[] SpecialSource;
     public AudioClip[] SmallGrunts;
     public AudioClip[] MedGrunts;
     public AudioClip[] LargeGrunts;
+    public AudioClip[] StrongGrunts;
     private bool strongGrunt = false;
-    public AudioClip Strong1;
-    public AudioClip Strong2;
-    public AudioClip Strong3;
-    public AudioClip Strong4;
+    public AudioClip[] SpecialSounds;
 
 
 
@@ -221,6 +220,7 @@ public class PlayerAttack : MonoBehaviour
         {
             isAttacking = true;
             isSpecial = true;
+            bypassMoveBlock = true;
             print("DSpecial");
         }
 
@@ -561,7 +561,6 @@ public class PlayerAttack : MonoBehaviour
     public void FStrong(int L)
     {
         hitBoxes[13].SetActive(true);
-        StrongCry();
         string[] statSplit = Line[L].Split(" ");
         currentStats[0] = float.Parse(statSplit[1]) + (float.Parse(statSplit[1]) * strongDamage); //Damage
         currentStats[1] = float.Parse(statSplit[2]); //Angle
@@ -573,7 +572,6 @@ public class PlayerAttack : MonoBehaviour
     public void UStrong(int L)
     {
         hitBoxes[14].SetActive(true);
-        StrongCry();
         string[] statSplit = Line[L].Split(" ");
         currentStats[0] = float.Parse(statSplit[1]) + (float.Parse(statSplit[1]) * strongDamage); //Damage
         currentStats[1] = float.Parse(statSplit[2]); //Angle
@@ -585,7 +583,6 @@ public class PlayerAttack : MonoBehaviour
     public void DStrong(int L)
     {
         hitBoxes[15].SetActive(true);
-        StrongCry();
         string[] statSplit = Line[L].Split(" ");
         currentStats[0] = float.Parse(statSplit[1]) + (float.Parse(statSplit[1]) * strongDamage); //Damage
         currentStats[1] = float.Parse(statSplit[2]); //Angle
@@ -801,18 +798,9 @@ public class PlayerAttack : MonoBehaviour
         return isAttacking;
     }
 
-    public void StrongCry()
+    public void StrongReset()
     {
-        float pick = UnityEngine.Random.Range(1, 5);
-        Debug.Log(pick);
-        if (pick == 1)
-            AS.PlayOneShot(Strong1, 1f);
-        if (pick == 2)
-            AS.PlayOneShot(Strong2, 1f);
-        if (pick == 3)
-            AS.PlayOneShot(Strong3, 1f);
-        if (pick == 4)
-            AS.PlayOneShot(Strong4, 1f);
+        strongGrunt = false;
     }
 
     public void Slap(int i)
@@ -823,29 +811,46 @@ public class PlayerAttack : MonoBehaviour
 
     public void Grunt(int i)
     {
-        float j = UnityEngine.Random.Range(0, 2);
+        float j = UnityEngine.Random.Range(0, 2); 
+        int k = UnityEngine.Random.Range(0, (LargeGrunts.Length-1)/2);
+        
         if (i==0 && !Grunts[i].isPlaying && j == 0) 
         {
-            int k = UnityEngine.Random.Range(0, SmallGrunts.Length);
-            Grunts[i].PlayOneShot(SmallGrunts[k] ,1f);
+            int l = UnityEngine.Random.Range(0, SmallGrunts.Length-1);
+            Grunts[i].PlayOneShot(SmallGrunts[l] ,1f);
         }
         if (i == 1 && !Grunts[i].isPlaying && j == 0)
         {
-            int k = UnityEngine.Random.Range(0, MedGrunts.Length);
-            Grunts[i].PlayOneShot(MedGrunts[k], 1f);
+            int l = UnityEngine.Random.Range(0, MedGrunts.Length-1);
+            Grunts[i].PlayOneShot(MedGrunts[l], 1f);
         }
-        if ((i == 2 || i == 3) && !Grunts[i].isPlaying && j == 0)
+        if (i == 2  && !Grunts[i].isPlaying && j == 0)
         {
             strongGrunt = true;
-            int k = UnityEngine.Random.Range(0, LargeGrunts.Length/2);
             Grunts[i].PlayOneShot(LargeGrunts[k*2], 1f);
             
-            if (strongGrunt)
-            {
-            strongGrunt = false;
-            Grunts[i].PlayOneShot(LargeGrunts[(k*2)+1], 1f);
-            }
+            
         }
-        
+        if (strongGrunt && i == 3 && !Grunts[i-1].isPlaying)
+        {
+            strongGrunt = false;
+            Grunts[i-1].PlayOneShot(LargeGrunts[(k*2)+1], 1f);
+        }
+
+        if (i == 2 && !Grunts[i+1].isPlaying && j == 1)
+        {
+            int l = UnityEngine.Random.Range(0, StrongGrunts.Length - 1);
+            Grunts[i+1].PlayOneShot(StrongGrunts[l], 1f);
+
+
+        }
+
+    }
+
+    public void SpecialSoud(int i)
+    {
+        if (!SpecialSource[i].isPlaying)
+            SpecialSource[i].PlayOneShot(SpecialSounds[i], 1f);
+
     }
 }

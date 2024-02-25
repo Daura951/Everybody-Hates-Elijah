@@ -18,24 +18,22 @@ public class AttackingSFX : MonoBehaviour
     IEnumerator ScreamOfDeath(float d)
     {
         hit = false;
-        
-
         yield return new WaitForSeconds(d);
 
-        if (hit && !ASfx.isPlaying)
-        {
-            int r = Random.Range(0, Hit.Length);
-            Debug.Log(r);
-            ASfx.PlayOneShot(Hit[r]);
-        }
-
-        if(!hit && !ASfx.isPlaying)
+        if(!hit && !ASfx.isPlaying && Miss != null)
             ASfx.PlayOneShot(Miss);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag != "Wall" && collision.tag != "Platform")
-        hit = true;
+        if (collision.tag == "Enemy")
+        {
+            hit = true;
+            if (!ASfx.isPlaying)
+            {
+                int r = Random.Range(0, Hit.Length);
+                ASfx.PlayOneShot(Hit[r]);
+            }
+        }    
     }
 }
