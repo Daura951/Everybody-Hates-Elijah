@@ -3,7 +3,7 @@
 2.Jab2 7 20 40 .4
 3.jab3 10 45 170 .7
 4.Nair 30 45 300 0
-5.DownB 5 80 90 0
+5.DownB 5 80 90 .1
 6.SideB 10 90 250 0 
 7.NeutralB 30 140 250 0
 8.Utilt 10 90 250 0
@@ -16,10 +16,10 @@
 15.UStrong 40 89 450 0
 16.DStrong 40 15 450 0
 17.USpecial1 10 90 300 5 0 250 17
-18.USpecial2 10 90 0 5 0 0 18
+18.USpecial2 10 45 900 5 0 0 18
 19.USpecial3 10 60 200 3 0 0 16
 20.Bair 20 20 100 0
-21.Dash 5 70 400 1
+21.Dash 5 30 150 1
 22.Grab 0 0 0 .1
 23.Pummel 5 0 0 .1
 24.UThrow 20 80 300 2 0 0 
