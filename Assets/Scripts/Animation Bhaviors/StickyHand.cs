@@ -14,6 +14,7 @@ public class StickyHand : MonoBehaviour
     public PlayerAttack playerAttack;
     public LineRenderer render;
     bool playedSuccess = false;
+    public AudioSource AS;
 
 
     private void OnEnable()
@@ -97,6 +98,12 @@ public class StickyHand : MonoBehaviour
     private void OnDisable()
     {
         render.SetPosition(1, new Vector3(0, 0, 0));
+    }
+
+    public void A12345()
+    {
+        if (!AS.isPlaying)
+            AS.Play();
     }
 }
 

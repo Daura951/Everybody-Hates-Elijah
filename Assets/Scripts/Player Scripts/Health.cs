@@ -72,7 +72,7 @@ public class Health : MonoBehaviour
         {
             healthBar.color = new Color(255, 255, 0, 1);
         }
-        else if (slider.value <= .3f)
+        else if (slider.value <= .4f)
         {
             healthBar.color = new Color(255, 0, 0, 1);
         }

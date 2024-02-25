@@ -212,6 +212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bfba1d124a2644419220415e72564d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: {fileID: 4926932388718786732, guid: 49b91c20ba8cc6249b9010246d083c77, type: 3}
   isHit: 0
   isLeft: 0
   Stunned: 0
@@ -228,7 +229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 7478764645473139890}
-  target: {fileID: 0}
+  target: {fileID: 4926932388033835194, guid: 49b91c20ba8cc6249b9010246d083c77, type: 3}
   activationDistance: 7
   targettingDistance: 14
   pathUpdateSeconds: 0.5

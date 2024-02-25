@@ -11,6 +11,10 @@ public class IdleBehavior : StateMachineBehaviour
         {
             hitBox.SetActive(false);
         }
+        PlayerMovement.instance.isInGetup = false;
+        PlayerMovement.instance.isInGetup = false;
+        PlayerMovement.instance.anim.SetBool("isLaying", false);
+        PlayerMovement.instance.anim.SetBool("canLayAttack", false);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
