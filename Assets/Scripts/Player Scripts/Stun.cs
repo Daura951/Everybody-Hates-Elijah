@@ -113,7 +113,10 @@ public class Stun : MonoBehaviour
                 GetHit(SIDAKT[1], SIDAKT[2]);
                 H.TakeDamage(SIDAKT[0]);
             }
-            else H.TakeDamage(SIDAKT[0] / 2);
+            else
+            {
+                H.TakeDamage(SIDAKT[0] / 2);
+            }
 
         }
     }

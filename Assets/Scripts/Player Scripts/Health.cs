@@ -11,6 +11,7 @@ public class Health : MonoBehaviour
     public Slider slider;
     public Image healthBar;
     public AudioSource AS;
+    public Animator healthAnim;
     public bool dead = false;
 
     PlayerAttack PA;
@@ -31,6 +32,7 @@ public class Health : MonoBehaviour
     public AudioClip hh2;
     public AudioClip hh3;
 
+    public static Health healthInstance;
 
 
 
@@ -42,6 +44,7 @@ public class Health : MonoBehaviour
         health = MaxHealth;
         slider.maxValue = 1;
         slider.value = 1;
+        healthInstance = this;
 
     }
 
@@ -76,6 +79,8 @@ public class Health : MonoBehaviour
         {
             healthBar.color = new Color(255, 0, 0, 1);
         }
+
+        print(slider.value);
     }
 
     public void TakeDamage(float hurt)
@@ -95,6 +100,7 @@ public class Health : MonoBehaviour
         else
         {
             health -= hurt;
+            PlayHurtAnim();
 
             if (!AS.isPlaying)
             {
@@ -144,6 +150,16 @@ public class Health : MonoBehaviour
         }
 
         PlayerAttack.attackInstance.isExecutedOnce = false;
+    }
+
+    public void PlayHurtAnim()
+    {
+        healthAnim.SetBool("gotHit", true);
+    }
+
+    public void StopHurtAnim()
+    {
+        healthAnim.SetBool("gotHit", false);
     }
 
     public float GetHealth()
