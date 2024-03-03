@@ -291,11 +291,11 @@ AnimationClip:
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 5
-    intParameter: 0
+    intParameter: 6
     messageOptions: 0
   - time: 0.5
-    functionName: SideB
-    data: 10 20 600 0 10000 0
+    functionName: parseAttack
+    data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 6

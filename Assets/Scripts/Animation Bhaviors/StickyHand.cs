@@ -56,7 +56,7 @@ public class StickyHand : MonoBehaviour
 
         if (countDown > 0)
         {
-            transform.position += new Vector3(isPlayerLeft ? -1 :  1, 0, 0) * Time.deltaTime * editedSpeed;
+            transform.position += new Vector3(isPlayerLeft ? -1 :  1, 0, 1) * Time.deltaTime * editedSpeed;
             editedSpeed += .1f;
         }
 
@@ -85,11 +85,14 @@ public class StickyHand : MonoBehaviour
                 }
             }
 
-            transform.position += new Vector3(isPlayerLeft ? 1 : -1, 0, 0) * Time.deltaTime * (playerAttack.isSticked ? speed : editedSpeed/2);
+            transform.position += new Vector3(isPlayerLeft ? 1 : -1, 0, 1) * Time.deltaTime * (playerAttack.isSticked ? speed : editedSpeed/2);
 
-            if(!isPlayerLeft &&  transform.position.x < endPos || isPlayerLeft && transform.position.x > endPos)
+            if (gameObject != null)
             {
-                gameObject.SetActive(false);
+                if (!isPlayerLeft && transform.position.x < endPos || isPlayerLeft && transform.position.x > endPos)
+                {
+                    gameObject.SetActive(false);
+                }
             }
         }
       

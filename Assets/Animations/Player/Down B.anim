@@ -128,11 +128,11 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 0.28333333
-    functionName: DownB
-    data: 5 80 90 0
+    functionName: parseAttack
+    data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 5
+    intParameter: 4
     messageOptions: 0
   - time: 0.41666666
     functionName: DespawnHitBox
@@ -142,8 +142,8 @@ AnimationClip:
     intParameter: 4
     messageOptions: 0
   - time: 0.53333336
-    functionName: DownB
-    data: 5 80 90 0
+    functionName: parseAttack
+    data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 5
@@ -156,9 +156,9 @@ AnimationClip:
     intParameter: 4
     messageOptions: 0
   - time: 0.78333336
-    functionName: DownB
-    data: 5 80 90 0
+    functionName: parseAttack
+    data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 5
+    intParameter: 4
     messageOptions: 0

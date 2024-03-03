@@ -132,10 +132,10 @@ TextureImporter:
       name: health bar without ui but without color_0
       rect:
         serializedVersion: 2
-        x: 2758
-        y: 906
-        width: 169
-        height: 150
+        x: 1113
+        y: 611
+        width: 2125
+        height: 1026
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

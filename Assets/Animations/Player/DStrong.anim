@@ -86,9 +86,9 @@ AnimationClip:
     intParameter: 3
     messageOptions: 0
   - time: 0.2
-    functionName: DStrong
-    data: 40 15 300 0
+    functionName: parseAttack
+    data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 16
+    intParameter: 17
     messageOptions: 0

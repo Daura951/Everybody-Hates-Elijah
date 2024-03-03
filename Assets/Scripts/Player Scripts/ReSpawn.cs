@@ -10,6 +10,7 @@ public class ReSpawn : MonoBehaviour
     Stun s;
     Animator anim;
     AudioSource AS;
+   public CameraSwitch ActiveArena;
     Vector2 ReSpawnPoint;
 
     public bool Waitroom = false;
@@ -82,6 +83,12 @@ public class ReSpawn : MonoBehaviour
 
                     s.Stunned = false;
                 }
+                if(ActiveArena != null)
+                {
+                    ActiveArena.Reset();
+                }
+
+
                 PM.transform.position = ReSpawnPoint;
                 H.ReHeal();
                 Waitroom = complete = false;
@@ -106,5 +113,10 @@ public class ReSpawn : MonoBehaviour
     {
         yield return new WaitForSeconds(d);
         complete = true;
+    }
+
+    public void AssignArena(CameraSwitch AR)
+    {
+        ActiveArena = AR;
     }
 }

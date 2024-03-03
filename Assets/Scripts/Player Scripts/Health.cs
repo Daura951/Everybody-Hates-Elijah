@@ -79,8 +79,6 @@ public class Health : MonoBehaviour
         {
             healthBar.color = new Color(255, 0, 0, 1);
         }
-
-        print(slider.value);
     }
 
     public void TakeDamage(float hurt)

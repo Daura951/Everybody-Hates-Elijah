@@ -161,6 +161,7 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, terminalVelocityY);
         }
+
     }
 
     void Move()
@@ -389,7 +390,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        else if (!stunned)
+        else if (!stunned && anim.GetBool("isLaying"))
         {
             if (globalDirX != 0)
             {

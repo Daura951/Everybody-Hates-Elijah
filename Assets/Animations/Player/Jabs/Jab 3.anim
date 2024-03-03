@@ -89,9 +89,9 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 0.11666667
-    functionName: Jab3
-    data: 20 45 150 0
+    functionName: parseAttack
+    data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 3
+    intParameter: 2
     messageOptions: 0
