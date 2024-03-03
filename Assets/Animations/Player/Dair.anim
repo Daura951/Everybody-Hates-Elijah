@@ -95,8 +95,8 @@ AnimationClip:
     intParameter: 1
     messageOptions: 0
   - time: 0.3
-    functionName: Dair
-    data: 15 280 200 0
+    functionName: parseAttack
+    data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 13

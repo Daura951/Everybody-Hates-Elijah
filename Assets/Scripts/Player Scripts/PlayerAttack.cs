@@ -17,6 +17,7 @@ public class PlayerAttack : MonoBehaviour
     Stun S;
     private Rigidbody2D rb;
 
+    [Header("Attack variables")]
     public bool isAttacking, isSpecial = false, isSticked = false, isGrab = false;
 
     public GameObject[] hitBoxes;
@@ -32,6 +33,9 @@ public class PlayerAttack : MonoBehaviour
     public float strongTimer = 0.0f;
     float strongDamage = 0.0f;
 
+    private int currentHitBox = 0;
+    private int[] attackIndexes;
+    private string[] attacksData;
 
     private bool stunned;
 
@@ -64,6 +68,8 @@ public class PlayerAttack : MonoBehaviour
 
     [Header("SoundEffects")]
     public AudioSource AS;
+    public AudioSource Combofx;
+    public AudioClip[] ComboClip;
     public AudioSource[] Hand;
     public AudioSource[] Grunts;
     public AudioSource[] SpecialSource;
@@ -73,6 +79,11 @@ public class PlayerAttack : MonoBehaviour
     public AudioClip[] StrongGrunts;
     private bool strongGrunt = false;
     public AudioClip[] SpecialSounds;
+
+
+    public float ComboTimer = 3f;
+    private float comboScore;
+    private float timer, comboTimerStored;
 
 
 
@@ -96,10 +107,35 @@ public class PlayerAttack : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         FilePath = Application.dataPath + "/ElijahAttackValues.txt";
         Line = File.ReadAllLines(FilePath);
+        comboTimerStored = ComboTimer;
+
+        attackIndexes = new int[Line.Length];
+        attacksData = new string[Line.Length];
+
+        for(int i = 0; i < Line.Length-1; i++)
+        {
+            attackIndexes[i] = int.Parse(Line[i+1].Split(" ")[0]);
+
+            string attackDataStr = "";
+            attackDataStr = Line[i+1].Split(" ")[1];
+
+            for(int j = 2; j < Line[i+1].Split(" ").Length; j++)
+            {
+                attackDataStr += " " + Line[i+1].Split(" ")[j];
+                
+            }
+
+            attacksData[i] = attackDataStr;
+
+            //print(attackIndexes[i] + "( " + attacksData[i]+")");
+
+        }
     }
 
     private void Update()
     {
+
+        DepleteComboTimer();
         stunned = S.getIsStunned();
 
         if (Ladder != null)
@@ -148,69 +184,68 @@ public class PlayerAttack : MonoBehaviour
         //Control Detection
         if (Input.GetButtonDown("Fire1") && Input.GetAxisRaw("Vertical") == 0 && !isAttacking && anim.GetBool("Idle") == true && !playerMovement.isInAir && !stunned && !isGrab && !anim.GetBool("isLaying"))
         {
-            print("Jab");
             isSpecial = false;
             isAttacking = true;
         }
 
         else if (Input.GetButtonDown("Fire1") && !isAttacking && Input.GetAxisRaw("Vertical") > 0 && anim.GetBool("Idle") && !playerMovement.isInAir && !stunned && !isGrab)
         {
-            print("UTilt");
+            //UTilt
             isAttacking = true;
         }
 
         else if (Input.GetButtonDown("Fire1") && !isAttacking && Input.GetAxisRaw("Vertical") < 0 && anim.GetBool("Crouch") && !playerMovement.isInAir && !stunned && !isGrab)
         {
-            print("DTilt");
+            //DTilt
             isAttacking = true;
         }
 
         else if (Input.GetButtonDown("Fire1") && !isAttacking && Input.GetAxisRaw("Horizontal") != 0 && !playerMovement.isInAir && !stunned && !anim.GetBool("Running") && !isGrab)
         {
-            print("FTilt");
+            //FTilt
             isAttacking = true;
         }
 
         else if ((Input.GetButtonDown("Fire1") || Input.GetButton("Fire3")) && !Input.GetButtonDown("Grab") && !isAttacking && Input.GetAxisRaw("Vertical") == 0 && Input.GetAxisRaw("Horizontal") == 0 && playerMovement.isInAir && !stunned && !isExecutedOnce && !isGrab)
         {
+            //NAir
             isAttacking = true;
-            print("Nair");
         }
 
         else if ((Input.GetButtonDown("Fire1") || Input.GetButton("Fire3")) && !isAttacking && Input.GetAxisRaw("Vertical") > 0 && playerMovement.isInAir && !stunned && !isExecutedOnce && !isGrab)
         {
-            print("Uair");
+            //UAir
             isAttacking = true;
         }
 
         else if ((Input.GetButtonDown("Fire1") || Input.GetButton("Fire3")) && !isAttacking && Input.GetAxisRaw("Vertical") < 0 && playerMovement.isInAir && !stunned && !isExecutedOnce && !isGrab)
         {
-            print("Dair");
+            //DAir
             isAttacking = true;
         }
 
         else if ((Input.GetButtonDown("Fire1") || Input.GetButton("Fire3")) && !isAttacking && ((playerMovement.transform.rotation.y == 0 && Input.GetAxisRaw("Horizontal") > 0) || (playerMovement.transform.rotation.y < 0 && Input.GetAxisRaw("Horizontal") < 0)) && playerMovement.isInAir && !stunned && !isExecutedOnce && !isGrab)
         {
-            print("Fair");
+            //FAir
             isAttacking = true;
         }
 
         else if ((Input.GetButtonDown("Fire1") || Input.GetButton("Fire3")) && !isAttacking && playerMovement.isInAir && !stunned && ((playerMovement.transform.rotation.y == 0 && Input.GetAxisRaw("Horizontal") < 0) || (playerMovement.transform.rotation.y < 0 && Input.GetAxisRaw("Horizontal") > 0)) && !isGrab)
         {
-            print("Bair");
+            //FAir
             isAttacking = true;
         }
 
         else if (Input.GetButtonDown("Fire1") && !isAttacking && Input.GetAxisRaw("Horizontal") != 0 && anim.GetBool("Running") && !isSpecial && !isGrab)
         {
-            print("Dash");
+            //Dash
             isAttacking = true;
         }
 
 
         else if (Input.GetButtonDown("Fire2") && !isAttacking && anim.GetBool("Idle") == true && !playerMovement.isInAir && Input.GetAxisRaw("Vertical") == 0f && Input.GetAxisRaw("Horizontal") == 0f && !stunned && !anim.GetBool("isLaying"))
         {
-            print("NSpecial");
+            //NSpecial
             isSpecial = true;
             isAttacking = true;
         }
@@ -218,35 +253,34 @@ public class PlayerAttack : MonoBehaviour
 
         else if (Input.GetButtonDown("Fire2") && !isAttacking && Input.GetAxisRaw("Vertical") < 0f && !stunned && !isExecutedOnce)
         {
+            //DSpecial
             isAttacking = true;
             isSpecial = true;
             bypassMoveBlock = true;
-            print("DSpecial");
         }
 
         else if (Input.GetButtonDown("Fire2") && !isAttacking && Input.GetAxisRaw("Vertical") > 0f && !stunned && !isExecutedOnce)
         {
+            //USpecial
             isAttacking = true;
             bypassMoveBlock = true;
             isSpecial = true;
             isInHelpless = true;
-            print("USpecial");
         }
 
         else if (Input.GetButtonDown("Fire2") && !isAttacking && Input.GetAxisRaw("Horizontal") != 0f && Input.GetAxisRaw("Vertical") == 0 && !stunned && !isExecutedOnce)
         {
+            //FSpecial
             isAttacking = true;
             isSpecial = true;
             SideBS = true;
             rb.gravityScale = 0;
             playerMovement.rb.velocity = new Vector2(playerMovement.rb.velocity.x, 0);
-
-            print("FSpecial");
         }
 
         else if (Input.GetButtonDown("Grab") && !isAttacking && Input.GetAxisRaw("Horizontal") == 0f && Input.GetAxisRaw("Vertical") == 0 && !stunned && !isExecutedOnce && !playerMovement.isInAir && !stunned)
         {
-            print("Grab");
+            //Grab
             isAttacking = true;
             isSpecial = false;
             isGrab = true;
@@ -255,7 +289,7 @@ public class PlayerAttack : MonoBehaviour
 
         else if (Input.GetButtonDown("Fire1") && Input.GetAxisRaw("Vertical") == 0 && Input.GetAxisRaw("Horizontal") == 0 && !isAttacking && anim.GetBool("hasGrabbedEnemy") == true && !playerMovement.isInAir && !stunned && isGrab)
         {
-            print("Pummel");
+            //Pummel
             isSpecial = false;
             isAttacking = true;
         }
@@ -263,28 +297,28 @@ public class PlayerAttack : MonoBehaviour
 
         else if (Input.GetButtonDown("Fire1") && Input.GetAxisRaw("Vertical") == 0 && !isAttacking && ((playerMovement.transform.rotation.y == 0 && Input.GetAxisRaw("Horizontal") < 0) || (playerMovement.transform.rotation.y < 0 && Input.GetAxisRaw("Horizontal") > 0)) && isGrab)
         {
-            print("BThrow");
+            //BThrow
             isGrab = true;
             isAttacking = true;
         }
 
         else if (Input.GetButtonDown("Fire1") && Input.GetAxisRaw("Vertical") == 0 && !isAttacking && ((playerMovement.transform.rotation.y == 0 && Input.GetAxisRaw("Horizontal") > 0) || (playerMovement.transform.rotation.y < 0 && Input.GetAxisRaw("Horizontal") < 0)) && isGrab)
         {
-            print("FThrow");
+            //FThrow
             isGrab = true;
             isAttacking = true;
         }
 
         else if (Input.GetButtonDown("Fire1") && Input.GetAxisRaw("Vertical") < 0 && !isAttacking && Input.GetAxisRaw("Horizontal") == 0 && isGrab)
         {
-            print("DThrow");
+            //DThrow
             isGrab = true;
             isAttacking = true;
         }
 
         else if (Input.GetButtonDown("Fire1") && Input.GetAxisRaw("Vertical") > 0 && !isAttacking && Input.GetAxisRaw("Horizontal") == 0 && isGrab)
         {
-            print("UThrow");
+            //UThrow
             isGrab = true;
             isAttacking = true;
         }
@@ -293,6 +327,7 @@ public class PlayerAttack : MonoBehaviour
 
         else if (Input.GetButton("Fire3") && !strongDone && !isAttacking && Input.GetAxisRaw("Vertical") == 0 && !playerMovement.isInAir && !stunned && !isSpecial && !isGrab && !anim.GetBool("isLaying"))
         {
+            //FStrong
             isAttacking = true;
             if (!strongStarted)
             {
@@ -304,6 +339,7 @@ public class PlayerAttack : MonoBehaviour
 
         else if (Input.GetButton("Fire3") && !strongDone && !isAttacking && Input.GetAxisRaw("Vertical") > 0 && !playerMovement.isInAir && !stunned && !isSpecial && !isGrab)
         {
+            //UStrong
             isAttacking = true;
             if (!strongStarted)
             {
@@ -316,6 +352,7 @@ public class PlayerAttack : MonoBehaviour
 
         else if (Input.GetButton("Fire3") && !strongDone && !isAttacking && Input.GetAxisRaw("Vertical") < 0 && !playerMovement.isInAir && !stunned && !isSpecial && !isGrab)
         {
+            //DStrong
             isAttacking = true;
             if (!strongStarted)
             {
@@ -327,6 +364,7 @@ public class PlayerAttack : MonoBehaviour
 
         else if (Input.GetButton("Fire3") && !strongDone && strongStarted && isAttacking)
         {
+            //Strong Held
             strongTimer += Time.deltaTime;
 
             if (strongTimer < 1.2f)
@@ -344,7 +382,7 @@ public class PlayerAttack : MonoBehaviour
 
         else if ((Input.GetButtonUp("Fire3") || strongDone) && strongStarted && !isSpecial)
         {
-            print("Releasing strong");
+            //Strong Release
             strongStarted = false;
             anim.SetBool("isStrong", strongStarted);
             print(strongDamage);
@@ -385,6 +423,29 @@ public class PlayerAttack : MonoBehaviour
 
     }
 
+    void DepleteComboTimer()
+    {
+        if (comboScore > 0)
+        {
+
+            if (timer >= ComboTimer)
+            {
+                timer = ComboTimer;
+            }
+
+            if (timer == ComboTimer)
+            {
+                print("Combo score: " + comboScore);
+                comboScore = 0;
+                ComboTimer = comboTimerStored;
+            }
+
+            else timer += Time.deltaTime;
+        }
+
+    }
+
+
     public void SideBMove()
     {
         transform.position = Vector2.MoveTowards(transform.position, target, 25f * Time.deltaTime);
@@ -406,204 +467,75 @@ public class PlayerAttack : MonoBehaviour
 
     }
 
-    public void Jab1(int L)
+
+    public void parseAttack(int index)
     {
-        hitBoxes[0].SetActive(true);
-        string[] statSplit = Line[L].Split(" ");
+        print(attacksData[index]);
+        print(attackIndexes[index]);
+
+        string[] statSplit = attacksData[index].Split(" ");
+
+        hitBoxes[attackIndexes[index]].SetActive(true);
+        currentHitBox = attackIndexes[index];
+        //print(statSplit[0]);
+
         currentStats[0] = float.Parse(statSplit[1]); //Damage
         currentStats[1] = float.Parse(statSplit[2]); //Angle
         currentStats[2] = float.Parse(statSplit[3]); //Knockback
         currentStats[3] = float.Parse(statSplit[4]); //Time Stun 
-    }
 
-    public void Jab2(int L)
-    {
-        hitBoxes[1].SetActive(true);
-        string[] statSplit = Line[L].Split(" ");
-        currentStats[0] = float.Parse(statSplit[1]); //Damage
-        currentStats[1] = float.Parse(statSplit[2]); //Angle
-        currentStats[2] = float.Parse(statSplit[3]); //Knockback
-        currentStats[3] = float.Parse(statSplit[4]); //Time Stun 
-    }
+        float xDir = 0;
+        float yDir = 0;
 
-    public void Jab3(int L)
-    {
-        hitBoxes[2].SetActive(true);
-        string[] statSplit = Line[L].Split(" ");
-        currentStats[0] = float.Parse(statSplit[1]); //Damage
-        currentStats[1] = float.Parse(statSplit[2]); //Angle
-        currentStats[2] = float.Parse(statSplit[3]); //Knockback
-        currentStats[3] = float.Parse(statSplit[4]); //Time Stun 
-    }
+        if(statSplit.Length > 5 && (statSplit[5] != null || statSplit[6] !=null))
+        {
+             xDir = float.Parse(statSplit[5]); //XDir
+             yDir = float.Parse(statSplit[6]); //YDir
+        }
 
-    public void Nair(int L)
-    {
-        hitBoxes[3].SetActive(true);
-        string[] statSplit = Line[L].Split(" ");
-        currentStats[0] = float.Parse(statSplit[1]); //Damage
-        currentStats[1] = float.Parse(statSplit[2]); //Angle
-        currentStats[2] = float.Parse(statSplit[3]); //Knockback
-        currentStats[3] = float.Parse(statSplit[4]); //Time Stun 
-    }
-    public void DownB(int L)
-    {
-        hitBoxes[4].SetActive(true);
-        string[] statSplit = Line[L].Split(" ");
-        currentStats[0] = float.Parse(statSplit[1]); //Damage
-        currentStats[1] = float.Parse(statSplit[2]); //Angle
-        currentStats[2] = float.Parse(statSplit[3]); //Knockback
-        currentStats[3] = float.Parse(statSplit[4]); //Time Stun 
-    }
-
-    public void SideB(int L)
-    {
-        hitBoxes[5].SetActive(true);
-        string[] statSplit = Line[L].Split(" ");
-        currentStats[0] = float.Parse(statSplit[1]); //Damage
-        currentStats[1] = float.Parse(statSplit[2]); //Angle
-        currentStats[2] = float.Parse(statSplit[3]); //Knockback
-        currentStats[3] = float.Parse(statSplit[4]); //Time Stun 
-    }
-
-    public void NeutralB(int L)
-    {
-        hitBoxes[6].SetActive(true);
-        string[] statSplit = Line[L].Split(" ");
-        currentStats[0] = float.Parse(statSplit[1]); //Damage
-        currentStats[1] = float.Parse(statSplit[2]); //Angle
-        currentStats[2] = float.Parse(statSplit[3]); //Knockback
-        currentStats[3] = float.Parse(statSplit[4]); //Time Stun 
-    }
-
-
-    public void UTilt(int L)
-    {
-        hitBoxes[7].SetActive(true);
-        string[] statSplit = Line[L].Split(" ");
-        currentStats[0] = float.Parse(statSplit[1]); //Damage
-        currentStats[1] = float.Parse(statSplit[2]); //Angle
-        currentStats[2] = float.Parse(statSplit[3]); //Knockback
-        currentStats[3] = float.Parse(statSplit[4]); //Time Stun 
-    }
-
-    public void FTilt(int L)
-    {
-        hitBoxes[8].SetActive(true);
-        string[] statSplit = Line[L].Split(" ");
-        currentStats[0] = float.Parse(statSplit[1]); //Damage
-        currentStats[1] = float.Parse(statSplit[2]); //Angle
-        currentStats[2] = float.Parse(statSplit[3]); //Knockback
-        currentStats[3] = float.Parse(statSplit[4]); //Time Stun 
-    }
-
-
-    public void Dash(int L)
-    {
-        hitBoxes[20].SetActive(true);
-        string[] statSplit = Line[L].Split(" ");
-        currentStats[0] = float.Parse(statSplit[1]); //Damage
-        currentStats[1] = float.Parse(statSplit[2]); //Angle
-        currentStats[2] = float.Parse(statSplit[3]); //Knockback
-        currentStats[3] = float.Parse(statSplit[4]); //Time Stun
-        playerMovement.dashDisable = true;           //So that if the player holds dash key, the won't move as soon as dash finishes
-    }
-
-    public void DTilt(int L)
-    {
-        hitBoxes[9].SetActive(true);
-        string[] statSplit = Line[L].Split(" ");
-        currentStats[0] = float.Parse(statSplit[1]); //Damage
-        currentStats[1] = float.Parse(statSplit[2]); //Angle
-        currentStats[2] = float.Parse(statSplit[3]); //Knockback
-        currentStats[3] = float.Parse(statSplit[4]); //Time Stun 
-    }
-
-    public void Fair(int L)
-    {
-        hitBoxes[10].SetActive(true);
-        string[] statSplit = Line[L].Split(" ");
-        currentStats[0] = float.Parse(statSplit[1]); //Damage
-        currentStats[1] = float.Parse(statSplit[2]); //Angle
-        currentStats[2] = float.Parse(statSplit[3]); //Knockback
-        currentStats[3] = float.Parse(statSplit[4]); //Time Stun 
-    }
-
-    public void Uair(int L)
-    {
-        hitBoxes[11].SetActive(true);
-        string[] statSplit = Line[L].Split(" ");
-        currentStats[0] = float.Parse(statSplit[1]); //Damage
-        currentStats[1] = float.Parse(statSplit[2]); //Angle
-        currentStats[2] = float.Parse(statSplit[3]); //Knockback
-        currentStats[3] = float.Parse(statSplit[4]); //Time Stun 
-    }
-
-    public void Dair(int L)
-    {
-        hitBoxes[12].SetActive(true);
-        string[] statSplit = Line[L].Split(" ");
-        currentStats[0] = float.Parse(statSplit[1]); //Damage
-        currentStats[1] = float.Parse(statSplit[2]); //Angle
-        currentStats[2] = float.Parse(statSplit[3]); //Knockback
-        currentStats[3] = float.Parse(statSplit[4]); //Time Stun 
-    }
-
-    public void Bair(int L)
-    {
-        hitBoxes[19].SetActive(true);
-        string[] statSplit = Line[L].Split(" ");
-        currentStats[0] = float.Parse(statSplit[1]); //Damage
-        currentStats[1] = float.Parse(statSplit[2]); //Angle
-        currentStats[2] = float.Parse(statSplit[3]); //Knockback
-        currentStats[3] = float.Parse(statSplit[4]); //Time Stun 
-    }
-
-    public void FStrong(int L)
-    {
-        hitBoxes[13].SetActive(true);
-        string[] statSplit = Line[L].Split(" ");
-        currentStats[0] = float.Parse(statSplit[1]) + (float.Parse(statSplit[1]) * strongDamage); //Damage
-        currentStats[1] = float.Parse(statSplit[2]); //Angle
-        currentStats[2] = float.Parse(statSplit[3]) + (float.Parse(statSplit[3]) * strongDamage); //Knockback
-        currentStats[3] = float.Parse(statSplit[4]); //Time Stun
-        strongDamage = 0.0f;
-    }
-
-    public void UStrong(int L)
-    {
-        hitBoxes[14].SetActive(true);
-        string[] statSplit = Line[L].Split(" ");
-        currentStats[0] = float.Parse(statSplit[1]) + (float.Parse(statSplit[1]) * strongDamage); //Damage
-        currentStats[1] = float.Parse(statSplit[2]); //Angle
-        currentStats[2] = float.Parse(statSplit[3]) + (float.Parse(statSplit[3]) * strongDamage); //Knockback
-        currentStats[3] = float.Parse(statSplit[4]); //Time Stun
-        strongDamage = 0.0f;
-    }
-
-    public void DStrong(int L)
-    {
-        hitBoxes[15].SetActive(true);
-        string[] statSplit = Line[L].Split(" ");
-        currentStats[0] = float.Parse(statSplit[1]) + (float.Parse(statSplit[1]) * strongDamage); //Damage
-        currentStats[1] = float.Parse(statSplit[2]); //Angle
-        currentStats[2] = float.Parse(statSplit[3]) + (float.Parse(statSplit[3]) * strongDamage); //Knockback
-        currentStats[3] = float.Parse(statSplit[4]); //Time Stun
-        strongDamage = 0.0f;
-    }
-
-    public void USpecial(int L)
-    {
-        string[] statSplit = Line[L].Split(" ");
         
-        hitBoxes[int.Parse(statSplit[7])].SetActive(true);
-        currentStats[0] = float.Parse(statSplit[1]); //Damage
-        currentStats[1] = float.Parse(statSplit[2]); //Angle
-        currentStats[2] = float.Parse(statSplit[3]); //Knockback
-        currentStats[3] = float.Parse(statSplit[4]); //Time Stun
-        float XDir = float.Parse(statSplit[5]); //XDir
-        float yDir = float.Parse(statSplit[6]); //YDir
-        playerMovement.jumpAmt = 0;
+        if(statSplit[0].Contains("USpecial"))
+        {
+            USpecial(xDir, yDir);
+        }
 
+        else if(statSplit[0].Contains("Dash"))
+        {
+            Dash();
+        }
+
+        else if(statSplit[0].Contains("Strong"))
+        {
+            Strong();
+        }
+
+        else if(statSplit[0].Contains("DThrow"))
+        {
+            DThrow();
+        }
+
+        else if(statSplit[0].Contains("Throw"))
+        {
+            Throw();
+        }
+
+    }
+
+    //Some attacks require addition functionality upon hitbox appearance within parsing. The functions below are responsible for that
+
+    public void Dash()
+    {
+        playerMovement.dashDisable = true;  //So that if the player holds dash key, the won't move as soon as dash finishes
+    }
+
+
+    public void Strong()
+    {
+        strongDamage = 0.0f; //Reset Strong damage so it doesn't stack
+    }
+
+    public void USpecial(float xDir, float yDir)
+    {
         if (!isExecutedOnce)
         {
             Physics2D.gravity = new Vector2(0, 0);
@@ -612,106 +544,24 @@ public class PlayerAttack : MonoBehaviour
            // AS.PlayOneShot(playerMovement.FXjump);
         }
 
-        playerMovement.rb.AddForce(new Vector2(XDir, yDir));
+        playerMovement.rb.AddForce(new Vector2(xDir, yDir));
     }
 
-    public void Grab(int L)
+    public void Throw()
     {
-        hitBoxes[21].SetActive(true);
-        string[] statSplit = Line[L].Split(" ");
-        currentStats[0] = float.Parse(statSplit[1]); //Damage
-        currentStats[1] = float.Parse(statSplit[2]); //Angle
-        currentStats[2] = float.Parse(statSplit[3]); //Knockback
-        currentStats[3] = float.Parse(statSplit[4]); //Time Stun 
-
-
+        currentlyGrabbedEnemy.isGrabbed = false; //Make sure the currently grabbed enemy is unlocked
     }
 
-    public void Pummel(int L)
+    public void DThrow()
     {
-        hitBoxes[22].SetActive(true);
-        string[] statSplit = Line[L].Split(" ");
-        currentStats[0] = float.Parse(statSplit[1]); //Damage
-        currentStats[1] = float.Parse(statSplit[2]); //Angle
-        currentStats[2] = float.Parse(statSplit[3]); //Knockback
-        currentStats[3] = float.Parse(statSplit[4]); //Time Stun 
-    }
-
-
-    public void UThrow(int L)
-    {
-        hitBoxes[23].SetActive(true);
-        string[] statSplit = Line[L].Split(" ");
-        currentStats[0] = float.Parse(statSplit[1]); //Damage
-        currentStats[1] = float.Parse(statSplit[2]); //Angle
-        currentStats[2] = float.Parse(statSplit[3]); //Knockback
-        currentStats[3] = float.Parse(statSplit[4]); //Time Stun 
-        currentlyGrabbedEnemy.isGrabbed = false;
-    }
-
-    public void FThrow(int L)
-    {
-        hitBoxes[24].SetActive(true);
-        string[] statSplit = Line[L].Split(" ");
-        currentStats[0] = float.Parse(statSplit[1]); //Damage
-        currentStats[1] = float.Parse(statSplit[2]); //Angle
-        currentStats[2] = float.Parse(statSplit[3]); //Knockback
-        currentStats[3] = float.Parse(statSplit[4]); //Time Stun 
-        currentlyGrabbedEnemy.isGrabbed = false;
-    }
-
-    public void BThrow(int L)
-    {
-        hitBoxes[25].SetActive(true);
-        string[] statSplit = Line[L].Split(" ");
-        currentStats[0] = float.Parse(statSplit[1]); //Damage
-        currentStats[1] = float.Parse(statSplit[2]); //Angle
-        currentStats[2] = float.Parse(statSplit[3]); //Knockback
-        currentStats[3] = float.Parse(statSplit[4]); //Time Stun 
-        currentlyGrabbedEnemy.isGrabbed = false;
-    }
-
-    public void DThrow(int L)
-    {
-        string[] statSplit = Line[L].Split(" ");
-        hitBoxes[int.Parse(statSplit[7])].SetActive(true);
-        currentStats[0] = float.Parse(statSplit[1]); //Damage
-        currentStats[1] = float.Parse(statSplit[2]); //Angle
-        currentStats[2] = float.Parse(statSplit[3]); //Knockback
-        currentStats[3] = float.Parse(statSplit[4]); //Time Stun 
-
         if (currentlyGrabbedEnemy != null)
         {
             currentlyGrabbedEnemy.isGrabbed = false;
-            playerMovement.transform.position = new Vector2(playerMovement.transform.position.x, playerMovement.transform.position.y + playerDThrowOffset.y);
+            playerMovement.transform.position = new Vector2(playerMovement.transform.position.x, playerMovement.transform.position.y + playerDThrowOffset.y); //Makes sure that the enemy position remains upon multiple throw hitboxes
         }
     }
 
-    public void GetupAttack(int L)
-    {
-        hitBoxes[27].SetActive(true);
-        string[] statSplit = Line[L].Split(" ");
-        currentStats[0] = float.Parse(statSplit[1]); //Damage
-        currentStats[1] = float.Parse(statSplit[2]); //Angle
-        currentStats[2] = float.Parse(statSplit[3]); //Knockback
-        currentStats[3] = float.Parse(statSplit[4]); //Time Stun 
-    }
-
-
-
-
-    public void DetectReverseFSpecial()
-    {
-        revFSpecialIndex = 0;
-        if (playerMovement.transform.rotation.y == 0 && Input.GetAxisRaw("Horizontal") < 0)
-        {
-            revFSpecialIndex = 1;
-        }
-        else if (playerMovement.transform.rotation.y < 0 && Input.GetAxisRaw("Horizontal") > 0)
-        {
-            revFSpecialIndex = 2;
-        }
-    }
+    //OnCollision / OnTrigger functions
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -747,15 +597,45 @@ public class PlayerAttack : MonoBehaviour
     }
 
 
-    public void DespawnHitBox(int hitboxIndex)
+
+    //Additional functions that animation events / other scripts call
+
+    //Despawns a hitbox
+    public void DespawnHitBox()
     {
-        if (hitboxIndex == 16)
+        if (currentHitBox == 16)
         {
             isSpecial = false;
         }
 
-        hitBoxes[hitboxIndex].SetActive(false);
+        hitBoxes[currentHitBox].SetActive(false);
     }
+
+    //Overload. Despawns hitbox based on index
+    public void DespawnHitBox(int hitBoxIndex)
+    {
+        if (hitBoxIndex == 16)
+        {
+            isSpecial = false;
+        }
+
+        hitBoxes[hitBoxIndex].SetActive(false);
+    }
+
+
+    public void DetectReverseFSpecial()
+    {
+        revFSpecialIndex = 0;
+        if (playerMovement.transform.rotation.y == 0 && Input.GetAxisRaw("Horizontal") < 0)
+        {
+            revFSpecialIndex = 1;
+        }
+        else if (playerMovement.transform.rotation.y < 0 && Input.GetAxisRaw("Horizontal") > 0)
+        {
+            revFSpecialIndex = 2;
+        }
+    }
+
 
     void DespawnStickyHand()
     {
@@ -782,6 +662,85 @@ public class PlayerAttack : MonoBehaviour
             target = new Vector3(transform.position.x - distance, transform.position.y, transform.position.z);
     }
 
+    public void StrongReset()
+    {
+        strongGrunt = false;
+    }
+
+    public void Slap(int i)
+    {
+        if (!Hand[i].isPlaying)
+            Hand[i].Play();
+    }
+
+    public void Grunt(int i)
+    {
+        float j = UnityEngine.Random.Range(0, 2);
+        int k = UnityEngine.Random.Range(0, (LargeGrunts.Length - 1) / 2);
+
+        if (i == 0 && !Grunts[i].isPlaying && j == 0)
+        {
+            int l = UnityEngine.Random.Range(0, SmallGrunts.Length - 1);
+            Grunts[i].PlayOneShot(SmallGrunts[l], 1f);
+        }
+        if (i == 1 && !Grunts[i].isPlaying && j == 0)
+        {
+            int l = UnityEngine.Random.Range(0, MedGrunts.Length - 1);
+            Grunts[i].PlayOneShot(MedGrunts[l], 1f);
+        }
+        if (i == 2 && !Grunts[i].isPlaying && j == 0)
+        {
+            strongGrunt = true;
+            Grunts[i].PlayOneShot(LargeGrunts[k * 2], 1f);
+
+
+        }
+        if (strongGrunt && i == 3 && !Grunts[i - 1].isPlaying)
+        {
+            strongGrunt = false;
+            Grunts[i - 1].PlayOneShot(LargeGrunts[(k * 2) + 1], 1f);
+        }
+
+        if (i == 2 && !Grunts[i + 1].isPlaying && j == 1)
+        {
+            int l = UnityEngine.Random.Range(0, StrongGrunts.Length - 1);
+            Grunts[i + 1].PlayOneShot(StrongGrunts[l], 1f);
+
+
+        }
+
+    }
+
+    public void SpecialSoud(int i)
+    {
+        if (!SpecialSource[i].isPlaying)
+            SpecialSource[i].PlayOneShot(SpecialSounds[i], 1f);
+
+    }
+
+
+    public void Combo()
+    {
+
+        timer = 0f;
+        comboScore++;
+
+        if (comboScore < 21)
+            ComboTimer += .1f;
+
+        if (comboScore == 1 || comboScore % 10 == 0)
+        {
+            int j = (int)comboScore / 10;
+
+            if (comboScore == 1)
+                Combofx.PlayOneShot(ComboClip[0], 1f);
+            else
+                Combofx.PlayOneShot(ComboClip[j], 1f);
+        }
+    }
+
+
+    //Getters and setters
 
     public void SetStrongDone(bool newStrongDone)
     {
@@ -796,61 +755,5 @@ public class PlayerAttack : MonoBehaviour
     public bool GetAttacking()
     {
         return isAttacking;
-    }
-
-    public void StrongReset()
-    {
-        strongGrunt = false;
-    }
-
-    public void Slap(int i)
-    {
-        if (!Hand[i].isPlaying)
-            Hand[i].Play();
-    }
-
-    public void Grunt(int i)
-    {
-        float j = UnityEngine.Random.Range(0, 2); 
-        int k = UnityEngine.Random.Range(0, (LargeGrunts.Length-1)/2);
-        
-        if (i==0 && !Grunts[i].isPlaying && j == 0) 
-        {
-            int l = UnityEngine.Random.Range(0, SmallGrunts.Length-1);
-            Grunts[i].PlayOneShot(SmallGrunts[l] ,1f);
-        }
-        if (i == 1 && !Grunts[i].isPlaying && j == 0)
-        {
-            int l = UnityEngine.Random.Range(0, MedGrunts.Length-1);
-            Grunts[i].PlayOneShot(MedGrunts[l], 1f);
-        }
-        if (i == 2  && !Grunts[i].isPlaying && j == 0)
-        {
-            strongGrunt = true;
-            Grunts[i].PlayOneShot(LargeGrunts[k*2], 1f);
-            
-            
-        }
-        if (strongGrunt && i == 3 && !Grunts[i-1].isPlaying)
-        {
-            strongGrunt = false;
-            Grunts[i-1].PlayOneShot(LargeGrunts[(k*2)+1], 1f);
-        }
-
-        if (i == 2 && !Grunts[i+1].isPlaying && j == 1)
-        {
-            int l = UnityEngine.Random.Range(0, StrongGrunts.Length - 1);
-            Grunts[i+1].PlayOneShot(StrongGrunts[l], 1f);
-
-
-        }
-
-    }
-
-    public void SpecialSoud(int i)
-    {
-        if (!SpecialSource[i].isPlaying)
-            SpecialSource[i].PlayOneShot(SpecialSounds[i], 1f);
-
     }
 }

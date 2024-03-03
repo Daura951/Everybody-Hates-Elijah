@@ -86,8 +86,8 @@ AnimationClip:
     intParameter: 1
     messageOptions: 0
   - time: 0.13333334
-    functionName: Uair
-    data: 15 85 200 0
+    functionName: parseAttack
+    data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 12

@@ -90,7 +90,16 @@ public class Stun : MonoBehaviour
 
             Stunned = true;
             anim.SetBool("Stunned",Stunned);
-            anim.Play("Stunned");
+
+            int randStun = UnityEngine.Random.Range(1, 4);
+            string stunStr = "Stunned";
+
+            if(randStun != 1)
+            {
+                stunStr += ""+randStun;
+            }
+
+            anim.Play(stunStr);
       
             if(PlayerAttack.attackInstance.ASideB)
             PlayerAttack.attackInstance.ASideB = false;

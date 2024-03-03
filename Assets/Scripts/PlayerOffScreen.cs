@@ -47,7 +47,7 @@ public class PlayerOffScreen : MonoBehaviour
         Debug.DrawRay(center, topCollider.position, Color.blue);
         Debug.DrawRay(center, bottomCollider.position, Color.yellow);
 
-
+        /*
         if (transform.position.x < leftCollider.position.x)
             Debug.Log("BYEEEEEEE");
         if (transform.position.x > rightCollider.position.x)
@@ -56,7 +56,7 @@ public class PlayerOffScreen : MonoBehaviour
             Debug.Log("BYEEEEEEE");
         if (transform.position.y > topCollider.position.y)
             Debug.Log("BYEEEEEEE");
-
+        */
 
 
     }

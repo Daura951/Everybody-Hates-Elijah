@@ -1,30 +1,31 @@
-0.Name Damage Angle Knockback StunTime XDir YDir HitBox
-1.Jab1 5 15 40 .4
-2.Jab2 7 20 40 .4
-3.jab3 10 45 170 .7
-4.Nair 30 45 300 0
-5.DownB 5 80 90 .1
-6.SideB 10 90 250 0 
-7.NeutralB 30 140 250 0
-8.Utilt 10 90 250 0
-9.FTilt 5 30 200 0
-10.DTilt 5 90 100 0
-11.Fair 20 20 100 0
-12.Uair 15 85 200 0
-13.Dair 15 280 200 0
-14.FStrong 40 35 450 0
-15.UStrong 40 89 450 0
-16.DStrong 40 15 450 0
-17.USpecial1 10 90 300 5 0 250 17
-18.USpecial2 10 45 900 5 0 0 18
-19.USpecial3 10 60 200 3 0 0 16
-20.Bair 20 20 100 0
-21.Dash 5 30 150 1
-22.Grab 0 0 0 .1
-23.Pummel 5 0 0 .1
-24.UThrow 20 80 300 2 0 0 
-25.FThrow 20 20 300 2 0 0 
-26.BThrow 20 160 300 2 0 0 
-27.DThrow1 20 0 0 0 0 0 25
-28.DThrow1 20 50 300 2 0 0 25
-29.getup 5 50 100 2
+arrayIndex Name Damage Angle Knockback StunTime XDir YDir
+0 Jab1 5 15 40 .4
+1 Jab2 7 20 40 .4
+2 jab3 10 45 170 .7
+3 Nair 30 45 300 0
+4 DownB 5 80 90 .1
+4 DownB 5 170 90 .1
+5 SideB 10 90 250 0
+6 NeutralB 30 140 250 0
+7 Utilt 10 90 250 0
+8 FTilt 5 30 200 0
+9 DTilt 5 90 100 0
+10 Fair 20 20 100 0
+11 Uair 15 85 200 0
+12 Dair 15 280 200 0
+19 Bair 20 20 100 0
+13 FStrong 40 35 450 0
+14 UStrong 40 89 450 0
+15 DStrong 40 15 450 0
+17 USpecial1 10 90 300 5 0 250
+18 USpecial2 10 45 300 5 0 0
+16 USpecial3 10 60 200 3 0 0
+20 Dash 5 30 150 1
+21 Grab 0 0 0 .1
+22 Pummel 5 0 0 .1
+23 UThrow 20 80 300 2 0 0 
+24 FThrow 20 20 300 2 0 0 
+25 BThrow 20 160 300 2 0 0 
+26 DThrow1 20 0 0 0 0 0 25
+26 DThrow2 20 50 300 2 0 0 25
+27 getup 5 50 100 2

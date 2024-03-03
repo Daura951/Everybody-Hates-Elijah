@@ -129,11 +129,11 @@ AnimationClip:
     intParameter: 1
     messageOptions: 0
   - time: 0.1
-    functionName: USpecial
-    data: 10 110 100 0 0 0 17
+    functionName: parseAttack
+    data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 17
+    intParameter: 18
     messageOptions: 0
   - time: 0.15
     functionName: DespawnHitBox
@@ -150,11 +150,11 @@ AnimationClip:
     intParameter: 1
     messageOptions: 0
   - time: 0.2
-    functionName: USpecial
-    data: 10 30 100 0 0 0 18
+    functionName: parseAttack
+    data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 18
+    intParameter: 19
     messageOptions: 0
   - time: 0.25
     functionName: DespawnHitBox
@@ -171,11 +171,11 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 0.7
-    functionName: USpecial
-    data: 10 65 200 0 0 550 16
+    functionName: parseAttack
+    data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 19
+    intParameter: 20
     messageOptions: 0
   - time: 0.96666664
     functionName: DespawnHitBox
