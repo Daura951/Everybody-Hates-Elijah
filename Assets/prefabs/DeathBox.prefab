@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9108783347521850444}
   - component: {fileID: 9108783347521850445}
-  - component: {fileID: 9108783347521850434}
+  - component: {fileID: 706765023554395963}
   m_Layer: 0
   m_Name: DeathBox
   m_TagString: Untagged
@@ -59,7 +59,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &9108783347521850434
+--- !u!114 &706765023554395963
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -68,7 +68,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 9108783347521850435}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b31fcb4b7ae4624dbadfad6945ed17f, type: 3}
+  m_Script: {fileID: 11500000, guid: 75ac808ef17b22d47a1745c46f1dd029, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DAKT: 100000000 0 0 0
+  attackType: 1

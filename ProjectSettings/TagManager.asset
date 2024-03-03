@@ -25,7 +25,7 @@ TagManager:
   - UI
   - Enemy
   - HitBox
-  - Wind
+  - BackGroundObjects
   - Platform
   - EHitbox
   - Platform2

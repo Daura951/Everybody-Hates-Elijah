@@ -28,6 +28,7 @@ public class Hit : MonoBehaviour
     {
         if (isHit)
         {
+            Player.GetComponent<PlayerAttack>().Combo();
             timer = stats[3];
             // Debug.Log(timer);
             H.TakeDamage(stats[0]);
