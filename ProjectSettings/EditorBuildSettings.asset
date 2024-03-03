@@ -5,7 +5,16 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SandBox.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/Tseting Ground.unity
+    guid: 6e238c18c7d2215429b4b3f51b587efe
+  - enabled: 1
+    path: Assets/Scenes/Nate's Tutorial Level.unity
+    guid: a18fbafd8393be449a2220f4a50c17fb
+  - enabled: 1
+    path: Assets/Scenes/Nate's Level 1.unity
+    guid: da59e057f6769ff419e6b29b95c96c61
   m_configObjects: {}
