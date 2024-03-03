@@ -470,8 +470,8 @@ public class PlayerAttack : MonoBehaviour
 
     public void parseAttack(int index)
     {
-        print(attacksData[index]);
-        print(attackIndexes[index]);
+        //print(attacksData[index]);
+        //print(attackIndexes[index]);
 
         string[] statSplit = attacksData[index].Split(" ");
 

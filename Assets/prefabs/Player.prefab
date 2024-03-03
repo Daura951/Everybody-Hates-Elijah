@@ -4372,7 +4372,7 @@ MonoBehaviour:
   rb: {fileID: 4926932388033835181}
   sr: {fileID: 4926932388033835191}
   anim: {fileID: 4926932388033835188}
-  cam: {fileID: 0}
+  cam: {fileID: 9076580417362611721}
   offset: {x: 2.25, y: 2.5, z: -0.75}
   Walk: 7
   jumpForce: 8
