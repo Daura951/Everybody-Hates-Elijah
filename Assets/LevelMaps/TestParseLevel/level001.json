@@ -1,10 +1,10 @@
 {
-	"tileSize": 32,
-	"mapWidth": 4,
-	"mapHeight": 4,
+  "tileSize": 32,
+  "mapWidth": 4,
+  "mapHeight": 4,
   "layers": [
     {
-      "name":"platform",
+      "name": "platform",
       "gameObjectPositions": [
         {
           "gameObjectName": "player",
