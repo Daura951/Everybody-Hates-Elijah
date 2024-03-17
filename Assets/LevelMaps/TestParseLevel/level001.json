@@ -4,13 +4,18 @@
   "mapHeight": 4,
   "layers": [
     {
-      "name": "platform",
+      "name": "player",
       "gameObjectPositions": [
         {
           "gameObjectName": "player",
           "x": 0,
           "y": 2
-        },
+        }
+      ]
+    },
+    {
+      "name": "platform",
+      "gameObjectPositions": [
         {
           "gameObjectName": "platform",
           "x": 0,
