@@ -29,11 +29,10 @@ public class AttackingSFX : MonoBehaviour
         if (collision.tag == "Enemy")
         {
             hit = true;
-            if (!ASfx.isPlaying)
-            {
+            ASfx.Stop();
                 int r = Random.Range(0, Hit.Length);
                 ASfx.PlayOneShot(Hit[r]);
-            }
+            
         }    
     }
 }

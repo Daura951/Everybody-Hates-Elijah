@@ -678,65 +678,83 @@ public class PlayerAttack : MonoBehaviour
         float j = UnityEngine.Random.Range(0, 2);
         int k = UnityEngine.Random.Range(0, (LargeGrunts.Length - 1) / 2);
 
-        if (i == 0 && !Grunts[i].isPlaying && j == 0)
+        if (i == 0 && j==0)
         {
+            //Light Attack Grunt
+            Grunts[i].Stop();
             int l = UnityEngine.Random.Range(0, SmallGrunts.Length - 1);
             Grunts[i].PlayOneShot(SmallGrunts[l], 1f);
         }
-        if (i == 1 && !Grunts[i].isPlaying && j == 0)
+        if (i == 1 && j==0)
         {
+            //Medium Attack Grunt
+           Grunts[i].Stop();
             int l = UnityEngine.Random.Range(0, MedGrunts.Length - 1);
             Grunts[i].PlayOneShot(MedGrunts[l], 1f);
         }
-        if (i == 2 && !Grunts[i].isPlaying && j == 0)
+        if (i == 2)
         {
+            //Large Attack Grunt Start
+            Grunts[i].Stop();
             strongGrunt = true;
             Grunts[i].PlayOneShot(LargeGrunts[k * 2], 1f);
-
-
+            print("Large Start");
         }
-        if (strongGrunt && i == 3 && !Grunts[i - 1].isPlaying)
+        if (strongGrunt && i == 3 && j==0)
         {
+            //Large Attack Grunt End
+            Grunts[i - 1].Stop();
             strongGrunt = false;
-            Grunts[i - 1].PlayOneShot(LargeGrunts[(k * 2) + 1], 1f);
+            Grunts[i-1].PlayOneShot(LargeGrunts[(k * 2) + 1], 1f);
+            print("Large End");
         }
 
-        if (i == 2 && !Grunts[i + 1].isPlaying && j == 1)
+        if (strongGrunt && i == 3 && j == 1)
         {
-            int l = UnityEngine.Random.Range(0, StrongGrunts.Length - 1);
-            Grunts[i + 1].PlayOneShot(StrongGrunts[l], 1f);
-
-
+            // Large Attack Voice End
+            Grunts[i - 1].Stop();
+            strongGrunt = false;
+            int l = UnityEngine.Random.Range(0, StrongGrunts.Length - 1);;
+            Grunts[i-1].PlayOneShot(StrongGrunts[l], 1f);
+            print("Large  VA End");
         }
 
     }
 
     public void SpecialSoud(int i)
     {
-        if (!SpecialSource[i].isPlaying)
-            SpecialSource[i].PlayOneShot(SpecialSounds[i], 1f);
+
+        SpecialSource[0].Stop();
+            SpecialSource[0].PlayOneShot(SpecialSounds[i], 1f);
 
     }
 
-
+    private bool combodetect = true;
     public void Combo()
     {
 
         timer = 0f;
+        if(combodetect)
+        {
+            combodetect = false;        
         comboScore++;
+            StartCoroutine(ComboDelay());
+        }
 
         if (comboScore < 21)
             ComboTimer += .1f;
 
-        if (comboScore == 1 || comboScore % 10 == 0)
+        if (comboScore % 10 == 0)
         {
             int j = (int)comboScore / 10;
-
-            if (comboScore == 1)
-                Combofx.PlayOneShot(ComboClip[0], 1f);
-            else
+            if (j <= ComboClip.Length)
                 Combofx.PlayOneShot(ComboClip[j], 1f);
         }
+    }
+    IEnumerator ComboDelay()
+    {
+        yield return new WaitForSeconds(0.015f);
+        combodetect = true;
     }
 
     //Getters and setters

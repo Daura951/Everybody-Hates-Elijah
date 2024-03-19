@@ -8,7 +8,7 @@ public class EnvironmentHurtVals
     {
         Lava, Death
     };
-
+    // Damage , Angle , Knockback, time
     public static Dictionary<AttackTypes, string> environmentHurtValues = new Dictionary<AttackTypes, string>
         {
             {AttackTypes.Lava, "5 90 70 .5" },

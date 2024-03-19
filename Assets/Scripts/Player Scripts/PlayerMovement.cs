@@ -69,7 +69,7 @@ public class PlayerMovement : MonoBehaviour
     public int curDamage = 0;
 
     public static PlayerMovement instance;
-    public bool lockCam = false;
+    PlayerOffScreen POS;
 
     // Start is called before the first frame update
     void Start()
@@ -84,6 +84,8 @@ public class PlayerMovement : MonoBehaviour
         attackScript = GetComponent<PlayerAttack>();
         lg = GetComponent<LedgeGrab>();
         H = GetComponent<Health>();
+
+        POS = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PlayerOffScreen>();
             
         Speed = Walk;
         Run = Walk * 2;
@@ -115,8 +117,8 @@ public class PlayerMovement : MonoBehaviour
 
         isInLandingLag = anim.GetCurrentAnimatorStateInfo(0).IsName("Fall 2 Idle");
 
-        if (!lg.action && !H.dead && !lockCam)
-            cam.position = this.transform.position + offset;
+        if (!lg.action && !H.dead && !POS.lockCam())
+            cam.position = POS.Pos();
 
         isCrouch = anim.GetCurrentAnimatorStateInfo(0).IsName("Crouch");
 

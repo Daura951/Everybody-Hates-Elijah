@@ -10,6 +10,7 @@ public class ReSpawn : MonoBehaviour
     Stun s;
     Animator anim;
     AudioSource AS;
+    SpriteRenderer SR;
    public CameraSwitch ActiveArena;
     Vector2 ReSpawnPoint;
 
@@ -17,11 +18,8 @@ public class ReSpawn : MonoBehaviour
     public bool complete = false;
 
     [Header("Death Cries")]
-    public AudioClip Death1;
-    public AudioClip Death2;
-    public AudioClip Death3;
-    public AudioClip Death4;
-    public AudioClip Death5;
+    public AudioClip[] Death;
+
 
 
     // Start is called before the first frame update
@@ -33,6 +31,7 @@ public class ReSpawn : MonoBehaviour
       rb = GetComponent<Rigidbody2D>();
       s = GetComponent<Stun>();
       anim = GetComponent<Animator>();
+        SR = GetComponent<SpriteRenderer>();
       ReSpawnPoint = new Vector2(PM.transform.position.x , PM.transform.position.y); 
     }
 
@@ -45,35 +44,11 @@ public class ReSpawn : MonoBehaviour
             {
                 Waitroom = true;
                 H.lives--;
-                float pick = Random.Range(1, 6);
-                if(pick == 1)
-                {
-                AS.PlayOneShot(Death1);
-                StartCoroutine(ScreamOfDeath(Death1.length));
-                }
-                if (pick == 2)
-                {
-                    AS.PlayOneShot(Death2);
-                    StartCoroutine(ScreamOfDeath(Death2.length));
-                }
-                if (pick == 3)
-                {
-                    AS.PlayOneShot(Death3);
-                    StartCoroutine(ScreamOfDeath(Death3.length));
-                }
-                if (pick == 4)
-                {
-                    AS.PlayOneShot(Death4);
-                    StartCoroutine(ScreamOfDeath(Death4.length));
-                }
-                if (pick == 5)
-                {
-                    AS.PlayOneShot(Death5);
-                    StartCoroutine(ScreamOfDeath(Death5.length));
-                }
-
-
+                int pick = Random.Range(0, Death.Length);
+                AS.PlayOneShot(Death[pick]);
+                StartCoroutine(ScreamOfDeath(Death[pick].length));
             }
+
             if(complete && H.lives > 0)
             {
                 rb.velocity = new Vector2(0f, 0f);
@@ -92,6 +67,7 @@ public class ReSpawn : MonoBehaviour
                 PM.transform.position = ReSpawnPoint;
                 H.ReHeal();
                 Waitroom = complete = false;
+                SR.enabled = true;
             }
             if(complete && H.lives ==0)
             {

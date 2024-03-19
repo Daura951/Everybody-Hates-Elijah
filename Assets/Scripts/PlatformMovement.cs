@@ -5,8 +5,8 @@ using UnityEngine;
 public class PlatformMovement : MonoBehaviour
 {
 
-    private Vector3 home;
-    public Vector3 End;
+    private Vector3 home , End;
+    public Vector3 EndSpot;
     public float speed;
     private bool Fall , bounce = true;
     PlayerMovement PM;
@@ -20,6 +20,7 @@ public class PlatformMovement : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         PM = player.GetComponent<PlayerMovement>();
         home = this.transform.position;
+        End = this.transform.position + EndSpot;
     }
 
     // Update is called once per frame

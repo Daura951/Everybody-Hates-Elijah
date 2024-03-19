@@ -16,6 +16,7 @@ TagManager:
   - MovingPlatform
   - Wall
   - Grab
+  - Border
   layers:
   - Default
   - TransparentFX
