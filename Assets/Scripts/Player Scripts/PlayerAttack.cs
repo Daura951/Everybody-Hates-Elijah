@@ -739,7 +739,6 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-
     //Getters and setters
 
     public void SetStrongDone(bool newStrongDone)

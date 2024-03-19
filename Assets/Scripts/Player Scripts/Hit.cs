@@ -21,6 +21,8 @@ public class Hit : MonoBehaviour
        rb = GetComponent<Rigidbody2D>();
        ET = GetComponent<Enemy_Target>();
        H = GetComponent<EnemyHealth>();
+
+        Player = GameObject.FindGameObjectsWithTag("Player")[0];
     }
 
     // Update is called once per frame

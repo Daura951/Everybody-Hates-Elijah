@@ -34,8 +34,8 @@ public class Health : MonoBehaviour
 
     public static Health healthInstance;
 
-
-
+    private SpriteRenderer render;
+    private bool isCoroutineStarted;
     // Start is called before the first frame update
     void Start()
     {
@@ -45,7 +45,8 @@ public class Health : MonoBehaviour
         slider.maxValue = 1;
         slider.value = 1;
         healthInstance = this;
-
+        render = GameObject.FindGameObjectsWithTag("Player")[0].GetComponent<SpriteRenderer>();
+        healthAnim.SetFloat("animSpeedParameter", .5f);
     }
 
     // Update is called once per frame
@@ -78,7 +79,16 @@ public class Health : MonoBehaviour
         else if (slider.value <= .4f)
         {
             healthBar.color = new Color(255, 0, 0, 1);
+
+            if (!isCoroutineStarted)
+            {
+                isCoroutineStarted = true;
+                StartCoroutine(FlashRed());
+            }
+            healthAnim.SetFloat("animSpeedParameter", 1.5f);
+            PlayHurtAnim();
         }
+
     }
 
     public void TakeDamage(float hurt)
@@ -98,7 +108,12 @@ public class Health : MonoBehaviour
         else
         {
             health -= hurt;
-            PlayHurtAnim();
+
+            if(slider.value <=.6f && slider.value > .3f)
+            {
+                PlayHurtAnim();
+            }
+
 
             if (!AS.isPlaying)
             {
@@ -149,6 +164,17 @@ public class Health : MonoBehaviour
 
         PlayerAttack.attackInstance.isExecutedOnce = false;
     }
+
+
+    public IEnumerator FlashRed()
+    {
+        render.color = new Color(255f, 0f, 0f, 255f);
+        yield return new WaitForSeconds(.25f);
+        render.color = new Color(255f, 255f, 255f, 255f);
+        yield return new WaitForSeconds(.25f);
+        isCoroutineStarted = false;
+    }
+
 
     public void PlayHurtAnim()
     {
