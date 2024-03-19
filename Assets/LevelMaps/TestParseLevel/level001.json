@@ -1,0 +1,37 @@
+{
+  "tileSize": 32,
+  "mapWidth": 4,
+  "mapHeight": 4,
+  "layers": [
+    {
+      "name": "player",
+      "gameObjectPositions": [
+        {
+          "gameObjectName": "player",
+          "x": 0,
+          "y": 2
+        }
+      ]
+    },
+    {
+      "name": "platform",
+      "gameObjectPositions": [
+        {
+          "gameObjectName": "platform",
+          "x": 0,
+          "y": -2
+        },
+        {
+          "gameObjectName": "platform",
+          "x": 3,
+          "y": 0
+        },
+        {
+          "gameObjectName": "platform",
+          "x": -3,
+          "y": 0
+        }
+      ]
+    }
+  ]
+}
