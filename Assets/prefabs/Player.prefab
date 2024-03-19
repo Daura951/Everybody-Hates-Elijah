@@ -4379,7 +4379,6 @@ MonoBehaviour:
   InEscelator: 0
   grabbing: 0
   curDamage: 0
-  lockCam: 0
 --- !u!114 &4926932388033835190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4608,11 +4607,7 @@ MonoBehaviour:
   ActiveArena: {fileID: 0}
   Waitroom: 0
   complete: 0
-  Death1: {fileID: 8300000, guid: e0f9b7eeb73b69f4197581b6ed7a990d, type: 3}
-  Death2: {fileID: 8300000, guid: e2152cc4a931f544ea074cda38c2930a, type: 3}
-  Death3: {fileID: 8300000, guid: 94f96cfeb15ca3a4fb05a96d26ebf777, type: 3}
-  Death4: {fileID: 8300000, guid: d353d0eddb1cecf4b8b6903836d2c4b9, type: 3}
-  Death5: {fileID: 8300000, guid: 94a95562f7849d94cb881206217f60aa, type: 3}
+  Death: []
 --- !u!114 &8294672910334269911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4629,6 +4624,7 @@ MonoBehaviour:
   action: 0
   grab: 0
   isLeft: 0
+  moveable: 0
   redXOff: 0.1
   redYOff: 0.45
   redXSize: 1
@@ -6143,7 +6139,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c9f8302175eb304690368b5ae0efa81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  time: 0
+  offset: {x: 2.25, y: 2.5, z: -0.75}
+  loc: 0
 --- !u!1 &8454956738111915877
 GameObject:
   m_ObjectHideFlags: 0
