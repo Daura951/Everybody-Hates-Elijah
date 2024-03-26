@@ -19,6 +19,10 @@ public class PlayerOffScreen : MonoBehaviour
     private GameObject p;
     private GameObject B;
 
+    Collider2D redBox;
+    public LayerMask groundMask;
+    public float redXSize, redYSize;
+
 
     // Start is called before the first frame update
     void Start()
@@ -47,7 +51,11 @@ public class PlayerOffScreen : MonoBehaviour
         topWall = CameraPosition.y + screenSize.y;
         bottomWall = CameraPosition.y - screenSize.y;
 
-        
+         /*   if (redBox)
+                print(redBox.name);
+            else
+                print("outside");
+        */
             if (((p.transform.position.x < leftWall) || (p.transform.position.x > rightWall)||(p.transform.position.y < bottomWall)||(p.transform.position.y > topWall)) && H.dead)
             {
                 SpriteRenderer Sr = p.GetComponent<SpriteRenderer>();
@@ -65,7 +73,7 @@ public class PlayerOffScreen : MonoBehaviour
         //Uses camera size to find the borders of the camera
         screenSize.x = Vector2.Distance(Cam.ScreenToWorldPoint(new Vector2(0f, 0f)), Cam.ScreenToWorldPoint(new Vector2(Screen.width, 0f))) * 0.5f;
         screenSize.y = Vector2.Distance(Cam.ScreenToWorldPoint(new Vector2(0f, 0f)), Cam.ScreenToWorldPoint(new Vector2(0f, Screen.height))) * 0.5f;
-
+        redBox = Physics2D.OverlapBox(new Vector2(transform.position.x + (0.5f * screenSize.x), transform.position.y + (0.5f * screenSize.y)), new Vector2(redXSize, redYSize), 0f, groundMask);
         update = true;
     }
 
@@ -107,5 +115,11 @@ public class PlayerOffScreen : MonoBehaviour
             CameraPosition = new Vector3(p.transform.position.x + offset.x, minY + screenSize.y, p.transform.position.z + offset.z);
         else
             CameraPosition = p.transform.position + offset;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireCube(new Vector2(transform.position.x + screenSize.x + (0.5f * redXSize), transform.position.y + screenSize.y + (0.5f*redYSize)), new Vector2(redXSize, redYSize));
     }
 }

@@ -21,7 +21,6 @@ public class ReSpawn : MonoBehaviour
     public AudioClip[] Death;
 
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -45,6 +44,7 @@ public class ReSpawn : MonoBehaviour
                 Waitroom = true;
                 H.lives--;
                 int pick = Random.Range(0, Death.Length);
+                anim.SetFloat("SinkSpeed", (1/(Death[pick].length *4)));
                 AS.PlayOneShot(Death[pick]);
                 StartCoroutine(ScreamOfDeath(Death[pick].length));
             }
@@ -64,9 +64,14 @@ public class ReSpawn : MonoBehaviour
                 }
 
 
+                anim.SetBool("Sinking", false);
+                rb.constraints = RigidbodyConstraints2D.None;
+                rb.constraints = RigidbodyConstraints2D.FreezeRotation;
                 PM.transform.position = ReSpawnPoint;
                 H.ReHeal();
+                s.EnablePit();
                 Waitroom = complete = false;
+                SR.sortingOrder = 1;
                 SR.enabled = true;
             }
             if(complete && H.lives ==0)
