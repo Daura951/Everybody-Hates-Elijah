@@ -35,8 +35,11 @@ public class Health : MonoBehaviour
     public static Health healthInstance;
 
     private SpriteRenderer render;
+    public Image elijahEmote;
     private bool isCoroutineStarted;
     // Start is called before the first frame update
+
+    public Sprite[] elijahEmotes;
     void Start()
     {
         PA = GetComponent<PlayerAttack>();
@@ -53,7 +56,7 @@ public class Health : MonoBehaviour
     void Update()
     {
 
-        if (health <= 0)
+        if (health <=0)
             dead = true;
         else
             dead = false;
@@ -71,15 +74,17 @@ public class Health : MonoBehaviour
         if(slider.value > .6f)
         {
             healthBar.color = new Color(0, 255, 0, 1);
+            elijahEmote.sprite = elijahEmotes[0];
         }
         if (slider.value <= .6f && slider.value > .3f)
         {
             healthBar.color = new Color(255, 255, 0, 1);
+            elijahEmote.sprite = elijahEmotes[1];
         }
-        else if (slider.value <= .4f)
+        else if (slider.value <= .3f)
         {
             healthBar.color = new Color(255, 0, 0, 1);
-
+            elijahEmote.sprite = elijahEmotes[2];
             if (!isCoroutineStarted)
             {
                 isCoroutineStarted = true;
