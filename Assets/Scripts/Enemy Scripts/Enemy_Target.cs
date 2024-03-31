@@ -50,6 +50,10 @@ public class Enemy_Target : MonoBehaviour
     //{UThrow, FThrow, BThrow, BThrow}
 
 
+    [Header("BladeBound")]
+    private BladeBound BB;
+    [SerializeField] private float BBSlowDown = .5f;
+
     public struct Attack
     {
         public float attackDistance;
@@ -75,6 +79,7 @@ public class Enemy_Target : MonoBehaviour
         target = GameObject.FindGameObjectsWithTag("Player")[0].transform;
         H = GetComponent<Hit>();
         health = GetComponent<EnemyHealth>();
+        BB = GameObject.FindGameObjectsWithTag("Player")[0].GetComponent<BladeBound>();
         attacks = new Attack[2];
         attacks[0] = new Attack(2f, "isPunching", 10);
         attacks[1] = new Attack(1f, "isKicking", 5);
@@ -85,7 +90,16 @@ public class Enemy_Target : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (TargetInDistance() && canFollow && !ES.getIsStunned() && !H.getIsStunned() && health.GetHealth() > 0 && !isGrabbed)
+        if(!BB.GetIsInBladeBound())
+        {
+            anim.SetFloat("BladeBoundSlowDown", 1);
+        }
+        else
+        {
+            anim.SetFloat("BladeBoundSlowDown", BBSlowDown);
+        }
+
+        if (TargetInDistance() && canFollow && !ES.getIsStunned() && !H.getIsStunned() && health.GetHealth() > 0 && !isGrabbed && !BB.isFrozen)
         {
             FollowPath();
 
@@ -161,7 +175,7 @@ public class Enemy_Target : MonoBehaviour
 
     private void UpdatePath()
     {
-        if (!isGrabbed)
+        if (!isGrabbed && !BB.isFrozen)
         {
             for (int i = 0; i < attacks.Length; i++)
             {
@@ -206,19 +220,19 @@ public class Enemy_Target : MonoBehaviour
 
         //Calculate Direction
         Vector2 direction = ((Vector2)path.vectorPath[currentWayPoint] - rb.position).normalized;
-        Vector2 force = direction * speed * Time.deltaTime;
 
+        Vector2 force = CalculateForce(direction);
 
-            //Jump time!
-            if (canJump && isGrounded.collider != null && isGrounded.collider.tag == "Platform")
+        //Jump time!
+        if (canJump && isGrounded.collider != null && isGrounded.collider.tag == "Platform")
+        {
+            if (direction.y > jumpNodeHeightReq)
             {
-                if (direction.y > jumpNodeHeightReq)
-                {
-                    rb.AddForce(Vector2.up * speed * jumpModifier);
-                }
+                rb.AddForce(Vector2.up * speed * jumpModifier);
             }
-
-            rb.AddForce(new Vector2(force.x, 0.0f));
+        }
+       
+        rb.AddForce(new Vector2(force.x, 0.0f));
  
 
         float distance = Vector2.Distance(rb.position, path.vectorPath[currentWayPoint]);
@@ -299,6 +313,21 @@ public class Enemy_Target : MonoBehaviour
             DespawnHitbox(i);
         }
         Destroy(this.gameObject);
+    }
+
+    Vector2 CalculateForce(Vector2 direction)
+    {
+        Vector2 force;
+        if (BB.GetIsInBladeBound())
+        {
+            force = direction * (speed / 2f) * Time.deltaTime;
+        }
+        else
+        {
+            force = direction * speed * Time.deltaTime;
+        }
+
+        return force;
     }
 
 
