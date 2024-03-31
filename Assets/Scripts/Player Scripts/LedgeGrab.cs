@@ -7,14 +7,11 @@ public class LedgeGrab : MonoBehaviour
     public bool reGrab = true, action = false, grab = false, isLeft, moveable = false;
     Collider2D redBox;
     GameObject g;
-    private float redX;
+    private float redX, XoffSet;
     private Rigidbody2D rb;
 
     [Header("ledge colliders")]
-    public float redXOff;
-    public float redYOff, redXSize, redYSize;
-
-
+    public float redXOff, redYOff, redXSize, redYSize;
     public LayerMask groundMask;
 
     [Header("Timers")]
@@ -36,6 +33,7 @@ public class LedgeGrab : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         redX = redXOff;
+        XoffSet = transform.localScale.x * .375f;
     }
 
     // Update is called once per frame
@@ -53,13 +51,17 @@ public class LedgeGrab : MonoBehaviour
         // timers for falling and inputs to leave
         if (pm.grabbing && !action)
         {
+
+            Offset();
+            transform.position = offset;
+
+
+
             if (moveable)
                 transform.SetParent(g.transform);
 
 
 
-            Offset();
-            transform.position = offset;
             if (timer1 >= holding)
             {
                 anim.Play("Ledge idle");
@@ -166,7 +168,7 @@ public class LedgeGrab : MonoBehaviour
 
             if (redBox)
                 g = redBox.gameObject;
-
+            PA.bypassMoveBlock = false;
 
             if (g.GetComponent<PlatformMovement>())
                 moveable = true;
@@ -206,14 +208,13 @@ public class LedgeGrab : MonoBehaviour
     {
         if (transform.position.x < g.transform.position.x)
         {
-            offset = new Vector2((g.transform.position.x - (g.transform.localScale.x * 0.5f) - (transform.localScale.x * .35f)), (g.transform.position.y - (((1f - g.transform.localScale.y) / .25f) * .125f)));
+            offset = new Vector2((g.transform.position.x - (g.transform.localScale.x * 0.5f) - XoffSet), (g.transform.position.y - (((1f - g.transform.localScale.y) / .25f) * .125f)));
             if (transform.localEulerAngles.y != 0)
                 transform.eulerAngles = new Vector2(0, !pm.GetIsLeft() ? 180 : 0);
         }
         else
         {
-            offset = new Vector2((g.transform.position.x + (g.transform.localScale.x * 0.5f) + (transform.localScale.x * .35f)), (g.transform.position.y - (((1f - g.transform.localScale.y) / .25f) * .125f)));
-
+            offset = new Vector2((g.transform.position.x + (g.transform.localScale.x * 0.5f) + XoffSet), (g.transform.position.y - (((1f - g.transform.localScale.y) / .25f) * .125f)));
             if (transform.localEulerAngles.y == 0)
                 transform.eulerAngles = new Vector2(0, !pm.GetIsLeft() ? 180 : 0);
         }
@@ -310,4 +311,5 @@ public class LedgeGrab : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(new Vector2(transform.position.x + (redXOff * transform.localScale.x), transform.position.y + redYOff), new Vector2(redXSize, redYSize));
     }
+ 
 }

@@ -28,6 +28,8 @@ public class Stun : MonoBehaviour
 
     PlayerAttack pa;
 
+    private GameObject g;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -126,7 +128,7 @@ public class Stun : MonoBehaviour
             {
                 H.TakeDamage(SIDAKT[0] / 2);
             }
-
+            pa.bypassMoveBlock = false;
         }
     }
 
@@ -134,7 +136,8 @@ public class Stun : MonoBehaviour
     {
         if(col.gameObject.GetComponent<Stun_Info>() && !H.dead)
         {
-            if(!Stunned)
+            g = col.gameObject;
+            if (!Stunned)
             rb.velocity = new Vector2(0,0);
             
             Stunned = true;
@@ -143,10 +146,14 @@ public class Stun : MonoBehaviour
 
             SI = col.gameObject.GetComponent<Stun_Info>(); //Polymorphism FTW
 
+     
             SIDAKT = SI.GetDAKTInfo();
             H.TakeDamage(SIDAKT[0]);
 
-            if (!pa.shielding)
+            if (g.CompareTag("KnockBack") && H.GetHealth() <= 0f)
+                SinkDeath();
+
+            else if (!pa.shielding)
             {
                 timer = SIDAKT[3];
                 GetHit(SIDAKT[1], SIDAKT[2]);
@@ -160,7 +167,7 @@ public class Stun : MonoBehaviour
             }
 
 
-       
+            pa.bypassMoveBlock = false;
         }
     }
 
@@ -214,5 +221,29 @@ public class Stun : MonoBehaviour
     public PlayerMovement getPM()
     {
         return PM;
+    }
+
+    private void SinkDeath()
+    {
+        GetComponent<SpriteRenderer>().sortingOrder = -5;
+        rb.constraints = RigidbodyConstraints2D.FreezePositionY;
+        g.GetComponent<Collider2D>().enabled = false;
+        anim.SetBool("Sinking", true);
+        int pick = UnityEngine.Random.Range(0, 2);
+        if(pick ==0)
+        anim.Play("Sinking2");
+        else
+        anim.Play("Sinking");
+    }
+
+    public void SinkDeathPos()
+    {
+        transform.position = new Vector3(transform.position.x, transform.position.y - 0.25f, transform.position.z);
+    }
+
+    public void EnablePit()
+    {
+        if(g!=null)
+        g.GetComponent<Collider2D>().enabled = true;
     }
 }

@@ -8,7 +8,7 @@ public class PlatformMovement : MonoBehaviour
     private Vector3 home , End;
     public Vector3 EndSpot;
     public float speed;
-    private bool Fall , bounce = true;
+    private bool Fall, bounce = true;
     PlayerMovement PM;
     GameObject player;
 
@@ -27,29 +27,34 @@ public class PlatformMovement : MonoBehaviour
     void Update()
     {
         Fall = PM.GetIsFalling();
+     }
+
+
+    private void FixedUpdate()
+    {
         float step = speed * Time.deltaTime;
-        
-               if(bounce)
+
+        if (bounce)
         {
-        transform.position = Vector2.MoveTowards(transform.position, End, step);
-            if(transform.position == End)
+            transform.position = Vector2.MoveTowards(transform.position, End, step);
+            if (transform.position == End)
                 bounce = !bounce;
         }
 
 
-        if(!bounce)
+        if (!bounce)
         {
-        transform.position = Vector2.MoveTowards(transform.position, home, step);
-            if(transform.position == home)
+            transform.position = Vector2.MoveTowards(transform.position, home, step);
+            if (transform.position == home)
                 bounce = !bounce;
-        }  
-     }
+        }
+    }
 
-     private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
      {
             if (collision.gameObject.tag == "Player" && Fall)
             {
-                collision.collider.transform.SetParent(transform);
+              player.transform.SetParent(transform);
             }
      }
 
@@ -57,7 +62,7 @@ public class PlatformMovement : MonoBehaviour
      {
             if (collision.gameObject.tag == "Player")
             {
-                collision.collider.transform.SetParent(null);
+              player.transform.SetParent(null);
             }
      }
 }
