@@ -7,74 +7,88 @@ public class PlayerOffScreen : MonoBehaviour
     [Header("Camera info")]
     private Camera Cam;
     private Vector3 CameraPosition;
-    private Vector2 screenSize;
+    private Vector2 screenSize , N,S,E,W;
     public Vector3 offset;
+    public float detectoff;
 
     [Header("Objects")]
     Health H;
 
     public bool loc;
-    private float leftWall, rightWall, topWall, bottomWall,minX, maxX, minY, maxY;
+    private float leftWall, rightWall, topWall, bottomWall;
     private bool update;
     private GameObject p;
-    private GameObject B;
+    Rigidbody2D rb;
 
-    Collider2D redBox;
-    public LayerMask groundMask;
-    public float redXSize, redYSize;
+    public GameObject[] Detectors;
+    Leave_Detection[] LD;
 
-
+    bool fixcam;
+    float YLoc;
     // Start is called before the first frame update
     void Start()
     {
         p = this.transform.parent.gameObject;
-        StartCoroutine(Deatch());
+        Cam = GetComponent<Camera>();
+        rb = p.GetComponent<Rigidbody2D>();
         H = p.GetComponent<Health>();
-        B = GameObject.FindGameObjectWithTag("Border");
+
+        //Uses camera size to find the borders of the camera
+        screenSize.x = Vector2.Distance(Cam.ScreenToWorldPoint(new Vector2(0f, 0f)), Cam.ScreenToWorldPoint(new Vector2(Screen.width, 0f))) * 0.5f;
+        screenSize.y = Vector2.Distance(Cam.ScreenToWorldPoint(new Vector2(0f, 0f)), Cam.ScreenToWorldPoint(new Vector2(0f, Screen.height))) * 0.5f;
+
+        Detectors = new GameObject[transform.childCount];
+        LD = new Leave_Detection[transform.childCount];
+        for (int x = 0; x < Detectors.Length; x++)
+        {
+            Detectors[x] = transform.GetChild(x).gameObject;
+            LD[x] = Detectors[x].GetComponent<Leave_Detection>();
+        }
+
+        StartCoroutine(Deatch());
         CameraPosition = p.transform.position + offset;
 
-        maxX = B.transform.position.x + B.transform.localScale.x * 0.5f;
-        minX = B.transform.position.x - B.transform.localScale.x * 0.5f;
-        maxY = B.transform.position.y + B.transform.localScale.y * 0.5f;
-        minY = B.transform.position.y - B.transform.localScale.y * 0.5f;
+        summonCam();
     }
 
     // Update is called once per frame
     void Update()
-    {  
-       if(update)
-        { 
-        WallDetection();
+    {
+        if (update)
+        {
+            WallDetection();
 
-        rightWall = CameraPosition.x + screenSize.x;
-        leftWall = CameraPosition.x - screenSize.x;
-        topWall = CameraPosition.y + screenSize.y;
-        bottomWall = CameraPosition.y - screenSize.y;
+            rightWall = CameraPosition.x + screenSize.x;
+            leftWall = CameraPosition.x - screenSize.x;
+            topWall = CameraPosition.y + screenSize.y;
+            bottomWall = CameraPosition.y - screenSize.y;
 
-         /*   if (redBox)
-                print(redBox.name);
-            else
-                print("outside");
-        */
-            if (((p.transform.position.x < leftWall) || (p.transform.position.x > rightWall)||(p.transform.position.y < bottomWall)||(p.transform.position.y > topWall)) && H.dead)
+            if (((p.transform.position.x < leftWall) || (p.transform.position.x > rightWall) || (p.transform.position.y < bottomWall) || (p.transform.position.y > topWall)) && H.dead)
             {
                 SpriteRenderer Sr = p.GetComponent<SpriteRenderer>();
                 Sr.enabled = false;
             }
-       }
+        }
     }
 
     IEnumerator Deatch()
     {
         yield return new WaitForSeconds(0f);
-        Cam = GetComponent<Camera>();
         this.transform.SetParent(null);
-
-        //Uses camera size to find the borders of the camera
-        screenSize.x = Vector2.Distance(Cam.ScreenToWorldPoint(new Vector2(0f, 0f)), Cam.ScreenToWorldPoint(new Vector2(Screen.width, 0f))) * 0.5f;
-        screenSize.y = Vector2.Distance(Cam.ScreenToWorldPoint(new Vector2(0f, 0f)), Cam.ScreenToWorldPoint(new Vector2(0f, Screen.height))) * 0.5f;
-        redBox = Physics2D.OverlapBox(new Vector2(transform.position.x + (0.5f * screenSize.x), transform.position.y + (0.5f * screenSize.y)), new Vector2(redXSize, redYSize), 0f, groundMask);
+        DetectPos();
         update = true;
+    }
+
+    IEnumerator StartCheck()
+    {
+        yield return new WaitForSeconds(0.25f);
+        if (LD[2].Detection() || LD[4].Detection())
+        {
+            fixcam = true;
+            CameraPosition = p.transform.position + new Vector3(0f, screenSize.y - p.transform.localScale.y * 0.5f, 0f);
+            YLoc = p.transform.position.y;
+        }
+
     }
 
     public bool lockCam()
@@ -89,37 +103,81 @@ public class PlayerOffScreen : MonoBehaviour
 
     private void WallDetection()
     {
+
+        //Bottom Wall Fix
+        if (fixcam && p.transform.position.y < CameraPosition.y - offset.y)
+            CameraPosition = new Vector3(p.transform.position.x + offset.x, YLoc + screenSize.y - p.transform.localScale.y * 0.5f, p.transform.position.z + offset.z);
+        else if (fixcam && p.transform.position.y >= CameraPosition.y - offset.y)
+            fixcam = false;
+
         //Top Right Corner
-        if (p.transform.position.x + offset.x + screenSize.x >= maxX && p.transform.position.y + offset.y + screenSize.y >= maxY)
-            CameraPosition = new Vector3(maxX - screenSize.x, maxY - screenSize.y, p.transform.position.z + offset.z);
-        //Top Left Corner
-        else if (p.transform.position.x + offset.x - screenSize.x <= minX && p.transform.position.y + offset.y + screenSize.y >= maxY)
-            CameraPosition = new Vector3(minX + screenSize.x, maxY - screenSize.y, p.transform.position.z + offset.z);
+        else if (LD[0].Detection() && LD[1].Detection() && p.transform.position.x > CameraPosition.x - offset.x && p.transform.position.y > CameraPosition.y - offset.y)
+        CameraPosition = new Vector3(LD[0].pos.x, LD[1].pos.y, p.transform.position.z + offset.z);
         //Bottom Right Corner
-        else if (p.transform.position.x + offset.x + screenSize.x >= maxX && p.transform.position.y + offset.y - screenSize.y <= minY)
-            CameraPosition = new Vector3(maxX - screenSize.x, minY + screenSize.y, p.transform.position.z + offset.z);
+        else if (LD[2].Detection() && LD[3].Detection() && p.transform.position.x > CameraPosition.x - offset.x && p.transform.position.y < CameraPosition.y - offset.y)
+        CameraPosition = new Vector3(LD[2].pos.x, LD[3].pos.y, p.transform.position.z + offset.z);
         //Bottom Left Corner
-        else if (p.transform.position.x + offset.x - screenSize.x <= minX && p.transform.position.y + offset.y - screenSize.y <= minY)
-            CameraPosition = new Vector3(minX + screenSize.x, minY + screenSize.y, p.transform.position.z + offset.z);
+        else if ( LD[4].Detection() && LD[5].Detection() && p.transform.position.x < CameraPosition.x - offset.x && p.transform.position.y < CameraPosition.y - offset.y)
+        CameraPosition = new Vector3(LD[4].pos.x, LD[5].pos.y, p.transform.position.z + offset.z);
+        //Top Left Corner
+        else if (LD[6].Detection() && LD[7].Detection() && p.transform.position.x < CameraPosition.x - offset.x && p.transform.position.y > CameraPosition.y - offset.y)
+        CameraPosition = new Vector3(LD[6].pos.x, LD[7].pos.y, p.transform.position.z + offset.z);
         //Right Wall
-        else if (p.transform.position.x + offset.x + screenSize.x >= maxX)
-            CameraPosition = new Vector3(maxX - screenSize.x, p.transform.position.y + offset.y, p.transform.position.z + offset.z);
+        else if (LD[1].Detection() && p.transform.position.x > CameraPosition.x - offset.x)
+        CameraPosition = new Vector3(LD[1].pos.x, offset.y + p.transform.position.y, p.transform.position.z + offset.z);
+        else if (LD[3].Detection() && p.transform.position.x > CameraPosition.x - offset.x)
+        CameraPosition = new Vector3(LD[3].pos.x, offset.y + p.transform.position.y, p.transform.position.z + offset.z);
         //Left Wall
-        else if (p.transform.position.x + offset.x - screenSize.x <= minX)
-            CameraPosition = new Vector3(minX + screenSize.x, p.transform.position.y + offset.y, p.transform.position.z + offset.z);
+        else if (LD[7].Detection() && p.transform.position.x < CameraPosition.x - offset.x)
+        CameraPosition = new Vector3(LD[7].pos.x, p.transform.position.y + offset.y, p.transform.position.z + offset.z);
+        else if (LD[5].Detection() && p.transform.position.x < CameraPosition.x - offset.x)
+        CameraPosition = new Vector3(LD[5].pos.x, p.transform.position.y + offset.y, p.transform.position.z + offset.z);
         //Top Wall
-        else if (p.transform.position.y + offset.y + screenSize.y >= maxY)
-            CameraPosition = new Vector3(p.transform.position.x + offset.x, maxY - screenSize.y, p.transform.position.z + offset.z);
+        else if (LD[6].Detection() && p.transform.position.y > CameraPosition.y - offset.y)
+        CameraPosition = new Vector3(p.transform.position.x + offset.x, LD[6].pos.y, p.transform.position.z + offset.z);
+        else if (LD[0].Detection() && p.transform.position.y > CameraPosition.y - offset.y)
+        CameraPosition = new Vector3(p.transform.position.x + offset.x, LD[0].pos.y, p.transform.position.z + offset.z);
         //Bottom Wall
-        else if (p.transform.position.y + offset.y - screenSize.y <= minY)
-            CameraPosition = new Vector3(p.transform.position.x + offset.x, minY + screenSize.y, p.transform.position.z + offset.z);
+        else if (LD[2].Detection() && p.transform.position.y < CameraPosition.y - offset.y)
+        CameraPosition = new Vector3(p.transform.position.x + offset.x, LD[2].pos.y, p.transform.position.z + offset.z);
+        else if (LD[4].Detection() && p.transform.position.y < CameraPosition.y - offset.y)
+        CameraPosition = new Vector3(p.transform.position.x + offset.x, LD[4].pos.y, p.transform.position.z + offset.z);
         else
-            CameraPosition = p.transform.position + offset;
+        CameraPosition = p.transform.position + offset;
+    }
+    private void DetectPos()
+    {
+        float XScale = Detectors[0].transform.localScale.x;
+        float YScale = Detectors[0].transform.localScale.y;
+        //North
+        N = new Vector2(CameraPosition.x,CameraPosition.y + screenSize.y + YScale * 0.5f);
+        //East
+        E = new Vector2(CameraPosition.x + screenSize.x + XScale * 0.5f, CameraPosition.y);
+        //South
+        S = new Vector2(CameraPosition.x,CameraPosition.y - screenSize.y - YScale * 0.5f);
+        //West
+        W = new Vector2(CameraPosition.x - screenSize.x -  XScale * 0.5f, CameraPosition.y);
+
+        //Top.R
+        Detectors[0].transform.position = new Vector2(E.x - XScale , N.y + detectoff);
+        //Right.T
+        Detectors[1].transform.position = new Vector2(E.x + detectoff, N.y - YScale);
+        //Bottom.R
+        Detectors[2].transform.position = new Vector2(E.x - XScale, S.y - detectoff);
+        //Right.B
+        Detectors[3].transform.position = new Vector2(E.x + detectoff, S.y + YScale);
+        //Bottom.L
+        Detectors[4].transform.position = new Vector2(W.x + XScale, S.y - detectoff);
+        //Left.B
+        Detectors[5].transform.position = new Vector2(W.x - detectoff, S.y + YScale);
+        //Top.L
+        Detectors[6].transform.position = new Vector2(W.x + XScale, N.y + detectoff);
+        //Left.T
+        Detectors[7].transform.position = new Vector2(W.x - detectoff, N.y - YScale);
     }
 
-    private void OnDrawGizmosSelected()
+    public void summonCam()
     {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireCube(new Vector2(transform.position.x + screenSize.x + (0.5f * redXSize), transform.position.y + screenSize.y + (0.5f*redYSize)), new Vector2(redXSize, redYSize));
+        StartCoroutine(StartCheck());
     }
 }

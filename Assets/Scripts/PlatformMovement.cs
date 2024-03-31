@@ -10,6 +10,7 @@ public class PlatformMovement : MonoBehaviour
     public float speed;
     private bool Fall, bounce = true;
     PlayerMovement PM;
+    Rigidbody2D rb;
     GameObject player;
 
 
@@ -18,6 +19,7 @@ public class PlatformMovement : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        rb = player.GetComponent<Rigidbody2D>();
         PM = player.GetComponent<PlayerMovement>();
         home = this.transform.position;
         End = this.transform.position + EndSpot;
@@ -27,7 +29,7 @@ public class PlatformMovement : MonoBehaviour
     void Update()
     {
         Fall = PM.GetIsFalling();
-     }
+    }
 
 
     private void FixedUpdate()
@@ -51,18 +53,20 @@ public class PlatformMovement : MonoBehaviour
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
-     {
-            if (collision.gameObject.tag == "Player" && Fall)
+    {
+            if (collision.gameObject.tag == "Player")
             {
               player.transform.SetParent(transform);
+              rb.interpolation = RigidbodyInterpolation2D.None; 
             }
-     }
+    }
 
      private void OnCollisionExit2D(Collision2D collision)
      {
             if (collision.gameObject.tag == "Player")
             {
               player.transform.SetParent(null);
+              rb.interpolation = RigidbodyInterpolation2D.Interpolate;
             }
      }
 }

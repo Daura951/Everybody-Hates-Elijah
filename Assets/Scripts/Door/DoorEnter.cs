@@ -7,6 +7,7 @@ public class DoorEnter : MonoBehaviour
     PlayerMovement PM;
     GameObject player;
     Transform ExitDoor;
+    PlayerOffScreen POS;
     private bool grounded, Enter;
 
 
@@ -15,6 +16,7 @@ public class DoorEnter : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         PM = player.GetComponent<PlayerMovement>();
+        POS = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PlayerOffScreen>();
         ExitDoor = this.gameObject.transform.GetChild(0);
     }
 
@@ -25,7 +27,8 @@ public class DoorEnter : MonoBehaviour
 
         if (Input.GetButtonDown("DoorEnter") && Enter && grounded)
         {
-            player.transform.position = ExitDoor.position;
+            player.transform.position = new Vector3(ExitDoor.position.x , ExitDoor.position.y - ExitDoor.localScale.y *0.5f , ExitDoor.position.z);
+            POS.summonCam();
         }
 
     }
