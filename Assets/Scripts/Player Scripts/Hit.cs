@@ -8,6 +8,7 @@ public class Hit : MonoBehaviour
     Enemy_Target ET;
     EnemyHealth H;
     public GameObject Player;
+    private BladeBound BB;
 
     public bool isHit = false, isLeft = false, Stunned;
     private float timer;
@@ -22,7 +23,8 @@ public class Hit : MonoBehaviour
        ET = GetComponent<Enemy_Target>();
        H = GetComponent<EnemyHealth>();
 
-        Player = GameObject.FindGameObjectsWithTag("Player")[0];
+       Player = GameObject.FindGameObjectsWithTag("Player")[0];
+        BB = Player.GetComponent<BladeBound>();
     }
 
     // Update is called once per frame
@@ -35,6 +37,8 @@ public class Hit : MonoBehaviour
             // Debug.Log(timer);
             H.TakeDamage(stats[0]);
             GetHit(stats[2], stats[1]);
+
+            ApplyBladeBoundHits();
         }
 
         if(Stunned)
@@ -114,5 +118,17 @@ public class Hit : MonoBehaviour
     public bool getIsStunned()
     {
         return Stunned;
+    }
+
+    void ApplyBladeBoundHits()
+    {
+        if (!BB.GetIsInBladeBound())
+        {
+            BB.AddHit();
+        }
+        else
+        {
+            BB.AddFreezeHit();
+        }
     }
 }

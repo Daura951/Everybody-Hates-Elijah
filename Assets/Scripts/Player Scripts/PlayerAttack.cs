@@ -38,10 +38,13 @@ public class PlayerAttack : MonoBehaviour
     private string[] attacksData;
 
     private bool stunned;
+    public bool isBladeBound;
 
 
     private string FilePath;
     string[] Line;
+
+    private BladeBound BB;
 
 
     public bool OnLadder;
@@ -105,6 +108,7 @@ public class PlayerAttack : MonoBehaviour
         H = GetComponent<Health>();
         SS = Shield.GetComponent<ShieldScript>();
         rb = GetComponent<Rigidbody2D>();
+        BB = GetComponent<BladeBound>();
         FilePath = Application.dataPath + "/ElijahAttackValues.txt";
         Line = File.ReadAllLines(FilePath);
         comboTimerStored = ComboTimer;
@@ -243,10 +247,16 @@ public class PlayerAttack : MonoBehaviour
         }
 
 
-        else if (Input.GetButtonDown("Fire2") && !isAttacking && anim.GetBool("Idle") == true && !playerMovement.isInAir && Input.GetAxisRaw("Vertical") == 0f && Input.GetAxisRaw("Horizontal") == 0f && !stunned && !anim.GetBool("isLaying"))
+        else if (Input.GetButtonDown("Fire2") && !isAttacking && anim.GetBool("Idle") == true && !playerMovement.isInAir && Input.GetAxisRaw("Vertical") == 0f && Input.GetAxisRaw("Horizontal") == 0f && !stunned && !anim.GetBool("isLaying") && !isBladeBound)
         {
             //NSpecial
             isSpecial = true;
+            isAttacking = true;
+        }
+
+        else if (Input.GetButtonDown("Fire2") && !isAttacking && anim.GetBool("Idle") == true && !playerMovement.isInAir && Input.GetAxisRaw("Vertical") == 0f && Input.GetAxisRaw("Horizontal") == 0f && !stunned && !anim.GetBool("isLaying") && isBladeBound)
+        {
+            print("Blade Bound!!!");
             isAttacking = true;
         }
 
@@ -559,6 +569,12 @@ public class PlayerAttack : MonoBehaviour
             currentlyGrabbedEnemy.isGrabbed = false;
             playerMovement.transform.position = new Vector2(playerMovement.transform.position.x, playerMovement.transform.position.y + playerDThrowOffset.y); //Makes sure that the enemy position remains upon multiple throw hitboxes
         }
+    }
+
+    public void BladeBound()
+    {
+        BB.SetIsInBladeBound(true);
+        isBladeBound = false;
     }
 
     //OnCollision / OnTrigger functions
