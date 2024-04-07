@@ -12,8 +12,10 @@ public class PlatformMovement : MonoBehaviour
     PlayerMovement PM;
     Rigidbody2D rb;
     GameObject player;
+    private BladeBound BB;
 
-
+    private float startSpeed;
+    private float halfSpeed;
 
     // Start is called before the first frame update
     void Start()
@@ -23,12 +25,28 @@ public class PlatformMovement : MonoBehaviour
         PM = player.GetComponent<PlayerMovement>();
         home = this.transform.position;
         End = this.transform.position + EndSpot;
+        BB = player.GetComponent<BladeBound>();
+        startSpeed = speed;
+        halfSpeed = speed / 2;
     }
 
     // Update is called once per frame
     void Update()
     {
         Fall = PM.GetIsFalling();
+
+        if(BB.GetIsInBladeBound() && !BB.isFrozen)
+        {
+            speed = halfSpeed;
+        }
+        else if(BB.isFrozen)
+        {
+            speed = 0;
+        }
+        else
+        {
+            speed = startSpeed;
+        }
     }
 
 
@@ -63,7 +81,7 @@ public class PlatformMovement : MonoBehaviour
 
      private void OnCollisionExit2D(Collision2D collision)
      {
-            if (collision.gameObject.tag == "Player")
+            if (collision.gameObject.tag == "Player" && collision.contacts[0].normal.y < -0.8f)
             {
               player.transform.SetParent(null);
               rb.interpolation = RigidbodyInterpolation2D.Interpolate;
