@@ -13,7 +13,6 @@ public class PlayerMovement : MonoBehaviour
     public SpriteRenderer sr;
     private Collider2D playerCollider;
     public Animator anim;
-    public Transform cam;
     public Vector3 offset;
 
     public float Walk, jumpForce, fallingGravityFactor;
@@ -60,7 +59,6 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("LedgeGrab")]
     public bool grabbing;
-    LedgeGrab lg;
 
     Health H;
 
@@ -69,7 +67,6 @@ public class PlayerMovement : MonoBehaviour
     public int curDamage = 0;
 
     public static PlayerMovement instance;
-    PlayerOffScreen POS;
 
     // Start is called before the first frame update
     void Start()
@@ -82,10 +79,8 @@ public class PlayerMovement : MonoBehaviour
         playerCollider = GetComponent<Collider2D>();
         anim = GetComponent<Animator>();
         attackScript = GetComponent<PlayerAttack>();
-        lg = GetComponent<LedgeGrab>();
         H = GetComponent<Health>();
 
-        POS = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PlayerOffScreen>();
             
         Speed = Walk;
         Run = Walk * 2;
@@ -116,9 +111,6 @@ public class PlayerMovement : MonoBehaviour
             OnEscelator = Escelator.GetOnEscelator();
 
         isInLandingLag = anim.GetCurrentAnimatorStateInfo(0).IsName("Fall 2 Idle");
-
-        if (!lg.action && !H.dead && !POS.lockCam())
-            cam.position = POS.Pos();
 
         isCrouch = anim.GetCurrentAnimatorStateInfo(0).IsName("Crouch");
 
@@ -281,7 +273,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Jump()
     {
-        if (!(jumpAmt == 0 && isInAir && !anim.GetBool("Climbing")) && !isInLandingLag && !attackScript.isAttacking && !anim.GetBool("hasGrabbedEnemy"))
+        if (!(jumpAmt == 0 && isInAir && anim.GetBool("Climbing")) && !isInLandingLag && !attackScript.isAttacking && !anim.GetBool("hasGrabbedEnemy"))
         {
             if (anim.GetBool("Climbing"))
                 jumpAmt = 0;
@@ -295,7 +287,6 @@ public class PlayerMovement : MonoBehaviour
                 anim.SetBool("isGrounded", !isInAir);
                 if (jumpAmt < 2)
                 {
-
                     jumpAmt++;
                     switch (jumpAmt)
                     {
@@ -349,6 +340,8 @@ public class PlayerMovement : MonoBehaviour
 
         anim.SetBool("isFalling", isFalling);
 
+
+        //Crouch bug somewhere here
         if (Input.GetAxisRaw("Vertical") < 0)
         {
             if (currentPassThroughPlatform != null && !isCoroutineRunning)
@@ -428,37 +421,41 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if ((collision.gameObject.tag == "Platform" || collision.gameObject.tag == "PassThroughPlatform" || collision.gameObject.tag == "MovingPlatform") && collision.gameObject.tag != "Wall")
+        if ((collision.gameObject.tag == "Platform" || collision.gameObject.tag == "Grab") && collision.contacts[0].normal.y > .8f)
         {
-
-            if (anim.GetCurrentAnimatorStateInfo(0).IsName("USpecial") && collision.gameObject.tag == "PassThroughPlatform")
-            {
-                //Do nothing
-            }
-            else
-                Physics2D.gravity = new Vector2(0, -9.81f);
-
+            rb.gravityScale /= rb.gravityScale == scaledGravity ? scaledGravity : 1.0f;
+            
             if (collision.gameObject.GetComponent<Escelator>())
                 Escelator = collision.gameObject.GetComponent<Escelator>();
-
             if (anim.GetBool("Climbing"))
                 anim.ResetTrigger("Climbing");
-
-
-            rb.gravityScale /= rb.gravityScale == scaledGravity ? scaledGravity : 1.0f;
-
             if (rb.velocity.y == 0 || Escelator != null )
                 isInAir = false;
+
+
+            if (!grabbing && !isInAir)
+            {
+                jumpAmt = 0;
+                PlayerAttack.attackInstance.isExecutedOnce = false;
+                isOnPassThrough = false;
+            }
 
 
 
             RaycastHit2D hitGround = Physics2D.Raycast(groundRays[0].transform.position, -Vector2.up * rayRange);
             Debug.DrawRay(groundRays[0].position, -Vector2.up * rayRange);
 
-            if (collision.gameObject.tag == "PassThroughPlatform")
+            if (collision.gameObject.GetComponent<PlatformEffector2D>() !=null)
             {
+                print("On drop");
+                currentPassThroughPlatform = collision.gameObject;
+                isOnPassThrough = true;
+                anim.SetBool("isGrounded", isOnPassThrough);
+                
+                if(!anim.GetCurrentAnimatorStateInfo(0).IsName("USpecial"))
+                Physics2D.gravity = new Vector2(0, -9.81f);
 
-                if (!attackScript.isAttacking && rb.velocity.y == 0)
+                if (!attackScript.isAttacking && !isInAir)
                 {
                     anim.SetBool("isFalling", false);
                     jumpAmt = 0;
@@ -466,23 +463,15 @@ public class PlayerMovement : MonoBehaviour
 
                 }
 
-                isOnPassThrough = true;
 
-                if (hitGround.collider.tag == "PassThroughPlatform" && !isInAir )
+             /*   if (hitGround.collider.tag == "PassThroughPlatform" && !isInAir )
                 {
                     jumpAmt = 0;
                 }
                 else jumpAmt = 0;
-                currentPassThroughPlatform = collision.gameObject;
-                anim.SetBool("isGrounded", isOnPassThrough);
+            */
             }
 
-            if ((collision.gameObject.tag == "Platform" || collision.gameObject.tag == "MovingPlatform") && !grabbing && !isInAir)
-            {
-                jumpAmt = 0;
-                PlayerAttack.attackInstance.isExecutedOnce = false;
-                isOnPassThrough = false;
-            }
 
             if(S.isAirSpin)
             {
@@ -505,7 +494,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "PassThroughPlatform" || collision.gameObject.tag == "Platform")
+
+        if (collision.gameObject.tag == "Platform")
         {
             if (!collision.gameObject.GetComponent<Escelator>())
             {
@@ -525,7 +515,7 @@ public class PlayerMovement : MonoBehaviour
             }
 
             RaycastHit2D hitGround = Physics2D.Raycast(groundRays[1].transform.position, -Vector2.up * rayRange);
-            if (!isInAir && collision.gameObject.tag == "Platform" && hitGround.collider.tag == "Platform" || collision.gameObject.tag == "PassThroughPlatform" && hitGround.collider.tag == "PassThroughPlatform")
+            if (!isInAir && collision.gameObject.tag == "Platform" && hitGround.collider.tag == "Platform")
             {
                 if (collision.gameObject.transform.position.y < transform.position.y)
                     jumpAmt = 1;

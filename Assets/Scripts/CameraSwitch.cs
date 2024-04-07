@@ -7,7 +7,8 @@ public class CameraSwitch : MonoBehaviour
 
     private float up, down, left, right;
     private float Pup, Pdown, Pleft, Pright;
-    public GameObject P, Arena, pCam, boxCam;
+    public GameObject P, Arena, pCam;
+    public Camera boxCam;
     bool active,finished;
     private ReSpawn R;
 
@@ -20,9 +21,9 @@ public class CameraSwitch : MonoBehaviour
     {
         P = GameObject.Find("Player");
         pCam = GameObject.FindGameObjectWithTag("MainCamera");
-        boxCam = this.transform.GetChild(0).gameObject;
+        boxCam = GetComponent<Camera>();
         R = P.GetComponent<ReSpawn>();
-        Arena = this.transform.parent.gameObject;
+       // Arena = this.transform.parent.gameObject;
 
         BAS = new BattleArena[transform.childCount-1];
         BA = new GameObject[transform.childCount-1];
@@ -78,8 +79,9 @@ public class CameraSwitch : MonoBehaviour
             active = true;
             R.AssignArena(this);
             pCam.SetActive(false);
-            boxCam.SetActive(true);
-            Arena.transform.GetChild(0).gameObject.SetActive(true);
+            boxCam.enabled = true;
+            print("camera switch");
+  //          Arena.transform.GetChild(0).gameObject.SetActive(true);
         }
     }
 
@@ -89,8 +91,8 @@ public class CameraSwitch : MonoBehaviour
         active = false;
         R.AssignArena(null);
         pCam.SetActive(true);
-        boxCam.SetActive(false);
-        Arena.transform.GetChild(0).gameObject.SetActive(false);
+        boxCam.enabled = false;
+ //       Arena.transform.GetChild(0).gameObject.SetActive(false);
     }
 
 

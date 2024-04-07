@@ -21,6 +21,7 @@ public class LedgeGrab : MonoBehaviour
     PlayerMovement pm;
     PlayerAttack PA;
     Animator anim;
+    PlayerOffScreen POS;
 
     private Vector3 offset;
 
@@ -32,6 +33,8 @@ public class LedgeGrab : MonoBehaviour
         PA = GetComponent<PlayerAttack>();
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        POS = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PlayerOffScreen>();
+
         redX = redXOff;
         XoffSet = transform.localScale.x * .375f;
     }
@@ -262,11 +265,11 @@ public class LedgeGrab : MonoBehaviour
         float y = float.Parse(Info[1]);
         if (transform.position.x < g.transform.position.x)
         {
-            pm.cam.position = pm.transform.position + pm.offset + new Vector3(x, y, -0.75f);
+            POS.OffsetCam( new Vector3(x, y, -0.75f));
         }
         else
         {
-            pm.cam.position = pm.transform.position + pm.offset + new Vector3(-x, y, -0.75f);
+            POS.OffsetCam(new Vector3(-x, y, -0.75f));
 
         }
     }

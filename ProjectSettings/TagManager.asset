@@ -5,7 +5,6 @@ TagManager:
   serializedVersion: 2
   tags:
   - Platform
-  - PassThroughPlatform
   - Enemy
   - Hitbox
   - Danger
@@ -13,8 +12,6 @@ TagManager:
   - KnockBack
   - Checkpoint
   - EHitbox
-  - MovingPlatform
-  - Wall
   - Grab
   - Border
   - TempCamera

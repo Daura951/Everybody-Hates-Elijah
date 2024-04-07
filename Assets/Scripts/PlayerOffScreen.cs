@@ -6,13 +6,13 @@ public class PlayerOffScreen : MonoBehaviour
 {
     [Header("Camera info")]
     private Camera Cam;
-    private Vector3 CameraPosition;
     private Vector2 screenSize , N,S,E,W;
     public Vector3 offset;
     public float detectoff;
 
     [Header("Objects")]
     Health H;
+    LedgeGrab lg;
 
     public bool loc;
     private float leftWall, rightWall, topWall, bottomWall;
@@ -31,6 +31,7 @@ public class PlayerOffScreen : MonoBehaviour
         p = this.transform.parent.gameObject;
         Cam = GetComponent<Camera>();
         rb = p.GetComponent<Rigidbody2D>();
+        lg = p.GetComponent<LedgeGrab>();
         H = p.GetComponent<Health>();
 
         //Uses camera size to find the borders of the camera
@@ -46,7 +47,7 @@ public class PlayerOffScreen : MonoBehaviour
         }
 
         StartCoroutine(Deatch());
-        CameraPosition = p.transform.position + offset;
+        transform.position = p.transform.position + offset;
 
         summonCam();
     }
@@ -56,12 +57,13 @@ public class PlayerOffScreen : MonoBehaviour
     {
         if (update)
         {
-            WallDetection();
+            if (!lg.action && !H.dead && !loc)
+                WallDetection();
 
-            rightWall = CameraPosition.x + screenSize.x;
-            leftWall = CameraPosition.x - screenSize.x;
-            topWall = CameraPosition.y + screenSize.y;
-            bottomWall = CameraPosition.y - screenSize.y;
+            rightWall = transform.position.x + screenSize.x;
+            leftWall = transform.position.x - screenSize.x;
+            topWall = transform.position.y + screenSize.y;
+            bottomWall = transform.position.y - screenSize.y;
 
             if (((p.transform.position.x < leftWall) || (p.transform.position.x > rightWall) || (p.transform.position.y < bottomWall) || (p.transform.position.y > topWall)) && H.dead)
             {
@@ -85,7 +87,7 @@ public class PlayerOffScreen : MonoBehaviour
         if (LD[2].Detection() || LD[4].Detection())
         {
             fixcam = true;
-            CameraPosition = p.transform.position + new Vector3(0f, screenSize.y - p.transform.localScale.y * 0.5f, 0f);
+            transform.position = p.transform.position + new Vector3(0f, screenSize.y - p.transform.localScale.y * 0.5f, 0f);
             YLoc = p.transform.position.y;
         }
 
@@ -98,65 +100,65 @@ public class PlayerOffScreen : MonoBehaviour
 
     public Vector3 Pos()
     {
-        return CameraPosition;
+        return transform.position;
     }
 
     private void WallDetection()
     {
 
         //Bottom Wall Fix
-        if (fixcam && p.transform.position.y < CameraPosition.y - offset.y)
-            CameraPosition = new Vector3(p.transform.position.x + offset.x, YLoc + screenSize.y - p.transform.localScale.y * 0.5f, p.transform.position.z + offset.z);
-        else if (fixcam && p.transform.position.y >= CameraPosition.y - offset.y)
+        if (fixcam && p.transform.position.y < transform.position.y - offset.y)
+            transform.position = new Vector3(p.transform.position.x + offset.x, YLoc + screenSize.y - p.transform.localScale.y * 0.5f, p.transform.position.z + offset.z);
+        else if (fixcam && p.transform.position.y >= transform.position.y - offset.y)
             fixcam = false;
 
         //Top Right Corner
-        else if (LD[0].Detection() && LD[1].Detection() && p.transform.position.x > CameraPosition.x - offset.x && p.transform.position.y > CameraPosition.y - offset.y)
-        CameraPosition = new Vector3(LD[0].pos.x, LD[1].pos.y, p.transform.position.z + offset.z);
+        else if (LD[0].Detection() && LD[1].Detection() && p.transform.position.x > transform.position.x - offset.x && p.transform.position.y > transform.position.y - offset.y)
+        transform.position = new Vector3(LD[0].pos.x, LD[1].pos.y, p.transform.position.z + offset.z);
         //Bottom Right Corner
-        else if (LD[2].Detection() && LD[3].Detection() && p.transform.position.x > CameraPosition.x - offset.x && p.transform.position.y < CameraPosition.y - offset.y)
-        CameraPosition = new Vector3(LD[2].pos.x, LD[3].pos.y, p.transform.position.z + offset.z);
+        else if (LD[2].Detection() && LD[3].Detection() && p.transform.position.x > transform.position.x - offset.x && p.transform.position.y < transform.position.y - offset.y)
+        transform.position = new Vector3(LD[2].pos.x, LD[3].pos.y, p.transform.position.z + offset.z);
         //Bottom Left Corner
-        else if ( LD[4].Detection() && LD[5].Detection() && p.transform.position.x < CameraPosition.x - offset.x && p.transform.position.y < CameraPosition.y - offset.y)
-        CameraPosition = new Vector3(LD[4].pos.x, LD[5].pos.y, p.transform.position.z + offset.z);
+        else if ( LD[4].Detection() && LD[5].Detection() && p.transform.position.x < transform.position.x - offset.x && p.transform.position.y < transform.position.y - offset.y)
+        transform.position = new Vector3(LD[4].pos.x, LD[5].pos.y, p.transform.position.z + offset.z);
         //Top Left Corner
-        else if (LD[6].Detection() && LD[7].Detection() && p.transform.position.x < CameraPosition.x - offset.x && p.transform.position.y > CameraPosition.y - offset.y)
-        CameraPosition = new Vector3(LD[6].pos.x, LD[7].pos.y, p.transform.position.z + offset.z);
+        else if (LD[6].Detection() && LD[7].Detection() && p.transform.position.x < transform.position.x - offset.x && p.transform.position.y > transform.position.y - offset.y)
+        transform.position = new Vector3(LD[6].pos.x, LD[7].pos.y, p.transform.position.z + offset.z);
         //Right Wall
-        else if (LD[1].Detection() && p.transform.position.x > CameraPosition.x - offset.x)
-        CameraPosition = new Vector3(LD[1].pos.x, offset.y + p.transform.position.y, p.transform.position.z + offset.z);
-        else if (LD[3].Detection() && p.transform.position.x > CameraPosition.x - offset.x)
-        CameraPosition = new Vector3(LD[3].pos.x, offset.y + p.transform.position.y, p.transform.position.z + offset.z);
+        else if (LD[1].Detection() && p.transform.position.x > transform.position.x - offset.x)
+        transform.position = new Vector3(LD[1].pos.x, offset.y + p.transform.position.y, p.transform.position.z + offset.z);
+        else if (LD[3].Detection() && p.transform.position.x > transform.position.x - offset.x)
+        transform.position = new Vector3(LD[3].pos.x, offset.y + p.transform.position.y, p.transform.position.z + offset.z);
         //Left Wall
-        else if (LD[7].Detection() && p.transform.position.x < CameraPosition.x - offset.x)
-        CameraPosition = new Vector3(LD[7].pos.x, p.transform.position.y + offset.y, p.transform.position.z + offset.z);
-        else if (LD[5].Detection() && p.transform.position.x < CameraPosition.x - offset.x)
-        CameraPosition = new Vector3(LD[5].pos.x, p.transform.position.y + offset.y, p.transform.position.z + offset.z);
+        else if (LD[7].Detection() && p.transform.position.x < transform.position.x - offset.x)
+        transform.position = new Vector3(LD[7].pos.x, p.transform.position.y + offset.y, p.transform.position.z + offset.z);
+        else if (LD[5].Detection() && p.transform.position.x < transform.position.x - offset.x)
+        transform.position = new Vector3(LD[5].pos.x, p.transform.position.y + offset.y, p.transform.position.z + offset.z);
         //Top Wall
-        else if (LD[6].Detection() && p.transform.position.y > CameraPosition.y - offset.y)
-        CameraPosition = new Vector3(p.transform.position.x + offset.x, LD[6].pos.y, p.transform.position.z + offset.z);
-        else if (LD[0].Detection() && p.transform.position.y > CameraPosition.y - offset.y)
-        CameraPosition = new Vector3(p.transform.position.x + offset.x, LD[0].pos.y, p.transform.position.z + offset.z);
+        else if (LD[6].Detection() && p.transform.position.y > transform.position.y - offset.y)
+        transform.position = new Vector3(p.transform.position.x + offset.x, LD[6].pos.y, p.transform.position.z + offset.z);
+        else if (LD[0].Detection() && p.transform.position.y > transform.position.y - offset.y)
+        transform.position = new Vector3(p.transform.position.x + offset.x, LD[0].pos.y, p.transform.position.z + offset.z);
         //Bottom Wall
-        else if (LD[2].Detection() && p.transform.position.y < CameraPosition.y - offset.y)
-        CameraPosition = new Vector3(p.transform.position.x + offset.x, LD[2].pos.y, p.transform.position.z + offset.z);
-        else if (LD[4].Detection() && p.transform.position.y < CameraPosition.y - offset.y)
-        CameraPosition = new Vector3(p.transform.position.x + offset.x, LD[4].pos.y, p.transform.position.z + offset.z);
+        else if (LD[2].Detection() && p.transform.position.y < transform.position.y - offset.y)
+        transform.position = new Vector3(p.transform.position.x + offset.x, LD[2].pos.y, p.transform.position.z + offset.z);
+        else if (LD[4].Detection() && p.transform.position.y < transform.position.y - offset.y)
+        transform.position = new Vector3(p.transform.position.x + offset.x, LD[4].pos.y, p.transform.position.z + offset.z);
         else
-        CameraPosition = p.transform.position + offset;
+        transform.position = p.transform.position + offset;
     }
     private void DetectPos()
     {
         float XScale = Detectors[0].transform.localScale.x;
         float YScale = Detectors[0].transform.localScale.y;
         //North
-        N = new Vector2(CameraPosition.x,CameraPosition.y + screenSize.y + YScale * 0.5f);
+        N = new Vector2(transform.position.x,transform.position.y + screenSize.y + YScale * 0.5f);
         //East
-        E = new Vector2(CameraPosition.x + screenSize.x + XScale * 0.5f, CameraPosition.y);
+        E = new Vector2(transform.position.x + screenSize.x + XScale * 0.5f, transform.position.y);
         //South
-        S = new Vector2(CameraPosition.x,CameraPosition.y - screenSize.y - YScale * 0.5f);
+        S = new Vector2(transform.position.x,transform.position.y - screenSize.y - YScale * 0.5f);
         //West
-        W = new Vector2(CameraPosition.x - screenSize.x -  XScale * 0.5f, CameraPosition.y);
+        W = new Vector2(transform.position.x - screenSize.x -  XScale * 0.5f, transform.position.y);
 
         //Top.R
         Detectors[0].transform.position = new Vector2(E.x - XScale , N.y + detectoff);
@@ -179,5 +181,10 @@ public class PlayerOffScreen : MonoBehaviour
     public void summonCam()
     {
         StartCoroutine(StartCheck());
+    }
+
+    public void OffsetCam(Vector3 off)
+    {
+        transform.position = p.transform.position + offset + off;
     }
 }
