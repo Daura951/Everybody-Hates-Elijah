@@ -8,6 +8,7 @@ public class BladeBound : MonoBehaviour
 
     [SerializeField] private Slider BBSlider;
     [SerializeField] private Slider freezeSlider;
+    [SerializeField] private Image filter;
 
 
     [SerializeField] private int maxHitsToBladeBound;
@@ -33,52 +34,13 @@ public class BladeBound : MonoBehaviour
         freezeSlider.value = 0;
         freezeSlider.gameObject.SetActive(false);
         player = GameObject.FindGameObjectsWithTag("Player")[0];
+        filter.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(isInBladeBound)
-        {
-            canFreeze = true;
-        }
-
-        else
-        {
-            BBSlider.value = (float)curHits / maxHitsToBladeBound;
-            if (BBSlider.value == 1)
-            {
-                player.GetComponent<PlayerAttack>().isBladeBound = true;
-            }
-
-
-            freezeSlider.value = 0;
-            curFreezeHits = 0;
-            freezeSlider.gameObject.SetActive(false);
-        }
-
-
-        if(canFreeze)
-        {
-            freezeSlider.gameObject.SetActive(true);
-            freezeSlider.value = (float)curFreezeHits / maxHitsToFreeze;
-
-            BBSlider.value -= Time.deltaTime / timeDelayWeight;
-
-            if(curFreezeHits == maxHitsToBladeBound)
-            {
-                print("FREEZE!!!!!!!!");
-                isFrozen = true;
-            }
-            if(BBSlider.value <= 0)
-            {
-                canFreeze = false;
-                isInBladeBound = false;
-                isFrozen = false;
-                curHits = 0;
-            }
-
-        }
+        DoBladeBound();
     }
 
     private void FixedUpdate()
@@ -115,5 +77,68 @@ public class BladeBound : MonoBehaviour
     public void SetIsInBladeBound(bool newIsInBladeBound)
     {
          isInBladeBound = newIsInBladeBound;
+    }
+
+    private void DoBladeBound()
+    {
+        if (isInBladeBound)
+        {
+            canFreeze = true;
+            filter.gameObject.SetActive(true);
+        }
+
+        else
+        {
+            BBSlider.value = (float)curHits / maxHitsToBladeBound;
+            if (BBSlider.value == 1)
+            {
+                player.GetComponent<PlayerAttack>().isBladeBound = true;
+            }
+
+
+            freezeSlider.value = 0;
+            curFreezeHits = 0;
+            freezeSlider.gameObject.SetActive(false);
+            filter.gameObject.SetActive(false);
+        }
+
+
+        if (canFreeze && !isFrozen)
+        {
+            freezeSlider.gameObject.SetActive(true);
+            freezeSlider.value = (float)curFreezeHits / maxHitsToFreeze;
+
+
+            BBSlider.value -= Time.deltaTime / timeDelayWeight;
+
+            if (curFreezeHits == maxHitsToBladeBound)
+            {
+                isFrozen = true;
+            }
+            if (BBSlider.value <= 0)
+            {
+                canFreeze = false;
+                isInBladeBound = false;
+                isFrozen = false;
+                curHits = 0;
+                curFreezeHits = 0;
+            }
+
+        }
+
+        if (isFrozen)
+        {
+            print("FREEZE!!!!!!!!");
+            freezeSlider.value -= Time.deltaTime / timeDelayWeight;
+
+            if (freezeSlider.value <= 0)
+            {
+                canFreeze = false;
+                isInBladeBound = false;
+                isFrozen = false;
+                curHits = 0;
+                curFreezeHits = 0;
+            }
+        }
     }
 }

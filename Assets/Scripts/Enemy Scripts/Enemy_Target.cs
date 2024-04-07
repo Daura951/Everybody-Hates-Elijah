@@ -90,14 +90,16 @@ public class Enemy_Target : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(!BB.GetIsInBladeBound())
-        {
-            anim.SetFloat("BladeBoundSlowDown", 1);
-        }
-        else
+        if(BB.GetIsInBladeBound() && ! BB.isFrozen)
         {
             anim.SetFloat("BladeBoundSlowDown", BBSlowDown);
         }
+        else if(BB.isFrozen)
+        {
+            anim.SetFloat("BladeBoundSlowDown", 0);
+        }
+
+        else anim.SetFloat("BladeBoundSlowDown", 1);
 
         if (TargetInDistance() && canFollow && !ES.getIsStunned() && !H.getIsStunned() && health.GetHealth() > 0 && !isGrabbed && !BB.isFrozen)
         {
@@ -114,7 +116,7 @@ public class Enemy_Target : MonoBehaviour
         {
             anim.SetBool("isRunning", false);
 
-            if(health.GetHealth() <=0)
+            if(health.GetHealth() <=0 && !BB.isFrozen)
             {
                 anim.SetBool("isDead", true);
             }
