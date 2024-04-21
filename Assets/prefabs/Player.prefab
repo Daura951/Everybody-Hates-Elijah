@@ -3756,6 +3756,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d616228f9e64df445917d9af421c266c, type: 3}
   - {fileID: 8300000, guid: 856c99410023b0446a923e3df202efdd, type: 3}
   ComboTimer: 5
+  comboText: {fileID: 6767541741723426294}
 --- !u!95 &4926932388033835188
 Animator:
   serializedVersion: 4
@@ -6073,6 +6074,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6767541741723426294 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1399654199912663230, guid: 3942af84304939d4287d889183264d2b, type: 3}
+  m_PrefabInstance: {fileID: 5658686413636375880}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &7092423982940051468 stripped
