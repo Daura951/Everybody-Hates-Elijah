@@ -20,7 +20,7 @@ public class IdleBehavior : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (PlayerAttack.attackInstance.isAttacking && Input.GetAxisRaw("Vertical") == 0 && PlayerAttack.attackInstance.anim.GetBool("Idle") == true && !PlayerAttack.attackInstance.playerMovement.isInAir && !PlayerAttack.attackInstance.isSpecial && !PlayerAttack.attackInstance.isGrab && !PlayerAttack.attackInstance.isBladeBound)
+        if (PlayerAttack.attackInstance.isAttacking && Input.GetAxisRaw("Vertical") == 0 && PlayerAttack.attackInstance.anim.GetBool("Idle") == true && !PlayerAttack.attackInstance.playerMovement.isInAir && !PlayerAttack.attackInstance.isSpecial && !PlayerAttack.attackInstance.isGrab) //&& !PlayerAttack.attackInstance.isBladeBound)
         {
             PlayerAttack.attackInstance.anim.Play("Jab 1 Start");
         }

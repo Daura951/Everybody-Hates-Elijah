@@ -138,6 +138,7 @@ public class BladeBound : MonoBehaviour
                 isFrozen = false;
                 curHits = 0;
                 curFreezeHits = 0;
+                
             }
         }
     }

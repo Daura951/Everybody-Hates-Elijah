@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.IO;
+using TMPro;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -88,7 +89,7 @@ public class PlayerAttack : MonoBehaviour
     private float comboScore;
     private float timer, comboTimerStored;
 
-
+    public TMP_Text comboText;
 
 
 
@@ -134,6 +135,8 @@ public class PlayerAttack : MonoBehaviour
             //print(attackIndexes[i] + "( " + attacksData[i]+")");
 
         }
+
+        comboText.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -183,6 +186,11 @@ public class PlayerAttack : MonoBehaviour
 
     void Attack()
     {
+
+        if(Input.GetButtonDown("Fire1"))
+        {
+            rb.gravityScale = 1;
+        }
 
 
         //Control Detection
@@ -258,6 +266,8 @@ public class PlayerAttack : MonoBehaviour
         {
             print("Blade Bound!!!");
             isAttacking = true;
+            //isDoingBB = true;
+            isSpecial = true;
         }
 
 
@@ -379,7 +389,7 @@ public class PlayerAttack : MonoBehaviour
 
             if (strongTimer < 1.2f)
             {
-                strongDamage += .001f;
+                strongDamage += .005f;
             }
 
             if (strongTimer >= 2.2f)
@@ -438,6 +448,12 @@ public class PlayerAttack : MonoBehaviour
         if (comboScore > 0)
         {
 
+            if (comboScore >= 3)
+            {
+                comboText.gameObject.SetActive(true);
+                comboText.text = "" + comboScore;
+            }
+
             if (timer >= ComboTimer)
             {
                 timer = ComboTimer;
@@ -451,6 +467,12 @@ public class PlayerAttack : MonoBehaviour
             }
 
             else timer += Time.deltaTime;
+        }
+
+        else
+        {
+            comboText.text = "00";
+            comboText.gameObject.SetActive(false);
         }
 
     }
@@ -575,6 +597,8 @@ public class PlayerAttack : MonoBehaviour
     {
         BB.SetIsInBladeBound(true);
         isBladeBound = false;
+        //isDoingBB = false;
+        isSpecial = false;
     }
 
     //OnCollision / OnTrigger functions

@@ -11,10 +11,27 @@ public class TiltBehavior : StateMachineBehaviour
     //}
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
-    //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
+    override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        if (!(PlayerAttack.attackInstance.anim.GetCurrentAnimatorStateInfo(0).IsName("Up Tilt") || PlayerAttack.attackInstance.anim.GetCurrentAnimatorStateInfo(0).IsName("Up Tilt Transition")))
+        {
+
+            if (Input.GetAxisRaw("Vertical") > 0 && PlayerAttack.attackInstance.anim.GetBool("Idle") == true && !PlayerAttack.attackInstance.playerMovement.isInAir && !PlayerAttack.attackInstance.isSpecial)
+            {
+                PlayerAttack.attackInstance.anim.Play("Up Tilt");
+            }
+        }
+
+        if (Input.GetButtonDown("Fire1") && Input.GetAxisRaw("Vertical") < 0 && PlayerAttack.attackInstance.anim.GetBool("Crouch") && !PlayerAttack.attackInstance.playerMovement.isInAir && !PlayerAttack.attackInstance.isGrab)
+        {
+            PlayerAttack.attackInstance.anim.Play("DTilt");
+        }
+
+        else if (Input.GetButtonDown("Fire1") && Input.GetAxisRaw("Horizontal") != 0 && !PlayerAttack.attackInstance.playerMovement.isInAir && !PlayerAttack.attackInstance.anim.GetBool("Running") && !PlayerAttack.attackInstance.isGrab)
+        {
+            PlayerAttack.attackInstance.anim.Play("Forward Tilt");
+        }
+    }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
