@@ -212,14 +212,20 @@ public class LedgeGrab : MonoBehaviour
         if (transform.position.x < g.transform.position.x)
         {
             offset = new Vector2((g.transform.position.x - (g.transform.localScale.x * 0.5f) - XoffSet), (g.transform.position.y - (((1f - g.transform.localScale.y) / .25f) * .125f)));
-            if (transform.localEulerAngles.y != 0)
+            if (transform.localEulerAngles.y != 0) 
+            {
+                redXOff = -redX;
                 transform.eulerAngles = new Vector2(0, !pm.GetIsLeft() ? 180 : 0);
+            }
         }
         else
         {
             offset = new Vector2((g.transform.position.x + (g.transform.localScale.x * 0.5f) + XoffSet), (g.transform.position.y - (((1f - g.transform.localScale.y) / .25f) * .125f)));
             if (transform.localEulerAngles.y == 0)
+            {
+                redXOff = redX;
                 transform.eulerAngles = new Vector2(0, !pm.GetIsLeft() ? 180 : 0);
+            }
         }
     }
 

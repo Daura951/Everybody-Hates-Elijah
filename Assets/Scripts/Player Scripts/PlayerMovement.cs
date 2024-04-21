@@ -130,7 +130,8 @@ public class PlayerMovement : MonoBehaviour
         else if (Input.GetAxisRaw("Vertical") < 0f && !isInAir && isCrouch)
         {
             Speed = Crawl;
-            anim.ResetTrigger("Crouch");
+            
+            anim.SetBool("Crouch", false);
             anim.ResetTrigger("Walking");
             anim.ResetTrigger("Running");
         }
@@ -143,7 +144,8 @@ public class PlayerMovement : MonoBehaviour
         {
             anim.ResetTrigger("Walking");
             anim.ResetTrigger("Running");
-            anim.ResetTrigger("Crouch");
+            
+            anim.SetBool("Crouch", false);
             if (Escelator == null && !isInAir)
                 anim.SetTrigger("Idle");
 
@@ -222,7 +224,8 @@ public class PlayerMovement : MonoBehaviour
         {
             anim.ResetTrigger("Walking");
             anim.ResetTrigger("Running");
-            anim.ResetTrigger("Crouch");
+            
+            anim.SetBool("Crouch", false);
             anim.SetTrigger("Idle");
             isCrouch = false;
         }
@@ -233,7 +236,7 @@ public class PlayerMovement : MonoBehaviour
             anim.ResetTrigger("Walking");
             anim.ResetTrigger("Running");
             anim.ResetTrigger("Idle");
-            anim.SetTrigger("Crouch");
+            anim.SetBool("Crouch", true);
             isCrouch = true;
         }
 
@@ -264,7 +267,8 @@ public class PlayerMovement : MonoBehaviour
 
 
                 }
-                anim.ResetTrigger("Crouch");
+               
+                anim.SetBool("Crouch", false);
                 anim.ResetTrigger("Idle");
             }
         }
@@ -331,7 +335,8 @@ public class PlayerMovement : MonoBehaviour
             anim.SetBool("isJumping", false);
             anim.SetBool("isDoubleJumping", false);
             anim.SetBool("isGrounded", !isFalling);
-            anim.ResetTrigger("Crouch");
+            
+            anim.SetBool("Crouch", false);
             if (!PlayerAttack.attackInstance.SideBS)
                 rb.gravityScale = scaledGravity;
         }
@@ -403,14 +408,14 @@ public class PlayerMovement : MonoBehaviour
         {
             anim.ResetTrigger("Walking");
             anim.ResetTrigger("Running");
-            anim.ResetTrigger("Crouch");
+            
+            anim.SetBool("Crouch", false);
             if (rb.velocity.y < 0.0f)
             {
                 isFalling = true;
                 anim.SetBool("isJumping", false);
                 anim.SetBool("isDoubleJumping", false);
                 anim.SetBool("isGrounded", !isInAir);
-                anim.ResetTrigger("Crouch");
                 rb.gravityScale = scaledGravity;
             }
             else isFalling = false;
@@ -504,7 +509,8 @@ public class PlayerMovement : MonoBehaviour
 
                 if (Input.GetButton("Jump"))
                 {
-                    anim.ResetTrigger("Crouch");
+                    
+                    anim.SetBool("Crouch", false);
                     anim.ResetTrigger("Idle");
                     isInAir = true;
                     anim.SetBool("isGrounded", !isInAir);
