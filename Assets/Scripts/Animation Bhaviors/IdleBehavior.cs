@@ -32,7 +32,7 @@ public class IdleBehavior : StateMachineBehaviour
             PlayerAttack.attackInstance.stickyHand.SetActive(true);
         }
 
-        else if (PlayerAttack.attackInstance.isAttacking && PlayerAttack.attackInstance.anim.GetBool("Idle") == true && !PlayerAttack.attackInstance.playerMovement.isInAir && Input.GetAxisRaw("Vertical") == 0 && PlayerAttack.attackInstance.isBladeBound)
+        else if (PlayerAttack.attackInstance.isAttacking && PlayerAttack.attackInstance.anim.GetBool("Idle") == true && !PlayerAttack.attackInstance.playerMovement.isInAir && Input.GetAxisRaw("Vertical") == 0 && PlayerAttack.attackInstance.isBladeBound && PlayerAttack.attackInstance.isSpecial)
         {
             PlayerAttack.attackInstance.anim.Play("BladeBoundActivation");
         }
@@ -47,7 +47,7 @@ public class IdleBehavior : StateMachineBehaviour
             PlayerAttack.attackInstance.anim.Play("Up Tilt");
         }
 
-        else if(PlayerAttack.attackInstance.isAttacking && Input.GetAxisRaw("Horizontal") == 0f && Input.GetAxisRaw("Vertical") == 0 && PlayerAttack.attackInstance.isGrab)
+        else if(PlayerAttack.attackInstance.isAttacking && Input.GetAxisRaw("Horizontal") == 0f && Input.GetAxisRaw("Vertical") == 0 && PlayerAttack.attackInstance.isGrab && !PlayerAttack.attackInstance.isSpecial)
         {
             PlayerAttack.attackInstance.anim.Play("Grabbing");
         }

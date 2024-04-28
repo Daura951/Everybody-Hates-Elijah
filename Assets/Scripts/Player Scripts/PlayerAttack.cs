@@ -187,198 +187,68 @@ public class PlayerAttack : MonoBehaviour
     void Attack()
     {
 
-        if(Input.GetButtonDown("Fire1"))
-        {
-            rb.gravityScale = 1;
-        }
-
 
         //Control Detection
-        if (Input.GetButtonDown("Fire1") && Input.GetAxisRaw("Vertical") == 0 && !isAttacking && anim.GetBool("Idle") == true && !playerMovement.isInAir && !stunned && !isGrab && !anim.GetBool("isLaying"))
+
+        if (!stunned && !isAttacking && Input.GetButtonDown("Fire1") || Input.GetButtonDown("Grab"))
         {
-            isSpecial = false;
+            rb.gravityScale = 1;
             isAttacking = true;
-        }
 
-        else if (Input.GetButtonDown("Fire1") && !isAttacking && Input.GetAxisRaw("Vertical") > 0 && anim.GetBool("Idle") && !playerMovement.isInAir && !stunned && !isGrab)
-        {
-            //UTilt
-            isAttacking = true;
-        }
-
-        else if (Input.GetButtonDown("Fire1") && !isAttacking && Input.GetAxisRaw("Vertical") < 0 && anim.GetBool("Crouch") && !playerMovement.isInAir && !stunned && !isGrab)
-        {
-            //DTilt
-            isAttacking = true;
-        }
-
-        else if (Input.GetButtonDown("Fire1") && !isAttacking && Input.GetAxisRaw("Horizontal") != 0 && !playerMovement.isInAir && !stunned && !anim.GetBool("Running") && !isGrab)
-        {
-            //FTilt
-            isAttacking = true;
-        }
-
-        else if ((Input.GetButtonDown("Fire1") || Input.GetButton("Fire3")) && !Input.GetButtonDown("Grab") && !isAttacking && Input.GetAxisRaw("Vertical") == 0 && Input.GetAxisRaw("Horizontal") == 0 && playerMovement.isInAir && !stunned && !isExecutedOnce && !isGrab)
-        {
-            //NAir
-            isAttacking = true;
-        }
-
-        else if ((Input.GetButtonDown("Fire1") || Input.GetButton("Fire3")) && !isAttacking && Input.GetAxisRaw("Vertical") > 0 && playerMovement.isInAir && !stunned && !isExecutedOnce && !isGrab)
-        {
-            //UAir
-            isAttacking = true;
-        }
-
-        else if ((Input.GetButtonDown("Fire1") || Input.GetButton("Fire3")) && !isAttacking && Input.GetAxisRaw("Vertical") < 0 && playerMovement.isInAir && !stunned && !isExecutedOnce && !isGrab)
-        {
-            //DAir
-            isAttacking = true;
-        }
-
-        else if ((Input.GetButtonDown("Fire1") || Input.GetButton("Fire3")) && !isAttacking && ((playerMovement.transform.rotation.y == 0 && Input.GetAxisRaw("Horizontal") > 0) || (playerMovement.transform.rotation.y < 0 && Input.GetAxisRaw("Horizontal") < 0)) && playerMovement.isInAir && !stunned && !isExecutedOnce && !isGrab)
-        {
-            //FAir
-            isAttacking = true;
-        }
-
-        else if ((Input.GetButtonDown("Fire1") || Input.GetButton("Fire3")) && !isAttacking && playerMovement.isInAir && !stunned && ((playerMovement.transform.rotation.y == 0 && Input.GetAxisRaw("Horizontal") < 0) || (playerMovement.transform.rotation.y < 0 && Input.GetAxisRaw("Horizontal") > 0)) && !isGrab)
-        {
-            //FAir
-            isAttacking = true;
-        }
-
-        else if (Input.GetButtonDown("Fire1") && !isAttacking && Input.GetAxisRaw("Horizontal") != 0 && anim.GetBool("Running") && !isSpecial && !isGrab)
-        {
-            //Dash
-            isAttacking = true;
-        }
-
-
-        else if (Input.GetButtonDown("Fire2") && !isAttacking && anim.GetBool("Idle") == true && !playerMovement.isInAir && Input.GetAxisRaw("Vertical") == 0f && Input.GetAxisRaw("Horizontal") == 0f && !stunned && !anim.GetBool("isLaying") && !isBladeBound)
-        {
-            //NSpecial
-            isSpecial = true;
-            isAttacking = true;
-        }
-
-        else if (Input.GetButtonDown("Fire2") && !isAttacking && anim.GetBool("Idle") == true && !playerMovement.isInAir && Input.GetAxisRaw("Vertical") == 0f && Input.GetAxisRaw("Horizontal") == 0f && !stunned && !anim.GetBool("isLaying") && isBladeBound)
-        {
-            print("Blade Bound!!!");
-            isAttacking = true;
-            //isDoingBB = true;
-            isSpecial = true;
-        }
-
-
-        else if (Input.GetButtonDown("Fire2") && !isAttacking && Input.GetAxisRaw("Vertical") < 0f && !stunned && !isExecutedOnce)
-        {
-            //DSpecial
-            isAttacking = true;
-            isSpecial = true;
-            bypassMoveBlock = true;
-        }
-
-        else if (Input.GetButtonDown("Fire2") && !isAttacking && Input.GetAxisRaw("Vertical") > 0f && !stunned && !isExecutedOnce)
-        {
-            //USpecial
-            isAttacking = true;
-            bypassMoveBlock = true;
-            isSpecial = true;
-            isInHelpless = true;
-        }
-
-        else if (Input.GetButtonDown("Fire2") && !isAttacking && Input.GetAxisRaw("Horizontal") != 0f && Input.GetAxisRaw("Vertical") == 0 && !stunned && !isExecutedOnce)
-        {
-            //FSpecial
-            isAttacking = true;
-            isSpecial = true;
-            SideBS = true;
-            rb.gravityScale = 0;
-            playerMovement.rb.velocity = new Vector2(playerMovement.rb.velocity.x, 0);
-        }
-
-        else if (Input.GetButtonDown("Grab") && !isAttacking && Input.GetAxisRaw("Horizontal") == 0f && Input.GetAxisRaw("Vertical") == 0 && !stunned && !isExecutedOnce && !playerMovement.isInAir && !stunned)
-        {
-            //Grab
-            isAttacking = true;
-            isSpecial = false;
-            isGrab = true;
-
-        }
-
-        else if (Input.GetButtonDown("Fire1") && Input.GetAxisRaw("Vertical") == 0 && Input.GetAxisRaw("Horizontal") == 0 && !isAttacking && anim.GetBool("hasGrabbedEnemy") == true && !playerMovement.isInAir && !stunned && isGrab)
-        {
-            //Pummel
-            isSpecial = false;
-            isAttacking = true;
-        }
-
-
-        else if (Input.GetButtonDown("Fire1") && Input.GetAxisRaw("Vertical") == 0 && !isAttacking && ((playerMovement.transform.rotation.y == 0 && Input.GetAxisRaw("Horizontal") < 0) || (playerMovement.transform.rotation.y < 0 && Input.GetAxisRaw("Horizontal") > 0)) && isGrab)
-        {
-            //BThrow
-            isGrab = true;
-            isAttacking = true;
-        }
-
-        else if (Input.GetButtonDown("Fire1") && Input.GetAxisRaw("Vertical") == 0 && !isAttacking && ((playerMovement.transform.rotation.y == 0 && Input.GetAxisRaw("Horizontal") > 0) || (playerMovement.transform.rotation.y < 0 && Input.GetAxisRaw("Horizontal") < 0)) && isGrab)
-        {
-            //FThrow
-            isGrab = true;
-            isAttacking = true;
-        }
-
-        else if (Input.GetButtonDown("Fire1") && Input.GetAxisRaw("Vertical") < 0 && !isAttacking && Input.GetAxisRaw("Horizontal") == 0 && isGrab)
-        {
-            //DThrow
-            isGrab = true;
-            isAttacking = true;
-        }
-
-        else if (Input.GetButtonDown("Fire1") && Input.GetAxisRaw("Vertical") > 0 && !isAttacking && Input.GetAxisRaw("Horizontal") == 0 && isGrab)
-        {
-            //UThrow
-            isGrab = true;
-            isAttacking = true;
-        }
-
-
-
-        else if (Input.GetButton("Fire3") && !strongDone && !isAttacking && Input.GetAxisRaw("Vertical") == 0 && !playerMovement.isInAir && !stunned && !isSpecial && !isGrab && !anim.GetBool("isLaying"))
-        {
-            //FStrong
-            isAttacking = true;
-            if (!strongStarted)
+            if(Input.GetButtonDown("Grab"))
             {
-                strongStarted = true;
-                anim.SetBool("isStrong", strongStarted);
-                anim.Play("FStrong Startup");
+                isGrab = true;
             }
         }
 
-        else if (Input.GetButton("Fire3") && !strongDone && !isAttacking && Input.GetAxisRaw("Vertical") > 0 && !playerMovement.isInAir && !stunned && !isSpecial && !isGrab)
+        else if (!stunned && !isAttacking && Input.GetButtonDown("Fire2"))
         {
-            //UStrong
+            isSpecial = true;
             isAttacking = true;
-            if (!strongStarted)
+
+            if (Input.GetAxis("Vertical") != 0)
             {
-                strongStarted = true;
-                anim.SetBool("isStrong", strongStarted);
-                anim.Play("UStrong Startup");
+                bypassMoveBlock = true;
+
+                if (Input.GetAxis("Vertical") > 0)
+                {
+                    isInHelpless = true;
+                }
             }
 
+            else if (Input.GetAxis("Horizontal") != 0)
+            {
+                SideBS = true;
+                rb.gravityScale = 0;
+                playerMovement.rb.velocity = new Vector2(playerMovement.rb.velocity.x, 0);
+            }
         }
+        
+    
 
-        else if (Input.GetButton("Fire3") && !strongDone && !isAttacking && Input.GetAxisRaw("Vertical") < 0 && !playerMovement.isInAir && !stunned && !isSpecial && !isGrab)
+
+
+        else if (Input.GetButton("Fire3") && !strongDone && !isAttacking && !playerMovement.isInAir && !stunned && !isSpecial && !isGrab && !anim.GetBool("isLaying"))
         {
-            //DStrong
+            String strongType = "FStrong Startup";
             isAttacking = true;
             if (!strongStarted)
             {
                 strongStarted = true;
                 anim.SetBool("isStrong", strongStarted);
-                anim.Play("DStrong Startup");
+
+                if (Input.GetAxisRaw("Vertical") != 0)
+                {
+                    if (Input.GetAxisRaw("Vertical") > 0)
+                    {
+                        strongType = "UStrong Startup";
+                    }
+
+                    else strongType = "DStrong Startup";
+                }
+
+                anim.Play(strongType);
+
             }
         }
 

@@ -12,7 +12,7 @@ arrayIndex Name Damage Angle Knockback StunTime XDir YDir
 9 DTilt 5 90 100 0
 10 Fair 20 20 100 0
 11 Uair 15 85 200 0
-12 Dair 15 280 200 0
+12 Dair 15 30 200 0
 19 Bair 20 20 100 0
 13 FStrong 40 35 450 0
 14 UStrong 40 89 450 0

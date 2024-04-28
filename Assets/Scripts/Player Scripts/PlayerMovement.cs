@@ -199,10 +199,6 @@ public class PlayerMovement : MonoBehaviour
         if (!attackScript.bypassMoveBlock)
         {
             rb.velocity = new Vector2(isInLandingLag || (attackScript.isAttacking && !isInAir) || isCrouch || attackScript.isSpecial || anim.GetBool("hasGrabbedEnemy") ? 0 : (dirX > 0 ? dirX * smoothVector.x : -dirX * smoothVector.x)+ (xForce), rb.velocity.y);
-
-  
-          
-          
         }
 
         else
