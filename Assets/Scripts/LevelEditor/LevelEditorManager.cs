@@ -27,7 +27,6 @@ public class LevelEditorManager : MonoBehaviour
     private bool itemPositionIn = true;
     private bool optionPositionIn = true;
     private bool saveLoadPositionIn = false;
-    private LevelEditor level;
     public  TileMapLevelFileWriter tileMapLevelFileWriter;
 
     // Start is called before the first frame update
@@ -37,23 +36,11 @@ public class LevelEditorManager : MonoBehaviour
         rotSlider.onValueChanged.AddListener(delegate {
             RotationValueChange();
         });
-        CreateEditor();
-        
-    }
-
-    LevelEditor CreateEditor()
-    {
-        level = new LevelEditor();
-        level.editorObjects = new List<EditorObject.Data>();
-        return level;
     }
 
     void RotationValueChange()
     {
-        user.rotObject.transform.localEulerAngles =
-                new Vector3(0, rotSlider.value, 0);
-        user.rotObject.GetComponent<EditorObject>().data.rot =
-                user.rotObject.transform.rotation;
+        //TODO: Remove Rotating
     }
 
     public void SlideOptionMenu()
@@ -185,15 +172,7 @@ public class LevelEditorManager : MonoBehaviour
 
         if (File.Exists(path))
         {
-            EditorObject[] foundObjects =
-                     FindObjectsOfType<EditorObject>();
-            foreach (EditorObject obj in foundObjects)
-                Destroy(obj.gameObject);
-            playerPlaced = false;
-
-            string json = File.ReadAllText(path);
-            level = JsonUtility.FromJson<LevelEditor>(json);
-            CreateFromFile();
+            // TODO: Write Loader and load in level from here
         }
         else
         {
@@ -208,19 +187,8 @@ public class LevelEditorManager : MonoBehaviour
 
     void CreateFromFile()
     {
-        // fix this stupid shit
-        GameObject newObj;
-        for (int i = 0; i < level.editorObjects.Count; i++)
-        {
-            string objectName = level.editorObjects[i].objectType;
-            newObj = user.tileGameObjects.getGameObject(objectName);
-            newObj.transform.position = level.editorObjects[i].pos;
-            newObj.transform.rotation = level.editorObjects[i].rot;
-            EditorObject eo = newObj.AddComponent<EditorObject>();
-            eo.data.pos = newObj.transform.position;
-            eo.data.rot = newObj.transform.rotation;
-            eo.data.objectType = objectName;
-        }
+        // TODO: Fix this here
+
 
         levelNameLoad.text = "";
         levelNameLoad.DeactivateInputField();
