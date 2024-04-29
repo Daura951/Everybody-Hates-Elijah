@@ -10,7 +10,6 @@ public class TileMapLevelFileWriter : MonoBehaviour
     private void Awake()
     {
         fullPath = Application.dataPath + "/LevelData/";
-        Debug.Log("SAVE PATH --> " + fullPath);
     }
     
     public void save_file(string filename, Dictionary<string, List<GameObject>> gameObjectLayers, List<string> layerNames)
@@ -80,8 +79,6 @@ public class TileMapLevelFileWriter : MonoBehaviour
         var stream = new StreamWriter(fs);
         foreach (var line in lines)
         {
-            // write each line to the stream
-            Debug.Log("line --> " + line);
             stream.WriteLine(line);
         }
         stream.Close();
