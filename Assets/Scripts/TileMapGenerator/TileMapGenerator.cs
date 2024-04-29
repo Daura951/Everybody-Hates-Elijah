@@ -19,6 +19,8 @@ public class TileMapGenerator : MonoBehaviour
         string mapFileJson = mapFile?.text.ToString();
         LevelMap levelMap = JsonConvert.DeserializeObject<LevelMap>(mapFileJson);
 
+        Debug.Log(levelMap);
+
         int tileSize = levelMap.tileSize;
         int mapWidth = levelMap.mapWidth;
         int mapHeight = levelMap.mapHeight;

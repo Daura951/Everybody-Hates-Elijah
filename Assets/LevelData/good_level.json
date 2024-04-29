@@ -1,0 +1,62 @@
+{
+  "tileSize": 32,
+  "mapWidth": 4,
+  "mapHeight": 4,
+  "layers": [
+    {
+      "name": "Platform",
+      "gameObjectPositions": [
+        {
+          "gameObjectName": "Platform",
+          "x": -4.040771,
+          "y": -1.92865
+        },
+        {
+          "gameObjectName": "Platform",
+          "x": -2.154053,
+          "y": -1.960083
+        },
+        {
+          "gameObjectName": "Platform",
+          "x": 0.03149414,
+          "y": -2.038696
+        },
+        {
+          "gameObjectName": "Platform",
+          "x": 1.745239,
+          "y": -2.007263
+        },
+        {
+          "gameObjectName": "Platform",
+          "x": 3.223145,
+          "y": -1.73999
+        }
+      ]
+    },
+    {
+      "name": "Enemy",
+      "gameObjectPositions": [
+        {
+          "gameObjectName": "Enemy",
+          "x": 3.097412,
+          "y": -0.6664429
+        },
+        {
+          "gameObjectName": "Enemy",
+          "x": 1.697998,
+          "y": -0.9337158
+        }
+      ]
+    },
+    {
+      "name": "Player",
+      "gameObjectPositions": [
+        {
+          "gameObjectName": "Player",
+          "x": -3.873413,
+          "y": -1.108887
+        }
+      ]
+    }
+  ]
+}

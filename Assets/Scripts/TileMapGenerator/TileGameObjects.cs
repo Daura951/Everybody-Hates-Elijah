@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -26,6 +27,66 @@ public class TileGameObjects : MonoBehaviour
             Debug.LogError("Missing '" + key + "' tile in the tileGameObjects dictionary.");
         }
         return tileGameObjectDictionary[key];
+    }
+
+    public GameObject getNextGameObject(string key)
+    {
+        string firstKey = "";
+        string getKey = "";
+        bool returnNext = false;
+        foreach (KeyValuePair<string, GameObject> entry in tileGameObjectDictionary)
+        {
+            if (firstKey == "")
+            {
+                firstKey = entry.Key;
+                getKey = entry.Key;
+            }
+            // do something with entry.Value or entry.Key
+            if (returnNext == true)
+            {
+                getKey = entry.Key;
+                break;
+            }
+            if (entry.Key == key)
+            {
+                returnNext = true;
+            }
+        }
+        return getGameObject(getKey);
+    }
+    public GameObject getPreviousGameObject(string key)
+    {
+        bool getLast = false;
+        string firstKey = "";
+        string getKey = "";
+        bool returnNext = false;
+        foreach (KeyValuePair<string, GameObject> entry in tileGameObjectDictionary)
+        {
+            if (firstKey == "")
+            {
+                firstKey = entry.Key;
+            }
+            if (firstKey == key)
+            {
+                getLast = true;
+            }
+            // do something with entry.Value or entry.Key
+            if (getLast == false)
+            {
+                if (entry.Key == key)
+                {
+                    returnNext = true;
+                }
+                if (returnNext == true)
+                {
+                    break;
+                }
+            }
+            getKey = entry.Key;
+
+        }
+
+        return getGameObject(getKey);
     }
 }
 
@@ -56,4 +117,5 @@ public class TileGameObjectDictionaryItem
     [SerializeField]
     public GameObject obj;
 }
+
 
