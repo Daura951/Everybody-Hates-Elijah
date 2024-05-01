@@ -98,6 +98,14 @@ public class LevelEditorMouse : MonoBehaviour
         Debug.Log("Creating object : " + selectedGameObject.name);
     }
 
+    public void clearStagingArea()
+    {
+        foreach (Transform child in stagingArea.transform)
+        {
+            Destroy(child.gameObject);
+        }
+    }
+
     void SetRotateObject()
     {
         rotObject = hit.collider.gameObject;
