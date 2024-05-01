@@ -14,7 +14,11 @@ public class TileMapLevelFileWriter : MonoBehaviour
     
     public void save_file(string filename, Dictionary<string, List<GameObject>> gameObjectLayers, List<string> layerNames)
     {
-        List<string> lines =  processGameObjects(gameObjectLayers, layerNames );
+        List<string> lines = new List<string>();
+        if (gameObjectLayers.Count > 0 && layerNames.Count > 0)
+        {
+            lines = processGameObjects(gameObjectLayers, layerNames);
+        }
         writeFile(lines, filename);
     }
     private List<string> processGameObjects(

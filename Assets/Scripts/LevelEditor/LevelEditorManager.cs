@@ -20,14 +20,22 @@ public class LevelEditorManager : MonoBehaviour
     public Slider rotSlider;
     public GameObject rotUI;
     public TMP_InputField levelNameSave;
-    public TMP_InputField levelNameLoad;
     public TMP_Text levelMessage;
     public TMP_Text GameObjectNameDisplay;
     public Animator messageAnim;
     private bool itemPositionIn = true;
     private bool optionPositionIn = true;
     private bool saveLoadPositionIn = false;
-    public  TileMapLevelFileWriter tileMapLevelFileWriter;
+    public TileMapLevelFileWriter tileMapLevelFileWriter;
+
+    public delegate void OnLevelSaved();
+    public static OnLevelSaved onLevelSaved;
+
+    private void OnEnable()
+    {
+        LoadPanelController.onLevelLoad += BeforeLevelLoad;
+        LoadPanelController.onLevelLoaded += AfterLevelLoaded;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -150,56 +158,34 @@ public class LevelEditorManager : MonoBehaviour
 
         tileMapLevelFileWriter.save_file(levelNameSave.text, gameObjectLayers, layerNames);
 
-        saveUIAnimation.SetTrigger("SaveLoadOut");
+        saveUIAnimation.SetTrigger("SaveLoadIn");
         saveLoadPositionIn = false;
         saveLoadMenuOpen = false;
         levelNameSave.text = "";
         levelNameSave.DeactivateInputField();
         levelMessage.text = levelNameSave.text + " saved to LevelData folder.";
-        messageAnim.Play("MessageFade", 0, 0);
-    }
+        messageAnim.SetTrigger("SaveLoadOut");
+        onLevelSaved.Invoke();
+    } 
 
-    public void LoadLevel()
+    public void AfterLevelLoaded()
     {
-        string folder = Application.dataPath + "/LevelData/";
-        string levelFile = "";
-        if (levelNameLoad.text == "")
-            levelFile = "new_level.json";
-        else
-            levelFile = levelNameLoad.text + ".json";
-
-        string path = Path.Combine(folder, levelFile);
-
-        if (File.Exists(path))
-        {
-            // TODO: Write Loader and load in level from here
-        }
-        else
-        {
-            loadUIAnimation.SetTrigger("SaveLoadOut");
-            saveLoadPositionIn = false;
-            saveLoadMenuOpen = false;
-            levelMessage.text = levelFile + " could not be found!";
-            messageAnim.Play("MessageFade", 0, 0);
-            levelNameLoad.DeactivateInputField();
-        }
-    }
-
-    void CreateFromFile()
-    {
-        // TODO: Fix this here
-
-
-        levelNameLoad.text = "";
-        levelNameLoad.DeactivateInputField();
-
-        loadUIAnimation.SetTrigger("SaveLoadOut");
+        loadUIAnimation.SetTrigger("SaveLoadIn");
         saveLoadPositionIn = false;
         saveLoadMenuOpen = false;
-
         levelMessage.text = "Level loading...done.";
-        messageAnim.Play("MessageFade", 0, 0);
+        messageAnim.SetTrigger("SaveLoadOut");
     }
 
+    public void BeforeLevelLoad()
+    {
+        user.clearStagingArea();
+    }
+
+    private void OnDisable()
+    {
+        LoadPanelController.onLevelLoaded -= AfterLevelLoaded;
+        LoadPanelController.onLevelLoad -= BeforeLevelLoad;
+    }
 
 }

@@ -1,5 +1,7 @@
 using UnityEngine;
 using Newtonsoft.Json;
+using System.IO;
+using System;
 public class TileMapGenerator : MonoBehaviour
 {
     public UnityEngine.TextAsset mapFile;
@@ -8,15 +10,24 @@ public class TileMapGenerator : MonoBehaviour
     [SerializeField]
     private TileGameObjects tileGameObjectDict;
 
+    [SerializeField]
+    private GameObject stagingArea;
+
     void Start()
     {
-        
-        generate();
+        if(mapFile != null)
+        {
+            string mapFileJson = mapFile.text.ToString();
+            generate(mapFileJson);
+        }
     }
 
-    private void generate()
+    private void generate(string mapFileJson)
     {
-        string mapFileJson = mapFile?.text.ToString();
+        if (mapFileJson == null || mapFileJson == "")
+        {
+            return;
+        }
         LevelMap levelMap = JsonConvert.DeserializeObject<LevelMap>(mapFileJson);
 
         int tileSize = levelMap.tileSize;
@@ -29,9 +40,32 @@ public class TileMapGenerator : MonoBehaviour
             foreach (GameObjectPosition gameObjectPosition in layer.gameObjectPositions)
             {
                 GameObject obj = tileGameObjectDict.getGameObject(gameObjectPosition.gameObjectName); 
-                Instantiate(obj, new Vector3(gameObjectPosition.x, gameObjectPosition.y, 0f), Quaternion.identity);
+                Instantiate(obj, new Vector3(gameObjectPosition.x, gameObjectPosition.y, 0f), Quaternion.identity, stagingArea.transform);
             }
         }
+
+    }
+
+    public void setAndGenerate(string level_name)
+    {
+        string full_level_name = level_name + ".json";
+        string mapFileJson = "";
+        string loadPath = Application.dataPath + "/LevelData/";
+        try
+        {
+            // Open the text file using a stream reader.
+            using (var sr = new StreamReader(loadPath + full_level_name))
+            {
+                // Read the stream as a string into the mapFileJson variable.
+                mapFileJson = sr.ReadToEnd();
+            }
+        }
+        catch (IOException e)
+        {
+            Debug.LogError("The file could not be read: " + e.Message);
+        }
+
+        generate(mapFileJson);
 
     }
 
