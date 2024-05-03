@@ -62,9 +62,6 @@ public class LevelEditorMouse : MonoBehaviour
                                 LevelManipulation.Create)
                     CreateObject();
                 else if (colliding == true && manipulateOption ==
-                                LevelManipulation.Rotate)
-                    SetRotateObject();
-                else if (colliding == true && manipulateOption ==
                                 LevelManipulation.Destroy)
                 {
                     if (hit.collider.gameObject.name.Contains(
@@ -104,11 +101,5 @@ public class LevelEditorMouse : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-    }
-
-    void SetRotateObject()
-    {
-        rotObject = hit.collider.gameObject;
-        levelEditorManager.rotSlider.value = rotObject.transform.rotation.y;
     }
 }

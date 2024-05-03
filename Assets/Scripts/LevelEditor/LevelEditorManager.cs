@@ -17,7 +17,6 @@ public class LevelEditorManager : MonoBehaviour
     public GameObject mouseObject;
     public LevelEditorMouse user;
     public Sprite playerMarker;
-    public Slider rotSlider;
     public GameObject rotUI;
     public TMP_InputField levelNameSave;
     public TMP_Text levelMessage;
@@ -34,21 +33,13 @@ public class LevelEditorManager : MonoBehaviour
     private void OnEnable()
     {
         LoadPanelController.onLevelLoad += BeforeLevelLoad;
-        LoadPanelController.onLevelLoaded += AfterLevelLoaded;
+        LoadPanelController.onLevelLoaded += (string loaded_level_name) => AfterLevelLoaded(loaded_level_name);
     }
 
     // Start is called before the first frame update
     void Start()
     {
         GameObjectNameDisplay.text = user.selectedGameObject.name;
-        rotSlider.onValueChanged.AddListener(delegate {
-            RotationValueChange();
-        });
-    }
-
-    void RotationValueChange()
-    {
-        //TODO: Remove Rotating
     }
 
     public void SlideOptionMenu()
@@ -168,12 +159,12 @@ public class LevelEditorManager : MonoBehaviour
         onLevelSaved.Invoke();
     } 
 
-    public void AfterLevelLoaded()
+    public void AfterLevelLoaded(string loaded_level_name)
     {
         loadUIAnimation.SetTrigger("SaveLoadIn");
         saveLoadPositionIn = false;
         saveLoadMenuOpen = false;
-        levelMessage.text = "Level loading...done.";
+        levelMessage.text = "Level Loaded: " + loaded_level_name;
         messageAnim.SetTrigger("SaveLoadOut");
     }
 

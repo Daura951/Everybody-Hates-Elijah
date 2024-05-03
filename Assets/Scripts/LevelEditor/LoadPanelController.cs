@@ -15,7 +15,7 @@ public class LoadPanelController : MonoBehaviour
 
     public delegate void OnLevelLoad();
     public static OnLevelLoad onLevelLoad;
-    public delegate void OnLevelLoaded();
+    public delegate void OnLevelLoaded(string loaded_level_name);
     public static OnLevelLoaded onLevelLoaded;
 
     public TileMapGenerator tileMapGenerator;
@@ -63,7 +63,7 @@ public class LoadPanelController : MonoBehaviour
         Debug.Log("loading --> " + levelName);
         onLevelLoad?.Invoke();
         tileMapGenerator.setAndGenerate(levelName);
-        onLevelLoaded?.Invoke();
+        onLevelLoaded?.Invoke(levelName);
     }
 
     private void OnDisable()
