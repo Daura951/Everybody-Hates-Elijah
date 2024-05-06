@@ -29,6 +29,7 @@ public class LevelEditorManager : MonoBehaviour
 
     public delegate void OnLevelSaved();
     public static OnLevelSaved onLevelSaved;
+    private string loaded_level;
 
     private void OnEnable()
     {
@@ -130,8 +131,23 @@ public class LevelEditorManager : MonoBehaviour
         rotUI.SetActive(false);
     }
 
-    public void SaveLevel()
+    public void SaveLevelAs()
     {
+        SaveLevel(levelNameSave.text);
+    }
+
+    public void SaveLevel(string level_name_text)
+    {
+        if (level_name_text == null || level_name_text == "")
+        {
+            if (loaded_level == null || loaded_level == "")
+            {
+                ChooseSave();
+                return;
+            }
+            level_name_text = loaded_level;
+        }
+
         Dictionary<string, List<GameObject>> gameObjectLayers = new Dictionary<string, List<GameObject>>();
         List<string> layerNames = new List<string>();
 
@@ -147,7 +163,7 @@ public class LevelEditorManager : MonoBehaviour
             gameObjectLayers[child_layer].Add(child.gameObject);
         }
 
-        tileMapLevelFileWriter.save_file(levelNameSave.text, gameObjectLayers, layerNames);
+        tileMapLevelFileWriter.save_file(level_name_text, gameObjectLayers, layerNames);
 
         saveUIAnimation.SetTrigger("SaveLoadIn");
         saveLoadPositionIn = false;
@@ -161,6 +177,7 @@ public class LevelEditorManager : MonoBehaviour
 
     public void AfterLevelLoaded(string loaded_level_name)
     {
+        loaded_level = loaded_level_name;
         loadUIAnimation.SetTrigger("SaveLoadIn");
         saveLoadPositionIn = false;
         saveLoadMenuOpen = false;
