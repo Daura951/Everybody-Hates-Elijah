@@ -26,6 +26,7 @@ public class LevelEditorManager : MonoBehaviour
     private bool optionPositionIn = true;
     private bool saveLoadPositionIn = false;
     public TileMapLevelFileWriter tileMapLevelFileWriter;
+    public TileMapGenerator tileMapGenerator;
 
     public delegate void OnLevelSaved();
     public static OnLevelSaved onLevelSaved;
@@ -187,6 +188,19 @@ public class LevelEditorManager : MonoBehaviour
     {
         user.clearStagingArea();
     }
+
+    public void PlayLevel()
+    {
+        user.clearStagingArea();
+        tileMapGenerator.setAndGenerate(loaded_level, TileMapGenerator.generateType.gameObject);
+    }
+
+    public void StopPlayLevel()
+    {
+        user.clearStagingArea();
+        tileMapGenerator.setAndGenerate(loaded_level, TileMapGenerator.generateType.sprite);
+    }
+
 
     private void OnDisable()
     {
