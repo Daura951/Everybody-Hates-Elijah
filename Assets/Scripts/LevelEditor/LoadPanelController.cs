@@ -15,7 +15,7 @@ public class LoadPanelController : MonoBehaviour
 
     public delegate void OnLevelLoad();
     public static OnLevelLoad onLevelLoad;
-    public delegate void OnLevelLoaded();
+    public delegate void OnLevelLoaded(string loaded_level_name);
     public static OnLevelLoaded onLevelLoaded;
 
     public TileMapGenerator tileMapGenerator;
@@ -53,8 +53,6 @@ public class LoadPanelController : MonoBehaviour
             string file_name = file.Name.Replace(".json", "");
             inst_button.GetComponentInChildren<TextMeshProUGUI>().SetText(file_name);
             inst_button.GetComponent<Button>().onClick.AddListener(() => onLevelButtonClick(file_name));
-
-
         }
     }
 
@@ -63,7 +61,7 @@ public class LoadPanelController : MonoBehaviour
         Debug.Log("loading --> " + levelName);
         onLevelLoad?.Invoke();
         tileMapGenerator.setAndGenerate(levelName);
-        onLevelLoaded?.Invoke();
+        onLevelLoaded?.Invoke(levelName);
     }
 
     private void OnDisable()

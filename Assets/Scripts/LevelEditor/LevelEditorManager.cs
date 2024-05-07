@@ -14,10 +14,9 @@ public class LevelEditorManager : MonoBehaviour
     public Animator optionUIAnimation;
     public Animator saveUIAnimation;
     public Animator loadUIAnimation;
-    public GameObject mouseObject;
+    public SpriteAndGameObject mouseObject;
     public LevelEditorMouse user;
     public Sprite playerMarker;
-    public Slider rotSlider;
     public GameObject rotUI;
     public TMP_InputField levelNameSave;
     public TMP_Text levelMessage;
@@ -30,25 +29,18 @@ public class LevelEditorManager : MonoBehaviour
 
     public delegate void OnLevelSaved();
     public static OnLevelSaved onLevelSaved;
+    private string loaded_level;
 
     private void OnEnable()
     {
         LoadPanelController.onLevelLoad += BeforeLevelLoad;
-        LoadPanelController.onLevelLoaded += AfterLevelLoaded;
+        LoadPanelController.onLevelLoaded += (string loaded_level_name) => AfterLevelLoaded(loaded_level_name);
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        GameObjectNameDisplay.text = user.selectedGameObject.name;
-        rotSlider.onValueChanged.AddListener(delegate {
-            RotationValueChange();
-        });
-    }
-
-    void RotationValueChange()
-    {
-        //TODO: Remove Rotating
+        GameObjectNameDisplay.text = user.selectedGameObject.obj.name;
     }
 
     public void SlideOptionMenu()
@@ -98,25 +90,23 @@ public class LevelEditorManager : MonoBehaviour
 
     public void SelectNextGameObject()
     {
-        // controls for selecting game object
-        user.selectedGameObject = user.tileGameObjects. getNextGameObject(user.selectedGameObjectName);
-        user.selectedGameObjectName = user.selectedGameObject.name;
+        user.selectedGameObject = user.tileGameObjects. getNext(user.selectedGameObjectName);
+        user.selectedGameObjectName = user.selectedGameObject.obj.name;
         mouseObject = user.selectedGameObject;
-        GameObjectNameDisplay.text = user.selectedGameObject.name;
+        GameObjectNameDisplay.text = user.selectedGameObject.obj.name;
     }
     public void SelectPreviousGameObject()
     {
-        // controls for selecting game object
-        user.selectedGameObject = user.tileGameObjects.getPreviousGameObject(user.selectedGameObjectName);
-        user.selectedGameObjectName = user.selectedGameObject.name;
+        user.selectedGameObject = user.tileGameObjects.getPrevious(user.selectedGameObjectName);
+        user.selectedGameObjectName = user.selectedGameObject.obj.name;
         mouseObject = user.selectedGameObject;
-        GameObjectNameDisplay.text = user.selectedGameObject.name;
+        GameObjectNameDisplay.text = user.selectedGameObject.obj.name;
     }
     public void ChoosePlayerStart()
     {
-        GameObject playerMarker = user.selectedGameObject = user.tileGameObjects.getGameObject("Player");
+        SpriteAndGameObject playerMarker = user.selectedGameObject = user.tileGameObjects.get("Player");
         user.selectedGameObject = playerMarker;
-        user.selectedGameObjectName = playerMarker.name;
+        user.selectedGameObjectName = playerMarker.obj.name;
         mouseObject = playerMarker;
     }
 
@@ -139,8 +129,23 @@ public class LevelEditorManager : MonoBehaviour
         rotUI.SetActive(false);
     }
 
-    public void SaveLevel()
+    public void SaveLevelAs()
     {
+        SaveLevel(levelNameSave.text);
+    }
+
+    public void SaveLevel(string level_name_text)
+    {
+        if (level_name_text == null || level_name_text == "")
+        {
+            if (loaded_level == null || loaded_level == "")
+            {
+                ChooseSave();
+                return;
+            }
+            level_name_text = loaded_level;
+        }
+
         Dictionary<string, List<GameObject>> gameObjectLayers = new Dictionary<string, List<GameObject>>();
         List<string> layerNames = new List<string>();
 
@@ -156,7 +161,7 @@ public class LevelEditorManager : MonoBehaviour
             gameObjectLayers[child_layer].Add(child.gameObject);
         }
 
-        tileMapLevelFileWriter.save_file(levelNameSave.text, gameObjectLayers, layerNames);
+        tileMapLevelFileWriter.save_file(level_name_text, gameObjectLayers, layerNames);
 
         saveUIAnimation.SetTrigger("SaveLoadIn");
         saveLoadPositionIn = false;
@@ -168,12 +173,13 @@ public class LevelEditorManager : MonoBehaviour
         onLevelSaved.Invoke();
     } 
 
-    public void AfterLevelLoaded()
+    public void AfterLevelLoaded(string loaded_level_name)
     {
+        loaded_level = loaded_level_name;
         loadUIAnimation.SetTrigger("SaveLoadIn");
         saveLoadPositionIn = false;
         saveLoadMenuOpen = false;
-        levelMessage.text = "Level loading...done.";
+        levelMessage.text = "Level Loaded: " + loaded_level_name;
         messageAnim.SetTrigger("SaveLoadOut");
     }
 
