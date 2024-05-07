@@ -7,7 +7,7 @@ public class LevelEditorMouse : MonoBehaviour
     public TileGameObjects tileGameObjects;
 
     [HideInInspector]
-    public GameObject selectedGameObject;
+    public SpriteAndGameObject selectedGameObject;
     public string selectedGameObjectName;
     public GameObject stagingArea;
 
@@ -16,7 +16,6 @@ public class LevelEditorMouse : MonoBehaviour
     [HideInInspector]
     public SpriteRenderer spriteRenderer;
     [HideInInspector]
-    public GameObject rotObject;
     public Material goodPlace;
     public Material badPlace;
     public GameObject Player;
@@ -34,8 +33,8 @@ public class LevelEditorMouse : MonoBehaviour
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        selectedGameObject = tileGameObjects.getGameObject("Player");
-        selectedGameObjectName = "player";
+        selectedGameObject = tileGameObjects.get("Player");
+        selectedGameObjectName = "Player";
     }
 
     // Update is called once per frame
@@ -58,15 +57,16 @@ public class LevelEditorMouse : MonoBehaviour
 
             if (!EventSystem.current.IsPointerOverGameObject() && !targetObject)
             {
-                if (colliding == false && manipulateOption ==
-                                LevelManipulation.Create)
-                    CreateObject();
-                else if (colliding == true && manipulateOption ==
-                                LevelManipulation.Destroy)
+                if (colliding == false && manipulateOption == LevelManipulation.Create)
                 {
-                    if (hit.collider.gameObject.name.Contains(
-                                         "Player"))
+                    CreateObject();
+                }
+                else if (colliding == true && manipulateOption == LevelManipulation.Destroy)
+                {
+                    if (hit.collider.gameObject.name.Contains("Player"))
+                    {
                         levelEditorManager.playerPlaced = false;
+                    }
                     Destroy(hit.collider.gameObject);
                 }
             }
@@ -84,15 +84,12 @@ public class LevelEditorMouse : MonoBehaviour
 
     void CreateObject()
     {
-        GameObject newObj;
-        newObj = selectedGameObject;
-        newObj.transform.position = transform.position;
-        //EditorObject eo = newObj.AddComponent<EditorObject>();
-        //eo.data.pos = newObj.transform.position;
-        //eo.data.rot = newObj.transform.rotation;
-        //eo.data.objectType = selectedGameObjectName;
-        Instantiate(newObj, new Vector3(mousePos.x, mousePos.y, 0f), Quaternion.identity, stagingArea.transform);
-        Debug.Log("Creating object : " + selectedGameObject.name);
+        GameObject newObj = new GameObject(selectedGameObject.obj.name);
+        SpriteRenderer sr = newObj.AddComponent<SpriteRenderer>();
+        sr.sprite = selectedGameObject.sprite;
+        newObj.transform.position = new Vector3(mousePos.x, mousePos.y, 0f);
+        newObj.transform.parent = stagingArea.transform;
+        Debug.Log("Creating object : " + selectedGameObject.obj.name);
     }
 
     public void clearStagingArea()

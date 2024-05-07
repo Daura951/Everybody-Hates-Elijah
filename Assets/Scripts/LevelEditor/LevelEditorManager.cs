@@ -14,7 +14,7 @@ public class LevelEditorManager : MonoBehaviour
     public Animator optionUIAnimation;
     public Animator saveUIAnimation;
     public Animator loadUIAnimation;
-    public GameObject mouseObject;
+    public SpriteAndGameObject mouseObject;
     public LevelEditorMouse user;
     public Sprite playerMarker;
     public GameObject rotUI;
@@ -40,7 +40,7 @@ public class LevelEditorManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameObjectNameDisplay.text = user.selectedGameObject.name;
+        GameObjectNameDisplay.text = user.selectedGameObject.obj.name;
     }
 
     public void SlideOptionMenu()
@@ -90,25 +90,23 @@ public class LevelEditorManager : MonoBehaviour
 
     public void SelectNextGameObject()
     {
-        // controls for selecting game object
-        user.selectedGameObject = user.tileGameObjects. getNextGameObject(user.selectedGameObjectName);
-        user.selectedGameObjectName = user.selectedGameObject.name;
+        user.selectedGameObject = user.tileGameObjects. getNext(user.selectedGameObjectName);
+        user.selectedGameObjectName = user.selectedGameObject.obj.name;
         mouseObject = user.selectedGameObject;
-        GameObjectNameDisplay.text = user.selectedGameObject.name;
+        GameObjectNameDisplay.text = user.selectedGameObject.obj.name;
     }
     public void SelectPreviousGameObject()
     {
-        // controls for selecting game object
-        user.selectedGameObject = user.tileGameObjects.getPreviousGameObject(user.selectedGameObjectName);
-        user.selectedGameObjectName = user.selectedGameObject.name;
+        user.selectedGameObject = user.tileGameObjects.getPrevious(user.selectedGameObjectName);
+        user.selectedGameObjectName = user.selectedGameObject.obj.name;
         mouseObject = user.selectedGameObject;
-        GameObjectNameDisplay.text = user.selectedGameObject.name;
+        GameObjectNameDisplay.text = user.selectedGameObject.obj.name;
     }
     public void ChoosePlayerStart()
     {
-        GameObject playerMarker = user.selectedGameObject = user.tileGameObjects.getGameObject("Player");
+        SpriteAndGameObject playerMarker = user.selectedGameObject = user.tileGameObjects.get("Player");
         user.selectedGameObject = playerMarker;
-        user.selectedGameObjectName = playerMarker.name;
+        user.selectedGameObjectName = playerMarker.obj.name;
         mouseObject = playerMarker;
     }
 

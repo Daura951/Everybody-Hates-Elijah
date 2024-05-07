@@ -10,7 +10,7 @@ public class TileGameObjects : MonoBehaviour
     [SerializeField]
     public TileGameObjectDictionary newDict;
 
-    private Dictionary<string, GameObject> tileGameObjectDictionary;
+    private Dictionary<string, SpriteAndGameObject> tileGameObjectDictionary;
 
     private void Awake()
     {
@@ -18,6 +18,16 @@ public class TileGameObjects : MonoBehaviour
     }
 
     public GameObject getGameObject(string key)
+    {
+        return get(key).obj;
+    }
+
+    public Sprite getSprite(string key)
+    {
+        return get(key).sprite;
+    }
+
+    public SpriteAndGameObject get(string key)
     {
         if (!tileGameObjectDictionary.ContainsKey(key))
         {
@@ -28,10 +38,30 @@ public class TileGameObjects : MonoBehaviour
 
     public GameObject getNextGameObject(string key)
     {
+        return getNext(key)?.obj;
+    }
+
+    public GameObject getPreviousGameObject(string key)
+    {
+        return getPrevious(key)?.obj;
+    }
+    public Sprite getNextSprite(string key)
+    {
+        return getNext(key)?.sprite;
+    }
+
+    public Sprite getPreviousSprite(string key)
+    {
+        return getPrevious(key)?.sprite;
+    }
+
+
+    public SpriteAndGameObject getNext(string key)
+    {
         string firstKey = "";
         string getKey = "";
         bool returnNext = false;
-        foreach (KeyValuePair<string, GameObject> entry in tileGameObjectDictionary)
+        foreach (KeyValuePair<string, SpriteAndGameObject> entry in tileGameObjectDictionary)
         {
             if (firstKey == "")
             {
@@ -49,15 +79,15 @@ public class TileGameObjects : MonoBehaviour
                 returnNext = true;
             }
         }
-        return getGameObject(getKey);
+        return get(getKey);
     }
-    public GameObject getPreviousGameObject(string key)
+    public SpriteAndGameObject getPrevious(string key)
     {
         bool getLast = false;
         string firstKey = "";
         string getKey = "";
         bool returnNext = false;
-        foreach (KeyValuePair<string, GameObject> entry in tileGameObjectDictionary)
+        foreach (KeyValuePair<string, SpriteAndGameObject> entry in tileGameObjectDictionary)
         {
             if (firstKey == "")
             {
@@ -83,7 +113,7 @@ public class TileGameObjects : MonoBehaviour
 
         }
 
-        return getGameObject(getKey);
+        return get(getKey);
     }
 }
 
@@ -93,9 +123,9 @@ public class TileGameObjectDictionary
     [SerializeField]
     public TileGameObjectDictionaryItem[] tileGameObjectDictionaryItems;
 
-    public Dictionary<string, GameObject> ToDictionary()
+    public Dictionary<string, SpriteAndGameObject> ToDictionary()
     {
-        Dictionary<string, GameObject> newDict = new Dictionary<string, GameObject>();
+        Dictionary<string, SpriteAndGameObject> newDict = new Dictionary<string, SpriteAndGameObject>();
 
         foreach (var item in tileGameObjectDictionaryItems)
         {
@@ -112,7 +142,17 @@ public class TileGameObjectDictionaryItem
     [SerializeField]
     public string name;
     [SerializeField]
+    public SpriteAndGameObject obj;
+}
+
+[Serializable]
+public class SpriteAndGameObject
+{
+    [SerializeField]
+    public Sprite sprite;
+    [SerializeField]
     public GameObject obj;
+
 }
 
 
