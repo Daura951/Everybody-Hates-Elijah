@@ -49,10 +49,10 @@ public class LoadPanelController : MonoBehaviour
         {
             TMP_DefaultControls.Resources resources = new TMP_DefaultControls.Resources();
             GameObject button = TMP_DefaultControls.CreateButton(resources);
-            GameObject inst_button = Instantiate(button, ContentObject.transform);
+            button.transform.parent = ContentObject.transform;
             string file_name = file.Name.Replace(".json", "");
-            inst_button.GetComponentInChildren<TextMeshProUGUI>().SetText(file_name);
-            inst_button.GetComponent<Button>().onClick.AddListener(() => onLevelButtonClick(file_name));
+            button.GetComponentInChildren<TextMeshProUGUI>().SetText(file_name);
+            button.GetComponent<Button>().onClick.AddListener(() => onLevelButtonClick(file_name));
         }
     }
 
@@ -60,7 +60,7 @@ public class LoadPanelController : MonoBehaviour
     {
         Debug.Log("loading --> " + levelName);
         onLevelLoad?.Invoke();
-        tileMapGenerator.setAndGenerate(levelName);
+        tileMapGenerator.setAndGenerate(levelName, TileMapGenerator.generateType.sprite);
         onLevelLoaded?.Invoke(levelName);
     }
 

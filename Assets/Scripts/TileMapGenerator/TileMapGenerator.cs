@@ -4,6 +4,8 @@ using System.IO;
 using System;
 public class TileMapGenerator : MonoBehaviour
 {
+    public enum generateType { sprite, gameObject }
+
     public UnityEngine.TextAsset mapFile;
     // Start is called before the first frame update
 
@@ -18,11 +20,11 @@ public class TileMapGenerator : MonoBehaviour
         if(mapFile != null)
         {
             string mapFileJson = mapFile.text.ToString();
-            generate(mapFileJson);
+            generate(mapFileJson, generateType.sprite);
         }
     }
 
-    private void generate(string mapFileJson)
+    private void generate(string mapFileJson, generateType generateType )
     {
         if (mapFileJson == null || mapFileJson == "")
         {
@@ -39,14 +41,30 @@ public class TileMapGenerator : MonoBehaviour
             UnityEngine.Debug.Log("Layer Name: " + layer.name);
             foreach (GameObjectPosition gameObjectPosition in layer.gameObjectPositions)
             {
-                GameObject obj = tileGameObjectDict.getGameObject(gameObjectPosition.gameObjectName); 
-                Instantiate(obj, new Vector3(gameObjectPosition.x, gameObjectPosition.y, 0f), Quaternion.identity, stagingArea.transform);
+                Vector3 pos = new Vector3(
+                            gameObjectPosition.x,
+                            gameObjectPosition.y,
+                            0f
+                        );
+                if (generateType == generateType.gameObject)
+                {
+                    GameObject obj = tileGameObjectDict.getGameObject(gameObjectPosition.gameObjectName); 
+                    Instantiate(obj, pos, Quaternion.identity, stagingArea.transform);
+                }
+                else if (generateType == generateType.sprite)
+                {
+                    GameObject newObj = new GameObject(gameObjectPosition.gameObjectName);
+                    SpriteRenderer sr = newObj.AddComponent<SpriteRenderer>();
+                    sr.sprite = tileGameObjectDict.getSprite(gameObjectPosition.gameObjectName);
+                    newObj.transform.position = pos;
+                    newObj.transform.parent = stagingArea.transform;
+                }
             }
         }
 
     }
 
-    public void setAndGenerate(string level_name)
+    public void setAndGenerate(string level_name, generateType generateType)
     {
         string full_level_name = level_name + ".json";
         string mapFileJson = "";
@@ -65,7 +83,7 @@ public class TileMapGenerator : MonoBehaviour
             Debug.LogError("The file could not be read: " + e.Message);
         }
 
-        generate(mapFileJson);
+        generate(mapFileJson, generateType);
 
     }
 
