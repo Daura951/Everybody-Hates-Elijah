@@ -97,6 +97,18 @@ public class LevelEditorMouse : MonoBehaviour
         foreach (Transform child in stagingArea.transform)
         {
             Destroy(child.gameObject);
+            foreach (Camera cam in Camera.allCameras)
+            {
+                if (cam.gameObject.name != "Main Camera")
+                {
+                    Destroy(cam.gameObject);
+                }
+                else
+                {
+                    cam.transform.position = new Vector3(0f, 0f, -20f);
+                }
+            }
         }
+
     }
 }
