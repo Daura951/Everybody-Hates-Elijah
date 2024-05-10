@@ -191,12 +191,22 @@ public class LevelEditorManager : MonoBehaviour
 
     public void PlayLevel()
     {
+        if (loaded_level == null || loaded_level == "")
+        {
+            ChooseSave();
+            return;
+        }
+        SaveLevel(loaded_level);
         user.clearStagingArea();
         tileMapGenerator.setAndGenerate(loaded_level, TileMapGenerator.generateType.gameObject);
     }
 
     public void StopPlayLevel()
     {
+        if (loaded_level == null || loaded_level == "")
+        {
+            return;
+        }
         user.clearStagingArea();
         tileMapGenerator.setAndGenerate(loaded_level, TileMapGenerator.generateType.sprite);
     }
