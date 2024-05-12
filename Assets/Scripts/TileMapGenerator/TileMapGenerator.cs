@@ -56,6 +56,9 @@ public class TileMapGenerator : MonoBehaviour
                     GameObject newObj = new GameObject(gameObjectPosition.gameObjectName);
                     SpriteRenderer sr = newObj.AddComponent<SpriteRenderer>();
                     sr.sprite = tileGameObjectDict.getSprite(gameObjectPosition.gameObjectName);
+                    LevelEditorMoveableObject moveable = newObj.AddComponent<LevelEditorMoveableObject>();
+                    moveable.myRenderer = sr;
+
                     newObj.transform.position = pos;
                     newObj.transform.parent = stagingArea.transform;
                 }
