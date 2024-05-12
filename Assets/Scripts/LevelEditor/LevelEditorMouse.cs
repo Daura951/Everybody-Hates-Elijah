@@ -20,6 +20,7 @@ public class LevelEditorMouse : MonoBehaviour
     public Material badPlace;
     public GameObject Player;
     public LevelEditorManager levelEditorManager;
+    public float grid_length = 256f;
     private RaycastHit hit;
 
     public delegate void MouseClick();
@@ -27,6 +28,8 @@ public class LevelEditorMouse : MonoBehaviour
 
     public static Vector3 mousePosition;
     public static GameObject selectedObject;
+
+    private SnapToGrid snapToGrid;
 
     Vector3 offset;
 
@@ -36,13 +39,18 @@ public class LevelEditorMouse : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         selectedGameObject = tileGameObjects.get("Player");
         selectedGameObjectName = "Player";
+        snapToGrid = new SnapToGrid();
     }
 
     // Update is called once per frame
      void Update()
     {
-        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        
+        Vector2 mousePositionReal = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        float snapped_mouse_x = snapToGrid.snap(mousePositionReal.x, grid_length);
+        float snapped_mouse_y = snapToGrid.snap(mousePositionReal.y, grid_length);
+
+        mousePosition = new Vector2(snapped_mouse_x, snapped_mouse_y);
+
         if (Input.GetMouseButtonDown(0))
         { 
             if (OnMouseClick != null)
@@ -77,7 +85,6 @@ public class LevelEditorMouse : MonoBehaviour
 
         if (selectedObject) // subscriber tells if it is selected or not
         {
-            Debug.Log("setting position");
             selectedObject.transform.position = mousePosition + offset;
         }
 
@@ -98,7 +105,6 @@ public class LevelEditorMouse : MonoBehaviour
         sr.sprite = selectedGameObject.sprite;
         newObj.transform.position = new Vector3(mousePosition.x, mousePosition.y, 0f);
         newObj.transform.parent = stagingArea.transform;
-        Debug.Log("Creating object : " + selectedGameObject.obj.name);
     }
 
     public void clearStagingArea()
