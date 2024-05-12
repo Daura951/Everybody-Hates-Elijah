@@ -15,6 +15,7 @@ TagManager:
   - Grab
   - Border
   - TempCamera
+  - PassThroughPlatform
   layers:
   - Default
   - TransparentFX

@@ -131,4 +131,9 @@ public class Hit : MonoBehaviour
             BB.AddFreezeHit();
         }
     }
+
+    public float[] getStats()
+    {
+        return stats;
+    }
 }

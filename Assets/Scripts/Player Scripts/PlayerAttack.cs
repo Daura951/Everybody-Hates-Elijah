@@ -608,7 +608,7 @@ public class PlayerAttack : MonoBehaviour
             Grunts[i].Stop();
             strongGrunt = true;
             Grunts[i].PlayOneShot(LargeGrunts[k * 2], 1f);
-            print("Large Start");
+            //print("Large Start");
         }
         if (strongGrunt && i == 3 && j==0)
         {
@@ -616,7 +616,7 @@ public class PlayerAttack : MonoBehaviour
             Grunts[i - 1].Stop();
             strongGrunt = false;
             Grunts[i-1].PlayOneShot(LargeGrunts[(k * 2) + 1], 1f);
-            print("Large End");
+            //print("Large End");
         }
 
         if (strongGrunt && i == 3 && j == 1)
@@ -626,7 +626,7 @@ public class PlayerAttack : MonoBehaviour
             strongGrunt = false;
             int l = UnityEngine.Random.Range(0, StrongGrunts.Length - 1);;
             Grunts[i-1].PlayOneShot(StrongGrunts[l], 1f);
-            print("Large  VA End");
+            //print("Large  VA End");
         }
 
     }
