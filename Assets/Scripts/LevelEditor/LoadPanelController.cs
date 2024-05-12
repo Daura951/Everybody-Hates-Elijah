@@ -23,7 +23,7 @@ public class LoadPanelController : MonoBehaviour
 
     private void OnEnable()
     {
-        LevelEditorManager.onLevelSaved += refreshButtons;
+        LevelEditorManager.onLevelSaved += (string l) => refreshButtons();
     }
     
     void Start()
@@ -66,6 +66,6 @@ public class LoadPanelController : MonoBehaviour
 
     private void OnDisable()
     {
-        LevelEditorManager.onLevelSaved -= refreshButtons;
+        LevelEditorManager.onLevelSaved -= (string l) => refreshButtons();
     }
 }

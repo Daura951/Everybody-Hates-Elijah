@@ -8,6 +8,8 @@ public class LoadedLevelNameController : MonoBehaviour
     private void OnEnable()
     {
         LoadPanelController.onLevelLoaded += (string loaded_level_name) => updateName(loaded_level_name);
+        LevelEditorManager.onLevelNew += () => updateName("");
+        LevelEditorManager.onLevelSaved += (string level_name) => updateName(level_name);
     }
     private void updateName(string loaded_level_name)
     {
@@ -17,5 +19,7 @@ public class LoadedLevelNameController : MonoBehaviour
     private void OnDisable()
     {
         LoadPanelController.onLevelLoaded -= (string loaded_level_name) => updateName(loaded_level_name);
+        LevelEditorManager.onLevelNew -= () => updateName("");
+        LevelEditorManager.onLevelSaved -= (string level_name) => updateName(level_name);
     }
 }

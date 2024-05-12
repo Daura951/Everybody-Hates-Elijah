@@ -28,9 +28,12 @@ public class LevelEditorManager : MonoBehaviour
     public TileMapLevelFileWriter tileMapLevelFileWriter;
     public TileMapGenerator tileMapGenerator;
 
-    public delegate void OnLevelSaved();
+    public delegate void OnLevelSaved(string level_name);
     public static OnLevelSaved onLevelSaved;
     private string loaded_level;
+
+    public delegate void OnLevelNew();
+    public static OnLevelNew onLevelNew;
 
     private void OnEnable()
     {
@@ -132,10 +135,15 @@ public class LevelEditorManager : MonoBehaviour
 
     public void SaveLevelAs()
     {
-        SaveLevel(levelNameSave.text);
+        SaveLevel(levelNameSave.text, true);
     }
 
-    public void SaveLevel(string level_name_text)
+    public void onSaveButtonClicked()
+    {
+        SaveLevel(loaded_level);
+    }
+
+    public void SaveLevel(string level_name_text, bool is_save_as = false)
     {
         if (level_name_text == null || level_name_text == "")
         {
@@ -164,14 +172,18 @@ public class LevelEditorManager : MonoBehaviour
 
         tileMapLevelFileWriter.save_file(level_name_text, gameObjectLayers, layerNames);
 
-        saveUIAnimation.SetTrigger("SaveLoadIn");
-        saveLoadPositionIn = false;
-        saveLoadMenuOpen = false;
-        levelNameSave.text = "";
-        levelNameSave.DeactivateInputField();
+        if (is_save_as)
+        {
+            saveUIAnimation.SetTrigger("SaveLoadIn");
+            saveLoadPositionIn = false;
+            saveLoadMenuOpen = false;
+            levelNameSave.text = "";
+            levelNameSave.DeactivateInputField();
+        }
+        loaded_level = level_name_text;
         levelMessage.text = levelNameSave.text + " saved to LevelData folder.";
         messageAnim.SetTrigger("SaveLoadOut");
-        onLevelSaved.Invoke();
+        onLevelSaved.Invoke(level_name_text);
     } 
 
     public void AfterLevelLoaded(string loaded_level_name)
@@ -209,6 +221,13 @@ public class LevelEditorManager : MonoBehaviour
         }
         user.clearStagingArea();
         tileMapGenerator.setAndGenerate(loaded_level, TileMapGenerator.generateType.sprite);
+    }
+
+    public void newLevel()
+    {
+        user.clearStagingArea();
+        loaded_level = "";
+        onLevelNew?.Invoke();
     }
 
 
