@@ -54,7 +54,6 @@ public class LedgeGrab : MonoBehaviour
         // timers for falling and inputs to leave
         if (pm.grabbing && !action)
         {
-
             Offset();
             transform.position = offset;
 
@@ -212,34 +211,33 @@ public class LedgeGrab : MonoBehaviour
         if (transform.position.x < g.transform.position.x)
         {
             offset = new Vector2((g.transform.position.x - (g.transform.localScale.x * 0.5f) - XoffSet), (g.transform.position.y - (((1f - g.transform.localScale.y) / .25f) * .125f)));
-            if (transform.localEulerAngles.y != 0) 
+            if (transform.localEulerAngles.y == 0)
             {
-                redXOff = -redX;
-                transform.eulerAngles = new Vector2(0, !pm.GetIsLeft() ? 180 : 0);
+                gameObject.transform.eulerAngles = new Vector3(0, -180, 0);
             }
         }
         else
         {
             offset = new Vector2((g.transform.position.x + (g.transform.localScale.x * 0.5f) + XoffSet), (g.transform.position.y - (((1f - g.transform.localScale.y) / .25f) * .125f)));
-            if (transform.localEulerAngles.y == 0)
+            if (transform.localEulerAngles.y != 0)
             {
-                redXOff = redX;
-                transform.eulerAngles = new Vector2(0, !pm.GetIsLeft() ? 180 : 0);
+                gameObject.transform.eulerAngles = new Vector3(0,0,0);
             }
         }
     }
 
 
     public void PullUp()
-    {
+    {   
         if (transform.position.x < g.transform.position.x)
         {
-            transform.position = new Vector2(transform.position.x +1.85f, (0.43f * g.transform.localScale.y + g.transform.position.y + 0.55f));
+            transform.position = new Vector2(transform.position.x +1.575f, (0.43f * g.transform.localScale.y + g.transform.position.y + 0.55f));
+            gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
         }
         else
         {
-            transform.position = new Vector2(transform.position.x - 1.85f, (0.43f * g.transform.localScale.y + g.transform.position.y + 0.55f));
-
+            transform.position = new Vector2(transform.position.x - 1.575f, (0.43f * g.transform.localScale.y + g.transform.position.y + 0.55f));
+            gameObject.transform.eulerAngles = new Vector3(0, -180, 0);
         }
         pm.grabbing = false;
         rb.gravityScale = 1f;

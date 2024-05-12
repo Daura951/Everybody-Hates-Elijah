@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 01bcb27925064af43be9b2d0d06e47ff
+guid: 99f7159d728f3624fb409b40e5c082c8
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -105,7 +105,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Ledge idle_0
+      name: Ledge attack_0
       rect:
         serializedVersion: 2
         x: 0
@@ -119,14 +119,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cb230a14676548c469af38d494b89286
-      internalID: 1089438877
+      spriteID: 82c6992401e6b784b830fbb5f68d289e
+      internalID: 1195716600
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ledge idle_1
+      name: Ledge attack_1
       rect:
         serializedVersion: 2
         x: 2400
@@ -140,14 +140,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6140e278aa8bf304d92e38d3ce7290fb
-      internalID: -327350775
+      spriteID: c2ae951441bb5d746bc1814165056aa5
+      internalID: 1119880688
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ledge idle_2
+      name: Ledge attack_2
       rect:
         serializedVersion: 2
         x: 4800
@@ -161,14 +161,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 85d68d78b03dcb241b3e64eca1a3399b
-      internalID: 49364404
+      spriteID: 85887c485d8ee04449066607e65eed1e
+      internalID: 1065308119
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ledge idle_3
+      name: Ledge attack_3
       rect:
         serializedVersion: 2
         x: 7200
@@ -182,14 +182,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f270eb6191499d74fbba4b96be6bcfee
-      internalID: 192709570
+      spriteID: f25d8e0bb9c14c94ab8371f1d9f443c2
+      internalID: -434491993
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ledge idle_4
+      name: Ledge attack_4
       rect:
         serializedVersion: 2
         x: 0
@@ -203,14 +203,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c4fbaafea4caae94298a74802fd9b927
-      internalID: 1374464878
+      spriteID: d4d2be78046876f468964ee32bea3c4e
+      internalID: -866164795
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ledge idle_5
+      name: Ledge attack_5
       rect:
         serializedVersion: 2
         x: 2400
@@ -224,14 +224,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 35a7062b502bf03489470a10e51df586
-      internalID: 372970292
+      spriteID: eef5f9d505262444f89b42c54e2e63c4
+      internalID: -984520087
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ledge idle_6
+      name: Ledge attack_6
       rect:
         serializedVersion: 2
         x: 4800
@@ -245,50 +245,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 27ec11433f71b18499f1899767e241ae
-      internalID: -300259654
+      spriteID: fff09799f9285ae4b8c04ba40e3173c6
+      internalID: -1417827733
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ledge idle_7
+      name: Ledge attack_7
       rect:
         serializedVersion: 2
         x: 7200
         y: 1600
         width: 2400
         height: 1600
-      alignment: 9
-      pivot: {x: 0.525, y: 0.3}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 19551b94c8182f440b2447ff0c0d2330
-      internalID: 1708292105
+      spriteID: d9bc5e47b4469eb42b33203dbf9c5179
+      internalID: 534181667
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ledge idle_8
+      name: Ledge attack_8
       rect:
         serializedVersion: 2
         x: 0
-        y: 12
+        y: 0
         width: 2400
         height: 1600
-      alignment: 9
-      pivot: {x: 0.525, y: 0.3}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 99523cadf6e12744c9aba42a48f145fb
-      internalID: -1211725278
+      spriteID: c93db4048b2c4a347a65e19cf9253fe1
+      internalID: -741754728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ledge attack_9
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 0
+        width: 2400
+        height: 1600
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 245c9b676a2d76642825a06e9377a50e
+      internalID: -579866929
       vertices: []
       indices: 
       edges: []
@@ -304,15 +325,16 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Ledge idle_8: -1211725278
-      Ledge idle_5: 372970292
-      Ledge idle_1: -327350775
-      Ledge idle_6: -300259654
-      Ledge idle_7: 1708292105
-      Ledge idle_2: 49364404
-      Ledge idle_4: 1374464878
-      Ledge idle_3: 192709570
-      Ledge idle_0: 1089438877
+      Ledge attack_4: -866164795
+      Ledge attack_9: -579866929
+      Ledge attack_6: -1417827733
+      Ledge attack_1: 1119880688
+      Ledge attack_7: 534181667
+      Ledge attack_8: -741754728
+      Ledge attack_3: -434491993
+      Ledge attack_5: -984520087
+      Ledge attack_2: 1065308119
+      Ledge attack_0: 1195716600
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

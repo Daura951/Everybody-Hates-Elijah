@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 01bcb27925064af43be9b2d0d06e47ff
+guid: b50e451060f584d4cb03e0069d3f63b2
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -105,190 +105,232 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Ledge idle_0
+      name: D tilt 2_0
       rect:
         serializedVersion: 2
         x: 0
         y: 3200
         width: 2400
         height: 1600
-      alignment: 9
-      pivot: {x: 0.525, y: 0.3}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cb230a14676548c469af38d494b89286
-      internalID: 1089438877
+      spriteID: a235db8f8f16d5944b3d39033269a111
+      internalID: 314434381
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ledge idle_1
+      name: D tilt 2_1
       rect:
         serializedVersion: 2
         x: 2400
         y: 3200
         width: 2400
         height: 1600
-      alignment: 9
-      pivot: {x: 0.525, y: 0.3}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6140e278aa8bf304d92e38d3ce7290fb
-      internalID: -327350775
+      spriteID: f8cd6de0ab833c14f8959860a9adfa22
+      internalID: 235730104
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ledge idle_2
+      name: D tilt 2_2
       rect:
         serializedVersion: 2
         x: 4800
         y: 3200
         width: 2400
         height: 1600
-      alignment: 9
-      pivot: {x: 0.525, y: 0.3}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 85d68d78b03dcb241b3e64eca1a3399b
-      internalID: 49364404
+      spriteID: 5c79763d3bb711e40a8d44fc1f670894
+      internalID: 2004903891
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ledge idle_3
+      name: D tilt 2_3
       rect:
         serializedVersion: 2
         x: 7200
         y: 3200
         width: 2400
         height: 1600
-      alignment: 9
-      pivot: {x: 0.525, y: 0.3}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f270eb6191499d74fbba4b96be6bcfee
-      internalID: 192709570
+      spriteID: 8781c8f688041f64a88c89b35300a571
+      internalID: 846888743
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ledge idle_4
+      name: D tilt 2_4
       rect:
         serializedVersion: 2
         x: 0
         y: 1600
         width: 2400
         height: 1600
-      alignment: 9
-      pivot: {x: 0.525, y: 0.3}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c4fbaafea4caae94298a74802fd9b927
-      internalID: 1374464878
+      spriteID: af94baedfbb00d145961eb7d7afef8ab
+      internalID: 1454232363
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ledge idle_5
+      name: D tilt 2_5
       rect:
         serializedVersion: 2
         x: 2400
         y: 1600
         width: 2400
         height: 1600
-      alignment: 9
-      pivot: {x: 0.525, y: 0.3}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 35a7062b502bf03489470a10e51df586
-      internalID: 372970292
+      spriteID: fb0fd9029adea4141a8dbdd7edb0f7f3
+      internalID: -590100855
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ledge idle_6
+      name: D tilt 2_6
       rect:
         serializedVersion: 2
         x: 4800
         y: 1600
         width: 2400
         height: 1600
-      alignment: 9
-      pivot: {x: 0.525, y: 0.3}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 27ec11433f71b18499f1899767e241ae
-      internalID: -300259654
+      spriteID: 1a1ac3691cb9dd54c940f1fb37bab4d3
+      internalID: -2061736941
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ledge idle_7
+      name: D tilt 2_7
       rect:
         serializedVersion: 2
         x: 7200
         y: 1600
         width: 2400
         height: 1600
-      alignment: 9
-      pivot: {x: 0.525, y: 0.3}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 19551b94c8182f440b2447ff0c0d2330
-      internalID: 1708292105
+      spriteID: 97ec3e3631bc3df48b918a40e512116b
+      internalID: 293208464
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ledge idle_8
+      name: D tilt 2_8
       rect:
         serializedVersion: 2
         x: 0
-        y: 12
+        y: 0
         width: 2400
         height: 1600
-      alignment: 9
-      pivot: {x: 0.525, y: 0.3}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 99523cadf6e12744c9aba42a48f145fb
-      internalID: -1211725278
+      spriteID: 1ec71c65e35de034dbd85bf89a91bcac
+      internalID: 1623197355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: D tilt 2_9
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 0
+        width: 2400
+        height: 1600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5df059c3fc7d1540b9bb4816606a7d1
+      internalID: 182308705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: D tilt 2_10
+      rect:
+        serializedVersion: 2
+        x: 4800
+        y: 0
+        width: 2400
+        height: 1600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be41e2bdc8669a14ab69d154ca7b1934
+      internalID: -1991877963
       vertices: []
       indices: 
       edges: []
@@ -304,15 +346,17 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Ledge idle_8: -1211725278
-      Ledge idle_5: 372970292
-      Ledge idle_1: -327350775
-      Ledge idle_6: -300259654
-      Ledge idle_7: 1708292105
-      Ledge idle_2: 49364404
-      Ledge idle_4: 1374464878
-      Ledge idle_3: 192709570
-      Ledge idle_0: 1089438877
+      D tilt 2_2: 2004903891
+      D tilt 2_3: 846888743
+      D tilt 2_4: 1454232363
+      D tilt 2_9: 182308705
+      D tilt 2_10: -1991877963
+      D tilt 2_8: 1623197355
+      D tilt 2_5: -590100855
+      D tilt 2_6: -2061736941
+      D tilt 2_7: 293208464
+      D tilt 2_1: 235730104
+      D tilt 2_0: 314434381
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

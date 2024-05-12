@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 01bcb27925064af43be9b2d0d06e47ff
+guid: 566c4edd69748f64d8ba3d90b60d2ae3
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -105,7 +105,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Ledge idle_0
+      name: Ledge up smol_0
       rect:
         serializedVersion: 2
         x: 0
@@ -119,14 +119,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cb230a14676548c469af38d494b89286
-      internalID: 1089438877
+      spriteID: 27b14187bc3375541a81d751514e8379
+      internalID: -2019512023
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ledge idle_1
+      name: Ledge up smol_1
       rect:
         serializedVersion: 2
         x: 2400
@@ -140,14 +140,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6140e278aa8bf304d92e38d3ce7290fb
-      internalID: -327350775
+      spriteID: 28ed375f2fa9bbe4a8de2fb464beadd3
+      internalID: 1662162076
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ledge idle_2
+      name: Ledge up smol_2
       rect:
         serializedVersion: 2
         x: 4800
@@ -161,14 +161,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 85d68d78b03dcb241b3e64eca1a3399b
-      internalID: 49364404
+      spriteID: 7f5593b6c5b352c4c954ec2ae6616a54
+      internalID: -1348452635
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ledge idle_3
+      name: Ledge up smol_3
       rect:
         serializedVersion: 2
         x: 7200
@@ -182,14 +182,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f270eb6191499d74fbba4b96be6bcfee
-      internalID: 192709570
+      spriteID: 29307032c967fdd4d9eda53cbdb99f7e
+      internalID: -552587812
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ledge idle_4
+      name: Ledge up smol_4
       rect:
         serializedVersion: 2
         x: 0
@@ -203,14 +203,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c4fbaafea4caae94298a74802fd9b927
-      internalID: 1374464878
+      spriteID: fb694faef742a884d9fbb90dfc8cc681
+      internalID: -1373979646
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ledge idle_5
+      name: Ledge up smol_5
       rect:
         serializedVersion: 2
         x: 2400
@@ -224,14 +224,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 35a7062b502bf03489470a10e51df586
-      internalID: 372970292
+      spriteID: 875babf824abcb74aaa0dc20f4aac550
+      internalID: 2131311255
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ledge idle_6
+      name: Ledge up smol_6
       rect:
         serializedVersion: 2
         x: 4800
@@ -239,20 +239,20 @@ TextureImporter:
         width: 2400
         height: 1600
       alignment: 9
-      pivot: {x: 0.525, y: 0.3}
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 27ec11433f71b18499f1899767e241ae
-      internalID: -300259654
+      spriteID: 17766d6033aa04044b218db90376ade7
+      internalID: -846857942
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ledge idle_7
+      name: Ledge up smol_7
       rect:
         serializedVersion: 2
         x: 7200
@@ -260,35 +260,35 @@ TextureImporter:
         width: 2400
         height: 1600
       alignment: 9
-      pivot: {x: 0.525, y: 0.3}
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 19551b94c8182f440b2447ff0c0d2330
-      internalID: 1708292105
+      spriteID: 3bdbeec151a22ee4cafafeeacb2127d4
+      internalID: 104099586
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ledge idle_8
+      name: Ledge up smol_8
       rect:
         serializedVersion: 2
         x: 0
-        y: 12
+        y: 0
         width: 2400
         height: 1600
       alignment: 9
-      pivot: {x: 0.525, y: 0.3}
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 99523cadf6e12744c9aba42a48f145fb
-      internalID: -1211725278
+      spriteID: ae77bca60580ae4459d3d102b6f802b6
+      internalID: 1889765880
       vertices: []
       indices: 
       edges: []
@@ -304,15 +304,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Ledge idle_8: -1211725278
-      Ledge idle_5: 372970292
-      Ledge idle_1: -327350775
-      Ledge idle_6: -300259654
-      Ledge idle_7: 1708292105
-      Ledge idle_2: 49364404
-      Ledge idle_4: 1374464878
-      Ledge idle_3: 192709570
-      Ledge idle_0: 1089438877
+      Ledge up smol_4: -1373979646
+      Ledge up smol_5: 2131311255
+      Ledge up smol_2: -1348452635
+      Ledge up smol_8: 1889765880
+      Ledge up smol_3: -552587812
+      Ledge up smol_0: -2019512023
+      Ledge up smol_1: 1662162076
+      Ledge up smol_7: 104099586
+      Ledge up smol_6: -846857942
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

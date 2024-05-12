@@ -230,7 +230,7 @@ public class PlayerAttack : MonoBehaviour
 
         else if (Input.GetButton("Fire3") && !strongDone && !isAttacking && !playerMovement.isInAir && !stunned && !isSpecial && !isGrab && !anim.GetBool("isLaying"))
         {
-            String strongType = "FStrong Startup";
+            String strongType = "Strong F Startup";
             isAttacking = true;
             if (!strongStarted)
             {
@@ -241,10 +241,10 @@ public class PlayerAttack : MonoBehaviour
                 {
                     if (Input.GetAxisRaw("Vertical") > 0)
                     {
-                        strongType = "UStrong Startup";
+                        strongType = "Strong U Startup";
                     }
 
-                    else strongType = "DStrong Startup";
+                    else strongType = "Strong D Startup";
                 }
 
                 anim.Play(strongType);

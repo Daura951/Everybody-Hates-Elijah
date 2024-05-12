@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 01bcb27925064af43be9b2d0d06e47ff
+guid: 08e78c368c9047647b9ab09cdd80dcec
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -105,190 +105,190 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Ledge idle_0
+      name: Smashes d 2_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 3200
+        y: 6400
         width: 2400
         height: 1600
-      alignment: 9
-      pivot: {x: 0.525, y: 0.3}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cb230a14676548c469af38d494b89286
-      internalID: 1089438877
+      spriteID: b33d4e4c02f70724c8fdf0cf8467b149
+      internalID: -1100695909
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ledge idle_1
+      name: Smashes d 2_1
       rect:
         serializedVersion: 2
         x: 2400
-        y: 3200
+        y: 6400
         width: 2400
         height: 1600
-      alignment: 9
-      pivot: {x: 0.525, y: 0.3}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6140e278aa8bf304d92e38d3ce7290fb
-      internalID: -327350775
+      spriteID: 964f3a2119d272445b1981f337c5a823
+      internalID: 1881930814
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ledge idle_2
+      name: Smashes d 2_2
       rect:
         serializedVersion: 2
         x: 4800
-        y: 3200
+        y: 6400
         width: 2400
         height: 1600
-      alignment: 9
-      pivot: {x: 0.525, y: 0.3}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 85d68d78b03dcb241b3e64eca1a3399b
-      internalID: 49364404
+      spriteID: dc799c85b1228724298a8f6f8747bd7b
+      internalID: -1094885504
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ledge idle_3
+      name: Smashes d 2_11
       rect:
         serializedVersion: 2
         x: 7200
         y: 3200
         width: 2400
         height: 1600
-      alignment: 9
-      pivot: {x: 0.525, y: 0.3}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f270eb6191499d74fbba4b96be6bcfee
-      internalID: 192709570
+      spriteID: 3c5c0613c97637e409296b07eefce5be
+      internalID: 1460800909
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ledge idle_4
+      name: Smashes d 2_12
       rect:
         serializedVersion: 2
         x: 0
         y: 1600
         width: 2400
         height: 1600
-      alignment: 9
-      pivot: {x: 0.525, y: 0.3}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c4fbaafea4caae94298a74802fd9b927
-      internalID: 1374464878
+      spriteID: 7b9f865d615384f4595317f4efe19ee7
+      internalID: 987402434
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ledge idle_5
+      name: Smashes d 2_13
       rect:
         serializedVersion: 2
         x: 2400
         y: 1600
         width: 2400
         height: 1600
-      alignment: 9
-      pivot: {x: 0.525, y: 0.3}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 35a7062b502bf03489470a10e51df586
-      internalID: 372970292
+      spriteID: 95d85f110a669084c8cb895d7de1a041
+      internalID: 304823262
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ledge idle_6
+      name: Smashes d 2_14
       rect:
         serializedVersion: 2
         x: 4800
         y: 1600
         width: 2400
         height: 1600
-      alignment: 9
-      pivot: {x: 0.525, y: 0.3}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 27ec11433f71b18499f1899767e241ae
-      internalID: -300259654
+      spriteID: 751384e77b3dc9a4bb891df4c8ed1ed9
+      internalID: 1115402023
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ledge idle_7
+      name: Smashes d 2_15
       rect:
         serializedVersion: 2
         x: 7200
         y: 1600
         width: 2400
         height: 1600
-      alignment: 9
-      pivot: {x: 0.525, y: 0.3}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 19551b94c8182f440b2447ff0c0d2330
-      internalID: 1708292105
+      spriteID: 92dfc3b3a12a5f545b4bc0195640256f
+      internalID: -119770725
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ledge idle_8
+      name: Smashes d 2_16
       rect:
         serializedVersion: 2
         x: 0
-        y: 12
+        y: 0
         width: 2400
         height: 1600
-      alignment: 9
-      pivot: {x: 0.525, y: 0.3}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 99523cadf6e12744c9aba42a48f145fb
-      internalID: -1211725278
+      spriteID: 91f571961dc32d24384468498b0e593d
+      internalID: 1360856547
       vertices: []
       indices: 
       edges: []
@@ -304,15 +304,26 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Ledge idle_8: -1211725278
-      Ledge idle_5: 372970292
-      Ledge idle_1: -327350775
-      Ledge idle_6: -300259654
-      Ledge idle_7: 1708292105
-      Ledge idle_2: 49364404
-      Ledge idle_4: 1374464878
-      Ledge idle_3: 192709570
-      Ledge idle_0: 1089438877
+      Smashes d 2_5: -619515242
+      Smashes d 2_13: 304823262
+      Smashes d 2_17: -794515150
+      Smashes d 2_18: 442433055
+      Smashes d 2_14: 1115402023
+      Smashes d 2_3: 1875111189
+      Smashes d 2_7: -1286716574
+      Smashes d 2_12: 987402434
+      Smashes d 2_19: -479948456
+      Smashes d 2_16: 1360856547
+      Smashes d 2_0: -1100695909
+      Smashes d 2_15: -119770725
+      Smashes d 2_1: 1881930814
+      Smashes d 2_6: 879838597
+      Smashes d 2_2: -1094885504
+      Smashes d 2_8: 587469154
+      Smashes d 2_9: 1873019826
+      Smashes d 2_11: 1460800909
+      Smashes d 2_10: 1763915149
+      Smashes d 2_4: -647132359
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
