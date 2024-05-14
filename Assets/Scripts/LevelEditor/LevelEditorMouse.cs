@@ -30,6 +30,7 @@ public class LevelEditorMouse : MonoBehaviour
     public static GameObject selectedObject;
 
     private SnapToGrid snapToGrid;
+    private bool isSnapToGrid = true;
 
     Vector3 offset;
 
@@ -42,14 +43,22 @@ public class LevelEditorMouse : MonoBehaviour
         snapToGrid = new SnapToGrid();
     }
 
+    public void toggleIsSnapToGrid()
+    {
+        isSnapToGrid = !isSnapToGrid;
+    }
+
     // Update is called once per frame
-     void Update()
+    void Update()
     {
         Vector2 mousePositionReal = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         float snapped_mouse_x = snapToGrid.snap(mousePositionReal.x, grid_length);
         float snapped_mouse_y = snapToGrid.snap(mousePositionReal.y, grid_length);
 
-        mousePosition = new Vector2(snapped_mouse_x, snapped_mouse_y);
+        mousePosition = new Vector2(
+            isSnapToGrid ? snapped_mouse_x : mousePositionReal.x,
+            isSnapToGrid ? snapped_mouse_y : mousePositionReal.y
+            );
 
         if (Input.GetMouseButtonDown(0))
         { 
