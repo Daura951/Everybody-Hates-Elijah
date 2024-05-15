@@ -21,7 +21,6 @@ public class LevelEditorMouse : MonoBehaviour
     public GameObject Player;
     public LevelEditorManager levelEditorManager;
     public float grid_length = 128f;
-    private RaycastHit hit;
 
     public delegate void MouseClick();
     public static event MouseClick OnMouseClick;
@@ -31,6 +30,9 @@ public class LevelEditorMouse : MonoBehaviour
 
     private SnapToGrid snapToGrid;
     private bool isSnapToGrid = true;
+
+    private Vector3 lastSetPosition;
+    private bool mouseIsDown = false;
 
     Vector3 offset;
 
@@ -71,46 +73,46 @@ public class LevelEditorMouse : MonoBehaviour
             );
 
         if (Input.GetMouseButtonDown(0))
-        { 
+        {
+            mouseIsDown = true;
             if (OnMouseClick != null)
             {
                 OnMouseClick();
-
                 if (selectedObject)
                 {
-
-                    if (manipulateOption == LevelManipulation.Destroy)
-                    {
-                        Destroy(selectedObject.gameObject);
-                    } else
-                    {
-                        offset = selectedObject.transform.position - mousePosition;
-                    }
-                    
+                    offset = selectedObject.transform.position - mousePosition;
                 }
-  
             }
-
-           if (
-                manipulateOption == LevelManipulation.Create && 
-                !selectedObject && 
-                !EventSystem.current.IsPointerOverGameObject()
-            )
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            if (selectedObject)
             {
-                CreateObject();
+                selectedObject = null;
             }
-
+            mouseIsDown = false;
         }
 
-        if (selectedObject) // subscriber tells if it is selected or not
+        if (mouseIsDown)
         {
-            selectedObject.transform.position = mousePosition + offset;
-        }
-
-
-        if (Input.GetMouseButtonUp(0) && selectedObject)
-        {
-            selectedObject = null;
+            if (
+                !selectedObject &&
+                lastSetPosition != mousePosition &&
+                manipulateOption == LevelManipulation.Create &&
+                !EventSystem.current.IsPointerOverGameObject())
+            { 
+                CreateObject();
+                lastSetPosition = mousePosition;
+            }
+            if (selectedObject)
+            {
+                if (manipulateOption == LevelManipulation.Destroy)
+                {
+                    Destroy(selectedObject.gameObject);
+                } else {
+                    selectedObject.transform.position = mousePosition + offset;
+                }
+            }
         }
     }
 

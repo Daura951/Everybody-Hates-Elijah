@@ -17,12 +17,10 @@ public class LevelEditorManager : MonoBehaviour
     public SpriteAndGameObject mouseObject;
     public LevelEditorMouse user;
     public Sprite playerMarker;
-    public GameObject rotUI;
     public TMP_InputField levelNameSave;
     public TMP_Text levelMessage;
     public TMP_Text GameObjectNameDisplay;
     public Animator messageAnim;
-    private bool itemPositionIn = true;
     private bool optionPositionIn = true;
     private bool saveLoadPositionIn = false;
     public TileMapLevelFileWriter tileMapLevelFileWriter;
@@ -118,19 +116,16 @@ public class LevelEditorManager : MonoBehaviour
     {
         user.manipulateOption = LevelEditorMouse.LevelManipulation.Create;
         user.spriteRenderer.enabled = true;
-        rotUI.SetActive(false);
     }
     public void ChooseRotate()
     {
         user.manipulateOption = LevelEditorMouse.LevelManipulation.Rotate;
         user.spriteRenderer.enabled = false;
-        rotUI.SetActive(true);
     }
     public void ChooseDestroy()
     {
         user.manipulateOption = LevelEditorMouse.LevelManipulation.Destroy;
         user.spriteRenderer.enabled = false;
-        rotUI.SetActive(false);
     }
 
     public void SaveLevelAs()

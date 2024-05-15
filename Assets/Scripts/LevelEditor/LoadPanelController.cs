@@ -49,7 +49,7 @@ public class LoadPanelController : MonoBehaviour
         {
             TMP_DefaultControls.Resources resources = new TMP_DefaultControls.Resources();
             GameObject button = TMP_DefaultControls.CreateButton(resources);
-            button.transform.parent = ContentObject.transform;
+            button.transform.SetParent(ContentObject.transform, false);
             string file_name = file.Name.Replace(".json", "");
             button.GetComponentInChildren<TextMeshProUGUI>().SetText(file_name);
             button.GetComponent<Button>().onClick.AddListener(() => onLevelButtonClick(file_name));
