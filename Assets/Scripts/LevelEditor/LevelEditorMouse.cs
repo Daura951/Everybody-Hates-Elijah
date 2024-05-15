@@ -20,7 +20,7 @@ public class LevelEditorMouse : MonoBehaviour
     public Material badPlace;
     public GameObject Player;
     public LevelEditorManager levelEditorManager;
-    public float grid_length = 256f;
+    public float grid_length = 128f;
     private RaycastHit hit;
 
     public delegate void MouseClick();
@@ -34,6 +34,11 @@ public class LevelEditorMouse : MonoBehaviour
 
     Vector3 offset;
 
+    private void OnEnable()
+    {
+        GridSizeSliderController.onSliderLoad += (float initial_value) => { grid_length = initial_value; };
+    }
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -46,6 +51,11 @@ public class LevelEditorMouse : MonoBehaviour
     public void toggleIsSnapToGrid()
     {
         isSnapToGrid = !isSnapToGrid;
+    }
+
+    public void onGridSizeSliderChange (float newValue)
+    {
+        grid_length = newValue;
     }
 
     // Update is called once per frame
@@ -134,5 +144,10 @@ public class LevelEditorMouse : MonoBehaviour
             }
         }
 
+    }
+
+    private void OnDisable()
+    {
+        GridSizeSliderController.onSliderLoad -= (float initial_value) => { grid_length = initial_value; };
     }
 }
