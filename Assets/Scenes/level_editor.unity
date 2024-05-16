@@ -528,7 +528,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.00012734083}
+  m_AnchoredPosition: {x: 0, y: 0.00017120395}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &149698822
@@ -1623,7 +1623,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 957438598}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.9999423
+  m_Size: 0.9998934
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3804,7 +3804,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1265675825
 GameObject:
@@ -4773,7 +4773,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1563991899
 GameObject:
@@ -5517,6 +5517,82 @@ MonoBehaviour:
       obj:
         sprite: {fileID: 21300000, guid: d610208c34742164fb714a4d3c41ff06, type: 3}
         obj: {fileID: 7478764645473139900, guid: 15bf22eefa061454b8bfd212306f0542, type: 3}
+    - name: CameraLimit
+      obj:
+        sprite: {fileID: 21300000, guid: a318148119cac9e4ead91206092b878a, type: 3}
+        obj: {fileID: 7267877030357619709, guid: e13a9c99bb4735a4b88c1d8d4ad69abb, type: 3}
+    - name: CheckPoint
+      obj:
+        sprite: {fileID: 21300000, guid: 32b36faa41111e243a0e7703809b1ede, type: 3}
+        obj: {fileID: 3755280887847146642, guid: a86185f9b1a79b94384b394c41b31822, type: 3}
+    - name: ConveyorBelt
+      obj:
+        sprite: {fileID: 21300000, guid: 6771bb7841b19cc48b648a69f7c481d9, type: 3}
+        obj: {fileID: 375220286594020129, guid: e2c6df1f83e35e74b9abcd53a606ca5e, type: 3}
+    - name: Destruction platform 1
+      obj:
+        sprite: {fileID: 21300000, guid: 559e71f2b109d94448a102e96f9f25ec, type: 3}
+        obj: {fileID: 96931407288258536, guid: 2df30f2c9a6463f46a7f19d4814eac61, type: 3}
+    - name: Door Enter
+      obj:
+        sprite: {fileID: 21300000, guid: f14a89f8990ff954a965d0b1181fceb7, type: 3}
+        obj: {fileID: 7314682117972144328, guid: b073e8cc1a8b22948b508e4bf852293e, type: 3}
+    - name: food
+      obj:
+        sprite: {fileID: 21300000, guid: 66aec89e773390947acff51f9845527d, type: 3}
+        obj: {fileID: 2539190766610697298, guid: b02cf41bf9fb0dd40beba353f45a5b0a, type: 3}
+    - name: Grabble Moveable platform
+      obj:
+        sprite: {fileID: 21300000, guid: c5720c1cf8e2235439b206b53979f1fc, type: 3}
+        obj: {fileID: 9129208645040400150, guid: 694c1a3d61f37a94a85185c5824ae674, type: 3}
+    - name: Grabble platform
+      obj:
+        sprite: {fileID: 21300000, guid: 918df9bb85eb39540a9bc38fe2fab413, type: 3}
+        obj: {fileID: 8083049624199803610, guid: f30a173c70ee1c348a0c04abad54618b, type: 3}
+    - name: Ladder
+      obj:
+        sprite: {fileID: 21300000, guid: 8891dc9339791c34f86a27d8b4b95d62, type: 3}
+        obj: {fileID: 4330631387982120828, guid: 75c819d341e7b534787b58b8e7d3df96, type: 3}
+    - name: Lava Floor
+      obj:
+        sprite: {fileID: 21300000, guid: bfdebfe5a20fc5d4b964e37dff370ea7, type: 3}
+        obj: {fileID: 7417413966450255281, guid: 741eae5b65fafee408616694fe48275d, type: 3}
+    - name: Moveable platform
+      obj:
+        sprite: {fileID: 21300000, guid: 9ddfd474e44099646933774454b99ce9, type: 3}
+        obj: {fileID: 6218993799459064805, guid: f3ed349b081bdde4fb64bfbfc8bf657a, type: 3}
+    - name: Lever
+      obj:
+        sprite: {fileID: 21300000, guid: a1bb407590f1a1442b05113af724952e, type: 3}
+        obj: {fileID: 4132884865546338325, guid: 974f150c895ab584d8ba55a81c089ce2, type: 3}
+    - name: moving Hazard
+      obj:
+        sprite: {fileID: 21300000, guid: ab4c42d107fbfb44eb4007bb432dae80, type: 3}
+        obj: {fileID: 8085229476472813844, guid: 4404ceb7e08e8e54b9d46b764e719411, type: 3}
+    - name: PassThroughPlatform
+      obj:
+        sprite: {fileID: 21300000, guid: 5853c7366e0a4bd4bbd0f934a7a0785d, type: 3}
+        obj: {fileID: 7376297814673519395, guid: d3c6d510df13af54b8b7edd8cdfc3e22, type: 3}
+    - name: rotating platform
+      obj:
+        sprite: {fileID: 21300000, guid: 8cc9aa796034d4648802a2805629b2be, type: 3}
+        obj: {fileID: 2595634314059069569, guid: 0b4308e94e16f0942acd9190f770ca2d, type: 3}
+    - name: SceneChanger
+      obj:
+        sprite: {fileID: 21300000, guid: ed028e623233b6440927f3f03c39910a, type: 3}
+        obj: {fileID: 5579677686932050272, guid: 64604031a449b0e498d02f6e0fbe5c11, type: 3}
+    - name: SpikeTrap
+      obj:
+        sprite: {fileID: 21300000, guid: 7cbef4cb3a13153498f110fbc5013fa8, type: 3}
+        obj: {fileID: 4701402067671950742, guid: ac1d75063e0082646be74ae6e5511e3f, type: 3}
+    - name: Teleporters
+      obj:
+        sprite: {fileID: 21300000, guid: 0e9219ff6427f144e9fadcc7486a41f9, type: 3}
+        obj: {fileID: 6126283599949435271, guid: 6533fdcdcf8736a45a410c98ed71c159, type: 3}
+    - name: Turret.
+      obj:
+        sprite: {fileID: 21300000, guid: 9173a58c315cd2543bd264f728c4211e, type: 3}
+        obj: {fileID: 3282603782139093786, guid: d1ce6c97e68c3a04cbcea6f77b95fc90, type: 3}
 --- !u!4 &1707549181
 Transform:
   m_ObjectHideFlags: 0
@@ -5530,7 +5606,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1709388583
 GameObject:
@@ -5574,7 +5650,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1718492049
 GameObject:
