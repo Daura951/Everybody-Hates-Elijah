@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DeadState : State
+public class AS_GrabState : GrabState
 {
-    public DeadState(Entity entity, FiniteStateMachine stateMachine, string animBoolName) : base(entity, stateMachine, animBoolName)
+    private AngryStudent angryStudent;
+
+    public AS_GrabState(Entity entity, FiniteStateMachine stateMachine, string animBoolName, AngryStudent angryStudent) : base(entity, stateMachine, animBoolName)
     {
+        this.angryStudent = angryStudent;
     }
 
     public override void DoChecks()
@@ -16,9 +19,6 @@ public class DeadState : State
     public override void Enter()
     {
         base.Enter();
-        entity.rb.gravityScale = 1f;
-        entity.playerGO.GetComponent<Animator>().SetBool("hasGrabbedEnemy", false);
-        entity.pummelFactor = 0;
     }
 
     public override void Exit()
@@ -29,6 +29,11 @@ public class DeadState : State
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+
+        if(isFree)
+        {
+            stateMachine.ChangeState(angryStudent.idleState);
+        }
     }
 
     public override void PhysicsUpdate()

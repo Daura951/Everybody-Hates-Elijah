@@ -20,7 +20,7 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.left * speed);
+        transform.Translate(Vector3.right * speed);
 
          if ((dir == 0 && transform.position.x < End.x) || (dir != 0 && transform.position.x > End.x))
           {

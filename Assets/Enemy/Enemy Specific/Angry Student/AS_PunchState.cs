@@ -24,7 +24,7 @@ public class AS_PunchState : MeleeAttackState
     public override void Exit()
     {
         base.Exit();
-        FinishAttack();
+        hitBox.SetActive(false);
     }
 
     public override void FinishAttack()

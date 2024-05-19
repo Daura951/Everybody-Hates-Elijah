@@ -15,6 +15,7 @@ public class IdleBehavior : StateMachineBehaviour
         PlayerMovement.instance.isInGetup = false;
         PlayerMovement.instance.anim.SetBool("isLaying", false);
         PlayerMovement.instance.anim.SetBool("canLayAttack", false);
+        PlayerMovement.instance.Speed = 9f;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

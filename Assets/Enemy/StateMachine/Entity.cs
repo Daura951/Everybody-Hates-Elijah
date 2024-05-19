@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,24 +20,26 @@ public class Entity : MonoBehaviour
     [SerializeField] private Transform playerCheckTF;
     [SerializeField] private Transform groundCheckTF;
 
-    private float curHealth;
-
     public float[] stats { get; private set; }
 
     private Vector2 velocitySpace;
 
-    private Transform playerTF;
+    public GameObject playerGO;
 
-    public Hit hit { get; private set; }
+    public bool isGrabbed;
 
+    public bool isPummeled;
+
+    public int pummelFactor = 0;
+
+    public bool[] whichThrow = { false, false, false, false };
     public virtual void Start()
     {
         facingDir = 1;
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         animToState = GetComponent<AnimationToStateMachine>();
-        playerTF = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-        hit = GetComponent<Hit>();
+        playerGO = GameObject.FindGameObjectWithTag("Player");
 
         stateMachine = new FiniteStateMachine();
     }
@@ -78,6 +81,7 @@ public class Entity : MonoBehaviour
     public virtual void Damage()
     {
         health.TakeDamage(stats[0]);
+        playerGO.GetComponent<PlayerAttack>().Combo();
     }
 
     public virtual void Flip()
@@ -99,7 +103,7 @@ public class Entity : MonoBehaviour
         Gizmos.DrawWireSphere(playerCheckTF.position + (Vector3)(transform.right * entityData.maxAgroDist), .2f);
     }
 
-    public virtual bool checkPlayerInMinAgroRange() 
+    public virtual bool checkPlayerInMinAgroRange()
     {
         return Physics2D.Raycast(playerCheckTF.position, transform.right, entityData.minAgroDist, entityData.whatIsPlayer);
     }
@@ -129,6 +133,68 @@ public class Entity : MonoBehaviour
         rb.AddForce(new Vector2(XComponent, YComponent));
         Damage();
     }
+    public virtual void GetGrabbed()
+    {
+        isGrabbed = true;
+        var playerAnimator = playerGO.GetComponent<Animator>();
+        var playerMovement = playerGO.GetComponent<PlayerMovement>();
+        var playerAttack = playerGO.GetComponent<PlayerAttack>();
+        var playerTransform = playerGO.GetComponent<Transform>();
+
+        playerAnimator.SetBool("hasGrabbedEnemy", true);
+
+        if (playerMovement.isLeft)
+        {
+            // Ensure the grabbed character is facing the same direction as the player
+            if (facingDir == -1)
+            {
+                print("flip left!");
+                Flip();
+            }
+            this.transform.position = new Vector2(playerTransform.position.x - playerAttack.grabOffset.x, playerTransform.position.y + playerAttack.grabOffset.y);
+        }
+        else
+        {
+            // Ensure the grabbed character is facing the same direction as the player
+            if (facingDir == 1)
+            {
+                print("flip right!");
+                Flip();
+            }
+            this.transform.position = new Vector2(playerTransform.position.x + playerAttack.grabOffset.x, playerTransform.position.y + playerAttack.grabOffset.y);
+        }
+
+    }
+
+    public virtual void getThrown()
+    {
+        var playerTransform = playerGO.GetComponent<Transform>();
+
+        for (int i = 0; i < whichThrow.Length; i++)
+        {
+            if (whichThrow[i])
+            {
+                if (playerGO.gameObject.GetComponent<PlayerMovement>().isLeft)
+                {
+                    this.transform.position = new Vector2((playerTransform.position.x - playerTransform.gameObject.GetComponent<PlayerAttack>().throwingOffsets[i].x), playerTransform.position.y + playerTransform.gameObject.GetComponent<PlayerAttack>().throwingOffsets[i].y);  
+                }
+
+                else
+                {
+                    this.transform.position = new Vector2(playerTransform.position.x + playerTransform.gameObject.GetComponent<PlayerAttack>().throwingOffsets[i].x, playerTransform.position.y + playerTransform.gameObject.GetComponent<PlayerAttack>().throwingOffsets[i].y);
+                }
+                print("WHICH THROW: " + i);
+            }
+            whichThrow[i] = false;
+        }
+    }
+
+    public virtual void GetPummeled()
+    {
+        health.TakeDamage(stats[0]);
+        pummelFactor++;
+        isPummeled = true;
+    }
 
     public virtual void Despawn()
     {
@@ -136,13 +202,36 @@ public class Entity : MonoBehaviour
     }
 
 
+    public virtual void CurrentlyGrabbed()
+    {
+        playerGO.GetComponent<PlayerAttack>().currentlyGrabbedEntity = this;
+    }
+
+    public virtual void NotCurrentlyGrabbed()
+    {
+        playerGO.GetComponent<PlayerAttack>().currentlyGrabbedEntity = null;
+    }
+
     public virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Hitbox" && !(collision.gameObject.name == "StickyHandHitbox") && collision.gameObject.name != "Grab Hiitbox")
+        if (collision.gameObject.tag == "Hitbox" && !(collision.gameObject.name == "StickyHandHitbox") && collision.gameObject.name != "Grab Hitbox" && collision.gameObject.name != "Pummel Hitbox")
         {
             stats = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>().GetCurrentStats();
             GetHit(stats[2], stats[1]);
-           
+
+        }
+
+        if (collision.gameObject.name == "Grab Hitbox")
+        {
+            GetGrabbed();
+            playerGO.GetComponent<PlayerAttack>().currentlyGrabbedEntity = this;
+        }
+
+        if(collision.gameObject.name == "Pummel Hitbox")
+        {
+            stats = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>().GetCurrentStats();
+            GetPummeled();
         }
     }
+
 }

@@ -22,7 +22,7 @@ public class Stun : MonoBehaviour
     public float DIDegreeRestriction = 18f;
 
     [SerializeField]
-    private float terminalVelocity = 40;
+    private float terminalVelocity = 10;
 
     public static Stun stunInstance;
 
@@ -70,7 +70,7 @@ public class Stun : MonoBehaviour
             anim.SetBool("isGrounded", true);
 
 
-            if(rb.velocity.x >= terminalVelocity || rb.velocity.x < -terminalVelocity)
+            if(rb.velocity.x >= terminalVelocity || rb.velocity.x < -terminalVelocity || rb.velocity.y >= terminalVelocity || rb.velocity.y < -terminalVelocity)
             {
                 isAirSpin = true;
                 anim.SetBool("isAirStunned", isAirSpin);
@@ -78,6 +78,7 @@ public class Stun : MonoBehaviour
                 anim.SetBool("canLayAttack", true);
                 PM.isInGetup = true;
             }
+            print(rb.velocity.x+" "+rb.velocity.y);
 
         }
     }

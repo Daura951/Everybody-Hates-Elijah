@@ -10,14 +10,6 @@ public class EnvironmentalStun_info : Stun_Info
     {
         CalculateStunVals();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-
     public override void CalculateStunVals()
     {
         string[] Info = EnvironmentHurtVals.environmentHurtValues[attackType].Split(" ");

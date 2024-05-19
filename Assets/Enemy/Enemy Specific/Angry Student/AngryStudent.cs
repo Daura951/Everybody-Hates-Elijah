@@ -16,6 +16,10 @@ public class AngryStudent : Entity
 
     public AS_StunState stunState { get; private set; }
 
+    public AS_GrabState grabState { get; private set; }
+
+    public AS_PummelState pummelState { get; private set; }
+
     public GameObject[] hitboxes;
 
     [SerializeField] private D_IdleState idleStateData;
@@ -37,6 +41,8 @@ public class AngryStudent : Entity
         punchState = new AS_PunchState(this, stateMachine, "punch", punchPosition,punchStateData, this);
         stunState = new AS_StunState(this, stateMachine, "stun", this);
         deadState = new AS_DeadState(this, stateMachine, "dead", this);
+        grabState = new AS_GrabState(this, stateMachine, "grabbed", this);
+        pummelState = new AS_PummelState(this, stateMachine, "pummel", this);
 
         stateMachine.Init(moveState);
     }
@@ -70,18 +76,35 @@ public class AngryStudent : Entity
         }
     }
 
+    public override void GetGrabbed()
+    {
+        base.GetGrabbed();
+        stateMachine.ChangeState(grabState);
+
+    }
+
+    public override void GetPummeled()
+    {
+        base.GetPummeled();
+        stateMachine.ChangeState(pummelState);
+        
+    }
+
+    public override void getThrown()
+    {
+        base.getThrown();
+        stateMachine.ChangeState(stunState);
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-
         if (collision.gameObject.tag == "Platform" && stateMachine.currentState == stunState || stateMachine.currentState == deadState)
         {
             SetVelocity(0);
 
             if(health.GetHealth() > 0)
                 stateMachine.ChangeState(idleState);
-
         }
-
     }
 
 }

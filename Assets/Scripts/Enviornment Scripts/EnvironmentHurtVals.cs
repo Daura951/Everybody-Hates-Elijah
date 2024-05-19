@@ -6,13 +6,14 @@ public class EnvironmentHurtVals
 {
     public enum AttackTypes
     {
-        Lava, Death
+        Lava, Death, techKidProjectile
     };
     // Damage , Angle , Knockback, time
     public static Dictionary<AttackTypes, string> environmentHurtValues = new Dictionary<AttackTypes, string>
         {
             {AttackTypes.Lava, "5 90 70 .5" },
-            {AttackTypes.Death, "100000000 0 0 0" }
+            {AttackTypes.Death, "100000000 0 0 0" },
+            {AttackTypes.techKidProjectile, "5 45 50 .2" }
         };
 
 }

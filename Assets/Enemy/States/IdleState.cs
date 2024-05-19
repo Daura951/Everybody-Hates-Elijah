@@ -28,7 +28,7 @@ public class IdleState : State
     {
         base.Exit();
         
-        if(flipAfterIdle)
+        if(flipAfterIdle && !entity.isGrabbed)
         {
             entity.Flip();
         }

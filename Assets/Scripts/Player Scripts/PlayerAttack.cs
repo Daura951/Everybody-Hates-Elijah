@@ -58,7 +58,8 @@ public class PlayerAttack : MonoBehaviour
     public Vector2 grabOffset;
     public Vector2 playerDThrowOffset;
     public float maxGrabTime;
-    public Enemy_Target currentlyGrabbedEnemy;
+    public Enemy_Target currentlyGrabbedEnemy; //MARKED FOR DELETION!!!
+    public Entity currentlyGrabbedEntity;
     public Vector2[] throwingOffsets;
 
     private int revFSpecialIndex = 0;
@@ -195,10 +196,11 @@ public class PlayerAttack : MonoBehaviour
             rb.gravityScale = 1;
             isAttacking = true;
 
-            if(Input.GetButtonDown("Grab"))
+            if (Input.GetButtonDown("Grab"))
             {
                 isGrab = true;
             }
+            else isGrab = false;
         }
 
         else if (!stunned && !isAttacking && Input.GetButtonDown("Fire2"))
@@ -294,7 +296,7 @@ public class PlayerAttack : MonoBehaviour
         {
             print("Shield");
             shieldHeld = shielding = Shield.GetComponent<SpriteRenderer>().enabled = true;
-            anim.Play("ShieldBlock");
+            anim.Play("Shield Start");
             anim.SetBool("isShielding", true);
             Shield.SetActive(true);
             
@@ -317,11 +319,10 @@ public class PlayerAttack : MonoBehaviour
     {
         if (comboScore > 0)
         {
-
             if (comboScore >= 3)
             {
                 comboText.gameObject.SetActive(true);
-                comboText.text = "" + comboScore;
+                comboText.text = (comboScore < 10 ?  "0" : "")+ comboScore;
             }
 
             if (timer >= ComboTimer)
@@ -451,7 +452,8 @@ public class PlayerAttack : MonoBehaviour
 
     public void Throw()
     {
-        currentlyGrabbedEnemy.isGrabbed = false; //Make sure the currently grabbed enemy is unlocked
+        //currentlyGrabbedEnemy.isGrabbed = false; //Make sure the currently grabbed enemy is unlocked
+        currentlyGrabbedEntity.getThrown();
     }
 
     public void DThrow()

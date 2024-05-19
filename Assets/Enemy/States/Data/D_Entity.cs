@@ -13,4 +13,7 @@ public class D_Entity : ScriptableObject
     public float maxAgroDist = 4f;
     public LayerMask whatIsPlayer;
     public float closeRangeAttackDist = 2f;
+    public float grabbedTime = 3.5f;
+    public float pummelStateTime = 0.05f;
+    public int maxPummels= 7;
 }

@@ -30,6 +30,9 @@ public class StunState : State
         base.Enter();
         isStunOver = false;
         stunTime = entity.stats[3];
+        entity.rb.gravityScale = 1f;
+        entity.playerGO.GetComponent<Animator>().SetBool("hasGrabbedEnemy", false);
+        entity.pummelFactor = 0;
     }
 
     public override void Exit()
