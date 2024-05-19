@@ -78,7 +78,6 @@ public class Stun : MonoBehaviour
                 anim.SetBool("canLayAttack", true);
                 PM.isInGetup = true;
             }
-            print(rb.velocity.x+" "+rb.velocity.y);
 
         }
     }
