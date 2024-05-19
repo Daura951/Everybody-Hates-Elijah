@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 41af19e61e7840848be123148d74eec6
+guid: 9a08812c9f3620f42a4fefa4b5bec888
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -105,112 +105,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Idle 1_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 8000
-        width: 2400
-        height: 1600
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a9a8d9701d39cf94f903e3b75f773819
-      internalID: 945496621
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Idle 1_1
-      rect:
-        serializedVersion: 2
-        x: 2400
-        y: 8000
-        width: 2400
-        height: 1600
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 31abb9a99110cad42bd8f857b235d8ed
-      internalID: -552070145
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Idle 1_2
-      rect:
-        serializedVersion: 2
-        x: 4800
-        y: 8000
-        width: 2400
-        height: 1600
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 33a0a03febfa552449fdf4234c75d9a9
-      internalID: 616302793
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Idle 1_3
-      rect:
-        serializedVersion: 2
-        x: 7200
-        y: 8000
-        width: 2400
-        height: 1600
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c253548c505cf70419b623e35a5165cc
-      internalID: -746793791
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Idle 1_4
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 6400
-        width: 2400
-        height: 1600
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 36c44ef6e5242854799dff3ff301d2c6
-      internalID: 1738434005
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Idle 1_5
+      name: All jabs (1,9,14 starts)_1
       rect:
         serializedVersion: 2
         x: 2400
@@ -224,14 +119,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bbece1b26fc88334fb60f03a45b41c15
-      internalID: 1890197398
+      spriteID: 36a62c55d4efddb45bf01a43ceb4a4b4
+      internalID: -1168557081
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Idle 1_6
+      name: All jabs (1,9,14 starts)_2
       rect:
         serializedVersion: 2
         x: 4800
@@ -245,14 +140,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8501b99d0f041b2418f334bd44e822fc
-      internalID: 1042832785
+      spriteID: 2c22d25e8adec914ab6d31382c05c9e5
+      internalID: 726127218
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Idle 1_7
+      name: All jabs (1,9,14 starts)_3
       rect:
         serializedVersion: 2
         x: 7200
@@ -266,14 +161,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6aecc66ca51ddfc49b9ae178b89a023d
-      internalID: 1100185202
+      spriteID: 01c8ea4ce75fc8b4e8a2564d95aee7b6
+      internalID: 296931873
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Idle 1_8
+      name: All jabs (1,9,14 starts)_4
       rect:
         serializedVersion: 2
         x: 0
@@ -287,14 +182,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 328b9efdea4109a47beb076e8d9608cb
-      internalID: 2040657570
+      spriteID: a5d40bbb7f73b264dba5e31793db6ee7
+      internalID: -664957611
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Idle 1_9
+      name: All jabs (1,9,14 starts)_5
       rect:
         serializedVersion: 2
         x: 2400
@@ -308,56 +203,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: adfaf4afc3d641e4eb6faf0603121cb0
-      internalID: -376947208
+      spriteID: 1ceba8750b58e9d4ca765983cf30613f
+      internalID: 2092935437
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Idle 1_10
-      rect:
-        serializedVersion: 2
-        x: 4800
-        y: 4800
-        width: 2400
-        height: 1600
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e95a7cdfd6bee12489d7408c160b7576
-      internalID: 535506922
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Idle 1_11
-      rect:
-        serializedVersion: 2
-        x: 7200
-        y: 4800
-        width: 2400
-        height: 1600
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e4d91c46ecb4ef74ab55eb9b18b677c2
-      internalID: -1770292357
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Idle 1_12
+      name: All jabs (1,9,14 starts)_8
       rect:
         serializedVersion: 2
         x: 0
@@ -371,14 +224,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: af704c95496ca1a4ca8ae1336e64e7ae
-      internalID: -206782788
+      spriteID: 159a6818fbf05a04d8692afca6947b3e
+      internalID: 1936891169
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Idle 1_13
+      name: All jabs (1,9,14 starts)_9
       rect:
         serializedVersion: 2
         x: 2400
@@ -392,14 +245,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: efd9b776627204a4987aaf9ee75a6d4f
-      internalID: -1232298165
+      spriteID: 0ac7782a7ef370940ad50c3632c9d3fc
+      internalID: -169235108
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Idle 1_14
+      name: All jabs (1,9,14 starts)_10
       rect:
         serializedVersion: 2
         x: 4800
@@ -413,14 +266,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ccdd56b929d8acd4f8a13e519dc230e0
-      internalID: 1239795708
+      spriteID: 53bfc47e42cf8504caefa79ca72d6fe1
+      internalID: 164043747
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Idle 1_15
+      name: All jabs (1,9,14 starts)_11
       rect:
         serializedVersion: 2
         x: 7200
@@ -434,14 +287,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4b9cf1e06a31a00448a7c568bd48dbbd
-      internalID: 547248221
+      spriteID: cd176c1d5006b9942bd3af37badcd728
+      internalID: -743658032
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Idle 1_16
+      name: All jabs (1,9,14 starts)_12
       rect:
         serializedVersion: 2
         x: 0
@@ -455,14 +308,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 61bdea2976cc82c4982d61a2b37f8c44
-      internalID: 282588423
+      spriteID: b2881e98d58dfc14288b68c405f9e4f2
+      internalID: 1763394680
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Idle 1_17
+      name: All jabs (1,9,14 starts)_13
       rect:
         serializedVersion: 2
         x: 2400
@@ -476,14 +329,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a11314b1477c4ff41a096c3c99a6f566
-      internalID: -650501094
+      spriteID: 92c71022defa0b048a42d9e7be5b88e4
+      internalID: 2066482971
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Idle 1_18
+      name: All jabs (1,9,14 starts)_14
       rect:
         serializedVersion: 2
         x: 4800
@@ -497,14 +350,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: de4469cd3ad63944d99846482a72caa9
-      internalID: -1938675311
+      spriteID: c78bd5ebe0b3b8c4ea2ad3078938a6ab
+      internalID: 486620924
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Idle 1_19
+      name: All jabs (1,9,14 starts)_15
       rect:
         serializedVersion: 2
         x: 7200
@@ -518,14 +371,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 83345a1d56ee42b4689e76c544ee1ca9
-      internalID: 35015127
+      spriteID: 3b99504171bb7a14b875a961b968ee6c
+      internalID: -1302715500
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Idle 1_20
+      name: All jabs (1,9,14 starts)_16
       rect:
         serializedVersion: 2
         x: 0
@@ -539,14 +392,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1660c115f180de04e84545c4008e1918
-      internalID: 1994058100
+      spriteID: a93202432b8715b47b55a8f2df9a7d76
+      internalID: 14657302
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Idle 1_21
+      name: All jabs (1,9,14 starts)_17
       rect:
         serializedVersion: 2
         x: 2400
@@ -560,50 +413,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 09540a0fcc52bbe499ff5fecad6cd2c6
-      internalID: 1055627435
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Idle 1_22
-      rect:
-        serializedVersion: 2
-        x: 4800
-        y: 0
-        width: 2400
-        height: 1600
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 122ffe3134fc2144b9e0af338e3bd156
-      internalID: -755812927
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Idle 1_23
-      rect:
-        serializedVersion: 2
-        x: 7200
-        y: 0
-        width: 2400
-        height: 1600
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b0456f0791815a34e8f93cefb4d53cdc
-      internalID: 918404635
+      spriteID: 11e4877c83dffea42bc5aff967c13f66
+      internalID: -1979392511
       vertices: []
       indices: 
       edges: []
@@ -619,30 +430,24 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Idle 1_15: 547248221
-      Idle 1_16: 282588423
-      Idle 1_1: -552070145
-      Idle 1_2: 616302793
-      Idle 1_13: -1232298165
-      Idle 1_0: 945496621
-      Idle 1_12: -206782788
-      Idle 1_17: -650501094
-      Idle 1_23: 918404635
-      Idle 1_4: 1738434005
-      Idle 1_18: -1938675311
-      Idle 1_19: 35015127
-      Idle 1_6: 1042832785
-      Idle 1_20: 1994058100
-      Idle 1_22: -755812927
-      Idle 1_3: -746793791
-      Idle 1_21: 1055627435
-      Idle 1_5: 1890197398
-      Idle 1_8: 2040657570
-      Idle 1_9: -376947208
-      Idle 1_11: -1770292357
-      Idle 1_10: 535506922
-      Idle 1_7: 1100185202
-      Idle 1_14: 1239795708
+      All jabs (1,9,14 starts)_14: 486620924
+      All jabs (1,9,14 starts)_3: 296931873
+      All jabs (1,9,14 starts)_11: -743658032
+      All jabs (1,9,14 starts)_5: 2092935437
+      All jabs (1,9,14 starts)_7: 1770631369
+      All jabs (1,9,14 starts)_15: -1302715500
+      All jabs (1,9,14 starts)_16: 14657302
+      All jabs (1,9,14 starts)_8: 1936891169
+      All jabs (1,9,14 starts)_13: 2066482971
+      All jabs (1,9,14 starts)_0: -64524169
+      All jabs (1,9,14 starts)_1: -1168557081
+      All jabs (1,9,14 starts)_17: -1979392511
+      All jabs (1,9,14 starts)_10: 164043747
+      All jabs (1,9,14 starts)_12: 1763394680
+      All jabs (1,9,14 starts)_6: -1012862356
+      All jabs (1,9,14 starts)_2: 726127218
+      All jabs (1,9,14 starts)_9: -169235108
+      All jabs (1,9,14 starts)_4: -664957611
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
