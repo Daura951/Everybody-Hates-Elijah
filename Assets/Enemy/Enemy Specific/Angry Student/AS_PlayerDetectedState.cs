@@ -24,19 +24,20 @@ public class AS_PlayerDetectedState : PlayerDetectedState
     {
         base.LogicUpdate();
 
-        if(performCloseRangeAttack)
-        {
-            stateMachine.ChangeState(angryStudent.punchState);
-        }
 
-        else if(performLongRangeAttack)
-        {
-            stateMachine.ChangeState(angryStudent.runAtState);
-        }
-        else if(!isPlayerInMaxAgroRange)
-        {
-            stateMachine.ChangeState(angryStudent.lookForPlayerState);
-        }
+            if (performCloseRangeAttack)
+            {
+                stateMachine.ChangeState(angryStudent.punchState);
+            }
+
+            else if (performLongRangeAttack)
+            {
+                stateMachine.ChangeState(angryStudent.runAtState);
+            }
+            else if (!isPlayerInMaxAgroRange)
+            {
+                stateMachine.ChangeState(angryStudent.lookForPlayerState);
+            }
     }
 
     public override void PhysicsUpdate()

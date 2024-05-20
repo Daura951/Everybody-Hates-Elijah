@@ -70,7 +70,7 @@ public class Entity : MonoBehaviour
 
     public virtual bool checkLedge()
     {
-        return Physics2D.Raycast(ledgeCheckTF.position, Vector2.down, entityData.ledgeCheckDist, entityData.whatIsGround);
+        return Physics2D.Raycast(ledgeCheckTF.position, Vector2.down, entityData.ledgeCheckDist, entityData.whatIsGround) || Physics2D.Raycast(ledgeCheckTF.position, Vector2.down, entityData.ledgeCheckDist,entityData.endLedge);
     }
 
     public virtual bool CheckGround()
@@ -187,6 +187,9 @@ public class Entity : MonoBehaviour
             }
             whichThrow[i] = false;
         }
+        NotCurrentlyGrabbed();
+        isGrabbed = false;
+        
     }
 
     public virtual void GetPummeled()
@@ -224,7 +227,6 @@ public class Entity : MonoBehaviour
         if (collision.gameObject.name == "Grab Hitbox")
         {
             GetGrabbed();
-            playerGO.GetComponent<PlayerAttack>().currentlyGrabbedEntity = this;
         }
 
         if(collision.gameObject.name == "Pummel Hitbox")

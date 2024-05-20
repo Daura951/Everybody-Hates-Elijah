@@ -15,6 +15,7 @@ public class TechKidProjectile : MonoBehaviour
     [Header("Tech Kid Projectile")]
     public float bulletLaunchTime, DetectionTime;
     public float offsetX , offsetY , DetDis;
+    public float radius = 2f;
     public bool RayVisible;
     private Vector3 offset;
     private RaycastHit2D sensor;
@@ -55,9 +56,9 @@ public class TechKidProjectile : MonoBehaviour
             if (On)
             {
                 if (transform.eulerAngles.y == 0)
-                    sensor = Physics2D.CircleCast(offset, 2, Vector3.left);
+                    sensor = Physics2D.CircleCast(offset, radius, Vector3.left);
                 else
-                    sensor = Physics2D.CircleCast(offset, 2, Vector3.right);
+                    sensor = Physics2D.CircleCast(offset, radius, Vector3.right);
 
 
                 if (sensor.collider != null && sensor.collider.CompareTag("Player"))
@@ -116,7 +117,7 @@ public class TechKidProjectile : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(offset, 2);
+        Gizmos.DrawWireSphere(new Vector3((transform.eulerAngles.y == 0 ? -transform.position.x : transform.position.x) + offsetX,  transform.position.y + offsetY, 0), radius);
     }
 
     public void OnTriggerEnter2D(Collider2D collision)

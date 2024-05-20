@@ -142,6 +142,8 @@ public class PlayerAttack : MonoBehaviour
 
     private void Update()
     {
+        if(currentlyGrabbedEntity != null)
+        print(currentlyGrabbedEntity.name);
 
         DepleteComboTimer();
         stunned = S.getIsStunned();

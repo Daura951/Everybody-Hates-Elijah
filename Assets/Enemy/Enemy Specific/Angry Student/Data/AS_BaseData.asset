@@ -18,9 +18,15 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 512
+  endLedge:
+    serializedVersion: 2
+    m_Bits: 2048
   minAgroDist: 5.58
   maxAgroDist: 9.19
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 8
   closeRangeAttackDist: 0.92
+  grabbedTime: 3.5
+  pummelStateTime: 0.05
+  maxPummels: 7

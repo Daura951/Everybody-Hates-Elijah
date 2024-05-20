@@ -9,6 +9,7 @@ public class D_Entity : ScriptableObject
     public float ledgeCheckDist = 1f;
     public float groundCheckRadius = .3f;
     public LayerMask whatIsGround;
+    public LayerMask endLedge;
     public float minAgroDist = 3f;
     public float maxAgroDist = 4f;
     public LayerMask whatIsPlayer;

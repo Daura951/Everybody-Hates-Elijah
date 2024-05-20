@@ -37,8 +37,6 @@ public class GrabState : State
             entity.playerGO.GetComponent<Animator>().SetBool("hasGrabbedEnemy", false);
             entity.pummelFactor = 0;
         }
-
-        entity.NotCurrentlyGrabbed();
     }
 
     public override void LogicUpdate()

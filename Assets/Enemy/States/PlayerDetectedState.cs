@@ -8,6 +8,7 @@ public class PlayerDetectedState : State
     private D_PlayerDetected stateData;
     protected bool isPlayerInMinAgroRange, isPlayerInMaxAgroRange;
     protected bool performLongRangeAttack, performCloseRangeAttack;
+    protected bool isGrabbed;
     public PlayerDetectedState(Entity entity, FiniteStateMachine stateMachine, string animBoolName, D_PlayerDetected stateData) : base(entity, stateMachine, animBoolName)
     {
         this.stateData = stateData;
@@ -18,6 +19,7 @@ public class PlayerDetectedState : State
         base.Enter();
         entity.SetVelocity(0);
         performLongRangeAttack = false;
+        isGrabbed = entity.isGrabbed;
     }
 
     public override void Exit()

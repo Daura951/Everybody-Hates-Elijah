@@ -19,6 +19,11 @@ public class AS_PunchState : MeleeAttackState
     {
         base.Enter();
         hitBox = angryStudent.hitboxes[stateData.hitBoxIndex];
+
+        if(entity.isGrabbed)
+        {
+            stateMachine.ChangeState(angryStudent.idleState);
+        }
     }
 
     public override void Exit()
