@@ -25,6 +25,9 @@ public class LevelEditorMouse : MonoBehaviour
     public delegate void MouseClick();
     public static event MouseClick OnMouseClick;
 
+    public delegate void SelectedGameObjectChanged(string gameObjectName);
+    public static event SelectedGameObjectChanged onSelectedGameObjectChanged;
+
     public static Vector3 mousePosition;
     public static GameObject selectedObject;
 
@@ -45,8 +48,7 @@ public class LevelEditorMouse : MonoBehaviour
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        selectedGameObject = tileGameObjects.get("Player");
-        selectedGameObjectName = "Player";
+        setSelectedGameObject(tileGameObjects.get("Player"));
         snapToGrid = new SnapToGrid();
     }
 
@@ -58,6 +60,13 @@ public class LevelEditorMouse : MonoBehaviour
     public void onGridSizeSliderChange (float newValue)
     {
         grid_length = newValue;
+    }
+
+    public void setSelectedGameObject(SpriteAndGameObject o)
+    {
+        selectedGameObject = o; 
+        selectedGameObjectName = o.obj.name;
+        onSelectedGameObjectChanged.Invoke(selectedGameObjectName);
     }
 
     // Update is called once per frame

@@ -19,7 +19,6 @@ public class LevelEditorManager : MonoBehaviour
     public Sprite playerMarker;
     public TMP_InputField levelNameSave;
     public TMP_Text levelMessage;
-    public TMP_Text GameObjectNameDisplay;
     public Animator messageAnim;
     private bool optionPositionIn = true;
     private bool saveLoadPositionIn = false;
@@ -29,7 +28,7 @@ public class LevelEditorManager : MonoBehaviour
     public delegate void OnLevelSaved(string level_name);
     public static OnLevelSaved onLevelSaved;
     private string loaded_level;
-
+    
     public delegate void OnLevelNew();
     public static OnLevelNew onLevelNew;
 
@@ -37,12 +36,6 @@ public class LevelEditorManager : MonoBehaviour
     {
         LoadPanelController.onLevelLoad += BeforeLevelLoad;
         LoadPanelController.onLevelLoaded += (string loaded_level_name) => AfterLevelLoaded(loaded_level_name);
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        GameObjectNameDisplay.text = user.selectedGameObject.obj.name;
     }
 
     public void SlideOptionMenu()
@@ -92,23 +85,18 @@ public class LevelEditorManager : MonoBehaviour
 
     public void SelectNextGameObject()
     {
-        user.selectedGameObject = user.tileGameObjects. getNext(user.selectedGameObjectName);
-        user.selectedGameObjectName = user.selectedGameObject.obj.name;
+        user.setSelectedGameObject(user.tileGameObjects.getNext(user.selectedGameObjectName));
         mouseObject = user.selectedGameObject;
-        GameObjectNameDisplay.text = user.selectedGameObject.obj.name;
     }
     public void SelectPreviousGameObject()
     {
-        user.selectedGameObject = user.tileGameObjects.getPrevious(user.selectedGameObjectName);
-        user.selectedGameObjectName = user.selectedGameObject.obj.name;
+        user.setSelectedGameObject(user.tileGameObjects.getPrevious(user.selectedGameObjectName));
         mouseObject = user.selectedGameObject;
-        GameObjectNameDisplay.text = user.selectedGameObject.obj.name;
     }
     public void ChoosePlayerStart()
     {
         SpriteAndGameObject playerMarker = user.selectedGameObject = user.tileGameObjects.get("Player");
-        user.selectedGameObject = playerMarker;
-        user.selectedGameObjectName = playerMarker.obj.name;
+        user.setSelectedGameObject(playerMarker);
         mouseObject = playerMarker;
     }
 

@@ -7,7 +7,7 @@
  "gameObjectPositions": [
 { "gameObjectName": "Platform", "x":2.560059, "y":-1.280029 },
 { "gameObjectName": "Platform", "x":1.280029, "y":-1.280029 },
-{ "gameObjectName": "Platform", "x":0, "y":-1.280029 },
+{ "gameObjectName": "Platform", "x":0, "y":1.279968 },
 { "gameObjectName": "Platform", "x":-1.280029, "y":-1.280029 },
 { "gameObjectName": "Platform", "x":-2.560059, "y":-1.280029 },
 { "gameObjectName": "Platform", "x":-3.839966, "y":-1.280029 },
@@ -173,7 +173,21 @@
 { "gameObjectName": "Ladder", "x":-8.959961, "y":-1.280029 },
 { "gameObjectName": "Ladder", "x":-8.959961, "y":0 },
 { "gameObjectName": "Ladder", "x":-8.959961, "y":1.280029 },
-{ "gameObjectName": "food", "x":7.680054, "y":3.840027 }
+{ "gameObjectName": "food", "x":7.680054, "y":3.840027 },
+{ "gameObjectName": "Enemy", "x":-1.280029, "y":0 },
+{ "gameObjectName": "Enemy", "x":-2.560059, "y":0 },
+{ "gameObjectName": "Enemy", "x":-7.680054, "y":-2.559998 },
+{ "gameObjectName": "Enemy", "x":-7.680054, "y":-3.840027 },
+{ "gameObjectName": "Ladder", "x":0, "y":-1.280029 },
+{ "gameObjectName": "Ladder", "x":0, "y":-2.559998 },
+{ "gameObjectName": "Ladder", "x":0, "y":-3.840027 },
+{ "gameObjectName": "Ladder", "x":0, "y":-5.119995 },
+{ "gameObjectName": "Ladder", "x":0, "y":-6.400024 },
+{ "gameObjectName": "Lever", "x":-14.07996, "y":-3.840027 },
+{ "gameObjectName": "Lever", "x":-14.07996, "y":-5.119995 },
+{ "gameObjectName": "Lever", "x":-14.07996, "y":-6.400024 },
+{ "gameObjectName": "Turret.", "x":5.119995, "y":-5.119995 },
+{ "gameObjectName": "Turret.", "x":3.839966, "y":-2.559998 }
 ]
 }
 ]

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class TileGameObjects : MonoBehaviour
@@ -55,6 +56,15 @@ public class TileGameObjects : MonoBehaviour
         return getPrevious(key)?.sprite;
     }
 
+    public SpriteAndGameObject getFirst()
+    {
+        return tileGameObjectDictionary.First().Value;
+    }
+
+    public List<SpriteAndGameObject> getAll()
+    {
+        return tileGameObjectDictionary.Values.ToList();
+    }
 
     public SpriteAndGameObject getNext(string key)
     {
