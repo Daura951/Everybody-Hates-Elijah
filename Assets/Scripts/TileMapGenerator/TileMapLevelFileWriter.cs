@@ -12,7 +12,7 @@ public class TileMapLevelFileWriter : MonoBehaviour
         fullPath = Application.dataPath + "/LevelData/";
     }
     
-    public void save_file(string filename, Dictionary<string, List<GameObject>> gameObjectLayers, List<string> layerNames)
+    public void Save_File(string filename, Dictionary<string, List<(GameObject, GameObjectPosition.LayerPosition)>> gameObjectLayers, List<string> layerNames)
     {
         List<string> lines = new List<string>();
         if (gameObjectLayers.Count > 0 && layerNames.Count > 0)
@@ -22,7 +22,7 @@ public class TileMapLevelFileWriter : MonoBehaviour
         writeFile(lines, filename);
     }
     private List<string> processGameObjects(
-        Dictionary<string, List<GameObject>> gameObjectLayers,
+        Dictionary<string, List<(GameObject, GameObjectPosition.LayerPosition)>> gameObjectLayers,
         List<string> layerNames
       )
     {
@@ -33,16 +33,19 @@ public class TileMapLevelFileWriter : MonoBehaviour
         string lastLayer = layerNames.Last();
         foreach (var layer in layerNames)
         {
-            List<GameObject> gameObjects = gameObjectLayers[layer];
-            GameObject LastGameObject = gameObjects.Last();
+            List<(GameObject, GameObjectPosition.LayerPosition)> gameObjectAndPositions = gameObjectLayers[layer];
+            GameObject LastGameObject = gameObjectAndPositions.Last().Item1;
             string layer_object_start = $"{{ \"name\": \"{layer}\",\r\n \"gameObjectPositions\": [";
             lines.Add(layer_object_start);
-            foreach (GameObject gameObject in gameObjects)
+            foreach ((GameObject, GameObjectPosition.LayerPosition) gameObjectAndPosition in gameObjectAndPositions)
             {
+                GameObject gameObject = gameObjectAndPosition.Item1;
+                int layerPosition = (int)gameObjectAndPosition.Item2;
                 string newLine = $"{{ " +
                     $"\"gameObjectName\": \"{gameObject.name.Replace("(Clone)", "")}\", " +
                     $"\"x\":{gameObject.transform.position.x}, " +
-                    $"\"y\":{gameObject.transform.position.y} }}";
+                    $"\"y\":{gameObject.transform.position.y}, " +
+                    $"\"layerPosition\":\"{layerPosition}\"}}";
                 
                 if (!gameObject.Equals(LastGameObject))
                 {

@@ -14,6 +14,7 @@ public class LevelEditorManager : MonoBehaviour
     public Animator optionUIAnimation;
     public Animator saveUIAnimation;
     public Animator loadUIAnimation;
+    public Camera levelEditorCamera;
     public SpriteAndGameObject mouseObject;
     public LevelEditorMouse user;
     public Sprite playerMarker;
@@ -138,22 +139,43 @@ public class LevelEditorManager : MonoBehaviour
             level_name_text = loaded_level;
         }
 
-        Dictionary<string, List<GameObject>> gameObjectLayers = new Dictionary<string, List<GameObject>>();
+        Dictionary<string, List<(GameObject, GameObjectPosition.LayerPosition)>> gameObjectLayers = new Dictionary<string, List<(GameObject, GameObjectPosition.LayerPosition)>>();
         List<string> layerNames = new List<string>();
 
-        foreach (Transform child in user.stagingArea.transform)
+        foreach (Transform child in tileMapGenerator.stagingArea.transform)
         {
             string child_layer = LayerMask.LayerToName(child.gameObject.layer);
             if (!gameObjectLayers.ContainsKey(child_layer))
             {
                 layerNames.Add(child_layer);
-                gameObjectLayers.Add(child_layer, new List<GameObject>());
-
+                gameObjectLayers.Add(child_layer, new List<(GameObject, GameObjectPosition.LayerPosition)>());
             }
-            gameObjectLayers[child_layer].Add(child.gameObject);
+            gameObjectLayers[child_layer].Add((child.gameObject, GameObjectPosition.LayerPosition.MIDDLEGROUND));
         }
 
-        tileMapLevelFileWriter.save_file(level_name_text, gameObjectLayers, layerNames);
+        foreach (Transform child in tileMapGenerator.stagingAreaBackground.transform)
+        {
+            string child_layer = LayerMask.LayerToName(child.gameObject.layer);
+            if (!gameObjectLayers.ContainsKey(child_layer))
+            {
+                layerNames.Add(child_layer);
+                gameObjectLayers.Add(child_layer, new List<(GameObject, GameObjectPosition.LayerPosition)>());
+            }
+            gameObjectLayers[child_layer].Add((child.gameObject, GameObjectPosition.LayerPosition.BACKGROUND));
+        }
+
+        foreach (Transform child in tileMapGenerator.stagingAreaForeground.transform)
+        {
+            string child_layer = LayerMask.LayerToName(child.gameObject.layer);
+            if (!gameObjectLayers.ContainsKey(child_layer))
+            {
+                layerNames.Add(child_layer);
+                gameObjectLayers.Add(child_layer, new List<(GameObject, GameObjectPosition.LayerPosition)>());
+            }
+            gameObjectLayers[child_layer].Add((child.gameObject, GameObjectPosition.LayerPosition.FOREGROUND));
+        }
+
+        tileMapLevelFileWriter.Save_File(level_name_text, gameObjectLayers, layerNames);
 
         if (is_save_as)
         {
@@ -181,7 +203,7 @@ public class LevelEditorManager : MonoBehaviour
 
     public void BeforeLevelLoad()
     {
-        user.clearStagingArea();
+        user.clearStagingAreas();
     }
 
     public void PlayLevel()
@@ -191,8 +213,9 @@ public class LevelEditorManager : MonoBehaviour
             ChooseSave();
             return;
         }
+        levelEditorCamera.transform.gameObject.SetActive(false);
         SaveLevel(loaded_level);
-        user.clearStagingArea();
+        user.clearStagingAreas();
         tileMapGenerator.setAndGenerate(loaded_level, TileMapGenerator.generateType.gameObject);
     }
 
@@ -202,13 +225,14 @@ public class LevelEditorManager : MonoBehaviour
         {
             return;
         }
-        user.clearStagingArea();
+        levelEditorCamera.transform.gameObject.SetActive(true);
+        user.clearStagingAreas();
         tileMapGenerator.setAndGenerate(loaded_level, TileMapGenerator.generateType.sprite);
     }
 
     public void newLevel()
     {
-        user.clearStagingArea();
+        user.clearStagingAreas();
         loaded_level = "";
         onLevelNew?.Invoke();
     }

@@ -55,6 +55,10 @@ MonoBehaviour:
       obj:
         sprite: {fileID: 21300000, guid: fe096d86ebf17b046b3a66b59f9593c9, type: 3}
         obj: {fileID: 876897176673173903, guid: 618d0c7d8a41d4148811baae186580f3, type: 3}
+    - name: Wall
+      obj:
+        sprite: {fileID: 21300000, guid: ea26b33c2870d7b4b9dd9ef8a906f338, type: 3}
+        obj: {fileID: 876897176673173903, guid: d39cadc05ea7a7940b2850d94b43b7dc, type: 3}
     - name: Male Student
       obj:
         sprite: {fileID: 1836769398, guid: ec4c14a391c9f164587633ae4e0ebdd0, type: 3}
