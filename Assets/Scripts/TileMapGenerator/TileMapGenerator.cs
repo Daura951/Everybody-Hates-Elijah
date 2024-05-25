@@ -47,16 +47,17 @@ public class TileMapGenerator : MonoBehaviour
             UnityEngine.Debug.Log("Layer Name: " + layer.name);
             foreach (GameObjectPosition gameObjectPosition in layer.gameObjectPositions)
             {
+
+                GameObject obj = tileGameObjectDict.getGameObject(gameObjectPosition.gameObjectName);
                 Vector3 pos = new Vector3(
-                            gameObjectPosition.x,
-                            gameObjectPosition.y,
-                            0f
-                        );
+                    gameObjectPosition.x,
+                    gameObjectPosition.y,
+                    obj.transform.position.z
+                );
 
                 Transform parent_transform = get_parent_object(gameObjectPosition).transform;
                 if (generateType == generateType.gameObject)
                 {
-                    GameObject obj = tileGameObjectDict.getGameObject(gameObjectPosition.gameObjectName);
                     Instantiate(obj, pos, Quaternion.identity, parent_transform);
                 }
                 else if (generateType == generateType.sprite)
@@ -64,6 +65,7 @@ public class TileMapGenerator : MonoBehaviour
                     GameObject newObj = new GameObject(gameObjectPosition.gameObjectName);
                     SpriteRenderer sr = newObj.AddComponent<SpriteRenderer>();
                     sr.sprite = tileGameObjectDict.getSprite(gameObjectPosition.gameObjectName);
+ 
                     LevelEditorMoveableObject moveable = newObj.AddComponent<LevelEditorMoveableObject>();
                     moveable.myRenderer = sr;
 
