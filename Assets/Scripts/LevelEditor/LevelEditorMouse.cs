@@ -81,7 +81,12 @@ public class LevelEditorMouse : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (levelEditorManager.getEditorMode() == LevelEditorManager.EditorMode.PLAYMODE)
+        {
+            return;
+        }
         Vector2 mousePositionReal = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
         float snapped_mouse_x = snapToGrid.snap(mousePositionReal.x, grid_length);
         float snapped_mouse_y = snapToGrid.snap(mousePositionReal.y, grid_length);
 
