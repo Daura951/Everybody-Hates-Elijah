@@ -13,18 +13,24 @@ public class TileMapGenerator : MonoBehaviour
     private TileGameObjects tileGameObjectDict;
 
     [SerializeField]
-    private GameObject stagingArea;
+    public GameObject stagingArea;
+
+    [SerializeField]
+    public GameObject stagingAreaBackground;
+
+    [SerializeField]
+    public GameObject stagingAreaForeground;
 
     void Start()
     {
-        if(mapFile != null)
+        if (mapFile != null)
         {
             string mapFileJson = mapFile.text.ToString();
             generate(mapFileJson, generateType.sprite);
         }
     }
 
-    private void generate(string mapFileJson, generateType generateType )
+    private void generate(string mapFileJson, generateType generateType)
     {
         if (mapFileJson == null || mapFileJson == "")
         {
@@ -41,30 +47,49 @@ public class TileMapGenerator : MonoBehaviour
             UnityEngine.Debug.Log("Layer Name: " + layer.name);
             foreach (GameObjectPosition gameObjectPosition in layer.gameObjectPositions)
             {
+
+                GameObject obj = tileGameObjectDict.getGameObject(gameObjectPosition.gameObjectName);
                 Vector3 pos = new Vector3(
-                            gameObjectPosition.x,
-                            gameObjectPosition.y,
-                            0f
-                        );
+                    gameObjectPosition.x,
+                    gameObjectPosition.y,
+                    obj.transform.position.z
+                );
+
+                Transform parent_transform = get_parent_object(gameObjectPosition).transform;
                 if (generateType == generateType.gameObject)
                 {
-                    GameObject obj = tileGameObjectDict.getGameObject(gameObjectPosition.gameObjectName); 
-                    Instantiate(obj, pos, Quaternion.identity, stagingArea.transform);
+                    Instantiate(obj, pos, Quaternion.identity, parent_transform);
                 }
                 else if (generateType == generateType.sprite)
                 {
                     GameObject newObj = new GameObject(gameObjectPosition.gameObjectName);
                     SpriteRenderer sr = newObj.AddComponent<SpriteRenderer>();
                     sr.sprite = tileGameObjectDict.getSprite(gameObjectPosition.gameObjectName);
+ 
                     LevelEditorMoveableObject moveable = newObj.AddComponent<LevelEditorMoveableObject>();
                     moveable.myRenderer = sr;
 
                     newObj.transform.position = pos;
-                    newObj.transform.parent = stagingArea.transform;
+                    newObj.transform.parent = parent_transform;
                 }
             }
         }
 
+    }
+
+    private GameObject get_parent_object(GameObjectPosition position)
+    {
+        switch (position.layerPosition) 
+        {
+            case GameObjectPosition.LayerPosition.MIDDLEGROUND:
+                return stagingArea;
+            case GameObjectPosition.LayerPosition.BACKGROUND:
+                return stagingAreaBackground;
+            case GameObjectPosition.LayerPosition.FOREGROUND:
+                return stagingAreaForeground;
+            default:
+                return stagingArea;
+        }
     }
 
     public void setAndGenerate(string level_name, generateType generateType)
