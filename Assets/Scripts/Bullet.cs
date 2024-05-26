@@ -20,9 +20,16 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.right * speed);
+        bool slowBullet = GameObject.FindGameObjectWithTag("Player").GetComponent<BladeBound>().GetIsInBladeBound();
 
-         if ((dir == 0 && transform.position.x < End.x) || (dir != 0 && transform.position.x > End.x))
+        if (slowBullet)
+        {
+            transform.Translate(Vector3.right * speed /2);
+        }
+        else transform.Translate(Vector3.right * speed);
+
+
+        if ((dir == 0 && transform.position.x < End.x) || (dir != 0 && transform.position.x > End.x))
           {
               Destroy(this.gameObject);
           }

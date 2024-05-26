@@ -28,7 +28,7 @@ public class IdleState : State
     {
         base.Exit();
         
-        if(flipAfterIdle && !entity.isGrabbed)
+        if(flipAfterIdle && !entity.isGrabbed && !entity.BB.isFrozen)
         {
             entity.Flip();
         }
@@ -44,7 +44,7 @@ public class IdleState : State
     {
         base.PhysicsUpdate();
 
-        if(Time.time >= startTime+idleTime)
+        if(Time.time >= startTime+idleTime && !entity.BB.isFrozen)
         {
             isIdleDone = true;
         }

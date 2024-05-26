@@ -9,7 +9,11 @@ public class LevelEditorMouse : MonoBehaviour
     [HideInInspector]
     public SpriteAndGameObject selectedGameObject;
     public string selectedGameObjectName;
-    public GameObject stagingArea;
+   // public GameObject stagingArea;
+   // public GameObject stagingAreaBackground;
+   // public GameObject stagingAreaForeground;
+
+    
 
     [HideInInspector]
     public LevelManipulation manipulateOption = LevelManipulation.Create;
@@ -20,6 +24,7 @@ public class LevelEditorMouse : MonoBehaviour
     public Material badPlace;
     public GameObject Player;
     public LevelEditorManager levelEditorManager;
+    private GameObject selectedStagingArea;
     public float grid_length = 128f;
 
     public delegate void MouseClick();
@@ -41,7 +46,11 @@ public class LevelEditorMouse : MonoBehaviour
 
     private void OnEnable()
     {
-        GridSizeSliderController.onSliderLoad += (float initial_value) => { grid_length = initial_value; };
+        GridSizeSliderController.onSliderLoad += 
+            (float initial_value) => { grid_length = initial_value; };
+        LayerSwitchButtonController.onLayerSwitchUpdate += 
+            (GameObjectPosition.LayerPosition layerPosition) => 
+            onSelectedStagingAreaUpdate(layerPosition);
     }
 
     // Start is called before the first frame update
@@ -87,7 +96,7 @@ public class LevelEditorMouse : MonoBehaviour
             if (OnMouseClick != null)
             {
                 OnMouseClick();
-                if (selectedObject)
+                if (selectedObject && selectedObject.transform.parent.transform == selectedStagingArea.transform)
                 {
                     offset = selectedObject.transform.position - mousePosition;
                 }
@@ -113,7 +122,7 @@ public class LevelEditorMouse : MonoBehaviour
                 CreateObject();
                 lastSetPosition = mousePosition;
             }
-            if (selectedObject)
+            if (selectedObject && selectedObject.transform.parent.transform == selectedStagingArea.transform)
             {
                 if (manipulateOption == LevelManipulation.Destroy)
                 {
@@ -125,6 +134,21 @@ public class LevelEditorMouse : MonoBehaviour
         }
     }
 
+    private void onSelectedStagingAreaUpdate(GameObjectPosition.LayerPosition layerPosition)
+    {
+        switch (layerPosition)
+        {
+            case GameObjectPosition.LayerPosition.MIDDLEGROUND:
+                selectedStagingArea = levelEditorManager.tileMapGenerator.stagingArea; break;
+            case GameObjectPosition.LayerPosition.BACKGROUND:
+                selectedStagingArea = levelEditorManager.tileMapGenerator.stagingAreaBackground; break;
+            case GameObjectPosition.LayerPosition.FOREGROUND:
+                selectedStagingArea = levelEditorManager.tileMapGenerator.stagingAreaForeground; break;
+            default:
+                selectedStagingArea = levelEditorManager.tileMapGenerator.stagingArea; break;
+        }
+    }
+
     void CreateObject()
     {
         GameObject newObj = new GameObject(selectedGameObject.obj.name);
@@ -133,13 +157,18 @@ public class LevelEditorMouse : MonoBehaviour
         moveable.myRenderer = sr;
         
         sr.sprite = selectedGameObject.sprite;
-        newObj.transform.position = new Vector3(mousePosition.x, mousePosition.y, 0f);
-        newObj.transform.parent = stagingArea.transform;
+        newObj.transform.position = new Vector3(mousePosition.x, mousePosition.y, selectedGameObject.obj.transform.position.z);
+        newObj.transform.parent = selectedStagingArea.transform;
     }
 
-    public void clearStagingArea()
+    public void clearSelectedStageArea()
     {
-        foreach (Transform child in stagingArea.transform)
+        clearStagingArea(selectedStagingArea.transform);
+    }
+
+    private void clearStagingArea(Transform area)
+    {
+        foreach (Transform child in area)
         {
             Destroy(child.gameObject);
             foreach (Camera cam in Camera.allCameras)
@@ -154,11 +183,21 @@ public class LevelEditorMouse : MonoBehaviour
                 }
             }
         }
+    }
 
+    public void clearStagingAreas()
+    {
+        clearStagingArea(levelEditorManager.tileMapGenerator.stagingAreaBackground.transform);
+        clearStagingArea(levelEditorManager.tileMapGenerator.stagingAreaForeground.transform);
+        clearStagingArea(levelEditorManager.tileMapGenerator.stagingArea.transform);
     }
 
     private void OnDisable()
     {
-        GridSizeSliderController.onSliderLoad -= (float initial_value) => { grid_length = initial_value; };
+        GridSizeSliderController.onSliderLoad -= 
+            (float initial_value) => { grid_length = initial_value; };
+        LayerSwitchButtonController.onLayerSwitchUpdate -=
+            (GameObjectPosition.LayerPosition layerPosition) =>
+            onSelectedStagingAreaUpdate(layerPosition);
     }
 }
