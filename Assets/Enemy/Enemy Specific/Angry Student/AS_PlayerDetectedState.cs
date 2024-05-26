@@ -24,7 +24,8 @@ public class AS_PlayerDetectedState : PlayerDetectedState
     {
         base.LogicUpdate();
 
-
+        if (!entity.BB.isFrozen)
+        {
             if (performCloseRangeAttack)
             {
                 stateMachine.ChangeState(angryStudent.punchState);
@@ -38,6 +39,11 @@ public class AS_PlayerDetectedState : PlayerDetectedState
             {
                 stateMachine.ChangeState(angryStudent.lookForPlayerState);
             }
+        }
+        else
+        {
+            stateMachine.ChangeState(angryStudent.idleState);
+        }
     }
 
     public override void PhysicsUpdate()

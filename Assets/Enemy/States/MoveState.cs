@@ -16,7 +16,6 @@ public class MoveState : State
     public override void Enter()
     {
         base.Enter();
-        entity.SetVelocity(stateData.moveSpeed);
     }
 
     public override void Exit()
@@ -27,6 +26,14 @@ public class MoveState : State
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+        if (!entity.BB.GetIsInBladeBound())
+        {
+            entity.SetVelocity(stateData.moveSpeed);
+        }
+        else
+        {
+            entity.SetVelocity(stateData.moveSpeed / 2);
+        }
     }
 
     public override void PhysicsUpdate()

@@ -32,6 +32,8 @@ public class Entity : MonoBehaviour
 
     public int pummelFactor = 0;
 
+    public BladeBound BB;
+
     public bool[] whichThrow = { false, false, false, false };
     public virtual void Start()
     {
@@ -40,6 +42,7 @@ public class Entity : MonoBehaviour
         anim = GetComponent<Animator>();
         animToState = GetComponent<AnimationToStateMachine>();
         playerGO = GameObject.FindGameObjectWithTag("Player");
+        BB = playerGO.GetComponent<BladeBound>();
 
         stateMachine = new FiniteStateMachine();
     }
@@ -47,6 +50,15 @@ public class Entity : MonoBehaviour
     public virtual void Update()
     {
         stateMachine.currentState.LogicUpdate();
+
+        if(BB.GetIsInBladeBound())
+        {
+            anim.SetFloat("speed", .5f);
+        }
+        else
+        {
+            anim.SetFloat("speed", 1);
+        }
 
     }
 
@@ -80,8 +92,17 @@ public class Entity : MonoBehaviour
 
     public virtual void Damage()
     {
+
         health.TakeDamage(stats[0]);
         playerGO.GetComponent<PlayerAttack>().Combo();
+        if (!BB.GetIsInBladeBound())
+        {
+            BB.AddHit();
+        }
+        else
+        {
+            BB.AddFreezeHit();
+        }
     }
 
     public virtual void Flip()

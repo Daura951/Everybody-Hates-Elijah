@@ -29,10 +29,12 @@ public class TechKidProjectile : MonoBehaviour
     public Transform bulletPoint;
 
     private bool isDead = false;
+    private BladeBound BB;
 
     // Start is called before the first frame update
     void Start()
     {
+        BB =  GameObject.FindGameObjectWithTag("Player").GetComponent<BladeBound>();
         anim = GetComponent<Animator>();
        bulletLaunchTime -= DetectionTime;
 
@@ -45,7 +47,7 @@ public class TechKidProjectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isDead)
+        if (!isDead || BB.isFrozen)
         {
             if (GetComponent<EnemyHealth>().health <= 0)
             {
@@ -130,6 +132,15 @@ public class TechKidProjectile : MonoBehaviour
             timer = 0;
             GetComponent<EnemyHealth>().TakeDamage(stats[0]);
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>().Combo();
+
+            if (!BB.GetIsInBladeBound())
+            {
+                BB.AddHit();
+            }
+            else
+            {
+                BB.AddFreezeHit();
+            }
 
         }
     }

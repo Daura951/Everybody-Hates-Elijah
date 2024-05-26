@@ -65,14 +65,16 @@ public class AngryStudent : Entity
     public override void Damage()
     {
         base.Damage();
-
-        if (stateMachine.currentState != stunState && health.GetHealth() > 0)
+        if (!BB.isFrozen)
         {
-            stateMachine.ChangeState(stunState);
-        }
-        else if(health.GetHealth() <= 0)
-        {
-            stateMachine.ChangeState(deadState);
+            if (stateMachine.currentState != stunState && health.GetHealth() > 0)
+            {
+                stateMachine.ChangeState(stunState);
+            }
+            else if (health.GetHealth() <= 0)
+            {
+                stateMachine.ChangeState(deadState);
+            }
         }
     }
 
