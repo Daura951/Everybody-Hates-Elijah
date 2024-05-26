@@ -350,6 +350,16 @@ public class PlayerAttack : MonoBehaviour
 
     }
 
+    public void EndLag()
+    {
+        playerMovement.rb.velocity = new Vector2(0, 0);
+        if (anim.GetBool("EndLag"))
+            anim.SetBool("EndLag", false);
+        else
+            anim.SetBool("EndLag", true);
+
+    }
+
 
     public void SideBMove()
     {
@@ -455,7 +465,8 @@ public class PlayerAttack : MonoBehaviour
     public void Throw()
     {
         //currentlyGrabbedEnemy.isGrabbed = false; //Make sure the currently grabbed enemy is unlocked
-        currentlyGrabbedEntity.getThrown();
+        if (currentlyGrabbedEntity != null)
+            currentlyGrabbedEntity.getThrown();
     }
 
     public void DThrow()

@@ -203,7 +203,7 @@ public class PlayerMovement : MonoBehaviour
 
         else
         {
-            Speed = Crawl;
+           // Speed = Crawl;
             rb.velocity = new Vector2((dirX > 0 ? dirX * smoothVector.x : -dirX * smoothVector.x), rb.velocity.y);
         }
 
@@ -307,6 +307,11 @@ public class PlayerMovement : MonoBehaviour
                         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
                         anim.SetBool("isFalling", false);
                     }
+                    else
+                    {
+                        print(anim.GetCurrentAnimatorClipInfo(0)[0].clip.name);
+                        StartCoroutine(SquatJump());
+                    }
 
                 }
             } 
@@ -360,13 +365,15 @@ public class PlayerMovement : MonoBehaviour
 
             if (isInAir)
                 Speed = Walk;
+            if (!anim.GetBool("EndLag"))
+            {
 
-            if (!anim.GetBool("Climbing") && !anim.GetBool("isAirStunned") && !anim.GetBool("isLaying"))
-                Move();            
+                if (!anim.GetBool("Climbing") && !anim.GetBool("isAirStunned") && !anim.GetBool("isLaying"))
+                    Move();
 
-            if (!PlayerAttack.attackInstance.isExecutedOnce)
-                Jump();
-
+                if (!PlayerAttack.attackInstance.isExecutedOnce)
+                    Jump();
+            }
             anim.SetBool("isGrounded", !isInAir);
 
             if (rb.velocity.y < 0)
@@ -577,6 +584,12 @@ public class PlayerMovement : MonoBehaviour
         else isOnPassThrough = true;
         isCoroutineRunning = false;
 
+    }
+
+    private IEnumerator SquatJump()
+    {
+            yield return new WaitForSeconds(.75f);
+         rb.velocity = new Vector2(rb.velocity.x, 10f);
     }
 
 

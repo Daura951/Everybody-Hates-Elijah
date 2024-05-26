@@ -86,24 +86,35 @@ public class Stun : MonoBehaviour
     {
         if(col.gameObject.GetComponent<Stun_Info>() && !H.dead)
         {
-            if(!Stunned)
-            rb.velocity = new Vector2(0,0);
-            
-
-            Stunned = true;
-            anim.SetBool("Stunned",Stunned);
-
-            int randStun = UnityEngine.Random.Range(1, 4);
-            string stunStr = "Stunned";
-
-            if(randStun != 1)
+            if (!Stunned)
             {
-                stunStr += ""+randStun;
+
+                rb.velocity = new Vector2(0, 0);
+
+                int randStun = UnityEngine.Random.Range(1, 4);
+                if (randStun == 1)
+                {
+                    anim.SetBool("StunRand", false);
+                    anim.SetBool("StunRand1", false);
+                }
+                if (randStun == 2)
+                {
+                    anim.SetBool("StunRand", false);
+                    anim.SetBool("StunRand1", true);
+                }
+                if (randStun == 3)
+                {
+                    anim.SetBool("StunRand", true);
+                    anim.SetBool("StunRand1", false);
+                }
+
+                Stunned = true;
+                anim.SetBool("Stunned", Stunned);
+                anim.Play("StunnedStart");
+
             }
 
-            anim.Play(stunStr);
-      
-            if(PlayerAttack.attackInstance.ASideB)
+            if (PlayerAttack.attackInstance.ASideB)
             PlayerAttack.attackInstance.ASideB = false;
 
             SI = col.gameObject.GetComponent<Stun_Info>();
@@ -138,11 +149,32 @@ public class Stun : MonoBehaviour
         {
             g = col.gameObject;
             if (!Stunned)
-            rb.velocity = new Vector2(0,0);
-            
-            Stunned = true;
-            anim.SetBool("Stunned",Stunned);
-            anim.Play("Stunned");
+            {
+
+                rb.velocity = new Vector2(0, 0);
+
+                int randStun = UnityEngine.Random.Range(1, 4);
+                if (randStun == 1)
+                {
+                    anim.SetBool("StunRand", false);
+                    anim.SetBool("StunRand1", false);
+                }
+                if (randStun == 2)
+                {
+                    anim.SetBool("StunRand", false);
+                    anim.SetBool("StunRand1", true);
+                }
+                if (randStun == 3)
+                {
+                    anim.SetBool("StunRand", true);
+                    anim.SetBool("StunRand1", false);
+                }
+
+                Stunned = true;
+                anim.SetBool("Stunned", Stunned);
+                anim.Play("StunnedStart");
+
+            }
 
             SI = col.gameObject.GetComponent<Stun_Info>(); //Polymorphism FTW
 
