@@ -524,7 +524,9 @@ public class PlayerMovement : MonoBehaviour
             }
 
             RaycastHit2D hitGround = Physics2D.Raycast(groundRays[1].transform.position, -Vector2.up * rayRange);
-            if (!isInAir && collision.gameObject.tag == "Platform" && hitGround.collider.tag == "Platform")
+            if (!isInAir && 
+                collision?.gameObject?.tag == "Platform" && 
+                hitGround.collider?.tag == "Platform")
             {
                 if (collision.gameObject.transform.position.y < transform.position.y)
                     jumpAmt = 1;

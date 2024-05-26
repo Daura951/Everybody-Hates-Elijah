@@ -542,7 +542,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1147828566731714523}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.61, y: -1.69, z: 0}
+  m_LocalPosition: {x: 11.61, y: -1.69, z: -3}
   m_LocalScale: {x: 1.1659606, y: 1.5745, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -714,6 +714,7 @@ MonoBehaviour:
   isGrabbed: 0
   isPummeled: 0
   pummelFactor: 0
+  BB: {fileID: 0}
   whichThrow: 00000000
   hitboxes:
   - {fileID: 7504139569174996308}

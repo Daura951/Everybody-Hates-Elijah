@@ -115,4 +115,9 @@ public class TileMapGenerator : MonoBehaviour
 
     }
 
+    public string get_gameobject_layer_name(string object_name)
+    {
+        return tileGameObjectDict.get_layer_name(object_name);
+    }
+
 }

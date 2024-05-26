@@ -294,7 +294,19 @@ public class PlayerAttack : MonoBehaviour
         }
 
 
-        else if ((Gamepad.current.rightTrigger.isPressed || Gamepad.current.leftTrigger.isPressed || Input.GetButtonDown("Shield")) && Input.GetAxisRaw("Horizontal") == 0f && Input.GetAxisRaw("Vertical") == 0 && !stunned && !isExecutedOnce && !playerMovement.isInAir && !shielding && !shieldHeld)
+        else if ((
+            (Gamepad.current?.rightTrigger?.isPressed ?? false) || 
+            (Gamepad.current?.leftTrigger?.isPressed ?? false) || 
+            Input.GetButtonDown("Shield")
+            ) && 
+            Input.GetAxisRaw("Horizontal") == 0f && 
+            Input.GetAxisRaw("Vertical") == 0 && 
+            !stunned && 
+            !isExecutedOnce && 
+            !playerMovement.isInAir && 
+            !shielding && 
+            !shieldHeld
+         )
         {
             print("Shield");
             shieldHeld = shielding = Shield.GetComponent<SpriteRenderer>().enabled = true;
@@ -304,7 +316,10 @@ public class PlayerAttack : MonoBehaviour
             
         }
 
-        if(!Gamepad.current.rightTrigger.isPressed && !Gamepad.current.leftTrigger.isPressed && !Input.GetButton("Shield"))
+        if((!Gamepad.current?.rightTrigger?.isPressed ?? false) && 
+            (!Gamepad.current?.leftTrigger?.isPressed ?? false) && 
+            !Input.GetButton("Shield")
+         )
         {
             shieldHeld = false;
         }
@@ -672,7 +687,7 @@ public class PlayerAttack : MonoBehaviour
         if (comboScore % 10 == 0)
         {
             int j = (int)comboScore / 10;
-            if (j <= ComboClip.Length)
+            if (j < ComboClip.Length)
                 Combofx.PlayOneShot(ComboClip[j], 1f);
         }
     }

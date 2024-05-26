@@ -37,6 +37,11 @@ public class TileGameObjects : MonoBehaviour
         return tileGameObjectDictionary[key];
     }
 
+    public string get_layer_name(string key)
+    {
+        return LayerMask.LayerToName(get(key).obj.layer);
+    }
+
     public GameObject getNextGameObject(string key)
     {
         return getNext(key)?.obj;
