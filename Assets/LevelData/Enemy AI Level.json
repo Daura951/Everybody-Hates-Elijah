@@ -1,0 +1,40 @@
+{
+  "tileSize": 32,
+  "mapWidth": 4,
+  "mapHeight": 4,
+  "layers": [
+{ "name": "Default",
+ "gameObjectPositions": [
+{ "gameObjectName": "Platform", "x":-6.400024, "y":-1.280029, "layerPosition":"1"},
+{ "gameObjectName": "Platform", "x":-5.119995, "y":-1.280029, "layerPosition":"1"},
+{ "gameObjectName": "Platform", "x":-3.839966, "y":-1.280029, "layerPosition":"1"},
+{ "gameObjectName": "Platform", "x":-2.560059, "y":-1.280029, "layerPosition":"1"},
+{ "gameObjectName": "Platform", "x":-1.280029, "y":-1.280029, "layerPosition":"1"},
+{ "gameObjectName": "Platform", "x":5.119995, "y":-1.280029, "layerPosition":"1"},
+{ "gameObjectName": "Platform", "x":6.400024, "y":-1.280029, "layerPosition":"1"},
+{ "gameObjectName": "Platform", "x":7.680054, "y":-1.280029, "layerPosition":"1"},
+{ "gameObjectName": "Platform", "x":8.959961, "y":-1.280029, "layerPosition":"1"},
+{ "gameObjectName": "Grabble platform", "x":-7.680054, "y":-1.280029, "layerPosition":"1"},
+{ "gameObjectName": "Grabble platform", "x":-47.35999, "y":26.88, "layerPosition":"1"},
+{ "gameObjectName": "Grabble platform", "x":-47.35999, "y":28.15997, "layerPosition":"1"},
+{ "gameObjectName": "Platform", "x":10.23999, "y":-1.280029, "layerPosition":"1"},
+{ "gameObjectName": "Platform", "x":11.52002, "y":-1.280029, "layerPosition":"1"},
+{ "gameObjectName": "Platform", "x":12.80005, "y":-1.280029, "layerPosition":"1"},
+{ "gameObjectName": "Platform", "x":14.07996, "y":-1.280029, "layerPosition":"1"},
+{ "gameObjectName": "Platform", "x":-44.80005, "y":-12.79999, "layerPosition":"1"},
+{ "gameObjectName": "Platform", "x":-44.80005, "y":-14.08002, "layerPosition":"1"},
+{ "gameObjectName": "Platform", "x":-44.80005, "y":-15.35999, "layerPosition":"1"},
+{ "gameObjectName": "Platform", "x":-44.80005, "y":-16.64001, "layerPosition":"1"},
+{ "gameObjectName": "Platform", "x":-44.80005, "y":-15.35999, "layerPosition":"1"},
+{ "gameObjectName": "Platform", "x":-44.80005, "y":-14.08002, "layerPosition":"1"},
+{ "gameObjectName": "Platform", "x":-44.80005, "y":-12.79999, "layerPosition":"1"},
+{ "gameObjectName": "Grabble platform", "x":15.35999, "y":-1.280029, "layerPosition":"1"},
+{ "gameObjectName": "Male Student", "x":7.680054, "y":0, "layerPosition":"1"},
+{ "gameObjectName": "Player", "x":-5.119995, "y":0, "layerPosition":"1"},
+{ "gameObjectName": "Platform", "x":0, "y":-1.280029, "layerPosition":"1"},
+{ "gameObjectName": "Platform", "x":3.839966, "y":-1.280029, "layerPosition":"1"},
+{ "gameObjectName": "Platform", "x":2.560059, "y":-1.280029, "layerPosition":"1"}
+]
+}
+]
+}

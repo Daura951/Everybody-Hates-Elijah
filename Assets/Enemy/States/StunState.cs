@@ -36,7 +36,7 @@ public class StunState : State
         else stunTime = 0.01f;
         
         entity.rb.gravityScale = 1f;
-        entity.playerGO.GetComponent<Animator>().SetBool("hasGrabbedEnemy", false);
+        //entity.playerGO.GetComponent<Animator>().SetBool("hasGrabbedEnemy", false);
         entity.pummelFactor = 0;
     }
 

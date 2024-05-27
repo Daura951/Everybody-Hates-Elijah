@@ -151,8 +151,11 @@ public class Entity : MonoBehaviour
             XComponent *= -1;
         }
 
-        rb.AddForce(new Vector2(XComponent, YComponent));
-        Damage();
+        if (!BB.isFrozen)
+        {
+            rb.AddForce(new Vector2(XComponent, YComponent));
+        }
+            Damage();
     }
     public virtual void GetGrabbed()
     {

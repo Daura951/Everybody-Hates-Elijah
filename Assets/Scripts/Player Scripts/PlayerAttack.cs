@@ -713,4 +713,9 @@ public class PlayerAttack : MonoBehaviour
     {
         return isAttacking;
     }
+
+    public void setHasGrabbedEnemyToFalse()
+    {
+        anim.SetBool("hasGrabbedEnemy", false);
+    }
 }

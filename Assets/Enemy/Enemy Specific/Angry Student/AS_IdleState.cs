@@ -23,14 +23,16 @@ public class AS_IdleState : IdleState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-
-        if (isPlayerInMinAgroRange)
+        if (!entity.BB.isFrozen)
         {
-            stateMachine.ChangeState(angryStudent.playerDetectedState);
-        }
-        else if (isIdleDone)
-        {
-            stateMachine.ChangeState(angryStudent.moveState);
+            if (isPlayerInMinAgroRange)
+            {
+                stateMachine.ChangeState(angryStudent.playerDetectedState);
+            }
+            else if (isIdleDone)
+            {
+                stateMachine.ChangeState(angryStudent.moveState);
+            }
         }
     }
 

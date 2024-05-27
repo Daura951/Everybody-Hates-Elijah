@@ -26,7 +26,6 @@ public class GrabSuccess : StateMachineBehaviour
             PlayerAttack.attackInstance.isAttacking = false;
             SetThrow();
             //PlayerAttack.attackInstance.currentlyGrabbedEnemy.GetComponent<Enemy_Target>().whichThrow[0] = true;
-            PlayerAttack.attackInstance.currentlyGrabbedEntity.GetComponent<Entity>().whichThrow[0] = true;
         }
 
         if(Input.GetAxisRaw("Vertical") < 0 && PlayerAttack.attackInstance.isAttacking && Input.GetAxisRaw("Horizontal") == 0 )
@@ -34,7 +33,6 @@ public class GrabSuccess : StateMachineBehaviour
             PlayerAttack.attackInstance.anim.Play("DThrow");
             SetThrow();
             //PlayerAttack.attackInstance.currentlyGrabbedEnemy.GetComponent<Enemy_Target>().whichThrow[3] = true;
-            PlayerAttack.attackInstance.currentlyGrabbedEntity.GetComponent<Entity>().whichThrow[3] = true;
         }
 
         if(Input.GetAxisRaw("Vertical") == 0 && PlayerAttack.attackInstance.isAttacking && ((PlayerAttack.attackInstance.playerMovement.transform.rotation.y == 0 && Input.GetAxisRaw("Horizontal") > 0) || (PlayerAttack.attackInstance.playerMovement.transform.rotation.y < 0 && Input.GetAxisRaw("Horizontal") < 0)))
@@ -42,7 +40,6 @@ public class GrabSuccess : StateMachineBehaviour
             PlayerAttack.attackInstance.anim.Play("FThrow");
             SetThrow();
             //PlayerAttack.attackInstance.currentlyGrabbedEnemy.GetComponent<Enemy_Target>().whichThrow[1] = true;
-            PlayerAttack.attackInstance.currentlyGrabbedEntity.GetComponent<Entity>().whichThrow[1] = true;
         }
 
         if(Input.GetAxisRaw("Vertical") == 0 && PlayerAttack.attackInstance.isAttacking && ((PlayerAttack.attackInstance.playerMovement.transform.rotation.y == 0 && Input.GetAxisRaw("Horizontal") < 0) || (PlayerAttack.attackInstance.playerMovement.transform.rotation.y < 0 && Input.GetAxisRaw("Horizontal") > 0)))
@@ -50,7 +47,6 @@ public class GrabSuccess : StateMachineBehaviour
             PlayerAttack.attackInstance.anim.Play("BThrow");
             SetThrow();
             //PlayerAttack.attackInstance.currentlyGrabbedEnemy.GetComponent<Enemy_Target>().whichThrow[2] = true;
-            PlayerAttack.attackInstance.currentlyGrabbedEntity.GetComponent<Entity>().whichThrow[2] = true;
         }
     }
 
