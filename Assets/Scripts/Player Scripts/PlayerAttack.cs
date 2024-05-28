@@ -224,6 +224,7 @@ public class PlayerAttack : MonoBehaviour
             {
                 SideBS = true;
                 rb.gravityScale = 0;
+                playerMovement.transform.position = new Vector2(playerMovement.transform.position.x, playerMovement.transform.position.y + .1f);
                 playerMovement.rb.velocity = new Vector2(playerMovement.rb.velocity.x, 0);
             }
         }
