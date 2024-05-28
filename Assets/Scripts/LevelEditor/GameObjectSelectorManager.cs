@@ -23,7 +23,7 @@ public class GameObjectSelectorManager : MonoBehaviour
         set_up_hot_bar_buttons();   
     }
 
-    private void onHotBarButtonClick(string object_name, SpriteAndGameObject spriteAndGameObject)
+    private void onHotBarButtonClick(SpriteAndGameObject spriteAndGameObject)
     {
         mouse.setSelectedGameObject(spriteAndGameObject);
     }
@@ -37,7 +37,7 @@ public class GameObjectSelectorManager : MonoBehaviour
             LevelEditorHotbarButtonController button_controller = instanced_button.GetComponent<LevelEditorHotbarButtonController>();
             button_controller.set_text(object_name);
             button_controller.set_sprite(spriteAndGameObject.sprite);
-            instanced_button.GetComponent<Button>().onClick.AddListener(() => onHotBarButtonClick(object_name, spriteAndGameObject));
+            instanced_button.GetComponent<Button>().onClick.AddListener(() => onHotBarButtonClick(spriteAndGameObject));
         }
     }
 }

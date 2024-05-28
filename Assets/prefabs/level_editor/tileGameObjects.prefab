@@ -139,7 +139,7 @@ MonoBehaviour:
       obj:
         sprite: {fileID: 21300000, guid: 0e9219ff6427f144e9fadcc7486a41f9, type: 3}
         obj: {fileID: 6126283599949435271, guid: 6533fdcdcf8736a45a410c98ed71c159, type: 3}
-    - name: Turret.
+    - name: DeathBox
       obj:
-        sprite: {fileID: 21300000, guid: 9173a58c315cd2543bd264f728c4211e, type: 3}
-        obj: {fileID: 3282603782139093786, guid: d1ce6c97e68c3a04cbcea6f77b95fc90, type: 3}
+        sprite: {fileID: 21300000, guid: 17f3d43ad680df94aabfda40cf2575d9, type: 3}
+        obj: {fileID: 9108783347521850435, guid: 9f4e22b4fa5957e40b914fddb6f22e9b, type: 3}
