@@ -157,7 +157,6 @@
 { "gameObjectName": "Wall", "x":30.71997, "y":-11.52002, "layerPosition":"1"},
 { "gameObjectName": "Wall", "x":30.71997, "y":-10.23999, "layerPosition":"1"},
 { "gameObjectName": "Wall", "x":-2.560059, "y":-17.92004, "layerPosition":"1"},
-{ "gameObjectName": "Wall", "x":17.92004, "y":-8.960022, "layerPosition":"1"},
 { "gameObjectName": "Wall", "x":-2.560059, "y":-16.64001, "layerPosition":"1"},
 { "gameObjectName": "Wall", "x":-2.560059, "y":-15.35999, "layerPosition":"1"},
 { "gameObjectName": "Wall", "x":-2.560059, "y":-14.08002, "layerPosition":"1"},
@@ -167,8 +166,6 @@
 { "gameObjectName": "Wall", "x":23.04004, "y":-5.119995, "layerPosition":"1"},
 { "gameObjectName": "Wall", "x":24.31995, "y":-5.119995, "layerPosition":"1"},
 { "gameObjectName": "Wall", "x":25.59998, "y":-5.119995, "layerPosition":"1"},
-{ "gameObjectName": "Wall", "x":26.88, "y":-5.119995, "layerPosition":"1"},
-{ "gameObjectName": "Wall", "x":19.19995, "y":-5.119995, "layerPosition":"1"},
 { "gameObjectName": "Platform", "x":-3.839966, "y":-17.91998, "layerPosition":"1"},
 { "gameObjectName": "Platform", "x":-5.119995, "y":-17.91998, "layerPosition":"1"},
 { "gameObjectName": "Platform", "x":-6.400024, "y":-17.91998, "layerPosition":"1"},
@@ -442,7 +439,9 @@
 { "gameObjectName": "Wall", "x":-6.400024, "y":-3.840027, "layerPosition":"1"},
 { "gameObjectName": "Wall", "x":-2.560059, "y":-10.23999, "layerPosition":"1"},
 { "gameObjectName": "Wall", "x":-2.560059, "y":-8.960022, "layerPosition":"1"},
-{ "gameObjectName": "Wall", "x":-2.560059, "y":-7.679993, "layerPosition":"1"}
+{ "gameObjectName": "Wall", "x":-2.560059, "y":-7.679993, "layerPosition":"1"},
+{ "gameObjectName": "dumpster", "x":-14.07996, "y":1.280029, "layerPosition":"1"},
+{ "gameObjectName": "dumpster", "x":-11.52002, "y":1.280029, "layerPosition":"1"}
 ]
 },
 { "name": "Default",
@@ -496,7 +495,7 @@
 },
 { "name": "Platform2",
  "gameObjectPositions": [
-{ "gameObjectName": "Grabble platform", "x":19.19995, "y":-8.959961, "layerPosition":"1"},
+{ "gameObjectName": "Grabble platform", "x":17.91992, "y":-8.959961, "layerPosition":"1"},
 { "gameObjectName": "Grabble Moveable platform", "x":3.839966, "y":-11.52002, "layerPosition":"1"}
 ]
 },
@@ -507,7 +506,7 @@
 },
 { "name": "Player",
  "gameObjectPositions": [
-{ "gameObjectName": "Player", "x":-19.20007, "y":20.47992, "layerPosition":"1"}
+{ "gameObjectName": "Player", "x":-25.59998, "y":20.47992, "layerPosition":"1"}
 ]
 },
 { "name": "BackGroundObjects",
