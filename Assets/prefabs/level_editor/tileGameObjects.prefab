@@ -143,3 +143,7 @@ MonoBehaviour:
       obj:
         sprite: {fileID: 21300000, guid: 3d804665525e1e44095fcd5a9a21f429, type: 3}
         obj: {fileID: 9108783347521850435, guid: 9f4e22b4fa5957e40b914fddb6f22e9b, type: 3}
+    - name: dumpster
+      obj:
+        sprite: {fileID: 21300000, guid: 5966f9b0c6f85d04a81fc9b3aee2e2b6, type: 3}
+        obj: {fileID: 8775844621132419232, guid: cedfc6e188900314ca2bd6e8dd7e98c0, type: 3}
