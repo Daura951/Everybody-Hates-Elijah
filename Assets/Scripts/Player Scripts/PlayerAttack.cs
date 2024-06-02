@@ -191,7 +191,7 @@ public class PlayerAttack : MonoBehaviour
             }
 
 
-            if (!OnLadder && !ASideB && !playerMovement.grabbing && !SS.ShieldStun && !H.dead && !isAttacking)
+            if (!OnLadder && !ASideB && !playerMovement.grabbing && !SS.ShieldStun && !H.dead)
                 Attack();
 
             if (ASideB)
