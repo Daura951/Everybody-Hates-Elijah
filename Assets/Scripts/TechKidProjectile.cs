@@ -30,6 +30,7 @@ public class TechKidProjectile : MonoBehaviour
 
     private bool isDead = false;
     private BladeBound BB;
+    public bool isInCutScene;
 
     // Start is called before the first frame update
     void Start()
@@ -55,7 +56,7 @@ public class TechKidProjectile : MonoBehaviour
                 isDead = true;
             }
 
-            if (On)
+            if (On || !isInCutScene)
             {
                 if (transform.eulerAngles.y == 0)
                     sensor = Physics2D.CircleCast(offset, radius, Vector3.left);

@@ -10,6 +10,7 @@ public class IdleState : State
     protected float idleTime;
     protected bool isIdleDone;
     protected bool isPlayerInMinAgroRange;
+    protected bool isInCutscene;
     public IdleState(Entity entity, FiniteStateMachine stateMachine, string animBoolName, D_IdleState stateData) : base(entity, stateMachine, animBoolName)
     {
         this.stateData = stateData;
@@ -21,14 +22,14 @@ public class IdleState : State
         entity.SetVelocity(0);
         isIdleDone = false;
         SetRandomIdleTime();
-
+        isInCutscene = entity.isInCutscene;
     }
 
     public override void Exit()
     {
         base.Exit();
         
-        if(flipAfterIdle && !entity.isGrabbed && !entity.BB.isFrozen)
+        if(flipAfterIdle && !entity.isGrabbed && !entity.BB.isFrozen && !isInCutscene)
         {
             entity.Flip();
         }

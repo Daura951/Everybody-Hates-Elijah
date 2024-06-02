@@ -34,6 +34,8 @@ public class Entity : MonoBehaviour
 
     public BladeBound BB;
 
+    public bool isInCutscene;
+
     public bool[] whichThrow = { false, false, false, false };
     public virtual void Start()
     {

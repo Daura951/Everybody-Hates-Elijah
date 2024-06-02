@@ -68,6 +68,8 @@ public class PlayerMovement : MonoBehaviour
 
     public static PlayerMovement instance;
 
+    public bool isInCutscene = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -100,62 +102,75 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        globalDirX = Input.GetAxisRaw("Horizontal");
-
-        if (anim.GetCurrentAnimatorStateInfo(0).IsName("JumpSqaut"))
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-
-        stunned = S.getIsStunned();
-
-        if (Escelator != null)
-            OnEscelator = Escelator.GetOnEscelator();
-
-        isInLandingLag = anim.GetCurrentAnimatorStateInfo(0).IsName("Fall 2 Idle");
-
-        isCrouch = anim.GetCurrentAnimatorStateInfo(0).IsName("Crouch");
-
-        if (Input.GetButton("Run") && !isInAir && !isCrouch && !dashDisable)
+        if (!isInCutscene)
         {
-            Speed = Run;
-            anim.SetTrigger("Running");
-            anim.ResetTrigger("Walking");
+            globalDirX = Input.GetAxisRaw("Horizontal");
 
-        }
-        else if (dashDisable && Input.GetAxisRaw("Horizontal") != 0)
-        {
-            anim.SetTrigger("Walking");
-            Speed = 9f;
+            if (anim.GetCurrentAnimatorStateInfo(0).IsName("JumpSqaut"))
+                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+
+            stunned = S.getIsStunned();
+
+            if (Escelator != null)
+                OnEscelator = Escelator.GetOnEscelator();
+
+            isInLandingLag = anim.GetCurrentAnimatorStateInfo(0).IsName("Fall 2 Idle");
+
+            isCrouch = anim.GetCurrentAnimatorStateInfo(0).IsName("Crouch");
+
+            if (Input.GetButton("Run") && !isInAir && !isCrouch && !dashDisable)
+            {
+                Speed = Run;
+                anim.SetTrigger("Running");
+                anim.ResetTrigger("Walking");
+
+            }
+            else if (dashDisable && Input.GetAxisRaw("Horizontal") != 0)
+            {
+                anim.SetTrigger("Walking");
+                Speed = 9f;
+            }
+
+            else if (Input.GetAxisRaw("Vertical") < 0f && !isInAir && isCrouch)
+            {
+                Speed = Crawl;
+
+                anim.SetBool("Crouch", false);
+                anim.ResetTrigger("Walking");
+                anim.ResetTrigger("Running");
+            }
+            else if (!Input.GetButton("Run") && !isInAir && !isCrouch)
+            {
+                Speed = Walk;
+                anim.ResetTrigger("Running");
+            }
+            else
+            {
+                anim.ResetTrigger("Walking");
+                anim.ResetTrigger("Running");
+
+                anim.SetBool("Crouch", false);
+                if (Escelator == null && !isInAir)
+                    anim.SetTrigger("Idle");
+
+            }
+
+            DetermineMovementStates();
+
+            if (rb.velocity.y < terminalVelocityY)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, terminalVelocityY);
+            }
         }
 
-        else if (Input.GetAxisRaw("Vertical") < 0f && !isInAir && isCrouch)
-        {
-            Speed = Crawl;
-            
-            anim.SetBool("Crouch", false);
-            anim.ResetTrigger("Walking");
-            anim.ResetTrigger("Running");
-        }
-        else if (!Input.GetButton("Run") && !isInAir && !isCrouch)
-        {
-            Speed = Walk;
-            anim.ResetTrigger("Running");
-        }
         else
         {
+            rb.velocity = new Vector2(0, 0);
             anim.ResetTrigger("Walking");
             anim.ResetTrigger("Running");
-            
+
             anim.SetBool("Crouch", false);
-            if (Escelator == null && !isInAir)
-                anim.SetTrigger("Idle");
-
-        }
-
-        DetermineMovementStates();
-
-        if (rb.velocity.y < terminalVelocityY)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, terminalVelocityY);
+            anim.SetTrigger("Idle");
         }
 
     }
@@ -543,7 +558,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
+        if(collision.gameObject.tag== "CutsceneTrigger")
+        {
+            collision.gameObject.GetComponent<CutsceneTrigger>().isTriggered = true;
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)

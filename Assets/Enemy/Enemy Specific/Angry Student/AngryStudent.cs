@@ -49,11 +49,20 @@ public class AngryStudent : Entity
 
     public override void Update()
     {
-        base.Update();
-
-        if(health.GetHealth() <= 0)
+        if (!isInCutscene)
         {
-            stateMachine.ChangeState(deadState);
+            base.Update();
+
+            if (health.GetHealth() <= 0)
+            {
+                stateMachine.ChangeState(deadState);
+            }
+        }
+
+        else
+        {
+            print("Hello!");
+            stateMachine.ChangeState(idleState);
         }
     }
 
