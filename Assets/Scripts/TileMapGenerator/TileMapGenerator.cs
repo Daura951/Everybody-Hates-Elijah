@@ -87,9 +87,9 @@ public class TileMapGenerator : MonoBehaviour
 
                     TextMeshProUGUI tm = childObj.AddComponent<TextMeshProUGUI>();
                     tm.outlineColor = Color.black;
-                    tm.outlineWidth = 0.134f;
+                    tm.outlineWidth = 0.14f;
                     tm.SetText(objectCount.ToString());
-                    tm.fontSize = 3;
+                    tm.fontSize = 5;
 
                     newObj.transform.position = pos;
                     newObj.transform.parent = parent_transform;

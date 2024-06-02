@@ -179,9 +179,9 @@ public class LevelEditorMouse : MonoBehaviour
 
         TextMeshProUGUI tm = childObj.AddComponent<TextMeshProUGUI>();
         tm.outlineColor = Color.black;
-        tm.outlineWidth = 0.134f;
+        tm.outlineWidth = 0.14f;
         tm.SetText(objectCount.ToString());
-        tm.fontSize = 6;
+        tm.fontSize = 5;
 
         moveable.myRenderer = sr;
         
