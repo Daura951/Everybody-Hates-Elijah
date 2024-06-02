@@ -70,6 +70,8 @@ public class PlayerMovement : MonoBehaviour
 
     public bool isInCutscene = false;
 
+    private GameObjectToDoorInterface gameObjectToDoorInterface;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -82,6 +84,7 @@ public class PlayerMovement : MonoBehaviour
         anim = GetComponent<Animator>();
         attackScript = GetComponent<PlayerAttack>();
         H = GetComponent<Health>();
+        gameObjectToDoorInterface = GetComponent<GameObjectToDoorInterface>();
 
             
         Speed = Walk;
@@ -117,6 +120,11 @@ public class PlayerMovement : MonoBehaviour
             isInLandingLag = anim.GetCurrentAnimatorStateInfo(0).IsName("Fall 2 Idle");
 
             isCrouch = anim.GetCurrentAnimatorStateInfo(0).IsName("Crouch");
+
+            if (Input.GetButtonDown("DoorEnter"))
+            {
+                gameObjectToDoorInterface?.goThroughDoor();
+            }
 
             if (Input.GetButton("Run") && !isInAir && !isCrouch && !dashDisable)
             {

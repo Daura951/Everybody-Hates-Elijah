@@ -2,6 +2,8 @@ using UnityEngine;
 using Newtonsoft.Json;
 using System.IO;
 using System;
+using TMPro;
+using UnityEngine.UI;
 public class TileMapGenerator : MonoBehaviour
 {
     public enum generateType { sprite, gameObject }
@@ -32,6 +34,7 @@ public class TileMapGenerator : MonoBehaviour
 
     private void generate(string mapFileJson, generateType generateType)
     {
+        int objectCount = 0;
         if (mapFileJson == null || mapFileJson == "")
         {
             return;
@@ -62,12 +65,31 @@ public class TileMapGenerator : MonoBehaviour
                 }
                 else if (generateType == generateType.sprite)
                 {
+                    objectCount += 1;
                     GameObject newObj = new GameObject(gameObjectPosition.gameObjectName);
                     SpriteRenderer sr = newObj.AddComponent<SpriteRenderer>();
                     sr.sprite = tileGameObjectDict.getSprite(gameObjectPosition.gameObjectName);
  
                     LevelEditorMoveableObject moveable = newObj.AddComponent<LevelEditorMoveableObject>();
                     moveable.myRenderer = sr;
+
+                    Canvas canvas = newObj.AddComponent<Canvas>();
+                    canvas.renderMode = RenderMode.WorldSpace;
+                    canvas.worldCamera = Camera.main;
+
+                    GameObject childObj = new GameObject(gameObjectPosition.gameObjectName + "Text");
+                    childObj.transform.parent = newObj.transform;
+                    childObj.transform.localScale = new Vector3(0.1f, 0.1f, 1f);
+                    ContentSizeFitter csf = childObj.AddComponent<ContentSizeFitter>();
+                    csf.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
+                    csf.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+
+
+                    TextMeshProUGUI tm = childObj.AddComponent<TextMeshProUGUI>();
+                    tm.outlineColor = Color.black;
+                    tm.outlineWidth = 0.134f;
+                    tm.SetText(objectCount.ToString());
+                    tm.fontSize = 3;
 
                     newObj.transform.position = pos;
                     newObj.transform.parent = parent_transform;
