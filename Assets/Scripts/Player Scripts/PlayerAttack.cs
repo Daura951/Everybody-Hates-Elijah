@@ -20,6 +20,7 @@ public class PlayerAttack : MonoBehaviour
 
     [Header("Attack variables")]
     public bool isAttacking, isSpecial = false, isSticked = false, isGrab = false;
+    public bool LimitBreak = true;
 
     public GameObject[] hitBoxes;
     
@@ -92,7 +93,7 @@ public class PlayerAttack : MonoBehaviour
 
     public TMP_Text comboText;
 
-
+    public bool isInCutscene = false;
 
 
     private void Awake()
@@ -142,49 +143,60 @@ public class PlayerAttack : MonoBehaviour
 
     private void Update()
     {
-        if(currentlyGrabbedEntity != null)
-        print(currentlyGrabbedEntity.name);
-
-        DepleteComboTimer();
-        stunned = S.getIsStunned();
-
-        if (Ladder != null)
-            OnLadder = Ladder.GetOnLadder();
-
-
-        if (!shielding && SS.ShieldTimer != 0 && !SS.ShieldStun && SS.ActiveOnce)
+        if (!isInCutscene)
         {
-            SS.ShieldTimer -= Time.deltaTime;
-            if (SS.ShieldTimer <= 0)
-                SS.ShieldTimer = 0;
-
-        }
 
 
+            if (currentlyGrabbedEntity != null)
+                print(currentlyGrabbedEntity.name);
 
-        if (playerMovement.GetAnim().GetBool("isGrounded") == true)
-        {
-            //If we collided despawn the air hitboxes!
-            DespawnHitBox(3);
-            DespawnHitBox(10);
-            DespawnHitBox(11);
-            DespawnHitBox(12);
-        }
+            DepleteComboTimer();
+            stunned = S.getIsStunned();
 
-        if (stunned)
-        {
-            for (int i = 0; i < hitBoxes.Length; i++)
+            if (Ladder != null)
+                OnLadder = Ladder.GetOnLadder();
+
+
+            if (!shielding && SS.ShieldTimer != 0 && !SS.ShieldStun && SS.ActiveOnce)
             {
-                DespawnHitBox(i);
+                SS.ShieldTimer -= Time.deltaTime;
+                if (SS.ShieldTimer <= 0)
+                    SS.ShieldTimer = 0;
             }
+
+            if (hitBoxes[attackIndexes[30]].activeSelf)
+            {
+                hitBoxes[attackIndexes[30]].transform.localScale += new Vector3(1f, 1f, .1f);
+            }
+            else
+                hitBoxes[attackIndexes[30]].transform.localScale = new Vector3(1f, 1f, 1f);
+
+
+
+            if (playerMovement.GetAnim().GetBool("isGrounded") == true)
+            {
+                //If we collided despawn the air hitboxes!
+                DespawnHitBox(3);
+                DespawnHitBox(10);
+                DespawnHitBox(11);
+                DespawnHitBox(12);
+            }
+
+            if (stunned)
+            {
+                for (int i = 0; i < hitBoxes.Length; i++)
+                {
+                    DespawnHitBox(i);
+                }
+            }
+
+
+            if (!OnLadder && !ASideB && !playerMovement.grabbing && !SS.ShieldStun && !H.dead && !isAttacking)
+                Attack();
+
+            if (ASideB)
+                SideBMove();
         }
-
-
-        if (!OnLadder && !ASideB && !playerMovement.grabbing && !SS.ShieldStun && !H.dead)
-            Attack();
-
-        if (ASideB)
-            SideBMove();
     }
 
     void Attack()
@@ -193,7 +205,7 @@ public class PlayerAttack : MonoBehaviour
 
         //Control Detection
 
-        if (!stunned && !isAttacking && Input.GetButtonDown("Fire1") || Input.GetButtonDown("Grab"))
+        if ((!stunned && !isAttacking && Input.GetButtonDown("Fire1") || Input.GetButtonDown("Grab")) && !(shieldHeld && LimitBreak && anim.GetFloat("IdleSpeed") == 1.5f))
         {
             rb.gravityScale = 1;
             isAttacking = true;
@@ -205,7 +217,7 @@ public class PlayerAttack : MonoBehaviour
             else isGrab = false;
         }
 
-        else if (!stunned && !isAttacking && Input.GetButtonDown("Fire2"))
+        else if (!stunned && !isAttacking && Input.GetButtonDown("Fire2") && !(shieldHeld && LimitBreak && anim.GetFloat("IdleSpeed") == 1.5f))
         {
             isSpecial = true;
             isAttacking = true;
@@ -317,10 +329,21 @@ public class PlayerAttack : MonoBehaviour
             
         }
 
-        if((!Gamepad.current?.rightTrigger?.isPressed ?? false) && 
+        if ((
+            (Gamepad.current?.rightTrigger?.isPressed ?? true) ||
+            (Gamepad.current?.leftTrigger?.isPressed ?? true) ||
+            Input.GetButtonDown("Shield")) && Input.GetButtonDown("Fire2") && LimitBreak && anim.GetFloat("IdleSpeed")==1.5f )
+        {
+            LimitBreak = false;
+            isAttacking = true;
+            anim.Play("Special Limit Break");
+        }
+
+
+
+        if ((!Gamepad.current?.rightTrigger?.isPressed ?? false) && 
             (!Gamepad.current?.leftTrigger?.isPressed ?? false) && 
-            !Input.GetButton("Shield")
-         )
+            !Input.GetButton("Shield"))
         {
             shieldHeld = false;
         }

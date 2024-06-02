@@ -132,7 +132,6 @@ public class Health : MonoBehaviour
                 if (hurt < lowLim && health >= MaxHealth * .5)
                 {
                     float pick = Random.Range(1, 7);
-                    Debug.Log(pick);
                     if (pick == 1)
                         AS.PlayOneShot(lh1, 1f);
                     if (pick == 2)
@@ -146,8 +145,6 @@ public class Health : MonoBehaviour
                 else if ((hurt < medLim && health >= MaxHealth * .5) || (hurt < lowLim && health < MaxHealth * .5))
                 {
                     float pick = Random.Range(1, 5);
-                    Debug.Log(pick);
-
                     if (pick == 1)
                         AS.PlayOneShot(mh1, 1f);
                     if (pick == 2)
@@ -159,8 +156,6 @@ public class Health : MonoBehaviour
                 else if ((hurt < medLim && health <= MaxHealth * .5) || hurt >= medLim)
                 {
                     float pick = Random.Range(1, 4);
-                    Debug.Log(pick);
-
                     if (pick == 1)
                         AS.PlayOneShot(hh1, 1f);
                     if (pick == 2)

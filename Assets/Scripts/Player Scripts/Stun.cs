@@ -234,15 +234,16 @@ public class Stun : MonoBehaviour
             
         }
         else healthWeight = ((H.GetMaxHealth() / 1f) * stunMultiplier);
-
         angle += H.GetHealth() < .5 ? 0 : 10;
+        anim.SetFloat("Angle", angle);
 
         if(!isLeft)
         {
             XComponent *= -1;
         }
-
         rb.AddForce((new Vector2(XComponent, YComponent) * healthWeight) , ForceMode2D.Impulse);
+        anim.SetFloat("XForce", Mathf.Abs(rb.velocity.x));
+        anim.SetFloat("YForce", Mathf.Abs(rb.velocity.y));
     }
 
     public bool getIsStunned()
