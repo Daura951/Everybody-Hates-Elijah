@@ -14,6 +14,8 @@ public class DoorManager : MonoBehaviour
 
     private void handleDoor(Door_Managed dm)
     {
+        // This pattern lets us connect every pair of doors
+        // if there is an odd number the last will not be connected
         if (previousDoor != null)
         {
             dm.SetConnectedDoor(previousDoor.gameObject);
