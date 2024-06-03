@@ -114,22 +114,6 @@ public class LevelEditorManager : MonoBehaviour
         mouseObject = playerMarker;
     }
 
-    public void ChooseCreate()
-    {
-        user.manipulateOption = LevelEditorMouse.LevelManipulation.Create;
-        user.spriteRenderer.enabled = true;
-    }
-    public void ChooseRotate()
-    {
-        user.manipulateOption = LevelEditorMouse.LevelManipulation.Rotate;
-        user.spriteRenderer.enabled = false;
-    }
-    public void ChooseDestroy()
-    {
-        user.manipulateOption = LevelEditorMouse.LevelManipulation.Destroy;
-        user.spriteRenderer.enabled = false;
-    }
-
     public void SaveLevelAs()
     {
         SaveLevel(levelNameSave.text, true);
