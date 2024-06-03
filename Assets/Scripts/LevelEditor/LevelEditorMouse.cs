@@ -55,6 +55,7 @@ public class LevelEditorMouse : MonoBehaviour
         LayerSwitchButtonController.onLayerSwitchUpdate += 
             (GameObjectPosition.LayerPosition layerPosition) => 
             onSelectedStagingAreaUpdate(layerPosition);
+        EditModeButton.onLevelManipulationChange += (LevelManipulation lm) => updateLevelManipulation(lm);
     }
 
     // Start is called before the first frame update
@@ -195,6 +196,12 @@ public class LevelEditorMouse : MonoBehaviour
         clearStagingArea(selectedStagingArea.transform);
     }
 
+    private void updateLevelManipulation(LevelManipulation lm)
+    {
+        manipulateOption = lm;
+
+    }
+
     private void clearStagingArea(Transform area)
     {
         foreach (Transform child in area)
@@ -229,5 +236,7 @@ public class LevelEditorMouse : MonoBehaviour
         LayerSwitchButtonController.onLayerSwitchUpdate -=
             (GameObjectPosition.LayerPosition layerPosition) =>
             onSelectedStagingAreaUpdate(layerPosition);
+        EditModeButton.onLevelManipulationChange -= (LevelManipulation lm) => updateLevelManipulation(lm);
+
     }
 }
