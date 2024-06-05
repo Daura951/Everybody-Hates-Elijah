@@ -53,12 +53,16 @@ MonoBehaviour:
         obj: {fileID: 4926932388718786732, guid: 49b91c20ba8cc6249b9010246d083c77, type: 3}
     - name: Platform
       obj:
-        sprite: {fileID: 21300000, guid: fe096d86ebf17b046b3a66b59f9593c9, type: 3}
+        sprite: {fileID: 21300000, guid: e46f76629201ed740aae65a08e935175, type: 3}
         obj: {fileID: 876897176673173903, guid: 618d0c7d8a41d4148811baae186580f3, type: 3}
     - name: Wall
       obj:
         sprite: {fileID: 21300000, guid: ea26b33c2870d7b4b9dd9ef8a906f338, type: 3}
         obj: {fileID: 876897176673173903, guid: d39cadc05ea7a7940b2850d94b43b7dc, type: 3}
+    - name: Wall_Back
+      obj:
+        sprite: {fileID: 21300000, guid: ce9a831313f694d49a0abfb68524b463, type: 3}
+        obj: {fileID: 876897176673173903, guid: a409ba1a111d5b442b8012737cd14bcc, type: 3}
     - name: Male Student
       obj:
         sprite: {fileID: 1836769398, guid: ec4c14a391c9f164587633ae4e0ebdd0, type: 3}
@@ -71,22 +75,22 @@ MonoBehaviour:
       obj:
         sprite: {fileID: 21300000, guid: a318148119cac9e4ead91206092b878a, type: 3}
         obj: {fileID: 7267877030357619709, guid: e13a9c99bb4735a4b88c1d8d4ad69abb, type: 3}
+    - name: Door_Managed
+      obj:
+        sprite: {fileID: 21300000, guid: d4b5df30c01b2b343b03527e00a4e883, type: 3}
+        obj: {fileID: 8041940989308470199, guid: 7ebc0b8f98628cc4298bf007552c06f4, type: 3}
     - name: CheckPoint
       obj:
         sprite: {fileID: 21300000, guid: 32b36faa41111e243a0e7703809b1ede, type: 3}
         obj: {fileID: 3755280887847146642, guid: a86185f9b1a79b94384b394c41b31822, type: 3}
     - name: ConveyorBelt
       obj:
-        sprite: {fileID: 21300000, guid: 6771bb7841b19cc48b648a69f7c481d9, type: 3}
+        sprite: {fileID: 21300000, guid: 1918c678d76f09640aa20fe5f0632496, type: 3}
         obj: {fileID: 375220286594020129, guid: e2c6df1f83e35e74b9abcd53a606ca5e, type: 3}
     - name: Destruction platform 1
       obj:
         sprite: {fileID: 21300000, guid: 559e71f2b109d94448a102e96f9f25ec, type: 3}
         obj: {fileID: 96931407288258536, guid: 2df30f2c9a6463f46a7f19d4814eac61, type: 3}
-    - name: Door Enter
-      obj:
-        sprite: {fileID: 21300000, guid: f14a89f8990ff954a965d0b1181fceb7, type: 3}
-        obj: {fileID: 7314682117972144328, guid: b073e8cc1a8b22948b508e4bf852293e, type: 3}
     - name: food
       obj:
         sprite: {fileID: 21300000, guid: 66aec89e773390947acff51f9845527d, type: 3}
@@ -105,7 +109,7 @@ MonoBehaviour:
         obj: {fileID: 4330631387982120828, guid: 75c819d341e7b534787b58b8e7d3df96, type: 3}
     - name: Lava Floor
       obj:
-        sprite: {fileID: 21300000, guid: bfdebfe5a20fc5d4b964e37dff370ea7, type: 3}
+        sprite: {fileID: 21300000, guid: 804cfa3bf64d62b48bbb501e86a7c706, type: 3}
         obj: {fileID: 7417413966450255281, guid: 741eae5b65fafee408616694fe48275d, type: 3}
     - name: Moveable platform
       obj:
@@ -141,7 +145,7 @@ MonoBehaviour:
         obj: {fileID: 6126283599949435271, guid: 6533fdcdcf8736a45a410c98ed71c159, type: 3}
     - name: DeathBox
       obj:
-        sprite: {fileID: 21300000, guid: 3d804665525e1e44095fcd5a9a21f429, type: 3}
+        sprite: {fileID: 21300000, guid: 17f3d43ad680df94aabfda40cf2575d9, type: 3}
         obj: {fileID: 9108783347521850435, guid: 9f4e22b4fa5957e40b914fddb6f22e9b, type: 3}
     - name: dumpster
       obj:

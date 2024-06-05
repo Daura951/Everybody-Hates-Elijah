@@ -1,5 +1,7 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class LevelEditorMouse : MonoBehaviour
 {
@@ -42,6 +44,8 @@ public class LevelEditorMouse : MonoBehaviour
     private Vector3 lastSetPosition;
     private bool mouseIsDown = false;
 
+    private int objectCount = 0;
+
     Vector3 offset;
 
     private void OnEnable()
@@ -51,6 +55,7 @@ public class LevelEditorMouse : MonoBehaviour
         LayerSwitchButtonController.onLayerSwitchUpdate += 
             (GameObjectPosition.LayerPosition layerPosition) => 
             onSelectedStagingAreaUpdate(layerPosition);
+        EditModeButton.onLevelManipulationChange += (LevelManipulation lm) => updateLevelManipulation(lm);
     }
 
     // Start is called before the first frame update
@@ -156,9 +161,29 @@ public class LevelEditorMouse : MonoBehaviour
 
     void CreateObject()
     {
+        objectCount += 1;
         GameObject newObj = new GameObject(selectedGameObject.obj.name);
         SpriteRenderer sr = newObj.AddComponent<SpriteRenderer>();
         LevelEditorMoveableObject moveable = newObj.AddComponent<LevelEditorMoveableObject>();
+        
+        Canvas canvas = newObj.AddComponent<Canvas>();
+        canvas.renderMode = RenderMode.WorldSpace;
+        canvas.worldCamera = Camera.main;
+
+        GameObject childObj = new GameObject(selectedGameObject.obj.name + "Text");
+        childObj.transform.parent = newObj.transform;
+        childObj.transform.localScale = new Vector3(0.1f,0.1f,1f);
+        ContentSizeFitter csf = childObj.AddComponent<ContentSizeFitter>();
+        csf.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
+        csf.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+
+
+        TextMeshProUGUI tm = childObj.AddComponent<TextMeshProUGUI>();
+        tm.outlineColor = Color.black;
+        tm.outlineWidth = 0.14f;
+        tm.SetText(objectCount.ToString());
+        tm.fontSize = 5;
+
         moveable.myRenderer = sr;
         
         sr.sprite = selectedGameObject.sprite;
@@ -169,6 +194,12 @@ public class LevelEditorMouse : MonoBehaviour
     public void clearSelectedStageArea()
     {
         clearStagingArea(selectedStagingArea.transform);
+    }
+
+    private void updateLevelManipulation(LevelManipulation lm)
+    {
+        manipulateOption = lm;
+
     }
 
     private void clearStagingArea(Transform area)
@@ -192,6 +223,7 @@ public class LevelEditorMouse : MonoBehaviour
 
     public void clearStagingAreas()
     {
+        objectCount = 0;
         clearStagingArea(levelEditorManager.tileMapGenerator.stagingAreaBackground.transform);
         clearStagingArea(levelEditorManager.tileMapGenerator.stagingAreaForeground.transform);
         clearStagingArea(levelEditorManager.tileMapGenerator.stagingArea.transform);
@@ -204,5 +236,7 @@ public class LevelEditorMouse : MonoBehaviour
         LayerSwitchButtonController.onLayerSwitchUpdate -=
             (GameObjectPosition.LayerPosition layerPosition) =>
             onSelectedStagingAreaUpdate(layerPosition);
+        EditModeButton.onLevelManipulationChange -= (LevelManipulation lm) => updateLevelManipulation(lm);
+
     }
 }
