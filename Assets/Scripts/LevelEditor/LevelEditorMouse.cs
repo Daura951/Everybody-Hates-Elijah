@@ -5,17 +5,25 @@ using UnityEngine.UI;
 
 public class LevelEditorMouse : MonoBehaviour
 {
+
+    [SerializeField]
+    private Texture2D pointer_texture;
+    [SerializeField]
+    private Texture2D paint_brush_texture;
+    [SerializeField]
+    private Texture2D eraser_texture;
+    [SerializeField]
+    private Texture2D move_texture;
+
+    enum cursor_texture_mode_type { pointer, brush, eraser, move }
+    private cursor_texture_mode_type cursor_texture_mode = cursor_texture_mode_type.pointer;
+
     public enum LevelManipulation { Create, Rotate, Destroy };
     public TileGameObjects tileGameObjects;
 
     [HideInInspector]
     public SpriteAndGameObject selectedGameObject;
     public string selectedGameObjectName;
-   // public GameObject stagingArea;
-   // public GameObject stagingAreaBackground;
-   // public GameObject stagingAreaForeground;
-
-    
 
     [HideInInspector]
     public LevelManipulation manipulateOption = LevelManipulation.Create;
@@ -36,7 +44,7 @@ public class LevelEditorMouse : MonoBehaviour
     public static event SelectedGameObjectChanged onSelectedGameObjectChanged;
 
     public static Vector3 mousePosition;
-    public static GameObject selectedObject;
+    public GameObject selectedObject;
 
     private SnapToGrid snapToGrid;
     private bool isSnapToGrid = true;
@@ -64,6 +72,13 @@ public class LevelEditorMouse : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         setSelectedGameObject(tileGameObjects.get("Player"));
         snapToGrid = new SnapToGrid();
+
+    }
+
+    private void Start()
+    {
+        //Cursor.visible = false;
+        Cursor.SetCursor(pointer_texture, Vector2.zero, CursorMode.ForceSoftware);
     }
 
     public void toggleIsSnapToGrid()
@@ -100,44 +115,97 @@ public class LevelEditorMouse : MonoBehaviour
             isSnapToGrid ? snapped_mouse_y : mousePositionReal.y
             );
 
+        Collider2D targetObject = Physics2D.OverlapPoint(mousePosition);
+
         if (Input.GetMouseButtonDown(0))
         {
             mouseIsDown = true;
-            if (OnMouseClick != null)
+
+            if (EventSystem.current.IsPointerOverGameObject())
             {
-                OnMouseClick();
-                if (selectedObject && selectedObject.transform.parent.transform == selectedStagingArea.transform)
-                {
-                    offset = selectedObject.transform.position - mousePosition;
-                }
+                mouseIsDown = false;
             }
+
+            if (targetObject && targetObject?.transform.transform.parent.transform == selectedStagingArea.transform)
+            {
+                selectedObject = targetObject.transform.gameObject;
+            }
+            if (selectedObject && selectedObject.transform.parent.transform == selectedStagingArea.transform)
+            {
+                offset = selectedObject.transform.position - mousePosition;
+            }
+
         }
+
         if (Input.GetMouseButtonUp(0))
         {
-            if (selectedObject)
-            {
-                selectedObject = null;
-            }
+            selectedObject = null;
             mouseIsDown = false;
+        }
+
+        // TODO: Refactor and make a state machine with transitions instead of this if statement hell
+        if (targetObject && targetObject.transform.parent.transform == selectedStagingArea.transform && manipulateOption != LevelManipulation.Destroy)
+        {
+            if (cursor_texture_mode != cursor_texture_mode_type.move)
+            {
+                Cursor.SetCursor(move_texture, Vector2.zero, CursorMode.ForceSoftware);
+                cursor_texture_mode = cursor_texture_mode_type.move;
+            }
+        } else
+        {
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                if (cursor_texture_mode != cursor_texture_mode_type.pointer)
+                {
+                    Cursor.SetCursor(pointer_texture, Vector2.zero, CursorMode.ForceSoftware);
+                    cursor_texture_mode = cursor_texture_mode_type.pointer;
+                }
+            } else
+            {
+                if (manipulateOption == LevelManipulation.Create)
+                {
+                    if (cursor_texture_mode != cursor_texture_mode_type.brush)
+                    {
+                        Cursor.SetCursor(paint_brush_texture, Vector2.zero, CursorMode.ForceSoftware);
+                        cursor_texture_mode = cursor_texture_mode_type.brush;
+                    }
+                }
+                if (manipulateOption == LevelManipulation.Destroy)
+                {
+                    if (cursor_texture_mode != cursor_texture_mode_type.eraser)
+                    {
+                        Cursor.SetCursor(eraser_texture, Vector2.zero, CursorMode.ForceSoftware);
+                        cursor_texture_mode = cursor_texture_mode_type.eraser;
+                    }
+                }
+            }
         }
 
         if (mouseIsDown)
         {
-            if (
-                !selectedObject &&
-                lastSetPosition != mousePosition &&
-                manipulateOption == LevelManipulation.Create &&
-                !EventSystem.current.IsPointerOverGameObject())
-            { 
-                CreateObject();
-                lastSetPosition = mousePosition;
-            }
-            if (selectedObject && selectedObject.transform.parent.transform == selectedStagingArea.transform)
+            if (manipulateOption == LevelManipulation.Destroy)
             {
-                if (manipulateOption == LevelManipulation.Destroy)
+                if (targetObject)
                 {
-                    Destroy(selectedObject.gameObject);
-                } else {
+                    Destroy(targetObject.transform.gameObject);
+                }
+            }
+
+            if (manipulateOption == LevelManipulation.Create)
+            {
+                if (
+                    !selectedObject && 
+                    targetObject?.transform.transform.parent.transform != selectedStagingArea.transform &&
+                    lastSetPosition != mousePosition &&
+                    manipulateOption == LevelManipulation.Create
+
+                )
+                { 
+                    CreateObject();
+                    lastSetPosition = mousePosition;
+                }
+                if (selectedObject && selectedObject.transform.parent.transform == selectedStagingArea.transform)
+                {
                     selectedObject.transform.position = mousePosition + offset;
                 }
             }
@@ -164,8 +232,10 @@ public class LevelEditorMouse : MonoBehaviour
         objectCount += 1;
         GameObject newObj = new GameObject(selectedGameObject.obj.name);
         SpriteRenderer sr = newObj.AddComponent<SpriteRenderer>();
-        LevelEditorMoveableObject moveable = newObj.AddComponent<LevelEditorMoveableObject>();
-        
+
+        BoxCollider2D collider = newObj.AddComponent<BoxCollider2D>();
+        collider.size = new Vector2(1.28f, 1.28f);
+
         Canvas canvas = newObj.AddComponent<Canvas>();
         canvas.renderMode = RenderMode.WorldSpace;
         canvas.worldCamera = Camera.main;
@@ -183,8 +253,6 @@ public class LevelEditorMouse : MonoBehaviour
         tm.outlineWidth = 0.14f;
         tm.SetText(objectCount.ToString());
         tm.fontSize = 5;
-
-        moveable.myRenderer = sr;
         
         sr.sprite = selectedGameObject.sprite;
         newObj.transform.position = new Vector3(mousePosition.x, mousePosition.y, selectedGameObject.obj.transform.position.z);

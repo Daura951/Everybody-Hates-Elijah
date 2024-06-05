@@ -70,8 +70,8 @@ public class TileMapGenerator : MonoBehaviour
                     SpriteRenderer sr = newObj.AddComponent<SpriteRenderer>();
                     sr.sprite = tileGameObjectDict.getSprite(gameObjectPosition.gameObjectName);
  
-                    LevelEditorMoveableObject moveable = newObj.AddComponent<LevelEditorMoveableObject>();
-                    moveable.myRenderer = sr;
+                    BoxCollider2D collider = newObj.AddComponent<BoxCollider2D>();
+                    collider.size = new Vector2(1.28f, 1.28f);
 
                     Canvas canvas = newObj.AddComponent<Canvas>();
                     canvas.renderMode = RenderMode.WorldSpace;

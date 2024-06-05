@@ -5239,7 +5239,7 @@ GameObject:
   - component: {fileID: 1201645898}
   - component: {fileID: 1201645897}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Crosshairs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5279,7 +5279,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -8290,6 +8290,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 399a62570f5b9294c8b822cbcab66846, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pointer_texture: {fileID: 2800000, guid: 63d5fa77c5aaf244a952602c3e66fdb1, type: 3}
+  paint_brush_texture: {fileID: 2800000, guid: a96f99d92051ad34496755f1427eb695, type: 3}
+  eraser_texture: {fileID: 2800000, guid: e2ebed0824d90b04085c3ef1dbe65040, type: 3}
+  move_texture: {fileID: 2800000, guid: 87f9c4ae86f805b40864df36eaa74eb2, type: 3}
   tileGameObjects: {fileID: 1707549180}
   selectedGameObject:
     sprite: {fileID: 0}
@@ -8302,6 +8306,7 @@ MonoBehaviour:
   Player: {fileID: 4926932388718786732, guid: 49b91c20ba8cc6249b9010246d083c77, type: 3}
   levelEditorManager: {fileID: 1179172479}
   grid_length: 128
+  selectedObject: {fileID: 0}
 --- !u!4 &1822548594
 Transform:
   m_ObjectHideFlags: 0
