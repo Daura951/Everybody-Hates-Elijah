@@ -10557,6 +10557,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tileGameObjects
       objectReference: {fileID: 0}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[16].obj.sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2670d78662bd92b498f83516f86b8d9a, type: 3}
     - target: {fileID: 4825914626901320223, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
       propertyPath: m_RootOrder
       value: 11

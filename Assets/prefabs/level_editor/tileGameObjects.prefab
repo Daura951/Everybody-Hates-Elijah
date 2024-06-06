@@ -113,7 +113,7 @@ MonoBehaviour:
         obj: {fileID: 7417413966450255281, guid: 741eae5b65fafee408616694fe48275d, type: 3}
     - name: Moveable platform
       obj:
-        sprite: {fileID: 21300000, guid: 9ddfd474e44099646933774454b99ce9, type: 3}
+        sprite: {fileID: 21300000, guid: 2670d78662bd92b498f83516f86b8d9a, type: 3}
         obj: {fileID: 6218993799459064805, guid: f3ed349b081bdde4fb64bfbfc8bf657a, type: 3}
     - name: Lever
       obj:
