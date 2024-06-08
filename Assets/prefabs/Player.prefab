@@ -3915,6 +3915,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb745284bfe308c46afbad7afdbfe72b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: {fileID: 4926932388033835185}
+  audioSource: {fileID: 1922164418}
+  rigidBody: {fileID: 4926932388033835181}
+  stun: {fileID: 4926932388033835187}
+  animator: {fileID: 4926932388033835188}
+  spriteRenderer: {fileID: 4926932388033835191}
   ActiveArena: {fileID: 0}
   Waitroom: 0
   complete: 0
@@ -5703,7 +5709,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.745283, g: 0.5558853, b: 0.2648332, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

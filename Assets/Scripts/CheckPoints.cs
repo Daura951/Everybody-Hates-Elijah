@@ -8,14 +8,14 @@ public class CheckPoints : MonoBehaviour
     ReSpawn Respawn;
 
     private bool CheckPoint = false;
-    private Vector2 pos;
+    private Vector3 pos;
     public Sprite s1;
 
     // Start is called before the first frame update
     void Start()
     {
         sr = gameObject.GetComponent<SpriteRenderer>();
-        pos = new Vector2(transform.position.x ,transform.position.y);
+        pos = gameObject.transform.position;
     }
     
     void OnTriggerEnter2D(Collider2D col)
