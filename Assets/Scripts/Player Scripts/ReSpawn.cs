@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class ReSpawn : MonoBehaviour
 {
-    Health H;
-    PlayerMovement PM;
-    Rigidbody2D rb; 
-    Stun s;
-    Animator anim;
-    AudioSource AS;
-    SpriteRenderer SR;
-   public CameraSwitch ActiveArena;
-    Vector2 ReSpawnPoint;
+    [SerializeField]
+    private Health health;
+    [SerializeField]
+    private AudioSource audioSource;
+    [SerializeField]
+    private Rigidbody2D rigidBody;
+    [SerializeField]
+    private Stun stun;
+    [SerializeField]
+    private Animator animator;
+    [SerializeField]
+    private SpriteRenderer spriteRenderer;
+
+    public CameraSwitch ActiveArena;
+
+    private Vector3 ReSpawnPoint;
 
     public bool Waitroom = false;
     public bool complete = false;
@@ -24,59 +31,60 @@ public class ReSpawn : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-      H = GetComponent<Health>();
-      PM = GetComponent<PlayerMovement>();
-        AS = GetComponent<AudioSource>();
-      rb = GetComponent<Rigidbody2D>();
-      s = GetComponent<Stun>();
-      anim = GetComponent<Animator>();
-        SR = GetComponent<SpriteRenderer>();
-      ReSpawnPoint = new Vector2(PM.transform.position.x , PM.transform.position.y); 
+        ReSpawnPoint = gameObject.transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(H.dead)
+        // TODO: Refactor to check for death on events such as "OnTakeDamage" instead polling on update all the time 
+        // polling on update for everything really bogs down the game in the long run
+        if (health.dead)
         {
-            if(!Waitroom)
+            if (!Waitroom)
             {
                 Waitroom = true;
-                H.lives--;
+                health.lives--;
                 int pick = Random.Range(0, Death.Length);
-                anim.SetFloat("SinkSpeed", (1/(Death[pick].length *4)));
-                AS.PlayOneShot(Death[pick]);
+                animator.SetFloat("SinkSpeed", (1 / (Death[pick].length * 4)));
+                audioSource.PlayOneShot(Death[pick]);
                 StartCoroutine(ScreamOfDeath(Death[pick].length));
             }
 
-            if(complete && H.lives > 0)
+            if (health.lives > 0 && complete)
             {
-                rb.velocity = new Vector2(0f, 0f);
-                if (s.Stunned)
+                gameObject.transform.position = ReSpawnPoint;
+                spriteRenderer.enabled = true;
+                rigidBody.velocity = Vector2.zero;
+                if (stun.Stunned)
                 {
-                    anim.SetBool("Stunned", !s.Stunned);
+                    animator.SetBool("Stunned", !stun.Stunned);
 
-                    s.Stunned = false;
+                    stun.Stunned = false;
                 }
-                if(ActiveArena != null)
+                if (ActiveArena != null)
                 {
                     ActiveArena.Reset();
                 }
 
+                animator.SetBool("Sinking", false);
+                rigidBody.constraints = RigidbodyConstraints2D.None;
+                rigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
 
-                anim.SetBool("Sinking", false);
-                rb.constraints = RigidbodyConstraints2D.None;
-                rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-                PM.transform.position = ReSpawnPoint;
-                H.ReHeal();
-                s.EnablePit();
+                Debug.Log(complete);
+                Debug.Log(health.lives);
+                Debug.Log("I think I am dead");
+                health.ReHeal();
+                stun.EnablePit();
                 Waitroom = complete = false;
-                SR.sortingOrder = 1;
-                SR.enabled = true;
+                
+
             }
-            if(complete && H.lives ==0)
+            if (complete && health.lives == 0)
             {
                 print("DIE DIE DIE");
+                // TODO: Throw a game Over event instead and have something catch it to bring us to a game over scene
+                // or disable the player's model or something else. Destroying the game object breaks things
                 Destroy(this.gameObject);
             }
 
@@ -84,9 +92,9 @@ public class ReSpawn : MonoBehaviour
         }
     }
 
-    public void NewCheckPoint(Vector2 c)
+    public void NewCheckPoint(Vector3 position)
     {
-        ReSpawnPoint = c ;
+        ReSpawnPoint = position;
     }
 
 
