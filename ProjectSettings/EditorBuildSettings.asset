@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Ranking.unity
     guid: e2c622267334fe94f8d15b6a52d59788
+  - enabled: 1
+    path: Assets/Scenes/VideoCutscene.unity
+    guid: 913e5cb8f6f6b3d49b52676a21b1dc5b
   m_configObjects: {}

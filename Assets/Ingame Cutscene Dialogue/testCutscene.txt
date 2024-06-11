@@ -1,0 +1,6 @@
+L= Elijah
+R= Faith
+Elijah: Hello!
+Faith: Yeah Elijah?
+Elijah: I'm epic!!
+END

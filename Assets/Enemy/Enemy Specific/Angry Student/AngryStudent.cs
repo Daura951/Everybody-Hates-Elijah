@@ -61,7 +61,6 @@ public class AngryStudent : Entity
 
         else
         {
-            print("Hello!");
             stateMachine.ChangeState(idleState);
         }
     }
