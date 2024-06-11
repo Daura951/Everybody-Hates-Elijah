@@ -18,13 +18,15 @@ public class FinishLine : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        GameObject canvasObject = GameObject.Find("Player UI");
+        timerText = canvasObject.transform.Find("Timer").GetComponent<TMP_Text>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!stopTimer || isInCutscene)
+        if (!stopTimer && !isInCutscene)
         {
             timeSec += Time.deltaTime;
             rankedTime += Time.deltaTime;
@@ -34,19 +36,22 @@ public class FinishLine : MonoBehaviour
                 timeMin++;
                 timeSec = 0f;
             }
+
+            string timeSecStr = (timeSec < 10) ? "0" + (int)timeSec : ((int)timeSec).ToString();
+            string timeMinStr = (timeMin < 10) ? "0" + (int)timeMin : ((int)timeMin).ToString();
+
+            timerText.text = "" + timeMinStr + ":" +timeSecStr;
         }
-
-        string timeSecStr = (timeSec < 10) ? "0" + (int)timeSec : ((int)timeSec).ToString();
-        string timeMinStr = (timeMin < 10) ? "0" + (int)timeMin : ((int)timeMin).ToString();
-
-        timerText.text = "" + timeMinStr + ":" +timeSecStr;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        stopTimer = true;
-        print(rankedTime);
-        PlayerPrefs.SetFloat("endTime", rankedTime);
-        SceneManager.LoadScene(3);
+        if (collision.gameObject.tag == "Player")
+        {
+            stopTimer = true;
+            print(rankedTime);
+            PlayerPrefs.SetFloat("endTime", rankedTime);
+            SceneManager.LoadScene(3);
+        }
     }
 }

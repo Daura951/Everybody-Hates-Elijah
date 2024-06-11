@@ -17,6 +17,7 @@ TagManager:
   - TempCamera
   - PassThroughPlatform
   - CutsceneTrigger
+  - VideoCutsceneTrigger
   layers:
   - Default
   - TransparentFX
