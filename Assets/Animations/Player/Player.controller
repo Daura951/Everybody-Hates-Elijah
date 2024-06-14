@@ -2284,6 +2284,7 @@ AnimatorStateTransition:
     m_ConditionEvent: Climbing
     m_EventTreshold: 0
   - m_ConditionMode: 2
+    m_ConditionEvent: OnLadder
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8412993117663324079}
