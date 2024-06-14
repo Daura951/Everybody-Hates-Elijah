@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CrouchBehavior : StateMachineBehaviour
 {
+     PlayerRefrecnces PR;
+
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     //{
@@ -13,16 +15,17 @@ public class CrouchBehavior : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (PlayerAttack.attackInstance.isAttacking && PlayerAttack.attackInstance.isSpecial)
+        PR = PlayerRefrecnces.instance;
+        if (PR.Attack.isAttacking && PR.Attack.isSpecial)
         {
-            PlayerAttack.attackInstance.anim.Play("Down B");
-            PlayerAttack.attackInstance.playerMovement.SetIsOnPassThrough(false);
+           PR.anim.Play("Down B");
+            PR.Move.SetIsOnPassThrough(false);
         }
 
-        else if(PlayerAttack.attackInstance.isAttacking)
+        else if(PR.Attack.isAttacking)
         {
-            PlayerAttack.attackInstance.anim.Play("DTilt");
-            PlayerAttack.attackInstance.playerMovement.SetIsOnPassThrough(false);
+           PR.anim.Play("DTilt");
+            PR.Move.SetIsOnPassThrough(false);
         }
 
        

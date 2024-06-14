@@ -2499,12 +2499,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7ff39e61aa93064c95b9b14201083e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PR: {fileID: 0}
   maxCountDown: 0.25
   speed: 4
   editedSpeed: 0
   goBack: 0
-  playerMove: {fileID: 4926932388033835189}
-  playerAttack: {fileID: 4926932388033835190}
   render: {fileID: 4926932387854015803}
   AS: {fileID: 0}
 --- !u!1 &4926932387742552957
@@ -3005,12 +3004,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7ff39e61aa93064c95b9b14201083e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PR: {fileID: 0}
   maxCountDown: 0.25
   speed: 4
   editedSpeed: 0
   goBack: 0
-  playerMove: {fileID: 4926932388033835189}
-  playerAttack: {fileID: 4926932388033835190}
   render: {fileID: 4926932387854015803}
   AS: {fileID: 0}
 --- !u!1 &4926932388143533015
@@ -3476,6 +3474,7 @@ GameObject:
   - component: {fileID: 4926932388033835191}
   - component: {fileID: 7886222788761173444}
   - component: {fileID: 4926932388033835181}
+  - component: {fileID: 671818675769444082}
   - component: {fileID: 4926932388033835189}
   - component: {fileID: 4926932388033835190}
   - component: {fileID: 4926932388033835188}
@@ -3489,6 +3488,7 @@ GameObject:
   - component: {fileID: 782206837015645383}
   - component: {fileID: 3490655614088721432}
   - component: {fileID: 8995197260594413121}
+  - component: {fileID: 3995530416282041504}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -3628,6 +3628,24 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &671818675769444082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4926932388718786732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3399e50c6859c6a488468d1d59ddf664, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Attack: {fileID: 4926932388033835190}
+  Move: {fileID: 4926932388033835189}
+  Taunt: {fileID: 0}
+  Stun: {fileID: 0}
+  RB: {fileID: 4926932388033835181}
+  anim: {fileID: 4926932388033835188}
 --- !u!114 &4926932388033835189
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3640,9 +3658,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa9ddcd7beae48348b0f2ad9488a40ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 4926932388033835181}
+  PR: {fileID: 671818675769444082}
   sr: {fileID: 4926932388033835191}
-  anim: {fileID: 4926932388033835188}
   offset: {x: 2.25, y: 2.5, z: -0.75}
   Walk: 7
   jumpForce: 8
@@ -3668,7 +3685,6 @@ MonoBehaviour:
   - {fileID: 4926932387516199093}
   rayRange: 2
   dashDisable: 0
-  attackScript: {fileID: 4926932388033835190}
   SS: {fileID: 7391807778850897890}
   S: {fileID: 4926932388033835187}
   OnEscelator: 0
@@ -3688,8 +3704,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9e5f2dd51fc3f14aa9c9b0cc28ad560, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 4926932388033835188}
-  playerMovement: {fileID: 4926932388033835189}
+  PR: {fileID: 671818675769444082}
   isAttacking: 0
   isSpecial: 0
   isSticked: 0
@@ -3733,7 +3748,6 @@ MonoBehaviour:
   isInHelpless: 0
   strongTimer: 0
   isBladeBound: 0
-  OnLadder: 0
   ASideB: 0
   SideBS: 0
   distance: 5
@@ -3845,6 +3859,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d14c57a4be5fe04a8b0c8e021b42f0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PR: {fileID: 671818675769444082}
   Stunned: 0
   isAirSpin: 0
   elijahGoFarFloat: 10
@@ -3885,6 +3900,7 @@ MonoBehaviour:
   AS: {fileID: 1922164418}
   healthAnim: {fileID: 2033630925174077530}
   dead: 0
+  PR: {fileID: 671818675769444082}
   Shield: {fileID: 1062189273}
   lowLim: 5
   medLim: 10
@@ -4275,6 +4291,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a803f812ae737f141a7ee9dbb998c32b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3995530416282041504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4926932388718786732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 637afe9283b5d06418a3e60d37dab70c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PR: {fileID: 671818675769444082}
+  speed: 2
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!1 &4926932388764442920
 GameObject:
   m_ObjectHideFlags: 0

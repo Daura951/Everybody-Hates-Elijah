@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SingleJumpBheavior : StateMachineBehaviour
 {
+    PlayerRefrecnces PR;
+
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     //{
@@ -13,52 +15,53 @@ public class SingleJumpBheavior : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (PlayerAttack.attackInstance.isAttacking && Input.GetAxisRaw("Vertical") == 0 && Input.GetAxisRaw("Horizontal") == 0)
+        PR = PlayerRefrecnces.instance;
+        if (PR.Attack.isAttacking && Input.GetAxisRaw("Vertical") == 0 && Input.GetAxisRaw("Horizontal") == 0)
         {
-            PlayerAttack.attackInstance.anim.Play("Nair");
-            PlayerAttack.attackInstance.isAttacking = false;
+            PR.anim.Play("Nair");
+            PR.Attack.isAttacking = false;
         }
 
-        else if(PlayerAttack.attackInstance.isAttacking && Input.GetAxisRaw("Vertical") > 0 && !PlayerAttack.attackInstance.isSpecial)
+        else if(PR.Attack.isAttacking && Input.GetAxisRaw("Vertical") > 0 && !PR.Attack.isSpecial)
         {
-            PlayerAttack.attackInstance.anim.Play("Uair");
-            PlayerAttack.attackInstance.isAttacking = false;
+            PR.anim.Play("Uair");
+            PR.Attack.isAttacking = false;
         }
 
-        else if (PlayerAttack.attackInstance.isAttacking && Input.GetAxisRaw("Vertical") < 0 && !PlayerAttack.attackInstance.isSpecial)
+        else if (PR.Attack.isAttacking && Input.GetAxisRaw("Vertical") < 0 && !PR.Attack.isSpecial)
         {
-            PlayerAttack.attackInstance.anim.Play("Dair");
-            PlayerAttack.attackInstance.isAttacking = false;
+            PR.anim.Play("Dair");
+            PR.Attack.isAttacking = false;
         }
 
-        else if (PlayerAttack.attackInstance.isAttacking && ((PlayerAttack.attackInstance.playerMovement.transform.rotation.y == 0 && Input.GetAxisRaw("Horizontal") > 0) || (PlayerAttack.attackInstance.playerMovement.transform.rotation.y < 0 && Input.GetAxisRaw("Horizontal") < 0)) && !PlayerAttack.attackInstance.isSpecial)
+        else if (PR.Attack.isAttacking && ((PR.Move.transform.rotation.y == 0 && Input.GetAxisRaw("Horizontal") > 0) || (PR.Move.transform.rotation.y < 0 && Input.GetAxisRaw("Horizontal") < 0)) && !PR.Attack.isSpecial)
         {
-            PlayerAttack.attackInstance.anim.Play("Fair");
-            PlayerAttack.attackInstance.isAttacking = false;
+            PR.anim.Play("Fair");
+            PR.Attack.isAttacking = false;
         }
 
-        else if (PlayerAttack.attackInstance.isAttacking && ((PlayerAttack.attackInstance.playerMovement.transform.rotation.y == 0 && Input.GetAxisRaw("Horizontal") < 0) || (PlayerAttack.attackInstance.playerMovement.transform.rotation.y < 0 && Input.GetAxisRaw("Horizontal") > 0)) && !PlayerAttack.attackInstance.isSpecial)
+        else if (PR.Attack.isAttacking && ((PR.Move.transform.rotation.y == 0 && Input.GetAxisRaw("Horizontal") < 0) || (PR.Move.transform.rotation.y < 0 && Input.GetAxisRaw("Horizontal") > 0)) && !PR.Attack.isSpecial)
         {
-            PlayerAttack.attackInstance.anim.Play("Bair");
-            PlayerAttack.attackInstance.isAttacking = false;
+            PR.anim.Play("Bair");
+            PR.Attack.isAttacking = false;
         }
 
-        else if (PlayerAttack.attackInstance.isAttacking && Input.GetAxisRaw("Vertical") > 0f && PlayerAttack.attackInstance.isSpecial)
+        else if (PR.Attack.isAttacking && Input.GetAxisRaw("Vertical") > 0f && PR.Attack.isSpecial)
         {
-            PlayerAttack.attackInstance.anim.Play("USpecial");
-            PlayerAttack.attackInstance.isAttacking = false;
+            PR.anim.Play("USpecial");
+            PR.Attack.isAttacking = false;
         }
 
-        else if (PlayerAttack.attackInstance.isAttacking && Input.GetAxisRaw("Vertical")< 0f && PlayerAttack.attackInstance.isSpecial)
+        else if (PR.Attack.isAttacking && Input.GetAxisRaw("Vertical")< 0f && PR.Attack.isSpecial)
         {
-            PlayerAttack.attackInstance.anim.Play("Down B");
-            PlayerAttack.attackInstance.isAttacking = false;
+            PR.anim.Play("Down B");
+            PR.Attack.isAttacking = false;
         }
 
-        if (PlayerAttack.attackInstance.isAttacking && PlayerAttack.attackInstance.isSpecial && Input.GetAxisRaw("Vertical")==0 && Input.GetAxisRaw("Horizontal")!=0)
+        if (PR.Attack.isAttacking && PR.Attack.isSpecial && Input.GetAxisRaw("Vertical")==0 && Input.GetAxisRaw("Horizontal")!=0)
         {
-            PlayerAttack.attackInstance.anim.Play("Side B");
-            PlayerAttack.attackInstance.isAttacking = false;
+            PR.anim.Play("Side B");
+            PR.Attack.isAttacking = false;
         }
     }
 

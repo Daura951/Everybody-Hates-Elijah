@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class LedgeGrab : MonoBehaviour
 {
-    public bool reGrab = true, action = false, grab = false, isLeft, moveable = false;
+    public bool reGrab = true, action = false, grab = false, moveable = false;
     Collider2D redBox;
     GameObject g;
     private float redX, XoffSet;
-    private Rigidbody2D rb;
+
 
     [Header("ledge colliders")]
     public float redXOff, redYOff, redXSize, redYSize;
@@ -18,9 +18,9 @@ public class LedgeGrab : MonoBehaviour
     public float holding, Limit;
     private float timer, timer1;
 
-    PlayerMovement pm;
-    PlayerAttack PA;
-    Animator anim;
+
+    public PlayerRefrecnces PR;
+
     PlayerOffScreen POS;
 
     private Vector3 offset;
@@ -29,10 +29,6 @@ public class LedgeGrab : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        pm = GetComponent<PlayerMovement>();
-        PA = GetComponent<PlayerAttack>();
-        rb = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
         POS = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PlayerOffScreen>();
 
         redX = redXOff;
@@ -42,17 +38,15 @@ public class LedgeGrab : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        isLeft = pm.GetIsLeft();
-        anim.SetBool("Grabbing", pm.grabbing);
 
-        if (!pm.grabbing && Input.GetAxisRaw("Vertical") >= 0f)
+        if (!PR.anim.GetBool("Grabbing") && Input.GetAxisRaw("Vertical") >= 0f)
         {
             Grab();
             action = false;
         }
 
         // timers for falling and inputs to leave
-        if (pm.grabbing && !action)
+        if (PR.anim.GetBool("Grabbing") && !action)
         {
             Offset();
             transform.position = offset;
@@ -66,7 +60,7 @@ public class LedgeGrab : MonoBehaviour
 
             if (timer1 >= holding)
             {
-                anim.Play("Ledge idle");
+                PR.anim.Play("Ledge idle");
                 timer1 = holding;
             }
             if (timer1 == holding)
@@ -103,14 +97,14 @@ public class LedgeGrab : MonoBehaviour
             if (Input.GetButtonDown("Jump"))
             {
                 action = true;
-                pm.grabbing = false;
-                rb.gravityScale = 1f;
+                PR.anim.SetBool("Grabbing",false);
+                PR.RB.gravityScale = 1f;
             }
 
             if (Input.GetButtonDown("Fire1"))
             {
                 action = true;
-                anim.Play("Ledge attack");
+                PR.anim.Play("Ledge attack");
             }
 
 
@@ -125,7 +119,7 @@ public class LedgeGrab : MonoBehaviour
                 else if (Input.GetAxisRaw("Horizontal") > 0f && grab)
                 {
                     action = true;
-                    anim.Play("Ledge pull");
+                    PR.anim.Play("Ledge pull");
                 }
             }
 
@@ -138,11 +132,11 @@ public class LedgeGrab : MonoBehaviour
                 else if (Input.GetAxisRaw("Horizontal") < 0f && grab)
                 {
                     action = true;
-                    anim.Play("Ledge pull");
+                    PR.anim.Play("Ledge pull");
                 }
             }
 
-        }
+        } 
 
     }
 
@@ -165,30 +159,30 @@ public class LedgeGrab : MonoBehaviour
         if (!reGrab)
             grab = false;
 
-        if (( redBox && !pm.grabbing && !pm.GetIsStunned()) || ( redBox && (PA.SideBS || PA.ASideB)))
+        if (( redBox && !PR.anim.GetBool("Grabbing") && !PR.Move.GetIsStunned()) || ( redBox && (PR.Attack.SideBS || PR.Attack.ASideB)))
         {
 
             if (redBox)
                 g = redBox.gameObject;
-            PA.bypassMoveBlock = false;
+            PR.Attack.bypassMoveBlock = false;
 
             if (g.GetComponent<PlatformMovement>())
                 moveable = true;
 
             if (g.CompareTag("Grab") && reGrab)
             {
-                rb.velocity = Vector2.zero;
-                rb.gravityScale = 0;
+                PR.RB.velocity = Vector2.zero;
+                PR.RB.gravityScale = 0;
                 reGrab = false;
-                pm.grabbing = true;
+               PR.anim.SetBool("Grabbing", true);
                 timer1 = timer = 0;
-                anim.SetBool("isJumping", false);
-                anim.SetBool("isDoubleJumping", false);
-                anim.SetBool("isFalling", false);
-                anim.Play("Ledge grab");
-                pm.isFalling = pm.isInAir = PA.isAttacking = PA.isSpecial = PA.isExecutedOnce = PA.SideBS = PA.ASideB = false;
-                if (pm.jumpAmt == 2)
-                    pm.jumpAmt = 1;
+                PR.anim.SetBool("isJumping", false);
+                PR.anim.SetBool("isDoubleJumping", false);
+                PR.anim.SetBool("isFalling", false);
+                PR.anim.Play("Ledge grab");
+                PR.Move.isFalling = PR.Move.isInAir = PR.Attack.isAttacking = PR.Attack.isSpecial = PR.Attack.isExecutedOnce = PR.Attack.SideBS = PR.Attack.ASideB = false;
+                if (PR.Move.jumpAmt == 2)
+                    PR.Move.jumpAmt = 1;
 
                 if (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0)
                 {
@@ -196,9 +190,9 @@ public class LedgeGrab : MonoBehaviour
                 }
 
 
-                for (int i = 0; i < PA.hitBoxes.Length; i++)
+                for (int i = 0; i < PR.Attack.hitBoxes.Length; i++)
                 {
-                    PA.DespawnHitBox(i);
+                    PR.Attack.DespawnHitBox(i);
                 }
 
             }    
@@ -239,8 +233,8 @@ public class LedgeGrab : MonoBehaviour
             transform.position = new Vector2(transform.position.x - 1.575f, (0.43f * g.transform.localScale.y + g.transform.position.y + 0.55f));
             gameObject.transform.eulerAngles = new Vector3(0, -180, 0);
         }
-        pm.grabbing = false;
-        rb.gravityScale = 1f;
+        PR.anim.SetBool("Grabbing",false);
+        PR.RB.gravityScale = 1f;
 
     }
 
@@ -257,8 +251,8 @@ public class LedgeGrab : MonoBehaviour
             transform.position = new Vector2(transform.position.x - 1.5f, (transform.position.y + 1.02f));
 
         }
-        pm.grabbing = false;
-        rb.gravityScale = 1f;
+        PR.anim.SetBool("Grabbing",false);
+        PR.RB.gravityScale = 1f;
 
     }
 
@@ -283,16 +277,16 @@ public class LedgeGrab : MonoBehaviour
         if (Input.GetAxisRaw("Vertical") >= 0)
             action = true;
         GetOff(a, b);
-        pm.grabbing = false;
+        PR.anim.SetBool("Grabbing",false);
         moveable = false;
             transform.SetParent(null);
-        anim.SetBool("Grabbing", false);
+        PR.anim.SetBool("Grabbing", false);
         if (a < 0)
-            anim.SetBool("isFalling", true);
+            PR.anim.SetBool("isFalling", true);
         else
         {
-            anim.SetBool("isFalling", false);
-            anim.SetBool("isDoubleJumping", true);
+            PR.anim.SetBool("isFalling", false);
+            PR.anim.SetBool("isDoubleJumping", true);
         }
     }
 
@@ -304,12 +298,12 @@ public class LedgeGrab : MonoBehaviour
 
 
 
-        if (!isLeft)
+        if (!PR.Move.isLeft)
         {
             XComponent *= -1;
         }
 
-        rb.AddForce(new Vector2(XComponent, YComponent), ForceMode2D.Impulse);
+        PR.RB.AddForce(new Vector2(XComponent, YComponent), ForceMode2D.Impulse);
     }
 
 

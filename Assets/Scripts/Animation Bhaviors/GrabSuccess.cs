@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GrabSuccess : StateMachineBehaviour
 {
+    PlayerRefrecnces PR;
+
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     //{
@@ -13,49 +15,51 @@ public class GrabSuccess : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (PlayerAttack.attackInstance.isAttacking && Input.GetAxisRaw("Vertical")==0 && Input.GetAxisRaw("Horizontal")==0 &&PlayerAttack.attackInstance.anim.GetBool("hasGrabbedEnemy") == true && !PlayerAttack.attackInstance.playerMovement.isInAir && !PlayerAttack.attackInstance.isSpecial)
+        PR = PlayerRefrecnces.instance;
+        if (PR.Attack.isAttacking && Input.GetAxisRaw("Vertical")==0 && Input.GetAxisRaw("Horizontal")==0 &&PR.anim.GetBool("hasGrabbedEnemy") == true && !PR.Move.isInAir && !PR.Attack.isSpecial)
         {
-            PlayerAttack.attackInstance.anim.Play("Pummel");
-            PlayerAttack.attackInstance.isAttacking = false;
+            PR.anim.Play("Pummel");
+            PR.Attack.isAttacking = false;
 
         }
 
-        if(Input.GetAxisRaw("Vertical") > 0 && PlayerAttack.attackInstance.isAttacking && Input.GetAxisRaw("Horizontal") == 0)
+        if(Input.GetAxisRaw("Vertical") > 0 && PR.Attack.isAttacking && Input.GetAxisRaw("Horizontal") == 0)
         {
-            PlayerAttack.attackInstance.anim.Play("UThrow");
-            PlayerAttack.attackInstance.isAttacking = false;
+            PR.anim.Play("UThrow");
+            PR.Attack.isAttacking = false;
             SetThrow();
-            //PlayerAttack.attackInstance.currentlyGrabbedEnemy.GetComponent<Enemy_Target>().whichThrow[0] = true;
+            //PR.Attack.currentlyGrabbedEnemy.GetComponent<Enemy_Target>().whichThrow[0] = true;
         }
 
-        if(Input.GetAxisRaw("Vertical") < 0 && PlayerAttack.attackInstance.isAttacking && Input.GetAxisRaw("Horizontal") == 0 )
+        if(Input.GetAxisRaw("Vertical") < 0 && PR.Attack.isAttacking && Input.GetAxisRaw("Horizontal") == 0 )
         {
-            PlayerAttack.attackInstance.anim.Play("DThrow");
+            PR.anim.Play("DThrow");
             SetThrow();
-            //PlayerAttack.attackInstance.currentlyGrabbedEnemy.GetComponent<Enemy_Target>().whichThrow[3] = true;
+            //PR.Attack.currentlyGrabbedEnemy.GetComponent<Enemy_Target>().whichThrow[3] = true;
         }
 
-        if(Input.GetAxisRaw("Vertical") == 0 && PlayerAttack.attackInstance.isAttacking && ((PlayerAttack.attackInstance.playerMovement.transform.rotation.y == 0 && Input.GetAxisRaw("Horizontal") > 0) || (PlayerAttack.attackInstance.playerMovement.transform.rotation.y < 0 && Input.GetAxisRaw("Horizontal") < 0)))
+        if(Input.GetAxisRaw("Vertical") == 0 && PR.Attack.isAttacking && ((PR.Move.transform.rotation.y == 0 && Input.GetAxisRaw("Horizontal") > 0) || (PR.Move.transform.rotation.y < 0 && Input.GetAxisRaw("Horizontal") < 0)))
         {
-            PlayerAttack.attackInstance.anim.Play("FThrow");
+            PR.anim.Play("FThrow");
             SetThrow();
-            //PlayerAttack.attackInstance.currentlyGrabbedEnemy.GetComponent<Enemy_Target>().whichThrow[1] = true;
+            //PR.Attack.currentlyGrabbedEnemy.GetComponent<Enemy_Target>().whichThrow[1] = true;
         }
 
-        if(Input.GetAxisRaw("Vertical") == 0 && PlayerAttack.attackInstance.isAttacking && ((PlayerAttack.attackInstance.playerMovement.transform.rotation.y == 0 && Input.GetAxisRaw("Horizontal") < 0) || (PlayerAttack.attackInstance.playerMovement.transform.rotation.y < 0 && Input.GetAxisRaw("Horizontal") > 0)))
+        if(Input.GetAxisRaw("Vertical") == 0 && PR.Attack.isAttacking && ((PR.Move.transform.rotation.y == 0 && Input.GetAxisRaw("Horizontal") < 0) || (PR.Move.transform.rotation.y < 0 && Input.GetAxisRaw("Horizontal") > 0)))
         {
-            PlayerAttack.attackInstance.anim.Play("BThrow");
+            PR.anim.Play("BThrow");
             SetThrow();
-            //PlayerAttack.attackInstance.currentlyGrabbedEnemy.GetComponent<Enemy_Target>().whichThrow[2] = true;
+            //PR.Attack.currentlyGrabbedEnemy.GetComponent<Enemy_Target>().whichThrow[2] = true;
         }
     }
 
     void SetThrow()
     {
-        PlayerAttack.attackInstance.isAttacking = false;
-        //PlayerAttack.attackInstance.currentlyGrabbedEnemy.GetComponent<Animator>().SetBool("isGrabbed", false);
-        //PlayerAttack.attackInstance.currentlyGrabbedEnemy.GetComponent<Animator>().ResetTrigger("isGrabbed 0");
-        PlayerAttack.attackInstance.currentlyGrabbedEntity.getThrown();
+        PR.Attack.isAttacking = false;
+        //PR.Attack.currentlyGrabbedEnemy.GetComponent<Animator>().SetBool("isGrabbed", false);
+        //PR.Attack.currentlyGrabbedEnemy.GetComponent<Animator>().ResetTrigger("isGrabbed 0");
+        //PR.Attack.currentlyGrabbedEntity.getThrown();
+        PR.Attack.Throw();
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

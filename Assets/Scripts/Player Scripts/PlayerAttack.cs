@@ -9,14 +9,13 @@ using TMPro;
 public class PlayerAttack : MonoBehaviour
 {
 
+    public PlayerRefrecnces PR;
+
+
     [Header("Objects")]
-    public Animator anim;
-    public PlayerMovement playerMovement;
     Health H;
-    private Ladder Ladder;
-    public static PlayerAttack attackInstance;
     Stun S;
-    private Rigidbody2D rb;
+
 
     [Header("Attack variables")]
     public bool isAttacking, isSpecial = false, isSticked = false, isGrab = false;
@@ -47,9 +46,6 @@ public class PlayerAttack : MonoBehaviour
     string[] Line;
 
     private BladeBound BB;
-
-
-    public bool OnLadder;
 
     public bool ASideB = false, SideBS = false;
     public float distance, Speed = 20;
@@ -100,17 +96,14 @@ public class PlayerAttack : MonoBehaviour
     {
         stickyHand.SetActive(false);
         Shield.SetActive(false);
-        attackInstance = this;
     }
 
     private void Start()
     {
         currentStats = new float[4];
-        anim = GetComponent<Animator>();
         S = GetComponent<Stun>();
         H = GetComponent<Health>();
         SS = Shield.GetComponent<ShieldScript>();
-        rb = GetComponent<Rigidbody2D>();
         BB = GetComponent<BladeBound>();
         FilePath = Application.dataPath + "/ElijahAttackValues.txt";
         Line = File.ReadAllLines(FilePath);
@@ -153,9 +146,6 @@ public class PlayerAttack : MonoBehaviour
             DepleteComboTimer();
             stunned = S.getIsStunned();
 
-            if (Ladder != null)
-                OnLadder = Ladder.GetOnLadder();
-
 
             if (!shielding && SS.ShieldTimer != 0 && !SS.ShieldStun && SS.ActiveOnce)
             {
@@ -173,7 +163,7 @@ public class PlayerAttack : MonoBehaviour
 
 
 
-            if (playerMovement.GetAnim().GetBool("isGrounded") == true)
+            if (PR.anim.GetBool("isGrounded") == true)
             {
                 //If we collided despawn the air hitboxes!
                 DespawnHitBox(3);
@@ -191,7 +181,7 @@ public class PlayerAttack : MonoBehaviour
             }
 
 
-            if (!OnLadder && !ASideB && !playerMovement.grabbing && !SS.ShieldStun && !H.dead)
+            if (!PR.anim.GetBool("Climbing") && !ASideB && !PR.anim.GetBool("Grabbing") && !SS.ShieldStun && !H.dead)
                 Attack();
 
             if (ASideB)
@@ -205,9 +195,9 @@ public class PlayerAttack : MonoBehaviour
 
         //Control Detection
 
-        if ((!stunned && !isAttacking && Input.GetButtonDown("Fire1") || Input.GetButtonDown("Grab")) && !(shieldHeld && LimitBreak && anim.GetFloat("IdleSpeed") == 1.5f))
+        if ((!stunned && !isAttacking && Input.GetButtonDown("Fire1") || Input.GetButtonDown("Grab")) && !(shieldHeld && LimitBreak && PR.anim.GetFloat("IdleSpeed") == 1.5f))
         {
-            rb.gravityScale = 1;
+            PR.RB.gravityScale = 1;
             isAttacking = true;
 
             if (Input.GetButtonDown("Grab"))
@@ -217,7 +207,7 @@ public class PlayerAttack : MonoBehaviour
             else isGrab = false;
         }
 
-        else if (!stunned && !isAttacking && Input.GetButtonDown("Fire2") && !(shieldHeld && LimitBreak && anim.GetFloat("IdleSpeed") == 1.5f))
+        else if (!stunned && !isAttacking && Input.GetButtonDown("Fire2") && !(shieldHeld && LimitBreak && PR.anim.GetFloat("IdleSpeed") == 1.5f))
         {
             isSpecial = true;
             isAttacking = true;
@@ -235,9 +225,9 @@ public class PlayerAttack : MonoBehaviour
             else if (Input.GetAxis("Horizontal") != 0)
             {
                 SideBS = true;
-                rb.gravityScale = 0;
-                playerMovement.transform.position = new Vector2(playerMovement.transform.position.x, playerMovement.transform.position.y + .1f);
-                playerMovement.rb.velocity = new Vector2(playerMovement.rb.velocity.x, 0);
+                PR.RB.gravityScale = 0;
+                transform.position = new Vector2(transform.position.x , transform.position.y + .1f);
+                PR.RB.velocity = new Vector2(PR.RB.velocity.x, 0);
             }
         }
         
@@ -245,14 +235,14 @@ public class PlayerAttack : MonoBehaviour
 
 
 
-        else if (Input.GetButton("Fire3") && !strongDone && !isAttacking && !playerMovement.isInAir && !stunned && !isSpecial && !isGrab && !anim.GetBool("isLaying"))
+        else if (Input.GetButton("Fire3") && !strongDone && !isAttacking && !PR.Move.isInAir && !stunned && !isSpecial && !isGrab && !PR.anim.GetBool("isLaying"))
         {
             String strongType = "Strong F Startup";
             isAttacking = true;
             if (!strongStarted)
             {
                 strongStarted = true;
-                anim.SetBool("isStrong", strongStarted);
+                PR.anim.SetBool("isStrong", strongStarted);
 
                 if (Input.GetAxisRaw("Vertical") != 0)
                 {
@@ -264,7 +254,7 @@ public class PlayerAttack : MonoBehaviour
                     else strongType = "Strong D Startup";
                 }
 
-                anim.Play(strongType);
+                PR.anim.Play(strongType);
 
             }
         }
@@ -291,7 +281,7 @@ public class PlayerAttack : MonoBehaviour
         {
             //Strong Release
             strongStarted = false;
-            anim.SetBool("isStrong", strongStarted);
+            PR.anim.SetBool("isStrong", strongStarted);
             print(strongDamage);
             strongDamage = 0;
             strongTimer = 0;
@@ -316,15 +306,15 @@ public class PlayerAttack : MonoBehaviour
             Input.GetAxisRaw("Vertical") == 0 && 
             !stunned && 
             !isExecutedOnce && 
-            !playerMovement.isInAir && 
+            !PR.Move.isInAir && 
             !shielding && 
             !shieldHeld
          )
         {
             print("Shield");
             shieldHeld = shielding = Shield.GetComponent<SpriteRenderer>().enabled = true;
-            anim.Play("Shield Start");
-            anim.SetBool("isShielding", true);
+            PR.anim.Play("Shield Start");
+            PR.anim.SetBool("isShielding", true);
             Shield.SetActive(true);
             
         }
@@ -332,11 +322,11 @@ public class PlayerAttack : MonoBehaviour
         if ((
             (Gamepad.current?.rightTrigger?.isPressed ?? true) ||
             (Gamepad.current?.leftTrigger?.isPressed ?? true) ||
-            Input.GetButtonDown("Shield")) && Input.GetButtonDown("Fire2") && LimitBreak && anim.GetFloat("IdleSpeed")==1.5f )
+            Input.GetButtonDown("Shield")) && Input.GetButtonDown("Fire2") && LimitBreak && PR.anim.GetFloat("IdleSpeed")==1.5f )
         {
             LimitBreak = false;
             isAttacking = true;
-            anim.Play("Special Limit Break");
+            PR.anim.Play("Special Limit Break");
         }
 
 
@@ -349,7 +339,7 @@ public class PlayerAttack : MonoBehaviour
         }
 
 
-        if((shielding && !shieldHeld) || playerMovement.isInAir || isAttacking || (Input.GetAxisRaw("Horizontal") != 0f && !SS.ShieldStun) || (Input.GetAxisRaw("Vertical") != 0 && !SS.ShieldStun) )
+        if((shielding && !shieldHeld) || PR.Move.isInAir || isAttacking || (Input.GetAxisRaw("Horizontal") != 0f && !SS.ShieldStun) || (Input.GetAxisRaw("Vertical") != 0 && !SS.ShieldStun) )
         {
             ShieldOff();
         }
@@ -391,11 +381,11 @@ public class PlayerAttack : MonoBehaviour
 
     public void EndLag()
     {
-        playerMovement.rb.velocity = new Vector2(0, 0);
-        if (anim.GetBool("EndLag"))
-            anim.SetBool("EndLag", false);
+        PR.Move.PR.RB.velocity = new Vector2(0, 0);
+        if (PR.anim.GetBool("EndLag"))
+            PR.anim.SetBool("EndLag", false);
         else
-            anim.SetBool("EndLag", true);
+            PR.anim.SetBool("EndLag", true);
 
     }
 
@@ -412,7 +402,7 @@ public class PlayerAttack : MonoBehaviour
         if (!SS.ShieldStun && !S.isAirSpin)
         {
             shielding = false;
-            anim.SetBool("isShielding", false);
+            PR.anim.SetBool("isShielding", false);
             Shield.SetActive(false);
         }
       else
@@ -479,7 +469,7 @@ public class PlayerAttack : MonoBehaviour
 
     public void Dash()
     {
-        playerMovement.dashDisable = true;  //So that if the player holds dash key, the won't move as soon as dash finishes
+        PR.Move.dashDisable = true;  //So that if the player holds dash key, the won't move as soon as dash finishes
     }
 
 
@@ -493,12 +483,12 @@ public class PlayerAttack : MonoBehaviour
         if (!isExecutedOnce)
         {
             Physics2D.gravity = new Vector2(0, 0);
-            playerMovement.rb.velocity = new Vector2(playerMovement.rb.velocity.x, 0);
+            PR.Move.PR.RB.velocity = new Vector2(PR.Move.PR.RB.velocity.x, 0);
             isExecutedOnce = true;
-           // AS.PlayOneShot(playerMovement.FXjump);
+           // AS.PlayOneShot(PR.Move.FXjump);
         }
 
-        playerMovement.rb.AddForce(new Vector2(xDir, yDir));
+        PR.Move.PR.RB.AddForce(new Vector2(xDir, yDir));
     }
 
     public void Throw()
@@ -513,7 +503,7 @@ public class PlayerAttack : MonoBehaviour
         if (currentlyGrabbedEnemy != null)
         {
             currentlyGrabbedEnemy.isGrabbed = false;
-            playerMovement.transform.position = new Vector2(playerMovement.transform.position.x, playerMovement.transform.position.y + playerDThrowOffset.y); //Makes sure that the enemy position remains upon multiple throw hitboxes
+            PR.Move.transform.position = new Vector2(PR.Move.transform.position.x, PR.Move.transform.position.y + playerDThrowOffset.y); //Makes sure that the enemy position remains upon multiple throw hitboxes
         }
     }
 
@@ -543,26 +533,8 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Ladder")
-        {
-            Ladder = collision.gameObject.GetComponent<Ladder>();
-        }
-    }
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Ladder")
-        {
-            Ladder = null;
-            OnLadder = false;
-        }
-    }
-
-
-
-    //Additional functions that animation events / other scripts call
+    //Additional functions that PR.animation events / other scripts call
 
     //Despawns a hitbox
     public void DespawnHitBox()
@@ -590,11 +562,11 @@ public class PlayerAttack : MonoBehaviour
     public void DetectReverseFSpecial()
     {
         revFSpecialIndex = 0;
-        if (playerMovement.transform.rotation.y == 0 && Input.GetAxisRaw("Horizontal") < 0)
+        if (PR.Move.transform.rotation.y == 0 && Input.GetAxisRaw("Horizontal") < 0)
         {
             revFSpecialIndex = 1;
         }
-        else if (playerMovement.transform.rotation.y < 0 && Input.GetAxisRaw("Horizontal") > 0)
+        else if (PR.Move.transform.rotation.y < 0 && Input.GetAxisRaw("Horizontal") > 0)
         {
             revFSpecialIndex = 2;
         }
@@ -609,7 +581,7 @@ public class PlayerAttack : MonoBehaviour
     void SideBDone()
     {
         SideBS = false;
-        rb.gravityScale = 1;
+        PR.RB.gravityScale = 1;
     }
 
     void ActivateSideB(float distance)
@@ -620,7 +592,7 @@ public class PlayerAttack : MonoBehaviour
         }
 
         ASideB = true;
-        if (!playerMovement.GetIsLeft() && revFSpecialIndex == 0 || revFSpecialIndex == 2)
+        if (!PR.Move.GetIsLeft() && revFSpecialIndex == 0 || revFSpecialIndex == 2)
             target = new Vector3(transform.position.x + distance, transform.position.y, transform.position.z);
         else
             target = new Vector3(transform.position.x - distance, transform.position.y, transform.position.z);
@@ -740,6 +712,6 @@ public class PlayerAttack : MonoBehaviour
 
     public void setHasGrabbedEnemyToFalse()
     {
-        anim.SetBool("hasGrabbedEnemy", false);
+        PR.anim.SetBool("hasGrabbedEnemy", false);
     }
 }

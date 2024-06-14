@@ -4,73 +4,76 @@ using UnityEngine;
 
 public class IdleBehavior : StateMachineBehaviour
 {
+    PlayerRefrecnces PR;
+
+
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        foreach(GameObject hitBox in PlayerAttack.attackInstance.hitBoxes)
+        PR = PlayerRefrecnces.instance;
+        foreach (GameObject hitBox in PR.Attack.hitBoxes)
         {
             hitBox.SetActive(false);
         }
-        PlayerMovement.instance.isInGetup = false;
-        PlayerMovement.instance.isInGetup = false;
-        PlayerMovement.instance.anim.SetBool("isLaying", false);
-        PlayerMovement.instance.anim.SetBool("canLayAttack", false);
-        PlayerMovement.instance.Speed = 9f;
+        PR.Move.isInGetup = false;
+        PR.anim.SetBool("isLaying", false);
+        PR.anim.SetBool("canLayAttack", false);
+        PR.Move.Speed = 9f;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (PlayerAttack.attackInstance.isAttacking && Input.GetAxisRaw("Vertical") == 0 && PlayerAttack.attackInstance.anim.GetBool("Idle") == true && !PlayerAttack.attackInstance.playerMovement.isInAir && !PlayerAttack.attackInstance.isSpecial && !PlayerAttack.attackInstance.isGrab) //&& !PlayerAttack.attackInstance.isBladeBound)
+        if (PR.Attack.isAttacking && Input.GetAxisRaw("Vertical") == 0 && PR.anim.GetBool("Idle") == true && !PR.Move.isInAir && !PR.Attack.isSpecial && !PR.Attack.isGrab) //&& !PR.Attack.isBladeBound)
         {
-            PlayerAttack.attackInstance.anim.Play("Jab 1 Start");
+            PR.anim.Play("Jab 1 Start");
         }
 
-        else if (PlayerAttack.attackInstance.isAttacking && PlayerAttack.attackInstance.anim.GetBool("Idle") == true && !PlayerAttack.attackInstance.playerMovement.isInAir && PlayerAttack.attackInstance.isSpecial && Input.GetAxisRaw("Vertical")==0 && !PlayerAttack.attackInstance.isBladeBound)
+        else if (PR.Attack.isAttacking && PR.anim.GetBool("Idle") == true && !PR.Move.isInAir && PR.Attack.isSpecial && Input.GetAxisRaw("Vertical")==0 && !PR.Attack.isBladeBound)
         {
-            PlayerAttack.attackInstance.anim.SetBool("isSticked", PlayerAttack.attackInstance.isSticked);
-            PlayerAttack.attackInstance.anim.Play("Neutral B Start");
-            PlayerAttack.attackInstance.stickyHand.SetActive(true);
+            PR.anim.SetBool("isSticked", PR.Attack.isSticked);
+            PR.anim.Play("Neutral B Start");
+            PR.Attack.stickyHand.SetActive(true);
         }
 
-        else if (PlayerAttack.attackInstance.isAttacking && PlayerAttack.attackInstance.anim.GetBool("Idle") == true && !PlayerAttack.attackInstance.playerMovement.isInAir && Input.GetAxisRaw("Vertical") == 0 && PlayerAttack.attackInstance.isBladeBound && PlayerAttack.attackInstance.isSpecial)
+        else if (PR.Attack.isAttacking && PR.anim.GetBool("Idle") == true && !PR.Move.isInAir && Input.GetAxisRaw("Vertical") == 0 && PR.Attack.isBladeBound && PR.Attack.isSpecial)
         {
-            PlayerAttack.attackInstance.anim.Play("BladeBoundActivation");
+            PR.anim.Play("BladeBoundActivation");
         }
 
-        else if(PlayerAttack.attackInstance.isAttacking && Input.GetAxisRaw("Vertical") > 0f && PlayerAttack.attackInstance.isSpecial)
+        else if(PR.Attack.isAttacking && Input.GetAxisRaw("Vertical") > 0f && PR.Attack.isSpecial)
         {
-            PlayerAttack.attackInstance.anim.Play("USpecial");
+            PR.anim.Play("USpecial");
         }
 
-        else if (PlayerAttack.attackInstance.isAttacking && Input.GetAxisRaw("Vertical") > 0 && PlayerAttack.attackInstance.anim.GetBool("Idle")==true && !PlayerAttack.attackInstance.playerMovement.isInAir && !PlayerAttack.attackInstance.isSpecial)
+        else if (PR.Attack.isAttacking && Input.GetAxisRaw("Vertical") > 0 && PR.anim.GetBool("Idle")==true && !PR.Move.isInAir && !PR.Attack.isSpecial)
         {
-            PlayerAttack.attackInstance.anim.Play("Up Tilt");
+            PR.anim.Play("Up Tilt");
         }
 
-        else if(PlayerAttack.attackInstance.isAttacking && Input.GetAxisRaw("Horizontal") == 0f && Input.GetAxisRaw("Vertical") == 0 && PlayerAttack.attackInstance.isGrab && !PlayerAttack.attackInstance.isSpecial)
+        else if(PR.Attack.isAttacking && Input.GetAxisRaw("Horizontal") == 0f && Input.GetAxisRaw("Vertical") == 0 && PR.Attack.isGrab && !PR.Attack.isSpecial)
         {
-            PlayerAttack.attackInstance.anim.Play("Grabbing");
+            PR.anim.Play("Grabbing");
         }
 
-        else if (string.Equals(PlayerTaunt.TauntInstance.taunt , "Up") && Input.GetAxisRaw("Vertical") == 0 && PlayerTaunt.TauntInstance.anim.GetBool("Idle") == true && !PlayerTaunt.TauntInstance.PM.isInAir)
+        else if (string.Equals(PR.Taunt.taunt , "Up") && Input.GetAxisRaw("Vertical") == 0 && PR.Taunt.anim.GetBool("Idle") == true && !PR.Move.isInAir)
         {
-            PlayerTaunt.TauntInstance.anim.Play("UpTaunt");
+            PR.Taunt.anim.Play("UpTaunt");
         }
 
-        else if (string.Equals(PlayerTaunt.TauntInstance.taunt , "Down") && Input.GetAxisRaw("Vertical") == 0 && PlayerTaunt.TauntInstance.anim.GetBool("Idle") == true && !PlayerTaunt.TauntInstance.PM.isInAir)
+        else if (string.Equals(PR.Taunt.taunt , "Down") && Input.GetAxisRaw("Vertical") == 0 && PR.Taunt.anim.GetBool("Idle") == true && !PR.Move.isInAir)
         {
-            PlayerTaunt.TauntInstance.anim.Play("DownTaunt");
+            PR.Taunt.anim.Play("DownTaunt");
         }
 
-        else if (string.Equals(PlayerTaunt.TauntInstance.taunt , "Left") && Input.GetAxisRaw("Vertical") == 0 && PlayerTaunt.TauntInstance.anim.GetBool("Idle") == true && !PlayerTaunt.TauntInstance.PM.isInAir)
+        else if (string.Equals(PR.Taunt.taunt , "Left") && Input.GetAxisRaw("Vertical") == 0 && PR.Taunt.anim.GetBool("Idle") == true && !PR.Move.isInAir)
         {
-            PlayerTaunt.TauntInstance.anim.Play("LeftTaunt");
+            PR.Taunt.anim.Play("LeftTaunt");
         }
 
-        else if (string.Equals(PlayerTaunt.TauntInstance.taunt , "Right") && Input.GetAxisRaw("Vertical") == 0 && PlayerTaunt.TauntInstance.anim.GetBool("Idle") == true && !PlayerTaunt.TauntInstance.PM.isInAir)
+        else if (string.Equals(PR.Taunt.taunt , "Right") && Input.GetAxisRaw("Vertical") == 0 && PR.Taunt.anim.GetBool("Idle") == true && !PR.Move.isInAir)
         {
-            PlayerTaunt.TauntInstance.anim.Play("RightTaunt");
+            PR.Taunt.anim.Play("RightTaunt");
         }
 
 
@@ -79,9 +82,9 @@ public class IdleBehavior : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (!PlayerAttack.attackInstance.stickyHand.activeSelf)
+        if (!PR.Attack.stickyHand.activeSelf)
         {
-            PlayerAttack.attackInstance.isAttacking = false;
+            PR.Attack.isAttacking = false;
         }
             
     }

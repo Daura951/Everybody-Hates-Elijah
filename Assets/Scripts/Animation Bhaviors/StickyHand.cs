@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class StickyHand : MonoBehaviour
 {
+    public PlayerRefrecnces PR;
+
     public float maxCountDown;
     private float countDown;
     public float speed;
     public float editedSpeed;
     private float endPos;
     public bool goBack = false;
-    public PlayerMovement playerMove;
-    public PlayerAttack playerAttack;
+
     public LineRenderer render;
     bool playedSuccess = false;
     public AudioSource AS;
@@ -27,7 +28,7 @@ public class StickyHand : MonoBehaviour
         {
             GetComponent<CircleCollider2D>().enabled = true;
         }
-        playerAttack.isSticked = false;
+        PR.Attack.isSticked = false;
         playedSuccess = false;
         editedSpeed = speed;
 
@@ -43,13 +44,13 @@ public class StickyHand : MonoBehaviour
     {
 
         countDown -= Time.deltaTime;
-        bool isPlayerLeft = playerMove.GetIsLeft();
+        bool isPlayerLeft = PR.Move.GetIsLeft();
 
 
         if (render != null)
         {
             render.SetPosition(0, new Vector3(0, 0, 0));
-            render.SetPosition(1, new Vector3( isPlayerLeft ? -(transform.position.x - playerMove.transform.position.x) : transform.position.x - playerMove.transform.position.x, 0, 0));
+            render.SetPosition(1, new Vector3( isPlayerLeft ? -(transform.position.x - PR.Move.transform.position.x) : transform.position.x - PR.Move.transform.position.x, 0, 0));
         }
 
 
@@ -64,19 +65,19 @@ public class StickyHand : MonoBehaviour
         {
             if(GetComponent<CircleCollider2D>() != null && !playedSuccess)
             { 
-                if(playerAttack.isSticked)
+                if(PR.Attack.isSticked)
                 {
                     print("Success");
                     if(!playedSuccess)
                     { 
-                        playerAttack.anim.Play("Neutral B Success"); 
+                        PR.anim.Play("Neutral B Success"); 
                     }
                     
                     playedSuccess = true;
                 }
                 else
                 {
-                    playerAttack.anim.Play("Neutral B Fail");
+                    PR.anim.Play("Neutral B Fail");
                     if (!playedSuccess)
                     { 
                         print("Fail"); 
@@ -85,7 +86,7 @@ public class StickyHand : MonoBehaviour
                 }
             }
 
-            transform.position += new Vector3(isPlayerLeft ? 1 : -1, 0, 1) * Time.deltaTime * (playerAttack.isSticked ? speed : editedSpeed/2);
+            transform.position += new Vector3(isPlayerLeft ? 1 : -1, 0, 1) * Time.deltaTime * (PR.Attack.isSticked ? speed : editedSpeed/2);
 
             if (gameObject != null)
             {

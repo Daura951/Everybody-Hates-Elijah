@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FairTransition : StateMachineBehaviour
 {
+   PlayerRefrecnces PR;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     //{
@@ -19,10 +20,11 @@ public class FairTransition : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (Input.GetButtonDown("Fire2") && Input.GetAxisRaw("Horizontal") != 0f && Input.GetAxisRaw("Vertical") == 0 && !PlayerAttack.attackInstance.isExecutedOnce)
+        PR = PlayerRefrecnces.instance;
+        if (Input.GetButtonDown("Fire2") && Input.GetAxisRaw("Horizontal") != 0f && Input.GetAxisRaw("Vertical") == 0 && !PR.Attack.isExecutedOnce)
         {
-            PlayerAttack.attackInstance.anim.Play("Side B");
-            PlayerAttack.attackInstance.isAttacking = false;
+            PR.anim.Play("Side B");
+            PR.Attack.isAttacking = false;
         }    
     }
 

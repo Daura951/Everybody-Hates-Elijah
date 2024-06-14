@@ -4,16 +4,11 @@ using UnityEngine;
 
 public class PlayerTaunt : MonoBehaviour
 {
-    public static PlayerTaunt TauntInstance;
     public Animator anim;
     public PlayerMovement PM;
     private float H;
     public string taunt;
 
-     private void Awake()
-    {
-        TauntInstance = this;
-    }
 
 
     // Start is called before the first frame update

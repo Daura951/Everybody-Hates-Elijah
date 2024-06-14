@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TiltBehavior : StateMachineBehaviour
 {
+    PlayerRefrecnces PR;
+
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     //{
@@ -13,30 +15,32 @@ public class TiltBehavior : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (!(PlayerAttack.attackInstance.anim.GetCurrentAnimatorStateInfo(0).IsName("Up Tilt") || PlayerAttack.attackInstance.anim.GetCurrentAnimatorStateInfo(0).IsName("Up Tilt Transition")))
+        PR = PlayerRefrecnces.instance;
+        if (!(PR.anim.GetCurrentAnimatorStateInfo(0).IsName("Up Tilt") || PR.anim.GetCurrentAnimatorStateInfo(0).IsName("Up Tilt Transition")))
         {
 
-            if (Input.GetAxisRaw("Vertical") > 0 && PlayerAttack.attackInstance.anim.GetBool("Idle") == true && !PlayerAttack.attackInstance.playerMovement.isInAir && !PlayerAttack.attackInstance.isSpecial)
+            if (Input.GetAxisRaw("Vertical") > 0 && PR.anim.GetBool("Idle") == true && !PR.Move.isInAir && !PR.Attack.isSpecial)
             {
-                PlayerAttack.attackInstance.anim.Play("Up Tilt");
+                PR.anim.Play("Up Tilt");
             }
         }
 
-        if (Input.GetButtonDown("Fire1") && Input.GetAxisRaw("Vertical") < 0 && PlayerAttack.attackInstance.anim.GetBool("Crouch") && !PlayerAttack.attackInstance.playerMovement.isInAir && !PlayerAttack.attackInstance.isGrab)
+        if (Input.GetButtonDown("Fire1") && Input.GetAxisRaw("Vertical") < 0 && PR.anim.GetBool("Crouch") && !PR.Move.isInAir && !PR.Attack.isGrab)
         {
-            PlayerAttack.attackInstance.anim.Play("DTilt");
+            PR.anim.Play("DTilt");
         }
 
-        else if (Input.GetButtonDown("Fire1") && Input.GetAxisRaw("Horizontal") != 0 && !PlayerAttack.attackInstance.playerMovement.isInAir && !PlayerAttack.attackInstance.anim.GetBool("Running") && !PlayerAttack.attackInstance.isGrab)
+        else if (Input.GetButtonDown("Fire1") && Input.GetAxisRaw("Horizontal") != 0 && !PR.Move.isInAir && !PR.anim.GetBool("Running") && !PR.Attack.isGrab)
         {
-            PlayerAttack.attackInstance.anim.Play("Forward Tilt");
+            PR.anim.Play("Forward Tilt");
         }
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        PlayerAttack.attackInstance.isAttacking = false;
+        PR = PlayerRefrecnces.instance;
+        PR.Attack.isAttacking = false;
     }
 
 

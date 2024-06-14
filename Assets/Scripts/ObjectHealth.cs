@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ObjectHealth : MonoBehaviour
 {
+    public PlayerRefrecnces PR;
+
     [SerializeField] private float MaxHealth;
     [SerializeField] private float health;
     public Sprite s;
@@ -37,7 +39,7 @@ public class ObjectHealth : MonoBehaviour
     public void TakeDamage(float hurt)
     {
         health -= hurt;
-        PlayerAttack.attackInstance.isExecutedOnce = false;
+        PR.Attack.isExecutedOnce = false;
     }
 
     public float GetHealth()

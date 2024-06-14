@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class StrongBehavior : StateMachineBehaviour
 {
+    PlayerRefrecnces PR;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     //{
@@ -19,7 +20,8 @@ public class StrongBehavior : StateMachineBehaviour
     //OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        PlayerAttack.attackInstance.isAttacking = false;   
+        PR = PlayerRefrecnces.instance;
+        PR.Attack.isAttacking = false;   
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

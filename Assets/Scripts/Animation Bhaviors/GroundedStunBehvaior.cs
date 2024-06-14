@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GroundedStunBehvaior : StateMachineBehaviour
 {
+    PlayerRefrecnces PR;
+
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     //{
@@ -13,14 +15,16 @@ public class GroundedStunBehvaior : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Stun.stunInstance.isAirSpin = false;
+        PR = PlayerRefrecnces.instance;
+        PR.Stun.isAirSpin = false;
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Stun.stunInstance.isAirSpin = false;
-        Stun.stunInstance.getPM().anim.SetBool("isAirStunned", false);
+        PR = PlayerRefrecnces.instance;
+        PR.Stun.isAirSpin = false;
+        PR.anim.SetBool("isAirStunned", false);
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

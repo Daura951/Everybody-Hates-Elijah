@@ -7,12 +7,12 @@ using TMPro;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public PlayerRefrecnces PR;
 
     [Header("Components")]
-    public Rigidbody2D rb;
     public SpriteRenderer sr;
     private Collider2D playerCollider;
-    public Animator anim;
+
     public Vector3 offset;
 
     public float Walk, jumpForce, fallingGravityFactor;
@@ -47,26 +47,20 @@ public class PlayerMovement : MonoBehaviour
     public bool dashDisable = false;
 
     [Header("Attacks")]
-    public PlayerAttack attackScript;
     public ShieldScript SS;
 
-    public Stun S;
-    private bool stunned;
 
     [Header("Escelator")]
     private Escelator Escelator;
     public bool OnEscelator, InEscelator = false;
 
-    [Header("LedgeGrab")]
-    public bool grabbing;
-
     Health H;
+
+    private bool OnMoveable = false;
 
     float globalDirX;
 
     public int curDamage = 0;
-
-    public static PlayerMovement instance;
 
     public bool isInCutscene = false;
 
@@ -75,14 +69,11 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        instance = this;
         isInAir = true;
         ChangeHealth();
 
-        rb = GetComponent<Rigidbody2D>();
+
         playerCollider = GetComponent<Collider2D>();
-        anim = GetComponent<Animator>();
-        attackScript = GetComponent<PlayerAttack>();
         H = GetComponent<Health>();
         gameObjectToDoorInterface = GetComponent<GameObjectToDoorInterface>();
 
@@ -90,11 +81,10 @@ public class PlayerMovement : MonoBehaviour
         Speed = Walk;
         Run = Walk * 2;
         Crawl = Walk / 2;
-        scaledGravity = rb.gravityScale * fallingGravityFactor;
+        scaledGravity = PR.RB.gravityScale * fallingGravityFactor;
         jumpAmt = 0;
 
 
-        S = GetComponent<Stun>();
 
         if (terminalVelocityY > 0)
         {
@@ -109,17 +99,16 @@ public class PlayerMovement : MonoBehaviour
         {
             globalDirX = Input.GetAxisRaw("Horizontal");
 
-            if (anim.GetCurrentAnimatorStateInfo(0).IsName("JumpSqaut"))
-                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            if (PR.anim.GetCurrentAnimatorStateInfo(0).IsName("JumpSqaut"))
+                PR.RB.velocity = new Vector2(PR.RB.velocity.x, jumpForce);
 
-            stunned = S.getIsStunned();
 
             if (Escelator != null)
                 OnEscelator = Escelator.GetOnEscelator();
 
-            isInLandingLag = anim.GetCurrentAnimatorStateInfo(0).IsName("Fall 2 Idle");
+            isInLandingLag = PR.anim.GetCurrentAnimatorStateInfo(0).IsName("Fall 2 Idle");
 
-            isCrouch = anim.GetCurrentAnimatorStateInfo(0).IsName("Crouch");
+            isCrouch = PR.anim.GetCurrentAnimatorStateInfo(0).IsName("Crouch");
 
             if (Input.GetButtonDown("DoorEnter"))
             {
@@ -129,13 +118,13 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetButton("Run") && !isInAir && !isCrouch && !dashDisable)
             {
                 Speed = Run;
-                anim.SetTrigger("Running");
-                anim.ResetTrigger("Walking");
+                PR.anim.SetTrigger("Running");
+                PR.anim.ResetTrigger("Walking");
 
             }
             else if (dashDisable && Input.GetAxisRaw("Horizontal") != 0)
             {
-                anim.SetTrigger("Walking");
+                PR.anim.SetTrigger("Walking");
                 Speed = 9f;
             }
 
@@ -143,42 +132,42 @@ public class PlayerMovement : MonoBehaviour
             {
                 Speed = Crawl;
 
-                anim.SetBool("Crouch", false);
-                anim.ResetTrigger("Walking");
-                anim.ResetTrigger("Running");
+                PR.anim.SetBool("Crouch", false);
+                PR.anim.ResetTrigger("Walking");
+                PR.anim.ResetTrigger("Running");
             }
             else if (!Input.GetButton("Run") && !isInAir && !isCrouch)
             {
                 Speed = Walk;
-                anim.ResetTrigger("Running");
+                PR.anim.ResetTrigger("Running");
             }
             else
             {
-                anim.ResetTrigger("Walking");
-                anim.ResetTrigger("Running");
+                PR.anim.ResetTrigger("Walking");
+                PR.anim.ResetTrigger("Running");
 
-                anim.SetBool("Crouch", false);
+                PR.anim.SetBool("Crouch", false);
                 if (Escelator == null && !isInAir)
-                    anim.SetTrigger("Idle");
+                    PR.anim.SetTrigger("Idle");
 
             }
 
             DetermineMovementStates();
 
-            if (rb.velocity.y < terminalVelocityY)
+            if (PR.RB.velocity.y < terminalVelocityY)
             {
-                rb.velocity = new Vector2(rb.velocity.x, terminalVelocityY);
+                PR.RB.velocity = new Vector2(PR.RB.velocity.x, terminalVelocityY);
             }
         }
 
         else
         {
-            rb.velocity = new Vector2(0, 0);
-            anim.ResetTrigger("Walking");
-            anim.ResetTrigger("Running");
+            PR.RB.velocity = new Vector2(0, 0);
+            PR.anim.ResetTrigger("Walking");
+            PR.anim.ResetTrigger("Running");
 
-            anim.SetBool("Crouch", false);
-            anim.SetTrigger("Idle");
+            PR.anim.SetBool("Crouch", false);
+            PR.anim.SetTrigger("Idle");
         }
 
     }
@@ -204,14 +193,14 @@ public class PlayerMovement : MonoBehaviour
              xForce = (dirX < 0 ? -Speed : Speed) / 2;
 
 
-            if (dirX == 0 && isInAir && rb.velocity.x == 0 || !isInAir)
+            if (dirX == 0 && isInAir && PR.RB.velocity.x == 0 || !isInAir)
             {
                 xForce = 0;
             }
 
-            else if (dirX == 0 && isInAir && rb.velocity.x != 0)
+            else if (dirX == 0 && isInAir && PR.RB.velocity.x != 0)
             {
-                xForce = (rb.velocity.x < 0 ? -Speed : Speed) / 2;
+                xForce = (PR.RB.velocity.x < 0 ? -Speed : Speed) / 2;
             }
         }
         else if(!canApplyAirMovement && dirX!=0)
@@ -219,76 +208,76 @@ public class PlayerMovement : MonoBehaviour
             canApplyAirMovement = !canApplyAirMovement;
         }
 
-        if (!attackScript.bypassMoveBlock)
+        if (!PR.Attack.bypassMoveBlock)
         {
-            rb.velocity = new Vector2(isInLandingLag || (attackScript.isAttacking && !isInAir) || isCrouch || attackScript.isSpecial || anim.GetBool("hasGrabbedEnemy") ? 0 : (dirX > 0 ? dirX * smoothVector.x : -dirX * smoothVector.x)+ (xForce), rb.velocity.y);
+            PR.RB.velocity = new Vector2(isInLandingLag || (PR.Attack.isAttacking && !isInAir) || isCrouch || PR.Attack.isSpecial || PR.anim.GetBool("hasGrabbedEnemy") ? 0 : (dirX > 0 ? dirX * smoothVector.x : -dirX * smoothVector.x)+ (xForce), PR.RB.velocity.y);
         }
 
         else
         {
            // Speed = Crawl;
-            rb.velocity = new Vector2((dirX > 0 ? dirX * smoothVector.x : -dirX * smoothVector.x), rb.velocity.y);
+            PR.RB.velocity = new Vector2((dirX > 0 ? dirX * smoothVector.x : -dirX * smoothVector.x), PR.RB.velocity.y);
         }
 
-        if(rb.velocity.x > Speed)
+        if(PR.RB.velocity.x > Speed)
         {
-            rb.velocity = new Vector2(Speed, rb.velocity.y);
+            PR.RB.velocity = new Vector2(Speed, PR.RB.velocity.y);
         }
-        else if(rb.velocity.x < -Speed)
+        else if(PR.RB.velocity.x < -Speed)
         {
-            rb.velocity = new Vector2(-Speed, rb.velocity.y);
+            PR.RB.velocity = new Vector2(-Speed, PR.RB.velocity.y);
         }
 
         if (dirX == 0 && !isInAir && Input.GetAxisRaw("Vertical") >= 0f)
         {
-            anim.ResetTrigger("Walking");
-            anim.ResetTrigger("Running");
+            PR.anim.ResetTrigger("Walking");
+            PR.anim.ResetTrigger("Running");
             
-            anim.SetBool("Crouch", false);
-            anim.SetTrigger("Idle");
+            PR.anim.SetBool("Crouch", false);
+            PR.anim.SetTrigger("Idle");
             isCrouch = false;
         }
 
-        else if (dirX == 0 && !isInAir && Input.GetAxisRaw("Vertical") < 0f && anim.GetBool("Climbing") == false)
+        else if (dirX == 0 && !isInAir && Input.GetAxisRaw("Vertical") < 0f && PR.anim.GetBool("Climbing") == false)
         {
-            rb.gravityScale = 1;
-            anim.ResetTrigger("Walking");
-            anim.ResetTrigger("Running");
-            anim.ResetTrigger("Idle");
-            anim.SetBool("Crouch", true);
+            PR.RB.gravityScale = 1;
+            PR.anim.ResetTrigger("Walking");
+            PR.anim.ResetTrigger("Running");
+            PR.anim.ResetTrigger("Idle");
+            PR.anim.SetBool("Crouch", true);
             isCrouch = true;
         }
 
         else
         {
-            if (dirX != 0 && !attackScript.isAttacking && !isInAir && !anim.GetBool("hasGrabbedEnemy"))
+            if (dirX != 0 && !PR.Attack.isAttacking && !isInAir && !PR.anim.GetBool("hasGrabbedEnemy"))
                 transform.eulerAngles = new Vector2(0, dirX < 0 ? 180 : 0);
 
             isLeft = transform.eulerAngles.y == 0 ? false : true;
 
-            if (!isInAir && !anim.GetBool("OnLadder"))
+            if (!isInAir && !(PR.anim.GetBool("Climbing") && !PR.anim.GetBool("isGrounded")))
             {
                 switch (Speed)
                 {
                     case 14f:
                         //isCrouch = false;
-                        anim.ResetTrigger("Walking");
+                        PR.anim.ResetTrigger("Walking");
                         break;
 
                     case 7f:
                         // isCrouch = false;
-                        anim.SetTrigger("Walking");
+                        PR.anim.SetTrigger("Walking");
                         break;
                     case 3.5f:
                         //isCrouch = true;
-                        anim.ResetTrigger("Walking");
+                        PR.anim.ResetTrigger("Walking");
                         break;
 
 
                 }
                
-                anim.SetBool("Crouch", false);
-                anim.ResetTrigger("Idle");
+                PR.anim.SetBool("Crouch", false);
+                PR.anim.ResetTrigger("Idle");
             }
         }
 
@@ -296,18 +285,18 @@ public class PlayerMovement : MonoBehaviour
 
     void Jump()
     {
-        if (!(jumpAmt == 0 && isInAir && anim.GetBool("Climbing")) && !isInLandingLag && !attackScript.isAttacking && !anim.GetBool("hasGrabbedEnemy"))
+        if (!(jumpAmt == 0 && isInAir && PR.anim.GetFloat("ClimbSpeed") == -1) && !isInLandingLag && !PR.Attack.isAttacking && !PR.anim.GetBool("hasGrabbedEnemy"))
         {
-            if (anim.GetBool("Climbing"))
+            if (PR.anim.GetBool("Climbing"))
                 jumpAmt = 0;
 
-            if (Input.GetButtonDown("Jump") && !anim.GetAnimatorTransitionInfo(0).IsName("Idle -> Crouch"))
+            if (Input.GetButtonDown("Jump") && !PR.anim.GetAnimatorTransitionInfo(0).IsName("Idle -> Crouch"))
             {
-                anim.ResetTrigger("Idle");
-                anim.ResetTrigger("Climbing");
+                PR.anim.ResetTrigger("Idle");
+                PR.anim.ResetTrigger("Climbing");
                 isInAir = true;
 
-                anim.SetBool("isGrounded", !isInAir);
+                PR.anim.SetBool("isGrounded", !isInAir);
                 if (jumpAmt < 2)
                 {
                     jumpAmt++;
@@ -315,24 +304,24 @@ public class PlayerMovement : MonoBehaviour
                     {
                         case 1:
                             if (isInLandingLag == false)
-                                anim.SetBool("isJumping", true);
-                            anim.SetBool("isDoubleJumping", false);
+                                PR.anim.SetBool("isJumping", true);
+                            PR.anim.SetBool("isDoubleJumping", false);
                             break;
                         case 2:
-                            anim.SetBool("isJumping", false);
-                            anim.SetBool("isDoubleJumping", true);
-                            rb.gravityScale = 1.0f;
+                            PR.anim.SetBool("isJumping", false);
+                            PR.anim.SetBool("isDoubleJumping", true);
+                            PR.RB.gravityScale = 1.0f;
                             break;
                     }
 
-                    if (anim.GetCurrentAnimatorClipInfo(0)[0].clip.name != "Crouch")
+                    if (PR.anim.GetCurrentAnimatorClipInfo(0)[0].clip.name != "Crouch")
                     {
-                        rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-                        anim.SetBool("isFalling", false);
+                        PR.RB.velocity = new Vector2(PR.RB.velocity.x, jumpForce);
+                        PR.anim.SetBool("isFalling", false);
                     }
                     else
                     {
-                        print(anim.GetCurrentAnimatorClipInfo(0)[0].clip.name);
+                        print(PR.anim.GetCurrentAnimatorClipInfo(0)[0].clip.name);
                         StartCoroutine(SquatJump());
                     }
 
@@ -344,30 +333,30 @@ public class PlayerMovement : MonoBehaviour
 
             else if (Input.GetButtonUp("Jump"))
             {
-                rb.velocity = new Vector2(rb.velocity.x, isFalling ? rb.velocity.y : rb.velocity.y / 2);
+                PR.RB.velocity = new Vector2(PR.RB.velocity.x, isFalling ? PR.RB.velocity.y : PR.RB.velocity.y / 2);
             }
         }
 
 
 
-        if (rb.velocity.y < 0.0f && Escelator == null)
+        if (PR.RB.velocity.y < 0.0f && Escelator == null)
         {
             if (!InEscelator)
                 isFalling = true;
-            //Debug.Log(rb.velocity.y + "  " + isFalling);
+            //Debug.Log(PR.RB.velocity.y + "  " + isFalling);
 
-            anim.SetBool("isJumping", false);
-            anim.SetBool("isDoubleJumping", false);
-            anim.SetBool("isGrounded", !isFalling);
+            PR.anim.SetBool("isJumping", false);
+            PR.anim.SetBool("isDoubleJumping", false);
+            PR.anim.SetBool("isGrounded", !isFalling);
             
-            anim.SetBool("Crouch", false);
-            if (!PlayerAttack.attackInstance.SideBS)
-                rb.gravityScale = scaledGravity;
+            PR.anim.SetBool("Crouch", false);
+            if (!PR.Attack.SideBS)
+                PR.RB.gravityScale = scaledGravity;
         }
         else isFalling = false;
 
 
-        anim.SetBool("isFalling", isFalling);
+        PR.anim.SetBool("isFalling", isFalling);
 
 
         //Crouch bug somewhere here
@@ -383,70 +372,70 @@ public class PlayerMovement : MonoBehaviour
 
     private void DetermineMovementStates()
     {
-        if (!stunned && !anim.GetBool("Taunt") && !grabbing && !S.isAirSpin && !anim.GetBool("isAirStunned") && !anim.GetBool("isLaying") && !H.dead && !SS.ShieldStun && !isInGetup)
+        if (!PR.anim.GetBool("Stunned") && !PR.anim.GetBool("Taunt") && !PR.anim.GetBool("Grabbing") && !PR.Stun.isAirSpin && !PR.anim.GetBool("isAirStunned") && !PR.anim.GetBool("isLaying") && !H.dead && !SS.ShieldStun && !isInGetup)
         {
 
             if (isInAir)
                 Speed = Walk;
-            if (!anim.GetBool("EndLag"))
+            if (!PR.anim.GetBool("EndLag"))
             {
 
-                if (!anim.GetBool("Climbing") && !anim.GetBool("isAirStunned") && !anim.GetBool("isLaying"))
+                if (!PR.anim.GetBool("Climbing") && !PR.anim.GetBool("isAirStunned") && !PR.anim.GetBool("isLaying"))
                     Move();
 
-                if (!PlayerAttack.attackInstance.isExecutedOnce)
+                if (!PR.Attack.isExecutedOnce)
                     Jump();
             }
-            anim.SetBool("isGrounded", !isInAir);
+            PR.anim.SetBool("isGrounded", !isInAir);
 
-            if (rb.velocity.y < 0)
+            if (PR.RB.velocity.y < 0)
             {
-                anim.SetBool("isFalling", isFalling);
+                PR.anim.SetBool("isFalling", isFalling);
             }
-            else anim.SetBool("isFalling", isInAir);
+            else PR.anim.SetBool("isFalling", isInAir);
         }
 
-        else if (!stunned && S.isAirSpin)
+        else if (!PR.anim.GetBool("Stunned") && PR.Stun.isAirSpin)
         {
-            if (globalDirX != 0 && S.isAirSpin)
+            if (globalDirX != 0 && PR.Stun.isAirSpin)
             {
-                S.isAirSpin = false;
-                anim.SetBool("isAirStunned", S.isAirSpin);
+                PR.Stun.isAirSpin = false;
+                PR.anim.SetBool("isAirStunned", PR.Stun.isAirSpin);
 
             }
         }
 
-        else if (!stunned && anim.GetBool("isLaying"))
+        else if (!PR.anim.GetBool("Stunned") && PR.anim.GetBool("isLaying"))
         {
             if (globalDirX != 0)
             {
-                anim.SetBool("isLaying", false);
+                PR.anim.SetBool("isLaying", false);
             }
 
             else if (Input.GetButtonDown("Fire1") || Input.GetButtonDown("Fire2") || Input.GetButton("Fire3"))
             {
-                anim.SetBool("canLayAttack", false);
+                PR.anim.SetBool("canLayAttack", false);
             }
         }
 
 
-        else if (stunned)
+        else if (PR.anim.GetBool("Stunned"))
         {
-            anim.ResetTrigger("Walking");
-            anim.ResetTrigger("Running");
+            PR.anim.ResetTrigger("Walking");
+            PR.anim.ResetTrigger("Running");
             
-            anim.SetBool("Crouch", false);
-            if (rb.velocity.y < 0.0f)
+            PR.anim.SetBool("Crouch", false);
+            if (PR.RB.velocity.y < 0.0f)
             {
                 isFalling = true;
-                anim.SetBool("isJumping", false);
-                anim.SetBool("isDoubleJumping", false);
-                anim.SetBool("isGrounded", !isInAir);
-                rb.gravityScale = scaledGravity;
+                PR.anim.SetBool("isJumping", false);
+                PR.anim.SetBool("isDoubleJumping", false);
+                PR.anim.SetBool("isGrounded", !isInAir);
+                PR.RB.gravityScale = scaledGravity;
             }
             else isFalling = false;
-            anim.SetBool("isJumping", false);
-            anim.SetBool("isFalling", true);
+            PR.anim.SetBool("isJumping", false);
+            PR.anim.SetBool("isFalling", true);
         }
     }
 
@@ -454,20 +443,30 @@ public class PlayerMovement : MonoBehaviour
     {
         if ((collision.gameObject.tag == "Platform" || collision.gameObject.tag == "Grab") && collision.contacts[0].normal.y > .8f)
         {
-            rb.gravityScale /= rb.gravityScale == scaledGravity ? scaledGravity : 1.0f;
+            if(collision.gameObject.GetComponent<PlatformMovement>())
+            {
+                OnMoveable = true;
+                transform.SetParent(collision.gameObject.transform);
+                PR.RB.interpolation = RigidbodyInterpolation2D.None;
+            }
+
+
+
+
+            PR.RB.gravityScale /= PR.RB.gravityScale == scaledGravity ? scaledGravity : 1.0f;
             
             if (collision.gameObject.GetComponent<Escelator>())
                 Escelator = collision.gameObject.GetComponent<Escelator>();
-            if (anim.GetBool("Climbing"))
-                anim.ResetTrigger("Climbing");
-            if (rb.velocity.y == 0 || Escelator != null )
+            if (PR.anim.GetBool("Climbing"))
+                PR.anim.ResetTrigger("Climbing");
+            if (PR.RB.velocity.y == 0 || Escelator != null )
                 isInAir = false;
 
 
-            if (!grabbing && !isInAir)
+            if (!PR.anim.GetBool("Grabbing") && !isInAir)
             {
                 jumpAmt = 0;
-                PlayerAttack.attackInstance.isExecutedOnce = false;
+               PR.Attack.isExecutedOnce = false;
                 isOnPassThrough = false;
             }
 
@@ -481,16 +480,16 @@ public class PlayerMovement : MonoBehaviour
                 print("On drop");
                 currentPassThroughPlatform = collision.gameObject;
                 isOnPassThrough = true;
-                anim.SetBool("isGrounded", isOnPassThrough);
+                PR.anim.SetBool("isGrounded", isOnPassThrough);
                 
-                if(!anim.GetCurrentAnimatorStateInfo(0).IsName("USpecial"))
+                if(!PR.anim.GetCurrentAnimatorStateInfo(0).IsName("USpecial"))
                 Physics2D.gravity = new Vector2(0, -9.81f);
 
-                if (!attackScript.isAttacking && !isInAir)
+                if (!PR.Attack.isAttacking && !isInAir)
                 {
-                    anim.SetBool("isFalling", false);
+                    PR.anim.SetBool("isFalling", false);
                     jumpAmt = 0;
-                    PlayerAttack.attackInstance.isExecutedOnce = false;
+                   PR.Attack.isExecutedOnce = false;
 
                 }
 
@@ -504,27 +503,33 @@ public class PlayerMovement : MonoBehaviour
             }
 
 
-            if(S.isAirSpin)
+            if(PR.Stun.isAirSpin)
             {
-                stunned = false;
-                anim.SetBool("Stunned", false);
-                anim.SetBool("isFalling", false);
-                anim.SetBool("isGrounded", true);
+                PR.anim.SetBool("Stunned", false);
+                PR.anim.SetBool("isFalling", false);
+                PR.anim.SetBool("isGrounded", true);
             }
-            else anim.SetBool("isGrounded", true);
+            else PR.anim.SetBool("isGrounded", true);
 
         }
 
-        if (attackScript.isInHelpless && rb.velocity.y == 0)
+        if (PR.Attack.isInHelpless && PR.RB.velocity.y == 0)
         {
             GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
-            attackScript.isInHelpless = !attackScript.isInHelpless;
+            PR.Attack.isInHelpless = !PR.Attack.isInHelpless;
         }
     }
 
 
     private void OnCollisionExit2D(Collision2D collision)
     {
+        if(OnMoveable)
+        {
+            OnMoveable = false;
+            transform.SetParent(null);
+            PR.RB.interpolation = RigidbodyInterpolation2D.Interpolate;
+        }
+
 
         if (collision.gameObject.tag == "Platform")
         {
@@ -536,13 +541,13 @@ public class PlayerMovement : MonoBehaviour
                 if (Input.GetButton("Jump"))
                 {
                     
-                    anim.SetBool("Crouch", false);
-                    anim.ResetTrigger("Idle");
+                    PR.anim.SetBool("Crouch", false);
+                    PR.anim.ResetTrigger("Idle");
                     isInAir = true;
-                    anim.SetBool("isGrounded", !isInAir);
-                    anim.SetBool("isJumping", true);
-                    anim.SetBool("isDoubleJumping", false);
-                    anim.SetBool("isFalling", false);
+                    PR.anim.SetBool("isGrounded", !isInAir);
+                    PR.anim.SetBool("isJumping", true);
+                    PR.anim.SetBool("isDoubleJumping", false);
+                    PR.anim.SetBool("isFalling", false);
                 }
             }
 
@@ -556,10 +561,10 @@ public class PlayerMovement : MonoBehaviour
             }
             currentPassThroughPlatform = null;
 
-            if (anim.GetBool("Climbing"))
+            if (PR.anim.GetBool("Climbing"))
                 isInAir = true;
 
-            if (rb.velocity.y != 0)
+            if (PR.RB.velocity.y != 0)
                 isInAir = true;
         }
     }
@@ -574,7 +579,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.GetComponent<Escelator>() && rb.velocity.y < 0f)
+        if (collision.gameObject.GetComponent<Escelator>() && PR.RB.velocity.y < 0f)
         {
             InEscelator = true;
         }
@@ -603,7 +608,7 @@ public class PlayerMovement : MonoBehaviour
         isCoroutineRunning = true;
         BoxCollider2D platformCol = currentPassThroughPlatform.GetComponent<BoxCollider2D>();
         yield return new WaitForSeconds(crouchTimer);
-        if (!attackScript.isAttacking && isOnPassThrough)
+        if (!PR.Attack.isAttacking && isOnPassThrough)
         {
             Physics2D.IgnoreCollision(playerCollider, platformCol);
             yield return new WaitForSeconds(.5f);
@@ -617,7 +622,7 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator SquatJump()
     {
             yield return new WaitForSeconds(.75f);
-         rb.velocity = new Vector2(rb.velocity.x, 10f);
+         PR.RB.velocity = new Vector2(PR.RB.velocity.x, 10f);
     }
 
 
@@ -645,7 +650,7 @@ public class PlayerMovement : MonoBehaviour
 
     public bool GetIsStunned()
     {
-        return stunned;
+        return PR.anim.GetBool("Stunned");
     }
 
     public void SetIsOnPassThrough(bool newPT)
@@ -653,10 +658,6 @@ public class PlayerMovement : MonoBehaviour
         isOnPassThrough = newPT;
     }
 
-    public Animator GetAnim()
-    {
-        return anim;
-    }
 
     public void ChangeHealth()
     {

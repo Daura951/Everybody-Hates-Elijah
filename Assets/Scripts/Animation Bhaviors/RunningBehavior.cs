@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class RunningBehavior : StateMachineBehaviour
 {
+    PlayerRefrecnces PR;
+
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     //{
@@ -13,14 +15,16 @@ public class RunningBehavior : StateMachineBehaviour
     //OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (PlayerAttack.attackInstance.isAttacking && !PlayerAttack.attackInstance.isSpecial)
+        PR = PlayerRefrecnces.instance;
+
+        if (PR.Attack.isAttacking && !PR.Attack.isSpecial)
         {
-            PlayerAttack.attackInstance.anim.Play("Dash");
-            PlayerAttack.attackInstance.isAttacking = false;
+            PR.anim.Play("Dash");
+            PR.Attack.isAttacking = false;
         }
-        if (PlayerAttack.attackInstance.isAttacking && PlayerAttack.attackInstance.isSpecial)
+        if (PR.Attack.isAttacking && PR.Attack.isSpecial)
         {
-            PlayerAttack.attackInstance.anim.Play("Side B");
+            PR.anim.Play("Side B");
         }
 
 

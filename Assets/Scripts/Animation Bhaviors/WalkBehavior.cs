@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class WalkBehavior : StateMachineBehaviour
 {
+   PlayerRefrecnces PR;
+
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     //{
@@ -13,14 +15,15 @@ public class WalkBehavior : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (PlayerAttack.attackInstance.isAttacking &&PlayerAttack.attackInstance.isSpecial)
+        PR = PlayerRefrecnces.instance;
+        if (PR.Attack.isAttacking && PR.Attack.isSpecial)
         {
-            PlayerAttack.attackInstance.anim.Play("Side B");
+            PR.anim.Play("Side B");
         }
 
-        else if (PlayerAttack.attackInstance.isAttacking && Input.GetAxisRaw("Horizontal") != 0 && !PlayerAttack.attackInstance.playerMovement.isInAir)
+        else if (PR.Attack.isAttacking && Input.GetAxisRaw("Horizontal") != 0 && !PR.Move.isInAir)
         {
-            PlayerAttack.attackInstance.anim.Play("Forward Tilt");
+            PR.anim.Play("Forward Tilt");
         }
     }
 

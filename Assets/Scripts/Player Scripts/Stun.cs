@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class Stun : MonoBehaviour
 {
+
+    public PlayerRefrecnces PR;
+
     public bool Stunned;
     public bool isAirSpin = false;
     private bool isLeft;
@@ -24,7 +27,6 @@ public class Stun : MonoBehaviour
     [SerializeField]
     private float terminalVelocity = 10;
 
-    public static Stun stunInstance;
 
     PlayerAttack pa;
 
@@ -38,7 +40,6 @@ public class Stun : MonoBehaviour
        anim = GetComponent<Animator>();
        H = GetComponent<Health>();
        pa = GetComponent<PlayerAttack>();
-       stunInstance = this;
        stunMultiplier = 10 / H.GetMaxHealth();
     }
 
@@ -114,8 +115,8 @@ public class Stun : MonoBehaviour
 
             }
 
-            if (PlayerAttack.attackInstance.ASideB)
-            PlayerAttack.attackInstance.ASideB = false;
+            if (PR.Attack.ASideB)
+            PR.Attack.ASideB = false;
 
             SI = col.gameObject.GetComponent<Stun_Info>();
             SIDAKT = SI.GetDAKTInfo();
@@ -191,13 +192,13 @@ public class Stun : MonoBehaviour
                 GetHit(SIDAKT[1], SIDAKT[2]);
             }
 
-            if(gameObject.tag=="Player")
+         /*   if(gameObject.tag=="Player")
             {
                 gameObject.GetComponent<PlayerMovement>().ChangeHealth();
                 gameObject.GetComponent<PlayerMovement>().GetAnim().SetBool("isFalling", true);
                 gameObject.GetComponent<PlayerMovement>().isInAir = true;
             }
-
+         */
 
             pa.bypassMoveBlock = false;
         }

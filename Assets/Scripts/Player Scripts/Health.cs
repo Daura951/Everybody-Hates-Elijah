@@ -14,8 +14,9 @@ public class Health : MonoBehaviour
     public Animator healthAnim;
     public bool dead = false;
 
-    PlayerAttack PA;
-    Animator anim;
+
+    public PlayerRefrecnces PR;
+
     public GameObject Shield;
     ShieldScript SS;
 
@@ -43,9 +44,7 @@ public class Health : MonoBehaviour
     public Sprite[] elijahEmotes;
     void Start()
     {
-        PA = GetComponent<PlayerAttack>();
         SS = Shield.GetComponent<ShieldScript>();
-        anim = GetComponent<Animator>();
         health = MaxHealth;
         slider.maxValue = 1;
         slider.value = 1;
@@ -75,19 +74,19 @@ public class Health : MonoBehaviour
 
         if(slider.value > .6f)
         {
-            anim.SetFloat("IdleSpeed", .5f);
+            PR.anim.SetFloat("IdleSpeed", .5f);
             healthBar.color = new Color(0, 255, 0, 1);
             elijahEmote.sprite = elijahEmotes[0];
         }
         if (slider.value <= .6f && slider.value > .3f)
         {
-            anim.SetFloat("IdleSpeed", 1f);
+            PR.anim.SetFloat("IdleSpeed", 1f);
             healthBar.color = new Color(255, 255, 0, 1);
             elijahEmote.sprite = elijahEmotes[1];
         }
         else if (slider.value <= .3f)
         {
-            anim.SetFloat("IdleSpeed", 1.5f);
+            PR.anim.SetFloat("IdleSpeed", 1.5f);
             healthBar.color = new Color(255, 0, 0, 1);
             elijahEmote.sprite = elijahEmotes[2];
             if (!isCoroutineStarted)
@@ -104,7 +103,7 @@ public class Health : MonoBehaviour
     public void TakeDamage(float hurt)
     {
 
-        if (PA.shielding)
+        if (PR.Attack.shielding)
         {
             if (hurt < lowLim && health >= MaxHealth * .5)
                 SS.ShieldDamag(1);
@@ -167,7 +166,7 @@ public class Health : MonoBehaviour
             }
         }
 
-        PlayerAttack.attackInstance.isExecutedOnce = false;
+        PR.Attack.isExecutedOnce = false;
     }
 
 

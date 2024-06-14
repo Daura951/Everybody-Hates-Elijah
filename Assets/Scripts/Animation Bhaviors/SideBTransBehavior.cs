@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SideBTransBehavior : StateMachineBehaviour
 {
+    PlayerRefrecnces PR;
+
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     //{
@@ -13,8 +15,9 @@ public class SideBTransBehavior : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        PlayerAttack.attackInstance.isAttacking = false;
-        if(PlayerAttack.attackInstance.playerMovement.isInAir)
+        PR = PlayerRefrecnces.instance;
+        PR.Attack.isAttacking = false;
+        if(PR.Move.isInAir)
         {
             animator.SetBool("isGrounded", false);
             Physics2D.gravity = new Vector2(0 , -9.81f);
@@ -24,19 +27,20 @@ public class SideBTransBehavior : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (PlayerAttack.attackInstance.playerMovement.GetAnim().GetCurrentAnimatorStateInfo(0).IsName("Single Jump Fall"))
+        PR = PlayerRefrecnces.instance;
+        if (PR.anim.GetCurrentAnimatorStateInfo(0).IsName("Single Jump Fall"))
         {
-            PlayerAttack.attackInstance.playerMovement.rb.gravityScale = PlayerAttack.attackInstance.playerMovement.scaledGravity;
+           PR.RB.gravityScale =PR.Move.scaledGravity;
 
-            if(PlayerAttack.attackInstance.isInHelpless)
-                PlayerAttack.attackInstance.playerMovement.GetComponent<SpriteRenderer>().color = new Color(.5f, .5f, .5f, 1);
+            if(PR.Attack.isInHelpless)
+               PR.Move.GetComponent<SpriteRenderer>().color = new Color(.5f, .5f, .5f, 1);
         }
 
-        PlayerAttack.attackInstance.playerMovement.anim.SetBool("isJumping", false);
-        PlayerAttack.attackInstance.playerMovement.anim.SetBool("isDoubleJumping", false);
-        PlayerAttack.attackInstance.isAttacking = false;
-        PlayerAttack.attackInstance.isSpecial = false;
-        PlayerAttack.attackInstance.bypassMoveBlock = false;
+        PR.anim.SetBool("isJumping", false);
+        PR.anim.SetBool("isDoubleJumping", false);
+        PR.Attack.isAttacking = false;
+        PR.Attack.isSpecial = false;
+        PR.Attack.bypassMoveBlock = false;
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

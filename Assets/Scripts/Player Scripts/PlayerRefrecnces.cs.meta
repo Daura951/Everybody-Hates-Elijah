@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 3399e50c6859c6a488468d1d59ddf664
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - Attack: {fileID: 4926932388033835190, guid: 49b91c20ba8cc6249b9010246d083c77, type: 3}
+  - Move: {fileID: 4926932388033835189, guid: 49b91c20ba8cc6249b9010246d083c77, type: 3}
+  - RB: {fileID: 4926932388033835181, guid: 49b91c20ba8cc6249b9010246d083c77, type: 3}
+  - anim: {fileID: 4926932388033835188, guid: 49b91c20ba8cc6249b9010246d083c77, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

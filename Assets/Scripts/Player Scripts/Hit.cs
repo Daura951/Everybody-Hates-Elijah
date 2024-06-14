@@ -14,7 +14,7 @@ public class Hit : MonoBehaviour
     private float timer;
     private float[] stats;
 
-
+    public PlayerRefrecnces PR;
 
     // Start is called before the first frame update
     void Start()
@@ -109,7 +109,8 @@ public class Hit : MonoBehaviour
 
         if(collision.gameObject.name=="Dash  Hitbox")
         {
-            collision.transform.parent.GetComponent<PlayerMovement>().rb.velocity = new Vector2(0, 0);
+            //collision.transform.parent.GetComponent<PlayerMovement>().rb.velocity = new Vector2(0, 0);
+            PR.RB.velocity = new Vector2(0, 0);
         }
 
         rb.velocity = new Vector2(0, 0);
