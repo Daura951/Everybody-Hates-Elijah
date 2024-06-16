@@ -82,6 +82,7 @@ public class IdleBehavior : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        PR = PlayerRefrecnces.instance;
         if (!PR.Attack.stickyHand.activeSelf)
         {
             PR.Attack.isAttacking = false;

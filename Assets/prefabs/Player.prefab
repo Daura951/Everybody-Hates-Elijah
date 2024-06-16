@@ -3004,7 +3004,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7ff39e61aa93064c95b9b14201083e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PR: {fileID: 0}
+  PR: {fileID: 671818675769444082}
   maxCountDown: 0.25
   speed: 4
   editedSpeed: 0
@@ -3642,8 +3642,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Attack: {fileID: 4926932388033835190}
   Move: {fileID: 4926932388033835189}
-  Taunt: {fileID: 0}
-  Stun: {fileID: 0}
+  Taunt: {fileID: 4926932388033835186}
+  Stun: {fileID: 4926932388033835187}
   RB: {fileID: 4926932388033835181}
   anim: {fileID: 4926932388033835188}
 --- !u!114 &4926932388033835189
@@ -3686,10 +3686,8 @@ MonoBehaviour:
   rayRange: 2
   dashDisable: 0
   SS: {fileID: 7391807778850897890}
-  S: {fileID: 4926932388033835187}
   OnEscelator: 0
   InEscelator: 0
-  grabbing: 0
   curDamage: 0
   isInCutscene: 0
 --- !u!114 &4926932388033835190
@@ -3961,7 +3959,6 @@ MonoBehaviour:
   reGrab: 1
   action: 0
   grab: 0
-  isLeft: 0
   moveable: 0
   redXOff: 0.1
   redYOff: 0.28
@@ -3972,6 +3969,7 @@ MonoBehaviour:
     m_Bits: 2048
   holding: 3
   Limit: 7
+  PR: {fileID: 671818675769444082}
 --- !u!82 &1922164418
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4305,9 +4303,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PR: {fileID: 671818675769444082}
   speed: 2
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 1
 --- !u!1 &4926932388764442920
 GameObject:
   m_ObjectHideFlags: 0

@@ -96,6 +96,13 @@ public class LedgeGrab : MonoBehaviour
             //jump up
             if (Input.GetButtonDown("Jump"))
             {
+                if (moveable)
+                {
+                    moveable = false;
+                    transform.SetParent(null);
+                }
+
+
                 action = true;
                 PR.anim.SetBool("Grabbing",false);
                 PR.RB.gravityScale = 1f;

@@ -39,7 +39,7 @@ public class Climbing : MonoBehaviour
         }
         else
         {
-            if(PR.RB.gravityScale == 0)
+            if (PR.anim.GetAnimatorTransitionInfo(0).IsName("Climbing -> Single Jump Fall") && PR.RB.gravityScale == 0)
                 PR.RB.gravityScale = gravity;
             PR.anim.SetBool("OnLadder", false);
             PR.anim.SetBool("Climbing", false);
