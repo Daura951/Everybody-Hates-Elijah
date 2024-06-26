@@ -5555,6 +5555,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1275916768}
   m_CullTransparentMesh: 1
+--- !u!1 &1288525271
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1288525273}
+  - component: {fileID: 1288525272}
+  m_Layer: 0
+  m_Name: InputManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1288525272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1288525271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce0d142a5ebbc64486a8a9b0f2b8bbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deadZone: 0.2
+--- !u!4 &1288525273
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1288525271}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -14.78879, y: -3.7853637, z: -0.20662762}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1308059040
 GameObject:
   m_ObjectHideFlags: 0
@@ -10558,9 +10603,321 @@ PrefabInstance:
       value: tileGameObjects
       objectReference: {fileID: 0}
     - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.size
+      value: 27
+      objectReference: {fileID: 0}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[1].name
+      value: TestDoggy
+      objectReference: {fileID: 0}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[2].name
+      value: Platform
+      objectReference: {fileID: 0}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[3].name
+      value: Wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[4].name
+      value: Wall_Back
+      objectReference: {fileID: 0}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[5].name
+      value: Male Student
+      objectReference: {fileID: 0}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[6].name
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[7].name
+      value: CameraLimit
+      objectReference: {fileID: 0}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[8].name
+      value: Door_Managed
+      objectReference: {fileID: 0}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[9].name
+      value: CheckPoint
+      objectReference: {fileID: 0}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[10].name
+      value: ConveyorBelt
+      objectReference: {fileID: 0}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[11].name
+      value: Destruction platform 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[12].name
+      value: food
+      objectReference: {fileID: 0}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[13].name
+      value: Grabble Moveable platform
+      objectReference: {fileID: 0}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[14].name
+      value: Grabble platform
+      objectReference: {fileID: 0}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[15].name
+      value: Ladder
+      objectReference: {fileID: 0}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[16].name
+      value: Lava Floor
+      objectReference: {fileID: 0}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[17].name
+      value: Moveable platform
+      objectReference: {fileID: 0}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[18].name
+      value: Lever
+      objectReference: {fileID: 0}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[19].name
+      value: moving Hazard
+      objectReference: {fileID: 0}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[20].name
+      value: PassThroughPlatform
+      objectReference: {fileID: 0}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[21].name
+      value: rotating platform
+      objectReference: {fileID: 0}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[22].name
+      value: SceneChanger
+      objectReference: {fileID: 0}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[23].name
+      value: SpikeTrap
+      objectReference: {fileID: 0}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[24].name
+      value: Teleporters
+      objectReference: {fileID: 0}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[25].name
+      value: DeathBox
+      objectReference: {fileID: 0}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[26].name
+      value: dumpster
+      objectReference: {fileID: 0}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[1].obj.obj
+      value: 
+      objectReference: {fileID: 6618639724291548215, guid: cdbcbe3b26825124e9102fa6b6f05787, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[2].obj.obj
+      value: 
+      objectReference: {fileID: 876897176673173903, guid: 618d0c7d8a41d4148811baae186580f3, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[3].obj.obj
+      value: 
+      objectReference: {fileID: 876897176673173903, guid: d39cadc05ea7a7940b2850d94b43b7dc, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[4].obj.obj
+      value: 
+      objectReference: {fileID: 876897176673173903, guid: a409ba1a111d5b442b8012737cd14bcc, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[5].obj.obj
+      value: 
+      objectReference: {fileID: 1147828566731714523, guid: 3a1fdbafb7cbd05468c84cc4944cfc6e, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[6].obj.obj
+      value: 
+      objectReference: {fileID: 7478764645473139900, guid: 15bf22eefa061454b8bfd212306f0542, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[7].obj.obj
+      value: 
+      objectReference: {fileID: 7267877030357619709, guid: e13a9c99bb4735a4b88c1d8d4ad69abb, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[8].obj.obj
+      value: 
+      objectReference: {fileID: 8041940989308470199, guid: 7ebc0b8f98628cc4298bf007552c06f4, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[9].obj.obj
+      value: 
+      objectReference: {fileID: 3755280887847146642, guid: a86185f9b1a79b94384b394c41b31822, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[10].obj.obj
+      value: 
+      objectReference: {fileID: 375220286594020129, guid: e2c6df1f83e35e74b9abcd53a606ca5e, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[11].obj.obj
+      value: 
+      objectReference: {fileID: 96931407288258536, guid: 2df30f2c9a6463f46a7f19d4814eac61, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[12].obj.obj
+      value: 
+      objectReference: {fileID: 2539190766610697298, guid: b02cf41bf9fb0dd40beba353f45a5b0a, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[13].obj.obj
+      value: 
+      objectReference: {fileID: 9129208645040400150, guid: 694c1a3d61f37a94a85185c5824ae674, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[14].obj.obj
+      value: 
+      objectReference: {fileID: 8083049624199803610, guid: f30a173c70ee1c348a0c04abad54618b, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[15].obj.obj
+      value: 
+      objectReference: {fileID: 4330631387982120828, guid: 75c819d341e7b534787b58b8e7d3df96, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[16].obj.obj
+      value: 
+      objectReference: {fileID: 7417413966450255281, guid: 741eae5b65fafee408616694fe48275d, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[17].obj.obj
+      value: 
+      objectReference: {fileID: 6218993799459064805, guid: f3ed349b081bdde4fb64bfbfc8bf657a, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[18].obj.obj
+      value: 
+      objectReference: {fileID: 4132884865546338325, guid: 974f150c895ab584d8ba55a81c089ce2, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[19].obj.obj
+      value: 
+      objectReference: {fileID: 8085229476472813844, guid: 4404ceb7e08e8e54b9d46b764e719411, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[20].obj.obj
+      value: 
+      objectReference: {fileID: 7376297814673519395, guid: d3c6d510df13af54b8b7edd8cdfc3e22, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[21].obj.obj
+      value: 
+      objectReference: {fileID: 2595634314059069569, guid: 0b4308e94e16f0942acd9190f770ca2d, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[22].obj.obj
+      value: 
+      objectReference: {fileID: 5579677686932050272, guid: 64604031a449b0e498d02f6e0fbe5c11, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[23].obj.obj
+      value: 
+      objectReference: {fileID: 4701402067671950742, guid: ac1d75063e0082646be74ae6e5511e3f, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[24].obj.obj
+      value: 
+      objectReference: {fileID: 6126283599949435271, guid: 6533fdcdcf8736a45a410c98ed71c159, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[25].obj.obj
+      value: 
+      objectReference: {fileID: 9108783347521850435, guid: 9f4e22b4fa5957e40b914fddb6f22e9b, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[26].obj.obj
+      value: 
+      objectReference: {fileID: 8775844621132419232, guid: cedfc6e188900314ca2bd6e8dd7e98c0, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[1].obj.sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 00f5cfe3faa15ac49b1d8b552e094877, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[2].obj.sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e46f76629201ed740aae65a08e935175, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[3].obj.sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ea26b33c2870d7b4b9dd9ef8a906f338, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[4].obj.sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ce9a831313f694d49a0abfb68524b463, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[5].obj.sprite
+      value: 
+      objectReference: {fileID: 1836769398, guid: ec4c14a391c9f164587633ae4e0ebdd0, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[6].obj.sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d610208c34742164fb714a4d3c41ff06, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[7].obj.sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a318148119cac9e4ead91206092b878a, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[8].obj.sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d4b5df30c01b2b343b03527e00a4e883, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[9].obj.sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 32b36faa41111e243a0e7703809b1ede, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[10].obj.sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 1918c678d76f09640aa20fe5f0632496, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[11].obj.sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 559e71f2b109d94448a102e96f9f25ec, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[12].obj.sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 66aec89e773390947acff51f9845527d, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[13].obj.sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c5720c1cf8e2235439b206b53979f1fc, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[14].obj.sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 918df9bb85eb39540a9bc38fe2fab413, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[15].obj.sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8891dc9339791c34f86a27d8b4b95d62, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
       propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[16].obj.sprite
       value: 
+      objectReference: {fileID: 21300000, guid: 804cfa3bf64d62b48bbb501e86a7c706, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[17].obj.sprite
+      value: 
       objectReference: {fileID: 21300000, guid: 2670d78662bd92b498f83516f86b8d9a, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[18].obj.sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a1bb407590f1a1442b05113af724952e, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[19].obj.sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ab4c42d107fbfb44eb4007bb432dae80, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[20].obj.sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5853c7366e0a4bd4bbd0f934a7a0785d, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[21].obj.sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8cc9aa796034d4648802a2805629b2be, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[22].obj.sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ed028e623233b6440927f3f03c39910a, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[23].obj.sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7cbef4cb3a13153498f110fbc5013fa8, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[24].obj.sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0e9219ff6427f144e9fadcc7486a41f9, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[25].obj.sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 17f3d43ad680df94aabfda40cf2575d9, type: 3}
+    - target: {fileID: 4825914626901320222, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
+      propertyPath: newDict.tileGameObjectDictionaryItems.Array.data[26].obj.sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5966f9b0c6f85d04a81fc9b3aee2e2b6, type: 3}
     - target: {fileID: 4825914626901320223, guid: bfb452b0c395ed94bade810fad4def96, type: 3}
       propertyPath: m_RootOrder
       value: 11

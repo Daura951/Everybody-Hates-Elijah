@@ -257,12 +257,8 @@
 { "gameObjectName": "DeathBox", "x":153.6, "y":0, "layerPosition":"1"},
 { "gameObjectName": "DeathBox", "x":154.88, "y":0, "layerPosition":"1"},
 { "gameObjectName": "DeathBox", "x":156.16, "y":0, "layerPosition":"1"},
-{ "gameObjectName": "DeathBox", "x":157.44, "y":0, "layerPosition":"1"}
-]
-},
-{ "name": "Player",
- "gameObjectPositions": [
-{ "gameObjectName": "Player", "x":-11.5199, "y":5.119995, "layerPosition":"1"}
+{ "gameObjectName": "DeathBox", "x":157.44, "y":0, "layerPosition":"1"},
+{ "gameObjectName": "TestDoggy", "x":64, "y":7.679993, "layerPosition":"1"}
 ]
 },
 { "name": "Platform2",
@@ -282,6 +278,11 @@
 { "gameObjectName": "Moveable platform", "x":138.24, "y":15.35999, "layerPosition":"1"},
 { "gameObjectName": "Moveable platform", "x":143.36, "y":15.35999, "layerPosition":"1"},
 { "gameObjectName": "Moveable platform", "x":144.64, "y":15.35999, "layerPosition":"1"}
+]
+},
+{ "name": "Player",
+ "gameObjectPositions": [
+{ "gameObjectName": "Player", "x":-1.280029, "y":2.559998, "layerPosition":"1"}
 ]
 }
 ]
