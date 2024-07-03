@@ -15,6 +15,7 @@ public class Entity : MonoBehaviour
     public EnemyHealth health;
 
 
+
     [SerializeField] private Transform wallCheckTF;
     [SerializeField] private Transform ledgeCheckTF;
     [SerializeField] private Transform playerCheckTF;

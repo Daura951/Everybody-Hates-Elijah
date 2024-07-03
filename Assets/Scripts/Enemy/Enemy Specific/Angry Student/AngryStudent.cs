@@ -30,6 +30,7 @@ public class AngryStudent : Entity
     [SerializeField] private D_MeleeAttack punchStateData;
     [SerializeField] private Transform punchPosition;
 
+
     public override void Start()
     {
         base.Start();
@@ -43,7 +44,7 @@ public class AngryStudent : Entity
         deadState = new AS_DeadState(this, stateMachine, "dead", this);
         grabState = new AS_GrabState(this, stateMachine, "grabbed", this);
         pummelState = new AS_PummelState(this, stateMachine, "pummel", this);
-
+       
         stateMachine.Init(moveState);
     }
 
