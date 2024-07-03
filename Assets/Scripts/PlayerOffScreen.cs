@@ -25,6 +25,9 @@ public class PlayerOffScreen : MonoBehaviour
 
     bool fixcam;
     float YLoc;
+
+    public float shakeDuration = 1f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -91,6 +94,22 @@ public class PlayerOffScreen : MonoBehaviour
             YLoc = p.transform.position.y;
         }
 
+    }
+
+    IEnumerator shakeCamera()
+    {
+        Vector2 startPos = transform.position;
+        float elapsedTime = 0.0f;
+
+        print("SHAKE");
+        while (elapsedTime < shakeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            transform.position = startPos + Random.insideUnitCircle;
+            yield return null;
+        }
+
+        transform.position = startPos;
     }
 
     public bool lockCam()

@@ -17,16 +17,25 @@ public class CutsceneTrigger : MonoBehaviour
 
     private FinishLine finishLine;
 
+
+
+    public float timeBeforeCutscene;
+
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
 
+
         cutSceneUi = GameObject.Find("Cutscene UI");
+        cutSceneUi.GetComponent<ShaderBlurAnimator>().animationDuration = timeBeforeCutscene;
         cutSceneUi.SetActive(false);
 
-      
-        finishLine = GameObject.Find("FinishTrigger(Clone)").GetComponent<FinishLine>();
+        if(GameObject.Find("FinishTrigger(Clone)") == null)
+        {
+            finishLine = GameObject.Find("FinishTrigger").GetComponent<FinishLine>();
+        }
+        else finishLine = GameObject.Find("FinishTrigger(Clone)").GetComponent<FinishLine>();
     }
 
     // Update is called once per frame
@@ -55,6 +64,7 @@ public class CutsceneTrigger : MonoBehaviour
             child.gameObject.SetActive(false);
         }
 
+        player.GetComponent<Rigidbody2D>().gravityScale = 0.0f;
         player.GetComponent<PlayerMovement>().isInCutscene = true;
         player.GetComponent<PlayerAttack>().isInCutscene = true;
 
@@ -90,7 +100,7 @@ public class CutsceneTrigger : MonoBehaviour
         {
             child.gameObject.SetActive(false);
         }
-
+        player.GetComponent<Rigidbody2D>().gravityScale = 1.0f;
         player.GetComponent<PlayerMovement>().isInCutscene = false;
         player.GetComponent<PlayerAttack>().isInCutscene = false;
 

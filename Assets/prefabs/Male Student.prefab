@@ -598,8 +598,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d610208c34742164fb714a4d3c41ff06, type: 3}
-  m_Color: {r: 0.9433962, g: 0.13794944, b: 0.13794944, a: 1}
+  m_Sprite: {fileID: 21300000, guid: f5f7727bb267b6443b9549b2efdeabd3, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -715,6 +715,7 @@ MonoBehaviour:
   isPummeled: 0
   pummelFactor: 0
   BB: {fileID: 0}
+  isInCutscene: 0
   whichThrow: 00000000
   hitboxes:
   - {fileID: 7504139569174996308}

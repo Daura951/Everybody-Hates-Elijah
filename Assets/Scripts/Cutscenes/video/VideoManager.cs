@@ -10,16 +10,36 @@ public class VideoManager : MonoBehaviour
 
     public VideoClip[] videos;
     public VideoPlayer player;
+    public float holdTime;
+    private float currentHoldTime = 0.0f;
+
+    public SpriteRenderer skipSprite;
     void Start()
     {
-        player.loopPointReached += OnVideoEnd; 
+        player.loopPointReached += OnVideoEnd;
+        skipSprite.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
         player.clip = videos[PlayerPrefs.GetInt("video")];
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space))
+        if (Input.anyKey|| Input.anyKey)
+        {
+            currentHoldTime += Time.deltaTime;
+            skipSprite.color = new Color(1.0f, 1.0f, 1.0f, skipSprite.color.a + Time.deltaTime);
+        }
+        else
+        {
+            if (currentHoldTime >= 0.0f)
+            {
+                currentHoldTime -= Time.deltaTime;
+                if(currentHoldTime >= holdTime*.5f)
+                skipSprite.color = new Color(1.0f, 1.0f, 1.0f, skipSprite.color.a - Time.deltaTime);
+            }
+        }
+
+        if(currentHoldTime >= holdTime)
         {
             SceneManager.LoadScene(PlayerPrefs.GetInt("nextScene"));
         }

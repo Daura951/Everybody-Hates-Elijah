@@ -55,7 +55,6 @@ public class PlayerAttack : MonoBehaviour
     public Vector2 grabOffset;
     public Vector2 playerDThrowOffset;
     public float maxGrabTime;
-    public Enemy_Target currentlyGrabbedEnemy; //MARKED FOR DELETION!!!
     public Entity currentlyGrabbedEntity;
     public Vector2[] throwingOffsets;
 
@@ -500,11 +499,11 @@ public class PlayerAttack : MonoBehaviour
 
     public void DThrow()
     {
-        if (currentlyGrabbedEnemy != null)
-        {
-            currentlyGrabbedEnemy.isGrabbed = false;
-            PR.Move.transform.position = new Vector2(PR.Move.transform.position.x, PR.Move.transform.position.y + playerDThrowOffset.y); //Makes sure that the enemy position remains upon multiple throw hitboxes
-        }
+    //    if (currentlyGrabbedEnemy != null)
+    //    {
+    //        currentlyGrabbedEnemy.isGrabbed = false;
+    //        PR.Move.transform.position = new Vector2(PR.Move.transform.position.x, PR.Move.transform.position.y + playerDThrowOffset.y); //Makes sure that the enemy position remains upon multiple throw hitboxes
+    //    }
     }
 
     public void BladeBound()
@@ -519,7 +518,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Wall")
+        if(collision.gameObject.tag == "Wall" || collision.gameObject.tag.Contains("Platform"))
         {
             ASideB = false;
         }

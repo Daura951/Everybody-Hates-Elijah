@@ -441,7 +441,8 @@
 { "gameObjectName": "Wall", "x":-2.560059, "y":-8.960022, "layerPosition":"1"},
 { "gameObjectName": "Wall", "x":-2.560059, "y":-7.679993, "layerPosition":"1"},
 { "gameObjectName": "dumpster", "x":-14.07996, "y":1.280029, "layerPosition":"1"},
-{ "gameObjectName": "dumpster", "x":-11.52002, "y":1.280029, "layerPosition":"1"}
+{ "gameObjectName": "dumpster", "x":-11.52002, "y":1.280029, "layerPosition":"1"},
+{ "gameObjectName": "Wall", "x":-16.64001, "y":0, "layerPosition":"2"}
 ]
 },
 { "name": "Default",
@@ -516,10 +517,6 @@
 { "gameObjectName": "Wall_Back", "x":-1.280029, "y":3.840027, "layerPosition":"0"},
 { "gameObjectName": "Wall_Back", "x":-2.560059, "y":3.840027, "layerPosition":"0"},
 { "gameObjectName": "Wall_Back", "x":-3.839966, "y":3.840027, "layerPosition":"0"},
-{ "gameObjectName": "Wall_Back", "x":-5.119995, "y":3.840027, "layerPosition":"0"},
-{ "gameObjectName": "Wall_Back", "x":-6.400024, "y":3.840027, "layerPosition":"0"},
-{ "gameObjectName": "Wall_Back", "x":-7.680054, "y":3.840027, "layerPosition":"0"},
-{ "gameObjectName": "Wall_Back", "x":-8.959961, "y":3.840027, "layerPosition":"0"},
 { "gameObjectName": "Wall_Back", "x":-10.23999, "y":3.840027, "layerPosition":"0"},
 { "gameObjectName": "Wall_Back", "x":-11.52002, "y":3.840027, "layerPosition":"0"},
 { "gameObjectName": "Wall_Back", "x":-12.80005, "y":3.840027, "layerPosition":"0"},
@@ -529,8 +526,6 @@
 { "gameObjectName": "Wall_Back", "x":-8.959961, "y":2.559998, "layerPosition":"0"},
 { "gameObjectName": "Wall_Back", "x":-7.680054, "y":2.559998, "layerPosition":"0"},
 { "gameObjectName": "Wall_Back", "x":-6.400024, "y":2.559998, "layerPosition":"0"},
-{ "gameObjectName": "Wall_Back", "x":-5.119995, "y":2.559998, "layerPosition":"0"},
-{ "gameObjectName": "Wall_Back", "x":-3.839966, "y":2.559998, "layerPosition":"0"},
 { "gameObjectName": "Wall_Back", "x":-2.560059, "y":2.559998, "layerPosition":"0"},
 { "gameObjectName": "Wall_Back", "x":-2.560059, "y":1.280029, "layerPosition":"0"},
 { "gameObjectName": "Wall_Back", "x":-2.560059, "y":0, "layerPosition":"0"},
@@ -754,7 +749,17 @@
 { "gameObjectName": "Wall_Back", "x":-14.07996, "y":-1.280029, "layerPosition":"0"},
 { "gameObjectName": "Wall_Back", "x":-14.07996, "y":-2.559998, "layerPosition":"0"},
 { "gameObjectName": "Wall_Back", "x":-14.07996, "y":-3.840027, "layerPosition":"0"},
-{ "gameObjectName": "Wall_Back", "x":-14.07996, "y":-5.119995, "layerPosition":"0"}
+{ "gameObjectName": "Wall_Back", "x":-14.07996, "y":-5.119995, "layerPosition":"0"},
+{ "gameObjectName": "Wall_Back", "x":-8.959961, "y":3.840027, "layerPosition":"0"},
+{ "gameObjectName": "Wall_Back", "x":-7.680054, "y":3.840027, "layerPosition":"0"},
+{ "gameObjectName": "Wall_Back", "x":-6.400024, "y":3.840027, "layerPosition":"0"},
+{ "gameObjectName": "Wall_Back", "x":-5.119995, "y":3.840027, "layerPosition":"0"},
+{ "gameObjectName": "Wall_Back", "x":-3.839966, "y":2.559998, "layerPosition":"0"},
+{ "gameObjectName": "Wall_Back", "x":-5.119995, "y":2.559998, "layerPosition":"0"},
+{ "gameObjectName": "Wall_Back", "x":-15.35999, "y":5.119995, "layerPosition":"0"},
+{ "gameObjectName": "Wall_Back", "x":-15.35999, "y":3.840027, "layerPosition":"0"},
+{ "gameObjectName": "Wall_Back", "x":-15.35999, "y":2.559998, "layerPosition":"0"},
+{ "gameObjectName": "Wall_Back", "x":-15.35999, "y":1.280029, "layerPosition":"0"}
 ]
 }
 ]
