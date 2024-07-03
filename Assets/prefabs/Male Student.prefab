@@ -665,10 +665,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1147828566731714523}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de4bc94ec09a9b94a9a99092f48eb723, type: 3}
+  m_Script: {fileID: 11500000, guid: d978d7a6623db724c99a772d409e1608, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 200
+  MaxHealth: 100
   health: 0
   healthBar: {fileID: 1147828565141642659}
 --- !u!95 &1147828566731714517
