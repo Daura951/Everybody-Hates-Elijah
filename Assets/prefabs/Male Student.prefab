@@ -354,7 +354,7 @@ GameObject:
   - component: {fileID: 1147828566327617645}
   - component: {fileID: 1147828566327617644}
   - component: {fileID: 1147828566327617647}
-  - component: {fileID: 5898723052612472027}
+  - component: {fileID: 3516172759702035021}
   m_Layer: 10
   m_Name: Punch HitBox
   m_TagString: EHitbox
@@ -414,7 +414,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &5898723052612472027
+--- !u!114 &3516172759702035021
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -423,7 +423,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1147828566327617646}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa42b190b61b33347b3c2632eedf9dda, type: 3}
+  m_Script: {fileID: 11500000, guid: d22e6f6ae9313074cb428975c1177719, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attackType: 0
@@ -438,7 +438,7 @@ GameObject:
   - component: {fileID: 1147828566661625046}
   - component: {fileID: 1147828566661625041}
   - component: {fileID: 1147828566661625040}
-  - component: {fileID: 4676460033806069981}
+  - component: {fileID: 1490512279511402659}
   m_Layer: 10
   m_Name: Kick Hitbox
   m_TagString: EHitbox
@@ -498,7 +498,7 @@ CapsuleCollider2D:
   m_Offset: {x: -0.06, y: -0.33}
   m_Size: {x: 0.3, y: 1}
   m_Direction: 0
---- !u!114 &4676460033806069981
+--- !u!114 &1490512279511402659
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -507,7 +507,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1147828566661625043}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa42b190b61b33347b3c2632eedf9dda, type: 3}
+  m_Script: {fileID: 11500000, guid: d22e6f6ae9313074cb428975c1177719, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attackType: 1
@@ -873,7 +873,7 @@ GameObject:
   - component: {fileID: 7504139569174996309}
   - component: {fileID: 7504139569174996306}
   - component: {fileID: 7504139569174996307}
-  - component: {fileID: 7504139569174996304}
+  - component: {fileID: 479046141092985030}
   m_Layer: 10
   m_Name: Hitbox
   m_TagString: EHitbox
@@ -933,7 +933,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &7504139569174996304
+--- !u!114 &479046141092985030
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -942,7 +942,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7504139569174996308}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa42b190b61b33347b3c2632eedf9dda, type: 3}
+  m_Script: {fileID: 11500000, guid: d22e6f6ae9313074cb428975c1177719, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attackType: 0

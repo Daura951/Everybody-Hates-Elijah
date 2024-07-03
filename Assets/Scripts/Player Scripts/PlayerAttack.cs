@@ -137,11 +137,6 @@ public class PlayerAttack : MonoBehaviour
     {
         if (!isInCutscene)
         {
-
-
-            if (currentlyGrabbedEntity != null)
-                print(currentlyGrabbedEntity.name);
-
             DepleteComboTimer();
             stunned = S.getIsStunned();
 
