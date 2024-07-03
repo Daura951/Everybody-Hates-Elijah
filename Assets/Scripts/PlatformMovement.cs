@@ -1,72 +1,36 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlatformMovement : MonoBehaviour
 {
 
-    private Vector3 home , End;
-    public Vector3 EndSpot;
-    public float speed;
-    private bool Fall, bounce = true;
-    PlayerMovement PM;
-    Rigidbody2D rb;
-    GameObject player;
-    private BladeBound BB;
+    [SerializeField]
+    private GameObject marker2D;
+    [SerializeField]
+    private Rigidbody2D rigidBody2D;
 
-    private float startSpeed;
-    private float halfSpeed;
+    private Vector2 velocity = new Vector2(1f, 0f); 
+    private int direction = 1;
 
-    // Start is called before the first frame update
+    private Vector3 home;
+    private Vector3 end;
+
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-        rb = player.GetComponent<Rigidbody2D>();
-        PM = player.GetComponent<PlayerMovement>();
-        home = this.transform.position;
-        End = this.transform.position + EndSpot;
-        BB = player.GetComponent<BladeBound>();
-        startSpeed = speed;
-        halfSpeed = speed / 2;
+        home = transform.position;
+        end = marker2D.gameObject.transform.position;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        Fall = PM.GetIsFalling();
-
-        if(BB.GetIsInBladeBound() && !BB.isFrozen)
-        {
-            speed = halfSpeed;
-        }
-        else if(BB.isFrozen)
-        {
-            speed = 0;
-        }
-        else
-        {
-            speed = startSpeed;
-        }
-    }
-
 
     private void FixedUpdate()
     {
-        float step = speed * Time.deltaTime;
 
-        if (bounce)
+        if (transform.position.x < end.x || transform.position.x > home.x)
         {
-            transform.position = Vector2.MoveTowards(transform.position, End, step);
-            if (transform.position == End)
-                bounce = !bounce;
+            direction *= -1;
         }
 
+        Vector2 pos = new Vector2 (transform.position.x, transform.position.y);
 
-        if (!bounce)
-        {
-            transform.position = Vector2.MoveTowards(transform.position, home, step);
-            if (transform.position == home)
-                bounce = !bounce;
-        }
+        rigidBody2D.MovePosition(pos + velocity * direction * Time.fixedDeltaTime);
     }
 }
