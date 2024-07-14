@@ -13,6 +13,7 @@ public class Entity : MonoBehaviour
     public AnimationToStateMachine animToState { get; private set; }
 
     public EnemyHealth health;
+    public EnemyVocal Vocals;
 
 
 
@@ -99,6 +100,8 @@ public class Entity : MonoBehaviour
     {
 
         health.TakeDamage(stats[0]);
+        if (health.GetHealth() > 0)
+        Vocals.Hurt();
         playerGO.GetComponent<PlayerAttack>().Combo();
         if (!BB.GetIsInBladeBound())
         {
@@ -228,10 +231,14 @@ public class Entity : MonoBehaviour
         isPummeled = true;
     }
 
-    public virtual void Despawn()
+    public virtual IEnumerator Despawn()
     {
-        PlayerPrefs.SetInt(“enemiesKilled”, PlayerPrefs.GetInt(“enemiesKilled”) + 1);
+       if(!Vocals.EnemyVoice.isPlaying)
+        {
+        //  PlayerPrefs.SetInt(“enemiesKilled”, PlayerPrefs.GetInt(“enemiesKilled”) + 1);
+        yield return new WaitForSeconds(Vocals.Died());
         Destroy(this.gameObject);
+        }
     }
 
 
