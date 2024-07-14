@@ -29,11 +29,17 @@ public class AngryStudent : Entity
     [SerializeField] private D_LookForPlayerState lookForPlayerData;
     [SerializeField] private D_MeleeAttack punchStateData;
     [SerializeField] private Transform punchPosition;
+    [SerializeField] private AnimatorOverrideController AOC;
 
 
     public override void Start()
     {
         base.Start();
+        if( 1 == Random.Range(1, 3))
+        {
+            isMale = false;
+            anim.runtimeAnimatorController = AOC;
+        }
         moveState = new AS_MoveState(this, stateMachine, "move", moveStateData, this);
         idleState = new AS_IdleState(this, stateMachine, "idle", idleStateData, this);
         playerDetectedState = new AS_PlayerDetectedState(this, stateMachine, "playerDetected", playerDetectedData, this);

@@ -25,6 +25,8 @@ public class Entity : MonoBehaviour
 
     private Vector2 velocitySpace;
 
+    public bool isMale = true;
+    
     public GameObject playerGO;
 
     public bool isGrabbed;
@@ -228,6 +230,7 @@ public class Entity : MonoBehaviour
 
     public virtual void Despawn()
     {
+        PlayerPrefs.SetInt(“enemiesKilled”, PlayerPrefs.GetInt(“enemiesKilled”) + 1);
         Destroy(this.gameObject);
     }
 
