@@ -93,6 +93,9 @@ public class PlayerAttack : MonoBehaviour
 
     private void Awake()
     {
+        //TODO Move this to a separate manager
+        PlayerPrefs.SetInt("enemiesKilled", 0);
+        PlayerPrefs.SetInt("comboScore", 0);
         stickyHand.SetActive(false);
         Shield.SetActive(false);
     }
@@ -358,6 +361,11 @@ public class PlayerAttack : MonoBehaviour
             if (timer == ComboTimer)
             {
                 print("Combo score: " + comboScore);
+
+                if (comboScore > PlayerPrefs.GetInt("comboScore"))
+                {
+                    PlayerPrefs.SetInt("comboScore", (int)comboScore);
+                }
                 comboScore = 0;
                 ComboTimer = comboTimerStored;
             }
