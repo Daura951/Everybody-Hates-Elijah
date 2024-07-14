@@ -19,7 +19,6 @@ public class AS_PunchState : MeleeAttackState
     {
         base.Enter();
         hitBox = angryStudent.hitboxes[stateData.hitBoxIndex];
-        EV = angryStudent.Vocals;
 
         if(entity.isGrabbed)
         {

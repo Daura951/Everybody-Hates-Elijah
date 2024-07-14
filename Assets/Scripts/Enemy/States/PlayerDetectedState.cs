@@ -18,6 +18,7 @@ public class PlayerDetectedState : State
     {
         base.Enter();
         entity.SetVelocity(0);
+        entity.Vocals.RoleCall();
         performLongRangeAttack = false;
         isGrabbed = entity.isGrabbed;
     }

@@ -41,7 +41,6 @@ public class AngryStudent : Entity
             Vocals.Replace();
             anim.runtimeAnimatorController = AOC;
         }
-        Vocals.RoleCall();
         moveState = new AS_MoveState(this, stateMachine, "move", moveStateData, this);
         idleState = new AS_IdleState(this, stateMachine, "idle", idleStateData, this);
         playerDetectedState = new AS_PlayerDetectedState(this, stateMachine, "playerDetected", playerDetectedData, this);

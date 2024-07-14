@@ -7,7 +7,6 @@ public class MeleeAttackState : AttackState
     protected D_MeleeAttack stateData;
     protected AttackDetails attackDetails;
     protected GameObject hitBox;
-    protected EnemyVocal EV;
 
     public MeleeAttackState(Entity entity, FiniteStateMachine stateMachine, string animBoolName, Transform attackPosition, D_MeleeAttack stateData) : base(entity, stateMachine, animBoolName, attackPosition)
     {
@@ -51,7 +50,7 @@ public class MeleeAttackState : AttackState
     {
         base.TriggerAttack();
         hitBox.SetActive(true);
-        EV.Attack();
+        entity.Vocals.Attack();
 
     }
 }
