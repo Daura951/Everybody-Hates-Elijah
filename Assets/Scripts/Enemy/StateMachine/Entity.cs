@@ -235,9 +235,9 @@ public class Entity : MonoBehaviour
     {
        if(!Vocals.EnemyVoice.isPlaying)
         {
-        //  PlayerPrefs.SetInt(“enemiesKilled”, PlayerPrefs.GetInt(“enemiesKilled”) + 1);
-        yield return new WaitForSeconds(Vocals.Died());
-        Destroy(this.gameObject);
+            PlayerPrefs.SetInt("enemiesKilled", PlayerPrefs.GetInt("enemiesKilled") + 1);
+            yield return new WaitForSeconds(Vocals.Died());
+            Destroy(this.gameObject);
         }
     }
 
