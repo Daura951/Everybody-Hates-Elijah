@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StickyHand : MonoBehaviour
 {
-    public PlayerRefrecnces PR;
+    private PlayerRefrecnces PR;
 
     public float maxCountDown;
     private float countDown;
@@ -28,7 +28,7 @@ public class StickyHand : MonoBehaviour
         {
             GetComponent<CircleCollider2D>().enabled = true;
         }
-        PR.Attack.isSticked = false;
+        
         playedSuccess = false;
         editedSpeed = speed;
 
@@ -36,7 +36,8 @@ public class StickyHand : MonoBehaviour
 
     void Start()
     {
-        
+        PR = PlayerRefrecnces.instance; //player references is a singleton, so we gotta make sure we use the instance
+        PR.Attack.isSticked = false;
     }
 
     // Update is called once per frame

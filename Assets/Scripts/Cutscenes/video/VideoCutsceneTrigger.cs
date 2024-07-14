@@ -13,7 +13,8 @@ public class VideoCutsceneTrigger : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        cutSceneUi = GameObject.Find("Cutscene UI");
+        fader = GameObject.Find("Fader").GetComponent<Fader>();
+        fader.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -26,24 +27,10 @@ public class VideoCutsceneTrigger : MonoBehaviour
     {
         if(collision.gameObject.tag=="Player")
         {
-            cutSceneUi.SetActive(true);
-
-            foreach (Transform child in cutSceneUi.transform)
-            {
-                if (child.name == "Fader")
-                {
-                    child.gameObject.SetActive(true);
-                    fader = child.GetComponent<Fader>();
-                }
-                else
-                {
-                    child.gameObject.SetActive(false);
-                }
-            }
-
             collision.GetComponent<PlayerMovement>().isInCutscene = true;
             collision.GetComponent<PlayerAttack>().isInCutscene = true;
-
+            fader.gameObject.SetActive(true);
+            fader.SetIsCutscene(true);
             fader.SetVideoIndex(videoIndex);
             fader.SetSceneToGoTo(sceneToGoTo);
             fader.GetComponent<Animator>().Play("VideoCutsceneTransition");

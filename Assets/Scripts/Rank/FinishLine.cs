@@ -15,11 +15,19 @@ public class FinishLine : MonoBehaviour
 
     public bool isInCutscene = false;
 
+    public RankData rankValues;
+
+    public Fader fader;
+
     // Start is called before the first frame update
     void Start()
     {
         GameObject canvasObject = GameObject.Find("Player UI");
         timerText = canvasObject.transform.Find("Timer").GetComponent<TMP_Text>();
+        PlayerPrefs.SetString("bestTime", rankValues.BestTime);
+        PlayerPrefs.SetInt("bestCombo", rankValues.BestCombo);
+        PlayerPrefs.SetInt("bestEnemiesKilled", rankValues.BestEnemiesKilled);
+        fader = GameObject.Find("Fader").GetComponent<Fader>();
 
     }
 
@@ -49,9 +57,11 @@ public class FinishLine : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             stopTimer = true;
-            print(rankedTime);
             PlayerPrefs.SetFloat("endTime", rankedTime);
-            SceneManager.LoadScene(3);
+            fader.gameObject.SetActive(true);
+            fader.SetIsCutscene(false);
+            fader.SetSceneToGoTo(3);
+            fader.GetComponent<Animator>().Play("VideoCutsceneTransition");
         }
     }
 }
