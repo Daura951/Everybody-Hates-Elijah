@@ -48,7 +48,7 @@ public class SceneLoader : MonoBehaviour
     {
         if (Pdown > down && Pup < up && Pleft > left && Pright < right && teleport && check)
         {
-            SceneManager.LoadScene(scene);
+            StartCoroutine(LoadYourAsyncScene());
         }
     }
 
@@ -61,5 +61,18 @@ public class SceneLoader : MonoBehaviour
             teleport = false;
         }
         check = true;
+    }
+
+    IEnumerator LoadYourAsyncScene()
+    {
+
+
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(scene);
+
+        // Wait until the asynchronous scene fully loads
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
     }
 }

@@ -26,7 +26,7 @@ public class Entity : MonoBehaviour
 
     private Vector2 velocitySpace;
 
-    public bool isMale = true;
+    public bool isMain = true;
     
     public GameObject playerGO;
 
@@ -39,6 +39,8 @@ public class Entity : MonoBehaviour
     public BladeBound BB;
 
     public bool isInCutscene;
+
+    public bool isEngaged = false;
 
     public bool[] whichThrow = { false, false, false, false };
     public virtual void Start()

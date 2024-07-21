@@ -51,4 +51,5 @@ public class PlayerDetectedState : State
         isPlayerInMaxAgroRange = entity.checkPlayerInMaxAgroRange();
         performCloseRangeAttack = entity.checkPlayerInCloseRangeAttack();
     }
+
 }

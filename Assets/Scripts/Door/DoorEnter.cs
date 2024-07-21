@@ -9,6 +9,7 @@ public class DoorEnter : MonoBehaviour
     Transform ExitDoor;
     PlayerOffScreen POS;
     private bool grounded, Enter;
+    public float wait;
 
 
     // Start is called before the first frame update
@@ -27,9 +28,20 @@ public class DoorEnter : MonoBehaviour
 
         if (Input.GetButtonDown("DoorEnter") && Enter && grounded)
         {
-            player.transform.position = new Vector3(ExitDoor.position.x , ExitDoor.position.y - ExitDoor.localScale.y *0.5f , ExitDoor.position.z);
-            POS.summonCam();
+            StartCoroutine(teleport());
         }
+
+    }
+
+    IEnumerator teleport()
+    {
+        PauseSystem.ChangeGameState();
+        player.SetActive(false);
+        yield return new WaitForSecondsRealtime(wait);
+        PauseSystem.ChangeGameState();
+        player.transform.position = new Vector3(ExitDoor.position.x , ExitDoor.position.y - ExitDoor.localScale.y *0.5f , ExitDoor.position.z);
+        player.SetActive(true);
+        POS.summonCam();
 
     }
 

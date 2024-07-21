@@ -37,7 +37,7 @@ public class AngryStudent : Entity
         base.Start();
         if( 1 == Random.Range(1, 3))
         {
-            isMale = false;
+            isMain = false;
             Vocals.Replace();
             anim.runtimeAnimatorController = AOC;
         }
