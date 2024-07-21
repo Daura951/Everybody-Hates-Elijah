@@ -160,7 +160,7 @@ public class PlayerAttack : MonoBehaviour
 
 
 
-            if (PR.anim.GetBool("isGrounded") == true)
+            if (PlayerRefrecnces.instance.anim.GetBool("isGrounded") == true)
             {
                 //If we collided despawn the air hitboxes!
                 DespawnHitBox(3);
@@ -178,7 +178,7 @@ public class PlayerAttack : MonoBehaviour
             }
 
 
-            if (!PR.anim.GetBool("Climbing") && !ASideB && !PR.anim.GetBool("Grabbing") && !SS.ShieldStun && !H.dead)
+            if (!PlayerRefrecnces.instance.anim.GetBool("Climbing") && !ASideB && !PlayerRefrecnces.instance.anim.GetBool("Grabbing") && !SS.ShieldStun && !H.dead)
                 Attack();
 
             if (ASideB)
@@ -192,9 +192,9 @@ public class PlayerAttack : MonoBehaviour
 
         //Control Detection
 
-        if ((!stunned && !isAttacking && Input.GetButtonDown("Fire1") || Input.GetButtonDown("Grab")) && !(shieldHeld && LimitBreak && PR.anim.GetFloat("IdleSpeed") == 1.5f))
+        if ((!stunned && !isAttacking && Input.GetButtonDown("Fire1") || Input.GetButtonDown("Grab")) && !(shieldHeld && LimitBreak && PlayerRefrecnces.instance.anim.GetFloat("IdleSpeed") == 1.5f))
         {
-            PR.RB.gravityScale = 1;
+            PlayerRefrecnces.instance.RB.gravityScale = 1;
             isAttacking = true;
 
             if (Input.GetButtonDown("Grab"))
@@ -204,7 +204,7 @@ public class PlayerAttack : MonoBehaviour
             else isGrab = false;
         }
 
-        else if (!stunned && !isAttacking && Input.GetButtonDown("Fire2") && !(shieldHeld && LimitBreak && PR.anim.GetFloat("IdleSpeed") == 1.5f))
+        else if (!stunned && !isAttacking && Input.GetButtonDown("Fire2") && !(shieldHeld && LimitBreak && PlayerRefrecnces.instance.anim.GetFloat("IdleSpeed") == 1.5f))
         {
             isSpecial = true;
             isAttacking = true;
@@ -222,9 +222,9 @@ public class PlayerAttack : MonoBehaviour
             else if (Input.GetAxis("Horizontal") != 0)
             {
                 SideBS = true;
-                PR.RB.gravityScale = 0;
+                PlayerRefrecnces.instance.RB.gravityScale = 0;
                 transform.position = new Vector2(transform.position.x , transform.position.y + .1f);
-                PR.RB.velocity = new Vector2(PR.RB.velocity.x, 0);
+                PlayerRefrecnces.instance.RB.velocity = new Vector2(PlayerRefrecnces.instance.RB.velocity.x, 0);
             }
         }
         
@@ -232,14 +232,14 @@ public class PlayerAttack : MonoBehaviour
 
 
 
-        else if (Input.GetButton("Fire3") && !strongDone && !isAttacking && !PR.Move.isInAir && !stunned && !isSpecial && !isGrab && !PR.anim.GetBool("isLaying"))
+        else if (Input.GetButton("Fire3") && !strongDone && !isAttacking && !PlayerRefrecnces.instance.Move.isInAir && !stunned && !isSpecial && !isGrab && !PlayerRefrecnces.instance.anim.GetBool("isLaying"))
         {
             String strongType = "Strong F Startup";
             isAttacking = true;
             if (!strongStarted)
             {
                 strongStarted = true;
-                PR.anim.SetBool("isStrong", strongStarted);
+                PlayerRefrecnces.instance.anim.SetBool("isStrong", strongStarted);
 
                 if (Input.GetAxisRaw("Vertical") != 0)
                 {
@@ -251,7 +251,7 @@ public class PlayerAttack : MonoBehaviour
                     else strongType = "Strong D Startup";
                 }
 
-                PR.anim.Play(strongType);
+                PlayerRefrecnces.instance.anim.Play(strongType);
 
             }
         }
@@ -278,7 +278,7 @@ public class PlayerAttack : MonoBehaviour
         {
             //Strong Release
             strongStarted = false;
-            PR.anim.SetBool("isStrong", strongStarted);
+            PlayerRefrecnces.instance.anim.SetBool("isStrong", strongStarted);
             print(strongDamage);
             strongDamage = 0;
             strongTimer = 0;
@@ -303,15 +303,15 @@ public class PlayerAttack : MonoBehaviour
             Input.GetAxisRaw("Vertical") == 0 && 
             !stunned && 
             !isExecutedOnce && 
-            !PR.Move.isInAir && 
+            !PlayerRefrecnces.instance.Move.isInAir && 
             !shielding && 
             !shieldHeld
          )
         {
             print("Shield");
             shieldHeld = shielding = Shield.GetComponent<SpriteRenderer>().enabled = true;
-            PR.anim.Play("Shield Start");
-            PR.anim.SetBool("isShielding", true);
+            PlayerRefrecnces.instance.anim.Play("Shield Start");
+            PlayerRefrecnces.instance.anim.SetBool("isShielding", true);
             Shield.SetActive(true);
             
         }
@@ -319,11 +319,11 @@ public class PlayerAttack : MonoBehaviour
         if ((
             (Gamepad.current?.rightTrigger?.isPressed ?? true) ||
             (Gamepad.current?.leftTrigger?.isPressed ?? true) ||
-            Input.GetButtonDown("Shield")) && Input.GetButtonDown("Fire2") && LimitBreak && PR.anim.GetFloat("IdleSpeed")==1.5f )
+            Input.GetButtonDown("Shield")) && Input.GetButtonDown("Fire2") && LimitBreak && PlayerRefrecnces.instance.anim.GetFloat("IdleSpeed")==1.5f )
         {
             LimitBreak = false;
             isAttacking = true;
-            PR.anim.Play("Special Limit Break");
+            PlayerRefrecnces.instance.anim.Play("Special Limit Break");
         }
 
 
@@ -336,7 +336,7 @@ public class PlayerAttack : MonoBehaviour
         }
 
 
-        if((shielding && !shieldHeld) || PR.Move.isInAir || isAttacking || (Input.GetAxisRaw("Horizontal") != 0f && !SS.ShieldStun) || (Input.GetAxisRaw("Vertical") != 0 && !SS.ShieldStun) )
+        if((shielding && !shieldHeld) || PlayerRefrecnces.instance.Move.isInAir || isAttacking || (Input.GetAxisRaw("Horizontal") != 0f && !SS.ShieldStun) || (Input.GetAxisRaw("Vertical") != 0 && !SS.ShieldStun) )
         {
             ShieldOff();
         }
@@ -383,11 +383,11 @@ public class PlayerAttack : MonoBehaviour
 
     public void EndLag()
     {
-        PR.Move.PR.RB.velocity = new Vector2(0, 0);
-        if (PR.anim.GetBool("EndLag"))
-            PR.anim.SetBool("EndLag", false);
+        PlayerRefrecnces.instance.Move.PR.RB.velocity = new Vector2(0, 0);
+        if (PlayerRefrecnces.instance.anim.GetBool("EndLag"))
+            PlayerRefrecnces.instance.anim.SetBool("EndLag", false);
         else
-            PR.anim.SetBool("EndLag", true);
+            PlayerRefrecnces.instance.anim.SetBool("EndLag", true);
 
     }
 
@@ -404,7 +404,7 @@ public class PlayerAttack : MonoBehaviour
         if (!SS.ShieldStun && !S.isAirSpin)
         {
             shielding = false;
-            PR.anim.SetBool("isShielding", false);
+            PlayerRefrecnces.instance.anim.SetBool("isShielding", false);
             Shield.SetActive(false);
         }
       else
@@ -471,7 +471,7 @@ public class PlayerAttack : MonoBehaviour
 
     public void Dash()
     {
-        PR.Move.dashDisable = true;  //So that if the player holds dash key, the won't move as soon as dash finishes
+        PlayerRefrecnces.instance.Move.dashDisable = true;  //So that if the player holds dash key, the won't move as soon as dash finishes
     }
 
 
@@ -485,12 +485,12 @@ public class PlayerAttack : MonoBehaviour
         if (!isExecutedOnce)
         {
             Physics2D.gravity = new Vector2(0, 0);
-            PR.Move.PR.RB.velocity = new Vector2(PR.Move.PR.RB.velocity.x, 0);
+            PlayerRefrecnces.instance.Move.PR.RB.velocity = new Vector2(PlayerRefrecnces.instance.Move.PR.RB.velocity.x, 0);
             isExecutedOnce = true;
-           // AS.PlayOneShot(PR.Move.FXjump);
+           // AS.PlayOneShot(PlayerRefrecnces.instance.Move.FXjump);
         }
 
-        PR.Move.PR.RB.AddForce(new Vector2(xDir, yDir));
+        PlayerRefrecnces.instance.Move.PR.RB.AddForce(new Vector2(xDir, yDir));
     }
 
     public void Throw()
@@ -505,7 +505,7 @@ public class PlayerAttack : MonoBehaviour
     //    if (currentlyGrabbedEnemy != null)
     //    {
     //        currentlyGrabbedEnemy.isGrabbed = false;
-    //        PR.Move.transform.position = new Vector2(PR.Move.transform.position.x, PR.Move.transform.position.y + playerDThrowOffset.y); //Makes sure that the enemy position remains upon multiple throw hitboxes
+    //        PlayerRefrecnces.instance.Move.transform.position = new Vector2(PlayerRefrecnces.instance.Move.transform.position.x, PlayerRefrecnces.instance.Move.transform.position.y + playerDThrowOffset.y); //Makes sure that the enemy position remains upon multiple throw hitboxes
     //    }
     }
 
@@ -536,7 +536,7 @@ public class PlayerAttack : MonoBehaviour
     }
 
 
-    //Additional functions that PR.animation events / other scripts call
+    //Additional functions that PlayerRefrecnces.instance.animation events / other scripts call
 
     //Despawns a hitbox
     public void DespawnHitBox()
@@ -564,11 +564,11 @@ public class PlayerAttack : MonoBehaviour
     public void DetectReverseFSpecial()
     {
         revFSpecialIndex = 0;
-        if (PR.Move.transform.rotation.y == 0 && Input.GetAxisRaw("Horizontal") < 0)
+        if (PlayerRefrecnces.instance.Move.transform.rotation.y == 0 && Input.GetAxisRaw("Horizontal") < 0)
         {
             revFSpecialIndex = 1;
         }
-        else if (PR.Move.transform.rotation.y < 0 && Input.GetAxisRaw("Horizontal") > 0)
+        else if (PlayerRefrecnces.instance.Move.transform.rotation.y < 0 && Input.GetAxisRaw("Horizontal") > 0)
         {
             revFSpecialIndex = 2;
         }
@@ -583,7 +583,7 @@ public class PlayerAttack : MonoBehaviour
     void SideBDone()
     {
         SideBS = false;
-        PR.RB.gravityScale = 1;
+        PlayerRefrecnces.instance.RB.gravityScale = 1;
     }
 
     void ActivateSideB(float distance)
@@ -594,7 +594,7 @@ public class PlayerAttack : MonoBehaviour
         }
 
         ASideB = true;
-        if (!PR.Move.GetIsLeft() && revFSpecialIndex == 0 || revFSpecialIndex == 2)
+        if (!PlayerRefrecnces.instance.Move.GetIsLeft() && revFSpecialIndex == 0 || revFSpecialIndex == 2)
             target = new Vector3(transform.position.x + distance, transform.position.y, transform.position.z);
         else
             target = new Vector3(transform.position.x - distance, transform.position.y, transform.position.z);
@@ -714,6 +714,6 @@ public class PlayerAttack : MonoBehaviour
 
     public void setHasGrabbedEnemyToFalse()
     {
-        PR.anim.SetBool("hasGrabbedEnemy", false);
+        PlayerRefrecnces.instance.anim.SetBool("hasGrabbedEnemy", false);
     }
 }

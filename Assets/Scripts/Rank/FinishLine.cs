@@ -17,7 +17,7 @@ public class FinishLine : MonoBehaviour
 
     public RankData rankValues;
 
-    public Fader fader;
+    public GeneralSceneFader fader;
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +27,6 @@ public class FinishLine : MonoBehaviour
         PlayerPrefs.SetString("bestTime", rankValues.BestTime);
         PlayerPrefs.SetInt("bestCombo", rankValues.BestCombo);
         PlayerPrefs.SetInt("bestEnemiesKilled", rankValues.BestEnemiesKilled);
-        fader = GameObject.Find("Fader").GetComponent<Fader>();
 
     }
 
@@ -59,9 +58,8 @@ public class FinishLine : MonoBehaviour
             stopTimer = true;
             PlayerPrefs.SetFloat("endTime", rankedTime);
             fader.gameObject.SetActive(true);
-            fader.SetIsCutscene(false);
             fader.SetSceneToGoTo(3);
-            fader.GetComponent<Animator>().Play("VideoCutsceneTransition");
+            fader.GetComponent<Animator>().Play("Fade");
         }
     }
 }

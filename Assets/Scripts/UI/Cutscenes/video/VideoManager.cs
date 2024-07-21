@@ -19,6 +19,7 @@ public class VideoManager : MonoBehaviour
         player.loopPointReached += OnVideoEnd;
         skipSprite.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
         player.clip = videos[PlayerPrefs.GetInt("video")];
+        PlayerPrefs.SetInt("loadGameIndex", SceneManager.GetActiveScene().buildIndex);
     }
 
     // Update is called once per frame

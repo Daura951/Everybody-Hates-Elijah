@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerRefrecnces : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class PlayerRefrecnces : MonoBehaviour
     void Start()
     {
         instance = this;
+        PlayerPrefs.SetInt("loadGameIndex", SceneManager.GetActiveScene().buildIndex);
     }
 }
 

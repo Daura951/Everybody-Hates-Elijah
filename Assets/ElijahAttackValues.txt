@@ -19,7 +19,7 @@ arrayIndex Name Damage Angle Knockback StunTime XDir YDir
 15 DStrong 40 15 450 2
 17 USpecial1 10 90 300 5 0 250
 18 USpecial2 10 45 300 5 0 0
-16 USpecial3 10 60 200 3 0 0
+16 USpecial3 10 60 50 3 0 0
 20 Dash 5 30 150 1
 21 Grab 0 0 0 1
 22 Pummel 5 0 0 1

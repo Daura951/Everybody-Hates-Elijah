@@ -8,12 +8,12 @@ public class VideoCutsceneTrigger : MonoBehaviour
 
     public int videoIndex;
     public int sceneToGoTo;
-    private Fader fader;
+    private VideoCutsceneFader fader;
     private GameObject cutSceneUi;
     // Start is called before the first frame update
     void Start()
     {
-        fader = GameObject.Find("Fader").GetComponent<Fader>();
+        fader = GameObject.Find("Player UI").transform.Find("Fader").GetComponent<VideoCutsceneFader>();
         fader.gameObject.SetActive(false);
     }
 
@@ -30,10 +30,9 @@ public class VideoCutsceneTrigger : MonoBehaviour
             collision.GetComponent<PlayerMovement>().isInCutscene = true;
             collision.GetComponent<PlayerAttack>().isInCutscene = true;
             fader.gameObject.SetActive(true);
-            fader.SetIsCutscene(true);
             fader.SetVideoIndex(videoIndex);
             fader.SetSceneToGoTo(sceneToGoTo);
-            fader.GetComponent<Animator>().Play("VideoCutsceneTransition");
+            fader.GetComponent<Animator>().Play("Fade");
                 
         }
     }

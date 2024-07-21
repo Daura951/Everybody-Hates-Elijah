@@ -1356,6 +1356,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 618d0c7d8a41d4148811baae186580f3, type: 3}
+--- !u!114 &386833798 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 481202107545753109, guid: 11637082e5aae9440a8703201ab9e1fa, type: 3}
+  m_PrefabInstance: {fileID: 7136862712719675625}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7a89bf5d115cff4480d1c15c0e185e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &419773806
 GameObject:
   m_ObjectHideFlags: 0
@@ -2757,17 +2768,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c91a98c99923cd54fa11b63add4e18e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1648602127 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5304889977787673145, guid: 49b91c20ba8cc6249b9010246d083c77, type: 3}
-  m_PrefabInstance: {fileID: 2105203565}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fc44ab97a510a846b073711c5265830, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1662433953
 GameObject:
   m_ObjectHideFlags: 0
@@ -4008,6 +4008,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4974147913836946729, guid: 11637082e5aae9440a8703201ab9e1fa, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7136862713004704617, guid: 11637082e5aae9440a8703201ab9e1fa, type: 3}
       propertyPath: m_Name
       value: FinishTrigger
@@ -4015,7 +4019,7 @@ PrefabInstance:
     - target: {fileID: 7136862713004704619, guid: 11637082e5aae9440a8703201ab9e1fa, type: 3}
       propertyPath: fader
       value: 
-      objectReference: {fileID: 1648602127}
+      objectReference: {fileID: 386833798}
     - target: {fileID: 7136862713004704619, guid: 11637082e5aae9440a8703201ab9e1fa, type: 3}
       propertyPath: timerText
       value: 
