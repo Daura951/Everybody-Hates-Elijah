@@ -20,6 +20,7 @@ public class IdleState : State
     {
         base.Enter();
         entity.SetVelocity(0);
+        entity.isEngaged = false;
         isIdleDone = false;
         SetRandomIdleTime();
         isInCutscene = entity.isInCutscene;

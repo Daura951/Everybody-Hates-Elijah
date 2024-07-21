@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyVocal : MonoBehaviour
 {
+    public Entity E;
     public AudioSource EnemyVoice;
     [SerializeField] AudioSource EnemySFX;
     public float delay;
@@ -21,10 +22,14 @@ public class EnemyVocal : MonoBehaviour
     public AudioClip[] AltHurtGrunt;
     public AudioClip[] AltAttackedSound;
     public AudioClip[] AltAttackedGrunt;
+
+    private float Shoutdelay = 10f;
+    private bool shouted = false;
     public void RoleCall()
     {
-        int f = Random.Range(0, MainAwakeSound.Length);
-            EnemyVoice.PlayOneShot(MainAwakeSound[f], 1f);
+        if(!EnemyVoice.isPlaying && !shouted && !E.isEngaged)
+        StartCoroutine(Detection());
+
     }
 
     public void Attack()
@@ -37,6 +42,15 @@ public class EnemyVocal : MonoBehaviour
     {
         if (!EnemySFX.isPlaying)
             StartCoroutine(Hurted());
+    }
+
+    IEnumerator Detection()
+    {
+            E.isEngaged = shouted = true;
+            int f = Random.Range(0, MainAwakeSound.Length);
+            EnemyVoice.PlayOneShot(MainAwakeSound[f], 1f);
+            yield return new WaitForSeconds(MainAwakeSound[f].length + Shoutdelay);
+            shouted = false;
     }
 
     IEnumerator Attacked()
@@ -96,5 +110,10 @@ public class EnemyVocal : MonoBehaviour
         MainAttackedGrunt = AltAttackedGrunt;
         MainHurtSound = AltHurtSound;
         MainHurtGrunt = AltHurtGrunt;
+    }
+
+    public void print(float t)
+    {
+        print("Time " +t);
     }
 }
