@@ -310,9 +310,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d25bba66ccfd77b4db5dae410285b976, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NextScene: 5
   timerText: {fileID: 0}
   isInCutscene: 0
-  rankValues: {fileID: 0}
+  rankValues: {fileID: 11400000, guid: 81bf90b36a57a3844b311bc1a73562ff, type: 2}
   fader: {fileID: 481202107545753109}
 --- !u!61 &7136862713004704616
 BoxCollider2D:

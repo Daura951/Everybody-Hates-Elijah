@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class RankingManager : MonoBehaviour
@@ -18,17 +19,42 @@ public class RankingManager : MonoBehaviour
     private TMP_Text comboText;
     private TMP_Text enemiesKilledText;
     private TMP_Text rankText;
+    private TMP_Text continueText;
 
+    private float WaitTime = 5;
+    private bool next = false;
     // Start is called before the first frame update
     void Start()
     {
         SetRankingFields();
+        next = false;
         timeText = GameObject.Find("timeText").GetComponent<TMP_Text>();
         comboText = GameObject.Find("comboText").GetComponent<TMP_Text>();
         enemiesKilledText = GameObject.Find("enemiesKilledText").GetComponent<TMP_Text>();
         rankText = GameObject.Find("rankText").GetComponent<TMP_Text>();
+        continueText = GameObject.Find("continueText").GetComponent<TMP_Text>();
         rankText.text =  calculateRank();
+        StartCoroutine(NextLevel());
     }
+
+    private void Update()
+    {
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Fire1")) && next)
+        {
+            print("ready");
+            SceneManager.LoadScene(7);
+        }
+    }
+
+    IEnumerator NextLevel()
+    {
+        yield return new WaitForSeconds(WaitTime);
+        continueText.SetText("Press 'Space' to continue");
+        next = true;
+
+    }
+
+
     float ConvertStringToSeconds(string time)
     {
         string[] parts = time.Split(":");
