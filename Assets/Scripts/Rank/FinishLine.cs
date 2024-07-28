@@ -6,7 +6,7 @@ using TMPro;
 
 public class FinishLine : MonoBehaviour
 {
-
+    public int NextScene;
     private float timeSec = 0f;
     private float timeMin = 0f;
     private float rankedTime = 0f;
@@ -58,6 +58,7 @@ public class FinishLine : MonoBehaviour
             stopTimer = true;
             PlayerPrefs.SetFloat("endTime", rankedTime);
             fader.gameObject.SetActive(true);
+            LoaderCallback.targetScene = NextScene;
             fader.SetSceneToGoTo(3);
             fader.GetComponent<Animator>().Play("Fade");
         }

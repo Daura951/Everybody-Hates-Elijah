@@ -10,7 +10,6 @@ public class SceneLoader : MonoBehaviour
     private float Pup, Pdown, Pleft, Pright;
     public int scene;
     private GameObject P;
-    private bool teleport = true, check = false;
 
 
     // Start is called before the first frame update
@@ -32,47 +31,15 @@ public class SceneLoader : MonoBehaviour
         Pleft = P.transform.position.x - (0.5f * P.transform.localScale.x);
         Pright = P.transform.position.x + (0.5f * P.transform.localScale.x);
 
-        if (Pup < down || Pdown > up || Pright < left || Pleft > right)
-        {
-            teleport = true;
-        }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        check = false;
-        StartCoroutine(TeleportWait());
-    }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (Pdown > down && Pup < up && Pleft > left && Pright < right && teleport && check)
-        {
-            StartCoroutine(LoadYourAsyncScene());
-        }
-    }
-
-
-    IEnumerator TeleportWait()
-    {
-        yield return new WaitForSeconds(.0125f);
         if (Pdown > down && Pup < up && Pleft > left && Pright < right)
         {
-            teleport = false;
-        }
-        check = true;
-    }
-
-    IEnumerator LoadYourAsyncScene()
-    {
-
-
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(scene);
-
-        // Wait until the asynchronous scene fully loads
-        while (!asyncLoad.isDone)
-        {
-            yield return null;
+            LoaderCallback.targetScene = scene;
+            SceneManager.LoadScene(7);
         }
     }
 }
