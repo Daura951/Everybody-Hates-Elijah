@@ -20,6 +20,7 @@ public class PlayerRefrecnces : MonoBehaviour
     void Start()
     {
         instance = this;
+        if(SceneManager.GetActiveScene().buildIndex != 0)
         PlayerPrefs.SetInt("loadGameIndex", SceneManager.GetActiveScene().buildIndex);
     }
 }

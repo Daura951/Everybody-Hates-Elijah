@@ -2499,7 +2499,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7ff39e61aa93064c95b9b14201083e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PR: {fileID: 671818675769444082}
   maxCountDown: 0.25
   speed: 4
   editedSpeed: 0
@@ -3004,7 +3003,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7ff39e61aa93064c95b9b14201083e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PR: {fileID: 671818675769444082}
   maxCountDown: 0.25
   speed: 4
   editedSpeed: 0
@@ -3605,7 +3603,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7, y: 1.4}
+  m_Size: {x: 0.7, y: 1.26}
   m_EdgeRadius: 0
 --- !u!50 &4926932388033835181
 Rigidbody2D:

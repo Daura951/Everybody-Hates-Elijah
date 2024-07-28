@@ -529,7 +529,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Wall")
+        if (collision.gameObject.tag == "Wall" || collision.gameObject.tag.Contains("Platform"))
         {
             ASideB = false;
         }

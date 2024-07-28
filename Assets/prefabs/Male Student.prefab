@@ -714,13 +714,14 @@ MonoBehaviour:
   ledgeCheckTF: {fileID: 7504139567273209729}
   playerCheckTF: {fileID: 7504139568181703188}
   groundCheckTF: {fileID: 7504139568801102158}
-  isMale: 1
+  isMain: 1
   playerGO: {fileID: 0}
   isGrabbed: 0
   isPummeled: 0
   pummelFactor: 0
   BB: {fileID: 0}
   isInCutscene: 0
+  isEngaged: 0
   whichThrow: 00000000
   hitboxes:
   - {fileID: 7504139569174996308}
@@ -756,6 +757,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbde13cf7b7f9f941abb545439d0c348, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  E: {fileID: 7504139569272621816}
   EnemyVoice: {fileID: 516040091281728829}
   EnemySFX: {fileID: 4385727286698305158}
   delay: 0.5

@@ -6,14 +6,26 @@ public class MainMenuManager : MonoBehaviour
 {
     public GeneralSceneFader fader;
 
+    public Animator elijahAnim;
+    public GameObject player, menuCam, mainMenu, playerUI, bubble;
+
     public void StartNewGame()
     {
-        fader.SetSceneToGoTo(5);
-        fader.GetComponent<Animator>().Play("Fade");
+        mainMenu.SetActive(false);
+        bubble.SetActive(false);
+        menuCam.SetActive(false);
+        elijahAnim.gameObject.SetActive(false);
+        player.SetActive(true);
+        playerUI.SetActive(false);
+
+        //fader.SetSceneToGoTo(5);
+        //fader.GetComponent<Animator>().Play("Fade");
     }
 
     public void LoadGame()
     {
+        bubble.SetActive(false);
+        elijahAnim.SetInteger("nextAnim", 3);
         fader.SetSceneToGoTo(PlayerPrefs.GetInt("loadGameIndex"));
         fader.GetComponent<Animator>().Play("Fade");
     }
