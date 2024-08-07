@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8085229476472813846}
   - component: {fileID: 8085229476472813845}
   - component: {fileID: 8085229476472813848}
-  - component: {fileID: 8855542033395771240}
+  - component: {fileID: 295241558067593907}
   m_Layer: 0
   m_Name: moving Hazard
   m_TagString: Danger
@@ -128,7 +128,7 @@ MonoBehaviour:
   speed: 2
   change: 0
   target: {x: 0, y: 0, z: 0}
---- !u!114 &8855542033395771240
+--- !u!114 &295241558067593907
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -137,7 +137,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8085229476472813844}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b31fcb4b7ae4624dbadfad6945ed17f, type: 3}
+  m_Script: {fileID: 11500000, guid: 75ac808ef17b22d47a1745c46f1dd029, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TAKD: 0 0 0 0
+  attackType: 0

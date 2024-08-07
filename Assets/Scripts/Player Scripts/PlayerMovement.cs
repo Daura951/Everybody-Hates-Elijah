@@ -64,7 +64,6 @@ public class PlayerMovement : MonoBehaviour
 
     public bool isInCutscene = false;
 
-    private GameObjectToDoorInterface gameObjectToDoorInterface;
 
     // Start is called before the first frame update
     void Start()
@@ -75,7 +74,6 @@ public class PlayerMovement : MonoBehaviour
 
         playerCollider = GetComponent<Collider2D>();
         H = GetComponent<Health>();
-        gameObjectToDoorInterface = GetComponent<GameObjectToDoorInterface>();
 
             
         Speed = Walk;
@@ -110,10 +108,6 @@ public class PlayerMovement : MonoBehaviour
 
             isCrouch = PR.anim.GetCurrentAnimatorStateInfo(0).IsName("Crouch");
 
-            if (Input.GetButtonDown("DoorEnter"))
-            {
-                gameObjectToDoorInterface?.goThroughDoor();
-            }
 
             if (Input.GetButton("Run") && !isInAir && !isCrouch && !dashDisable)
             {

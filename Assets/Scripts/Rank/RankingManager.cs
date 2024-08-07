@@ -42,7 +42,7 @@ public class RankingManager : MonoBehaviour
         if ((Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Fire1")) && next)
         {
             print("ready");
-            SceneManager.LoadScene(7);
+            SceneManager.LoadScene(1);
         }
     }
 

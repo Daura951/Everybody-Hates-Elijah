@@ -28,7 +28,10 @@ public class AS_PlayerDetectedState : PlayerDetectedState
         {
             if (performCloseRangeAttack)
             {
+             if (1 == Random.Range(1, 3))
                 stateMachine.ChangeState(angryStudent.punchState);
+             else
+                stateMachine.ChangeState(angryStudent.kickState);
             }
 
             else if (performLongRangeAttack)

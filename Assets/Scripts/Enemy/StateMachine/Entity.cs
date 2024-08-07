@@ -42,6 +42,8 @@ public class Entity : MonoBehaviour
 
     public bool isEngaged = false;
 
+    public float Yspeed;
+
     public bool[] whichThrow = { false, false, false, false };
 
     public virtual void Start()
@@ -59,7 +61,7 @@ public class Entity : MonoBehaviour
     public virtual void Update()
     {
         stateMachine.currentState.LogicUpdate();
-
+        anim.SetBool("Grounded", CheckGround());
         if(BB.GetIsInBladeBound())
         {
             anim.SetFloat("speed", .5f);
@@ -69,6 +71,20 @@ public class Entity : MonoBehaviour
             anim.SetFloat("speed", 1);
         }
 
+        StartCoroutine(YSpeed());
+    }
+
+    IEnumerator YSpeed()
+    {
+        float prevpos = transform.position.y;
+        yield return new WaitForFixedUpdate();
+         Yspeed = (transform.position.y - prevpos) / Time.fixedDeltaTime;
+        anim.SetFloat("YVelocity", Yspeed);
+    }
+
+    public virtual void P()
+    {
+        print("print line");
     }
 
     public virtual void FixedUpdate()
@@ -165,6 +181,7 @@ public class Entity : MonoBehaviour
         if (!BB.isFrozen)
         {
             rb.AddForce(new Vector2(XComponent, YComponent));
+
         }
             Damage();
     }
@@ -237,7 +254,7 @@ public class Entity : MonoBehaviour
 
     public virtual IEnumerator Despawn()
     {
-       if(!Vocals.EnemyVoice.isPlaying)
+       if(!Vocals.EnemyVoice.isPlaying && Vocals.MainDespawnSound.Length > 0)
         {
             PlayerPrefs.SetInt("enemiesKilled", PlayerPrefs.GetInt("enemiesKilled") + 1);
             yield return new WaitForSeconds(Vocals.Died());

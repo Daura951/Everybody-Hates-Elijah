@@ -39,7 +39,7 @@ public class SceneLoader : MonoBehaviour
         if (Pdown > down && Pup < up && Pleft > left && Pright < right)
         {
             LoaderCallback.targetScene = scene;
-            SceneManager.LoadScene(7);
+            SceneManager.LoadScene(1);
         }
     }
 }

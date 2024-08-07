@@ -17,8 +17,6 @@ public class ReSpawn : MonoBehaviour
     [SerializeField]
     private SpriteRenderer spriteRenderer;
 
-    public CameraSwitch ActiveArena;
-
     private Vector3 ReSpawnPoint;
 
     public bool Waitroom = false;
@@ -62,10 +60,6 @@ public class ReSpawn : MonoBehaviour
 
                     stun.Stunned = false;
                 }
-                if (ActiveArena != null)
-                {
-                    ActiveArena.Reset();
-                }
 
                 animator.SetBool("Sinking", false);
                 rigidBody.constraints = RigidbodyConstraints2D.None;
@@ -104,8 +98,4 @@ public class ReSpawn : MonoBehaviour
         complete = true;
     }
 
-    public void AssignArena(CameraSwitch AR)
-    {
-        ActiveArena = AR;
-    }
 }

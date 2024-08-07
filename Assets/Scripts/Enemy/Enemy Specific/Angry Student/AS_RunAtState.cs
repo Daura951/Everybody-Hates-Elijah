@@ -24,9 +24,12 @@ public class AS_RunAtState : RunAtState
     {
         base.LogicUpdate();
 
-        if(performCloseRangeAttack)
+        if (performCloseRangeAttack)
         {
-            stateMachine.ChangeState(angryStudent.punchState);
+            if (1 == Random.Range(1, 3))
+                stateMachine.ChangeState(angryStudent.punchState);
+            else
+                stateMachine.ChangeState(angryStudent.kickState);
         }
 
         else if(!isDetectingLedge || isDetectingWall)

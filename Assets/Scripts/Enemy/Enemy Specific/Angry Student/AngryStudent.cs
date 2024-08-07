@@ -13,8 +13,12 @@ public class AngryStudent : Entity
     public AS_DeadState deadState;
     
     public AS_PunchState punchState { get; private set; }
+    public AS_KickState kickState { get; private set; }
 
     public AS_StunState stunState { get; private set; }
+    public AS_LaunchState launchState { get; private set; }
+    public AS_SpinState spinState { get; private set; }
+    public AS_LandState landState { get; private set; }
 
     public AS_GrabState grabState { get; private set; }
 
@@ -28,14 +32,16 @@ public class AngryStudent : Entity
     [SerializeField] private D_RunAtState runAtStateData;
     [SerializeField] private D_LookForPlayerState lookForPlayerData;
     [SerializeField] private D_MeleeAttack punchStateData;
+    [SerializeField] private D_MeleeAttack kickStateData;
     [SerializeField] private Transform punchPosition;
+    [SerializeField] private Transform kickPosition;
     [SerializeField] private AnimatorOverrideController AOC;
 
 
     public override void Start()
     {
         base.Start();
-        if( 1 == Random.Range(1, 3))
+        if( 1 == Random.Range(1, 3) && AOC != null)
         {
             isMain = false;
             Vocals.Replace();
@@ -47,7 +53,11 @@ public class AngryStudent : Entity
         runAtState = new AS_RunAtState(this, stateMachine, "runAt", runAtStateData, this);
         lookForPlayerState = new AS_LookForPlayerState(this, stateMachine, "lookForPlayer", lookForPlayerData, this);
         punchState = new AS_PunchState(this, stateMachine, "punch", punchPosition,punchStateData, this);
+        kickState = new AS_KickState(this, stateMachine, "kick", kickPosition,kickStateData, this);
         stunState = new AS_StunState(this, stateMachine, "stun", this);
+        launchState = new AS_LaunchState(this, stateMachine,"launch", this);
+        spinState = new AS_SpinState(this, stateMachine,"spin", this);
+        landState = new AS_LandState(this, stateMachine,"land", this);
         deadState = new AS_DeadState(this, stateMachine, "dead", this);
         grabState = new AS_GrabState(this, stateMachine, "grabbed", this);
         pummelState = new AS_PummelState(this, stateMachine, "pummel", this);
@@ -72,6 +82,7 @@ public class AngryStudent : Entity
         {
             stateMachine.ChangeState(idleState);
         }
+
     }
 
     public  override void OnDrawGizmos()
@@ -125,6 +136,11 @@ public class AngryStudent : Entity
                 stateMachine.ChangeState(idleState);
         }
         SetVelocity(0);
+    }
+
+    public void AS_GetUp()
+    {
+        stateMachine.ChangeState(idleState);
     }
 
 }

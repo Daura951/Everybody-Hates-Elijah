@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemyVocal : MonoBehaviour
 {
+    public int AttackDuds;
+    public int HurtDuds;
     public Entity E;
     public AudioSource EnemyVoice;
     [SerializeField] AudioSource EnemySFX;
@@ -27,7 +29,7 @@ public class EnemyVocal : MonoBehaviour
     private bool shouted = false;
     public void RoleCall()
     {
-        if(!EnemyVoice.isPlaying && !shouted && !E.isEngaged)
+        if(!EnemyVoice.isPlaying && !shouted && !E.isEngaged && MainAwakeSound.Length>0)
         StartCoroutine(Detection());
 
     }
@@ -55,9 +57,9 @@ public class EnemyVocal : MonoBehaviour
 
     IEnumerator Attacked()
     {
-        int T = Random.Range(0, 3);
+        int T = Random.Range(0, 3 + AttackDuds);
 
-        if (T % 2 == 0)
+        if (T % 2 == 0 && T < 3 && MainAttackedGrunt.Length > 0)
         {
             int f = Random.Range(0, MainAttackedGrunt.Length);
             EnemySFX.PlayOneShot(MainAttackedGrunt[f], 1f);
@@ -65,7 +67,7 @@ public class EnemyVocal : MonoBehaviour
                 yield return new WaitForSeconds(MainAttackedGrunt[f].length + delay);
         }
 
-        if (!EnemyVoice.isPlaying && T > 0)
+        if (!EnemyVoice.isPlaying && T > 0 && T < 3 && MainAttackedSound.Length > 0)
         {
             int f = Random.Range(0, MainAttackedSound.Length);
             EnemyVoice.PlayOneShot(MainAttackedSound[f], 1f);
@@ -74,9 +76,9 @@ public class EnemyVocal : MonoBehaviour
 
     IEnumerator Hurted()
     {
-        int T = Random.Range(0, 3);
+        int T = Random.Range(0, 3 + HurtDuds);
 
-        if (T%2==0)
+        if (T%2==0 && T < 3 && MainHurtGrunt.Length > 0)
         {
             int f = Random.Range(0, MainHurtGrunt.Length);
             EnemySFX.PlayOneShot(MainHurtGrunt[f], 1f);
@@ -84,7 +86,7 @@ public class EnemyVocal : MonoBehaviour
                 yield return new WaitForSeconds(MainHurtGrunt[f].length + delay);
         }
 
-        if (!EnemyVoice.isPlaying && T>0)
+        if (!EnemyVoice.isPlaying && T>0 && T < 3 && MainHurtSound.Length > 0)
         {
             int f = Random.Range(0, MainHurtSound.Length);
             EnemyVoice.PlayOneShot(MainHurtSound[f], 1f);
@@ -110,10 +112,5 @@ public class EnemyVocal : MonoBehaviour
         MainAttackedGrunt = AltAttackedGrunt;
         MainHurtSound = AltHurtSound;
         MainHurtGrunt = AltHurtGrunt;
-    }
-
-    public void print(float t)
-    {
-        print("Time " +t);
     }
 }
