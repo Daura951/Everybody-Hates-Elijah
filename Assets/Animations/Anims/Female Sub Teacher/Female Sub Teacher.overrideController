@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Female Sub Teacher
+  m_Controller: {fileID: 9100000, guid: b87c6c5fa082e99408f190750be999cf, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 7360773be367c114986060a956f0f22b, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 7497afbd16c499c4c918b205899c1f46, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 199406ed7ba5fab42ba4d957b77ee4fd, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: d8f482939a2051942949407967c398f5, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: b44148cde5c239840b802c3c6cdc0be9, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: b63c4e47d4c60e54f8922c4ca4e5cbfb, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 0a8b027d8c50f384ba4d80b8307fe154, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 4d5dd13b697a0e44aaa1d049dd27412d, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 5677ce71e50f44d4bbdb531bc8ac4efb, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 20db250e35a0acd4d9a378b3696a8d81, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 46f93cbe094f8f74e86c86a41433a563, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: a098e8b787e09f64fabbceef22057e6a, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 0d82c7636ebca4a44b9f4db3df6bcfe3, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: a098e8b787e09f64fabbceef22057e6a, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: c0e91159b7a0aa043b17bdbec0189764, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 845ae7ba7f0d74a42afffcee6ccdd4b1, type: 2}

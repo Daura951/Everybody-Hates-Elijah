@@ -5,9 +5,6 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: b086bb31ead494546bdedce5021f0da9
@@ -24,7 +21,7 @@ EditorBuildSettings:
     path: Assets/Scenes/VideoCutscene.unity
     guid: 913e5cb8f6f6b3d49b52676a21b1dc5b
   - enabled: 1
-    path: Assets/Scenes/EnemyAITest.unity
+    path: Assets/Scenes/Enemy AI Test.unity
     guid: d4a29f7bccf4adf4f95c544d0bae7491
   - enabled: 1
     path: Assets/Scenes/TsetingGround.unity

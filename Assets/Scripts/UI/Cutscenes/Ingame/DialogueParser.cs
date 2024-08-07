@@ -9,7 +9,7 @@ public class DialogueParser : MonoBehaviour
     [Header("Parsing Components")]
     public TextAsset txtFile;
     private string[] splitLines;
-    public int index;
+    private int index;
 
 
     [Header("Cutscene Logical Components")]
@@ -31,30 +31,6 @@ public class DialogueParser : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        foreach (Transform child in cutsceneTrigger.getCutsceneUi().transform)
-        {
-            switch (child.name)
-            {
-                case "LeftFace":
-                    leftImage = child.GetComponent<Image>();
-                    break;
-                case "RightFace":
-                    rightImage = child.GetComponent<Image>();
-                    break;
-                case "DialogueText":
-                    dialogueText = child.GetComponent<TMP_Text>();
-                    break;
-                case "SpeechBubble":
-                    speechBubble = child.GetComponent<Image>();
-                    break;
-            }
-        }
-
-        splitLines = txtFile.text.Split('\n');
-        for (int i = 0; i < splitLines.Length-1; i++)
-        {
-            splitLines[i] = splitLines[i].Remove(splitLines[i].Length - 1, 1);
-        }
     }
 
     // Update is called once per frame
@@ -145,6 +121,34 @@ public class DialogueParser : MonoBehaviour
         else if (splitTokens[0] == characterLeft.name)
         {
             speechBubble.transform.eulerAngles = new Vector2(0, 0);
+        }
+    }
+
+    public void InitalizeDialogueParser()
+    {
+        foreach (Transform child in cutsceneTrigger.getCutsceneUi().transform)
+        {
+            switch (child.name)
+            {
+                case "LeftFace":
+                    leftImage = child.GetComponent<Image>();
+                    break;
+                case "RightFace":
+                    rightImage = child.GetComponent<Image>();
+                    break;
+                case "DialogueText":
+                    dialogueText = child.GetComponent<TMP_Text>();
+                    break;
+                case "SpeechBubble":
+                    speechBubble = child.GetComponent<Image>();
+                    break;
+            }
+        }
+
+        splitLines = txtFile.text.Split('\n');
+        for (int i = 0; i < splitLines.Length - 1; i++)
+        {
+            splitLines[i] = splitLines[i].Remove(splitLines[i].Length - 1, 1);
         }
     }
 }

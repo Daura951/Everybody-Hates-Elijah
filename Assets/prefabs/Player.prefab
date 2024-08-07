@@ -525,7 +525,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outside: 0
-  parent: {fileID: 0}
+  parent: {fileID: 7695886022230738445}
   pos: {x: 0, y: 0}
 --- !u!50 &895827240146653313
 Rigidbody2D:
@@ -1544,7 +1544,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outside: 0
-  parent: {fileID: 0}
+  parent: {fileID: 7695886022230738445}
   pos: {x: 0, y: 0}
 --- !u!50 &3732948862423391740
 Rigidbody2D:
@@ -1710,7 +1710,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outside: 0
-  parent: {fileID: 0}
+  parent: {fileID: 7695886022230738445}
   pos: {x: 0, y: 0}
 --- !u!50 &8992809452736752762
 Rigidbody2D:
@@ -2106,7 +2106,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outside: 0
-  parent: {fileID: 0}
+  parent: {fileID: 7695886022230738445}
   pos: {x: 0, y: 0}
 --- !u!50 &2459631621887494950
 Rigidbody2D:
@@ -2202,7 +2202,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outside: 0
-  parent: {fileID: 0}
+  parent: {fileID: 7695886022230738445}
   pos: {x: 0, y: 0}
 --- !u!50 &4197834856861460932
 Rigidbody2D:
@@ -3658,7 +3658,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PR: {fileID: 671818675769444082}
   sr: {fileID: 4926932388033835191}
-  offset: {x: 2.25, y: 2.5, z: -0.75}
+  offset: {x: 0, y: 0, z: 0}
   Walk: 7
   jumpForce: 8
   fallingGravityFactor: 2
@@ -5175,7 +5175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outside: 0
-  parent: {fileID: 0}
+  parent: {fileID: 7695886022230738445}
   pos: {x: 0, y: 0}
 --- !u!50 &446100581000762214
 Rigidbody2D:
@@ -5271,7 +5271,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outside: 0
-  parent: {fileID: 0}
+  parent: {fileID: 7695886022230738445}
   pos: {x: 0, y: 0}
 --- !u!50 &5733551552087784621
 Rigidbody2D:
@@ -5473,7 +5473,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outside: 0
-  parent: {fileID: 0}
+  parent: {fileID: 7695886022230738445}
   pos: {x: 0, y: 0}
 --- !u!50 &8783454303264292965
 Rigidbody2D:
@@ -5708,8 +5708,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7695886022230738445}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0.08715578, z: 0, w: 0.9961947}
+  m_LocalPosition: {x: 0, y: 0.71, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5723,7 +5723,7 @@ Transform:
   - {fileID: 3638158089011072238}
   m_Father: {fileID: 4926932388033835194}
   m_RootOrder: 16
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 10, z: 0}
 --- !u!20 &4673434983941853987
 Camera:
   m_ObjectHideFlags: 0
@@ -5749,8 +5749,8 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
-  orthographic: 1
+  field of view: 100
+  orthographic: 0
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
@@ -5787,7 +5787,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c9f8302175eb304690368b5ae0efa81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: 2.25, y: 2.5, z: -0.75}
+  offset: {x: 0, y: 1.5, z: -4.18}
   detectoff: 0.25
   loc: 0
   Detectors: []

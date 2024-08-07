@@ -124,6 +124,7 @@ public class AngryStudent : Entity
             if(health.GetHealth() > 0)
                 stateMachine.ChangeState(idleState);
         }
+        SetVelocity(0);
     }
 
 }

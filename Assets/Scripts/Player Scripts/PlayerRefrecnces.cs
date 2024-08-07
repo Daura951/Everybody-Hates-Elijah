@@ -18,10 +18,21 @@ public class PlayerRefrecnces : MonoBehaviour
 
 
     void Start()
-    {
-        instance = this;
+    { 
+          instance = this;
         if(SceneManager.GetActiveScene().buildIndex != 0)
         PlayerPrefs.SetInt("loadGameIndex", SceneManager.GetActiveScene().buildIndex);
+        PlayerPrefs.SetFloat("playerPosX", GameObject.FindGameObjectWithTag("Player").transform.position.x);
+        PlayerPrefs.SetFloat("playerPosY", GameObject.FindGameObjectWithTag("Player").transform.position.y);
+    }
+
+
+    public void OnApplicationQuit()
+    {
+        PlayerPrefs.SetInt("goToStartMenu", 1);
+        PlayerPrefs.SetFloat("playerPosX", GameObject.FindGameObjectWithTag("Player").transform.position.x);
+        PlayerPrefs.SetFloat("playerPosY", GameObject.FindGameObjectWithTag("Player").transform.position.y);
+        Debug.Log("Application ending after " + Time.time + " seconds");
     }
 }
 

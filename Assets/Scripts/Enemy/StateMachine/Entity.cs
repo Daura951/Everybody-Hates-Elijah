@@ -43,6 +43,7 @@ public class Entity : MonoBehaviour
     public bool isEngaged = false;
 
     public bool[] whichThrow = { false, false, false, false };
+
     public virtual void Start()
     {
         facingDir = 1;
@@ -185,6 +186,7 @@ public class Entity : MonoBehaviour
                 print("flip left!");
                 Flip();
             }
+            //TODO: Make a scriptable grabOffset for all enemies!!!
             this.transform.position = new Vector2(playerTransform.position.x - playerAttack.grabOffset.x, playerTransform.position.y + playerAttack.grabOffset.y);
         }
         else

@@ -30,6 +30,11 @@ public class AS_StunState : StunState
     {
         base.LogicUpdate();
 
+        if(angryStudent.rb.velocity.y == 0)
+        {
+            angryStudent.SetVelocity(0);
+        }
+
         if(isStunOver)
         {
             if(performCloseRangeAttack)
@@ -46,6 +51,7 @@ public class AS_StunState : StunState
                 stateMachine.ChangeState(angryStudent.lookForPlayerState);
             }
         }
+
     }
 
     public override void PhysicsUpdate()

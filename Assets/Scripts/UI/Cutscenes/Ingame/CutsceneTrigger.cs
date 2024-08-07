@@ -24,8 +24,9 @@ public class CutsceneTrigger : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
 
+        this.GetComponent<SpriteRenderer>().enabled = false;
+        player = GameObject.FindGameObjectWithTag("Player");
 
         cutSceneUi = GameObject.Find("Cutscene UI");
         cutSceneUi.GetComponent<ShaderBlurAnimator>().animationDuration = timeBeforeCutscene;
@@ -36,6 +37,8 @@ public class CutsceneTrigger : MonoBehaviour
             finishLine = GameObject.Find("FinishTrigger").GetComponent<FinishLine>();
         }
         else finishLine = GameObject.Find("FinishTrigger(Clone)").GetComponent<FinishLine>();
+
+        parser.InitalizeDialogueParser();
     }
 
     // Update is called once per frame

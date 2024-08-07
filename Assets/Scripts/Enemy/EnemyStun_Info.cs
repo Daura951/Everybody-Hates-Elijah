@@ -11,7 +11,7 @@ public class EnemyStun_Info : Stun_Info
     }
     public override void CalculateStunVals()
     {
-        string[] Info = EnemyHurtVals.maleStudentAttackValues[attackType].Split(" ");
+        string[] Info = EnemyHurtVals.attackValues[attackType].Split(" ");
         DAKTInfo = new float[4];
         DAKTInfo[0] = float.Parse(Info[0]); //Damage
         DAKTInfo[1] = float.Parse(Info[1]); //Angle
