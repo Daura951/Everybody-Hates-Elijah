@@ -10,7 +10,7 @@ public class VideoCutsceneFader : Fader
     {
         PlayerPrefs.SetInt("video", videoIndex);
         PlayerPrefs.SetInt("nextScene", sceneToGoTo);
-        SceneManager.LoadScene(4);
+        SceneManager.LoadScene(3);
     }
 
     public void SetVideoIndex(int videoIndex)

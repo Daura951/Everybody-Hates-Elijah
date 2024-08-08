@@ -55,7 +55,7 @@ public class MainMenuManager : MonoBehaviour
         bubble.SetActive(false);
         elijahAnim.SetInteger("nextAnim", 3);
         LoaderCallback.targetScene = PlayerPrefs.GetInt("loadGameIndex");
-        fader.SetSceneToGoTo(1);
+        fader.SetSceneToGoTo(2);
         fader.GetComponent<Animator>().Play("Fade");
     }
 

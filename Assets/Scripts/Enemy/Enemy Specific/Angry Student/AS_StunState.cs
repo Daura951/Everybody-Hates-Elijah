@@ -30,21 +30,21 @@ public class AS_StunState : StunState
     {
         base.LogicUpdate();
 
-        if(angryStudent.rb.velocity.y == 0)
+        if (angryStudent.rb.velocity.y == 0)
         {
             angryStudent.SetVelocity(0);
         }
 
-        if(isStunOver)
+        if (isStunOver)
         {
-            if(performCloseRangeAttack)
+            if (performCloseRangeAttack)
             {
                 if (1 == Random.Range(1, 3))
                     stateMachine.ChangeState(angryStudent.punchState);
                 else
                     stateMachine.ChangeState(angryStudent.kickState);
             }
-            else if(isPlayerInMinAgroRange)
+            else if (isPlayerInMinAgroRange)
             {
                 stateMachine.ChangeState(angryStudent.runAtState);
             }
@@ -55,14 +55,15 @@ public class AS_StunState : StunState
             }
         }
 
-        else if(entity.Yspeed > 6f)
+        else if (entity.Yspeed > 6f)
         {
-                    stateMachine.ChangeState(angryStudent.launchState);
+            stateMachine.ChangeState(angryStudent.launchState);
         }
         else if (entity.Yspeed < -.6f && !entity.CheckGround())
         {
             stateMachine.ChangeState(angryStudent.spinState);
         }
+
     }
 
     public override void PhysicsUpdate()

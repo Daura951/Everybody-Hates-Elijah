@@ -42,7 +42,8 @@ public class VideoManager : MonoBehaviour
 
         if(currentHoldTime >= holdTime)
         {
-            SceneManager.LoadScene(PlayerPrefs.GetInt("nextScene"));
+            LoaderCallback.targetScene = PlayerPrefs.GetInt("nextScene");
+            SceneManager.LoadScene(2);
         }
     }
 

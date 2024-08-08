@@ -953,7 +953,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2164472959134547959, guid: 5387204fa31f2234a9a8be822a97686c, type: 3}
       propertyPath: sceneToGoTo
-      value: 7
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2164472959134547959, guid: 5387204fa31f2234a9a8be822a97686c, type: 3}
       propertyPath: isTransitioningToNewScene
