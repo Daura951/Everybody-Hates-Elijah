@@ -152,6 +152,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26397cfa9d21aa942902eb491aedea13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeText: {fileID: 1656900915}
+  comboText: {fileID: 1912340151}
+  enemiesKilledText: {fileID: 522110975}
+  rankText: {fileID: 803580548}
+  continueText: {fileID: 247442113}
 --- !u!4 &168513323
 Transform:
   m_ObjectHideFlags: 0
