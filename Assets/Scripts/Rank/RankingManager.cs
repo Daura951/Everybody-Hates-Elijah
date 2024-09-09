@@ -15,11 +15,11 @@ public class RankingManager : MonoBehaviour
     private int playerCombo;
     private int playerEnemiesKilled;
 
-    private TMP_Text timeText;
-    private TMP_Text comboText;
-    private TMP_Text enemiesKilledText;
-    private TMP_Text rankText;
-    private TMP_Text continueText;
+    [SerializeField] private TMP_Text timeText;
+    [SerializeField] private TMP_Text comboText;
+    [SerializeField] private TMP_Text enemiesKilledText;
+    [SerializeField] private TMP_Text rankText;
+    [SerializeField] private TMP_Text continueText;
 
     private float WaitTime = 5;
     private bool next = false;
@@ -28,11 +28,6 @@ public class RankingManager : MonoBehaviour
     {
         SetRankingFields();
         next = false;
-        timeText = GameObject.Find("timeText").GetComponent<TMP_Text>();
-        comboText = GameObject.Find("comboText").GetComponent<TMP_Text>();
-        enemiesKilledText = GameObject.Find("enemiesKilledText").GetComponent<TMP_Text>();
-        rankText = GameObject.Find("rankText").GetComponent<TMP_Text>();
-        continueText = GameObject.Find("continueText").GetComponent<TMP_Text>();
         rankText.text =  calculateRank();
         StartCoroutine(NextLevel());
     }
@@ -42,7 +37,7 @@ public class RankingManager : MonoBehaviour
         if ((Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Fire1")) && next)
         {
             print("ready");
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(2);
         }
     }
 

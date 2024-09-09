@@ -59,7 +59,7 @@ public class FinishLine : MonoBehaviour
             PlayerPrefs.SetFloat("endTime", rankedTime);
             fader.gameObject.SetActive(true);
             LoaderCallback.targetScene = NextScene;
-            fader.SetSceneToGoTo(2);
+            fader.SetSceneToGoTo(1);
             fader.GetComponent<Animator>().Play("Fade");
         }
     }
