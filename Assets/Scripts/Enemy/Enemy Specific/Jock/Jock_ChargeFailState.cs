@@ -2,15 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AS_LandState : StunState
+public class Jock_ChargeFailState : StunState
 {
-    private AngryStudent angryStudent;
-
-    public AS_LandState(Entity entity, FiniteStateMachine stateMachine, string animBoolName, AngryStudent angryStudent) : base(entity, stateMachine, animBoolName)
+    private Jock jock;
+    public Jock_ChargeFailState(Entity entity, FiniteStateMachine stateMachine, string animBoolName, Jock jock) : base(entity, stateMachine, animBoolName)
     {
-        this.angryStudent = angryStudent;
+        this.jock = jock;
     }
-
 
     public override void Enter()
     {
@@ -31,5 +29,4 @@ public class AS_LandState : StunState
     {
         base.PhysicsUpdate();
     }
-
 }

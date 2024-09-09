@@ -225,7 +225,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2290407730542893437
 Transform:
   m_ObjectHideFlags: 0
@@ -396,6 +396,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateMachine: {fileID: 0}
   entityData: {fileID: 11400000, guid: 35fbebef6b64e9a4ab039d600f81a2e4, type: 2}
+  JumpData: {fileID: 0}
   health: {fileID: 2290407730542893377}
   Vocals: {fileID: 2290407730542893381}
   wallCheckTF: {fileID: 2290407731315185918}
@@ -406,6 +407,7 @@ MonoBehaviour:
   playerGO: {fileID: 0}
   isGrabbed: 0
   isPummeled: 0
+  idleStun: 0
   pummelFactor: 0
   BB: {fileID: 0}
   isInCutscene: 0
@@ -449,8 +451,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbde13cf7b7f9f941abb545439d0c348, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackDuds: 0
-  HurtDuds: 0
+  AttackDuds: 3
+  HurtDuds: 3
   E: {fileID: 2290407730542893379}
   EnemyVoice: {fileID: 2290407730542893380}
   EnemySFX: {fileID: 2290407730542893383}
@@ -876,7 +878,7 @@ RectTransform:
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

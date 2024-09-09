@@ -171,7 +171,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1249752380545947762}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.44, z: 0}
+  m_LocalPosition: {x: 0.261, y: -0.44, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -240,6 +240,122 @@ Transform:
   m_Father: {fileID: 8543869422977322523}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3204600087779312708
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4224984520958549337}
+  - component: {fileID: 1578849024825746319}
+  - component: {fileID: 393076720732540947}
+  - component: {fileID: 4043900362295796963}
+  m_Layer: 10
+  m_Name: ChargeHitbox
+  m_TagString: EHitbox
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &4224984520958549337
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3204600087779312708}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.49, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1073094487341758620}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!70 &1578849024825746319
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3204600087779312708}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 1.02, y: 0.57}
+  m_Direction: 0
+--- !u!50 &393076720732540947
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3204600087779312708}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &4043900362295796963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3204600087779312708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22e6f6ae9313074cb428975c1177719, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackType: 2
+--- !u!1 &4907518616188203142
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1073094487341758620}
+  m_Layer: 10
+  m_Name: ChargePosition
+  m_TagString: EHitbox
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1073094487341758620
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4907518616188203142}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4224984520958549337}
+  m_Father: {fileID: 8543869422977322523}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8543869422977322520
 GameObject:
   m_ObjectHideFlags: 0
@@ -284,6 +400,7 @@ Transform:
   - {fileID: 1249752381132379095}
   - {fileID: 1249752380545947789}
   - {fileID: 1249752380000743848}
+  - {fileID: 1073094487341758620}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -373,7 +490,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.05}
+  m_Offset: {x: 0, y: 0.025}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -384,7 +501,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.001992, y: 1.1}
+  m_Size: {x: 1.001992, y: 0.95}
   m_EdgeRadius: 0
 --- !u!114 &8543869422977322519
 MonoBehaviour:
@@ -411,7 +528,7 @@ Animator:
   m_GameObject: {fileID: 8543869422977322520}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: cf060c029badfbb499c979d43c9604b1, type: 2}
+  m_Controller: {fileID: 9100000, guid: 14dffdcb4a76fe34fa9034a3e8eeb2b1, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -435,6 +552,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateMachine: {fileID: 0}
   entityData: {fileID: 11400000, guid: 8038cc90e7d33374887440aac002a1cf, type: 2}
+  JumpData: {fileID: 11400000, guid: e143e45bb178a064f98bc175165e949a, type: 2}
   health: {fileID: 8543869422977322519}
   Vocals: {fileID: 7884209848644316208}
   wallCheckTF: {fileID: 1249752380307092274}
@@ -445,20 +563,26 @@ MonoBehaviour:
   playerGO: {fileID: 0}
   isGrabbed: 0
   isPummeled: 0
+  idleStun: 0
   pummelFactor: 0
   BB: {fileID: 0}
   isInCutscene: 0
   isEngaged: 0
+  Yspeed: 0
   whichThrow: 00000000
   hitboxes:
   - {fileID: 1249752379836105879}
+  - {fileID: 3204600087779312708}
   idleStateData: {fileID: 11400000, guid: eb72f6303be777a4fbe5c9e370b926cd, type: 2}
   moveStateData: {fileID: 11400000, guid: acfb35ae8cc1e1c4080da2495a85d968, type: 2}
   playerDetectedData: {fileID: 11400000, guid: 5bdeb20f1c441ed43838d8076a5e1025, type: 2}
   runAtStateData: {fileID: 11400000, guid: 6fe2da0f1e03e9b4cbfa14f9f819c48b, type: 2}
+  jumpStateData: {fileID: 11400000, guid: e143e45bb178a064f98bc175165e949a, type: 2}
   lookForPlayerData: {fileID: 11400000, guid: ddc59309520e4074abbb8f1dd4bd8da0, type: 2}
   punchStateData: {fileID: 11400000, guid: 2472c10f0f600d743a373f9d568b2e30, type: 2}
+  chargeStateData: {fileID: 11400000, guid: e5fb754d9fc5d5b4f831479714e864e9, type: 2}
   punchPosition: {fileID: 1249752380000743848}
+  ChargePosition: {fileID: 1073094487341758620}
   AOC: {fileID: 0}
 --- !u!114 &1249752380074289971
 MonoBehaviour:

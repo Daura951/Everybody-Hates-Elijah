@@ -19,6 +19,7 @@ public class AngryStudent : Entity
     public AS_LaunchState launchState { get; private set; }
     public AS_SpinState spinState { get; private set; }
     public AS_LandState landState { get; private set; }
+    public AS_GetUpState getUpState { get; private set; }
 
     public AS_GrabState grabState { get; private set; }
 
@@ -58,6 +59,7 @@ public class AngryStudent : Entity
         launchState = new AS_LaunchState(this, stateMachine,"launch", this);
         spinState = new AS_SpinState(this, stateMachine,"spin", this);
         landState = new AS_LandState(this, stateMachine,"land", this);
+        getUpState = new AS_GetUpState(this, stateMachine,"GetUp", this);
         deadState = new AS_DeadState(this, stateMachine, "dead", this);
         grabState = new AS_GrabState(this, stateMachine, "grabbed", this);
         pummelState = new AS_PummelState(this, stateMachine, "pummel", this);
@@ -102,6 +104,7 @@ public class AngryStudent : Entity
             else if (health.GetHealth() <= 0)
             {
                 stateMachine.ChangeState(deadState);
+                // Player can still attack fix me
             }
         }
     }
@@ -139,6 +142,11 @@ public class AngryStudent : Entity
     }
 
     public void AS_GetUp()
+    {
+        stateMachine.ChangeState(getUpState);
+    }
+
+    public void AS_GoIdle()
     {
         stateMachine.ChangeState(idleState);
     }

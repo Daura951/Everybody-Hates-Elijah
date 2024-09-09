@@ -9,8 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44d4379521fd22140b95d90e348efaac, type: 3}
-  m_Name: Jock_RunAtState
+  m_Script: {fileID: 11500000, guid: 6020aba086cb4fc4b84c3b7de6a79c7a, type: 3}
+  m_Name: Jock_JumpStateData
   m_EditorClassIdentifier: 
-  runAtSpeed: 5
-  runAtTime: 2
+  projectile: {fileID: 0}
+  projectileDamage: 5
+  projectileSpeed: 12
+  projectileTravelDist: 0

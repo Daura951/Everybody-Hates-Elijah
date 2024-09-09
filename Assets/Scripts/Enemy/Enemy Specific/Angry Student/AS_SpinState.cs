@@ -11,11 +11,6 @@ public class AS_SpinState : StunState
         this.angryStudent = angryStudent;
     }
 
-    public override void DoChecks()
-    {
-        base.DoChecks();
-    }
-
     public override void Enter()
     {
         base.Enter();
