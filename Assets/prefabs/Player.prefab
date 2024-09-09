@@ -3233,7 +3233,7 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.25}
+  m_Offset: {x: 0.27, y: 0.25}
   serializedVersion: 2
   m_Radius: 0.72
 --- !u!114 &5258428147803097535
@@ -3485,7 +3485,6 @@ GameObject:
   - component: {fileID: 3641731100317548798}
   - component: {fileID: 782206837015645383}
   - component: {fileID: 3490655614088721432}
-  - component: {fileID: 8995197260594413121}
   - component: {fileID: 3995530416282041504}
   m_Layer: 3
   m_Name: Player
@@ -3932,7 +3931,6 @@ MonoBehaviour:
   stun: {fileID: 4926932388033835187}
   animator: {fileID: 4926932388033835188}
   spriteRenderer: {fileID: 4926932388033835191}
-  ActiveArena: {fileID: 0}
   Waitroom: 0
   complete: 0
   Death:
@@ -4274,18 +4272,6 @@ MonoBehaviour:
   maxHitsToFreeze: 5
   timeDelayWeight: 8
   isFrozen: 0
---- !u!114 &8995197260594413121
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4926932388718786732}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a803f812ae737f141a7ee9dbb998c32b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3995530416282041504
 MonoBehaviour:
   m_ObjectHideFlags: 0

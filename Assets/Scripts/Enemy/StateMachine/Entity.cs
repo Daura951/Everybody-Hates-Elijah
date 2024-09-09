@@ -254,12 +254,17 @@ public class Entity : MonoBehaviour
 
     public virtual IEnumerator Despawn()
     {
-       if(!Vocals.EnemyVoice.isPlaying && Vocals.MainDespawnSound.Length > 0)
-        {
-            PlayerPrefs.SetInt("enemiesKilled", PlayerPrefs.GetInt("enemiesKilled") + 1);
+       if(Vocals.MainDespawnSound.Length == 0)
+       {
+            Destroy(this.gameObject);
+       }
+       else if(!Vocals.EnemyVoice.isPlaying)
+       {
             yield return new WaitForSeconds(Vocals.Died());
             Destroy(this.gameObject);
-        }
+       }
+       PlayerPrefs.SetInt("enemiesKilled", PlayerPrefs.GetInt("enemiesKilled") + 1);
+
     }
 
 
@@ -292,6 +297,17 @@ public class Entity : MonoBehaviour
             stats = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>().GetCurrentStats();
             GetPummeled();
         }
+
+        if (collision.gameObject.tag == "Platform")
+        {
+            SetVelocity(0);
+        }
+
+    }
+
+    public  virtual void  OnCollisionEnter2D(Collision2D collision)
+    {
+        SetVelocity(0);
     }
 
 }

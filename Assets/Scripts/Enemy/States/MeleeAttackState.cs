@@ -21,7 +21,11 @@ public class MeleeAttackState : AttackState
     public override void Enter()
     {
         base.Enter();
-        attackDetails.damage = stateData.damage;
+
+        if(stateData != null)
+        { 
+            attackDetails.damage = stateData.damage;
+        }
         attackDetails.position = entity.transform.position;
     }
 
@@ -33,6 +37,8 @@ public class MeleeAttackState : AttackState
     public override void FinishAttack()
     {
         base.FinishAttack();
+
+        if(hitBox != null)
         hitBox.SetActive(false);
     }
 
@@ -49,7 +55,10 @@ public class MeleeAttackState : AttackState
     public override void TriggerAttack()
     {
         base.TriggerAttack();
-        hitBox.SetActive(true);
+
+        if(hitBox!=null)
+            hitBox.SetActive(true);
+
         entity.Vocals.Attack();
 
     }

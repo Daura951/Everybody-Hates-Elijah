@@ -546,7 +546,7 @@ Transform:
   m_GameObject: {fileID: 1147828566731714523}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 11.61, y: -1.69, z: 0}
-  m_LocalScale: {x: 1.1659606, y: 1.5745, z: 0}
+  m_LocalScale: {x: 1.5, y: 2, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1147828566327617645}
@@ -719,6 +719,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbde13cf7b7f9f941abb545439d0c348, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AttackDuds: 0
+  HurtDuds: 0
   E: {fileID: 7384175486296724440}
   EnemyVoice: {fileID: 516040091281728829}
   EnemySFX: {fileID: 4385727286698305158}
@@ -745,26 +747,26 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d0d658771f39b5343bda7991a290da0b, type: 3}
   - {fileID: 8300000, guid: 9b2a17cfc1cb68c429975955e1ff705f, type: 3}
   AltAwakeSound:
-  - {fileID: 8300000, guid: 9311ef71edb9b6a4292485c54b29a8ca, type: 3}
-  - {fileID: 8300000, guid: 73f78ab5ed932dc4bbb926eb722a50b4, type: 3}
-  - {fileID: 8300000, guid: b6298203401609c42b6b6358e237589e, type: 3}
+  - {fileID: 8300000, guid: 8b1ae7a6b0e5aeb408c96462820fc44d, type: 3}
+  - {fileID: 8300000, guid: ec2b0966823a53149b109ca92adaa95c, type: 3}
+  - {fileID: 8300000, guid: 8758c74bd6a77e147950e981c87af934, type: 3}
   AltDespawnSound:
-  - {fileID: 8300000, guid: ffd76cd2f2659a84a90ce95be06dcc79, type: 3}
-  - {fileID: 8300000, guid: 542ca7605adc43d4f85f8aff01dfd52c, type: 3}
-  - {fileID: 8300000, guid: ddcb20878b878ca4da1c94956bc55885, type: 3}
+  - {fileID: 8300000, guid: 9f1051743b1386148a0bf78258ad419a, type: 3}
+  - {fileID: 8300000, guid: b9da976012f08b54b96e49d45dc3b07a, type: 3}
+  - {fileID: 8300000, guid: 9f1051743b1386148a0bf78258ad419a, type: 3}
   AltHurtSound:
-  - {fileID: 8300000, guid: c834c77e4bb16974fb39e8bc254e0fc8, type: 3}
-  - {fileID: 8300000, guid: d33e5e41c9de56642b6229be7b1014c9, type: 3}
+  - {fileID: 8300000, guid: 91935405263fefb4dae99096258721e3, type: 3}
+  - {fileID: 8300000, guid: ffab2e98f5b5dd84b929d023cf6ad0e4, type: 3}
   AltHurtGrunt:
-  - {fileID: 8300000, guid: 19a1a1819f99bf64890f41b21a0bcd27, type: 3}
-  - {fileID: 8300000, guid: ad113cbb2ee97f549a428a8d23763c77, type: 3}
-  - {fileID: 8300000, guid: 7e8361c58135c47478796d02c9dcf1f7, type: 3}
+  - {fileID: 8300000, guid: 7d81ca124e4c05941b5852f51a513912, type: 3}
+  - {fileID: 8300000, guid: be7f6474380bf254bbb49c5c26276a9d, type: 3}
+  - {fileID: 8300000, guid: 83101c6342e0c4e46996429a4814c31d, type: 3}
   AltAttackedSound:
-  - {fileID: 8300000, guid: d57fdee6af655f94ca7f5f67042d15bb, type: 3}
-  - {fileID: 8300000, guid: 8216398b665b2434e91194c64cc61c1b, type: 3}
+  - {fileID: 8300000, guid: 3cba48e3f43fc9d46a065008cbca2071, type: 3}
+  - {fileID: 8300000, guid: ac76f9e9e2751a14db8f0fbedbb66409, type: 3}
   AltAttackedGrunt:
-  - {fileID: 8300000, guid: 86aa3823679bd334fb1801cce3166f99, type: 3}
-  - {fileID: 8300000, guid: fa6b3880b6ee5e847b571b931629524a, type: 3}
+  - {fileID: 8300000, guid: 343b457a52bab6b4f8a579dc9e8dd261, type: 3}
+  - {fileID: 8300000, guid: 6d05253596b035e45ae35afd917beb0e, type: 3}
 --- !u!82 &516040091281728829
 AudioSource:
   m_ObjectHideFlags: 0
@@ -985,6 +987,7 @@ MonoBehaviour:
   BB: {fileID: 0}
   isInCutscene: 0
   isEngaged: 0
+  Yspeed: 0
   whichThrow: 00000000
   boomerang: {fileID: 0}
   hitboxes:

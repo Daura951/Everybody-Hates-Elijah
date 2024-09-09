@@ -35,6 +35,7 @@ public class GrabState : State
         {
             entity.rb.gravityScale = 1f;
             entity.pummelFactor = 0;
+            entity.playerGO.GetComponent<Animator>().SetBool("hasGrabbedEnemy", false);
         }
     }
 

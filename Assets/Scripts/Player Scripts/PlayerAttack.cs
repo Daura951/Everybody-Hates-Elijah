@@ -129,8 +129,6 @@ public class PlayerAttack : MonoBehaviour
 
             attacksData[i] = attackDataStr;
 
-            //print(attackIndexes[i] + "( " + attacksData[i]+")");
-
         }
 
         comboText.gameObject.SetActive(false);
@@ -192,7 +190,7 @@ public class PlayerAttack : MonoBehaviour
 
         //Control Detection
 
-        if ((!stunned && !isAttacking && Input.GetButtonDown("Fire1") || Input.GetButtonDown("Grab")) && !(shieldHeld && LimitBreak && PlayerRefrecnces.instance.anim.GetFloat("IdleSpeed") == 1.5f))
+        if ((!stunned && !isAttacking && Input.GetButtonDown("Fire1") || Input.GetButtonDown("Grab")) && !(shieldHeld && LimitBreak && PlayerRefrecnces.instance.anim.GetFloat("IdleSpeed") == 1.5f) && !isInHelpless)
         {
             PlayerRefrecnces.instance.RB.gravityScale = 1;
             isAttacking = true;
@@ -204,7 +202,7 @@ public class PlayerAttack : MonoBehaviour
             else isGrab = false;
         }
 
-        else if (!stunned && !isAttacking && Input.GetButtonDown("Fire2") && !(shieldHeld && LimitBreak && PlayerRefrecnces.instance.anim.GetFloat("IdleSpeed") == 1.5f))
+        else if (!stunned && !isAttacking && Input.GetButtonDown("Fire2") && !(shieldHeld && LimitBreak && PlayerRefrecnces.instance.anim.GetFloat("IdleSpeed") == 1.5f) && !isInHelpless)
         {
             isSpecial = true;
             isAttacking = true;
@@ -502,11 +500,7 @@ public class PlayerAttack : MonoBehaviour
 
     public void DThrow()
     {
-    //    if (currentlyGrabbedEnemy != null)
-    //    {
-    //        currentlyGrabbedEnemy.isGrabbed = false;
-    //        PlayerRefrecnces.instance.Move.transform.position = new Vector2(PlayerRefrecnces.instance.Move.transform.position.x, PlayerRefrecnces.instance.Move.transform.position.y + playerDThrowOffset.y); //Makes sure that the enemy position remains upon multiple throw hitboxes
-    //    }
+
     }
 
     public void BladeBound()

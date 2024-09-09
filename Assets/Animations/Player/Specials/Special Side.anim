@@ -119,7 +119,7 @@ AnimationClip:
     floatParameter: 5
     intParameter: 6
     messageOptions: 0
-  - time: 0.5
+  - time: 0.43333334
     functionName: parseAttack
     data: 
     objectReferenceParameter: {fileID: 0}

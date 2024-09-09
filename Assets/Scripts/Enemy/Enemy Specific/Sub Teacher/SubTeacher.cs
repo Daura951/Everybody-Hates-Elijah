@@ -42,12 +42,12 @@ public class SubTeacher : Entity
     public override void Start()
     {
         base.Start();
-        //if( 1 == Random.Range(1, 3))
-        //{
-        //    isMain = false;
-        //    Vocals.Replace();
-        //    anim.runtimeAnimatorController = AOC;
-        //}
+        if( 1 == Random.Range(1, 3))
+        {
+            isMain = false;
+            Vocals.Replace();
+            anim.runtimeAnimatorController = AOC;
+        }
         moveState = new SUB_MoveState(this, stateMachine, "move", moveStateData, this);
         idleState = new SUB_IdleState(this, stateMachine, "idle", idleStateData, this);
         playerDetectedState = new SUB_PlayerDetectedState(this, stateMachine, "playerDetected", playerDetectedData, this);
