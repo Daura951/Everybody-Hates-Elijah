@@ -25,7 +25,8 @@ public class Jock_IdleState : IdleState
         base.LogicUpdate();
         if (!entity.BB.isFrozen)
         {
-            if (isPlayerInMinAgroRange)
+
+            if (isPlayerInMinAgroRange && !entity.idleStun)
             {
                 stateMachine.ChangeState(jock.playerDetectedState);
             }

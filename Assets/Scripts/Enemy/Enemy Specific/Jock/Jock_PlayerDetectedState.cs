@@ -33,7 +33,7 @@ public class Jock_PlayerDetectedState : PlayerDetectedState
 
             else if (performLongRangeAttack)
             {
-                stateMachine.ChangeState(jock.runAtState);
+                stateMachine.ChangeState(jock.chargeState);
             }
             else if (!isPlayerInMaxAgroRange)
             {

@@ -30,27 +30,36 @@ public class Jock_StunState : StunState
     {
         base.LogicUpdate();
 
-        if(!isStunOver)
+        if (jock.rb.velocity.y == 0)
         {
-
+            jock.SetVelocity(0);
         }
-
 
         if (isStunOver)
         {
             if (performCloseRangeAttack)
             {
+                if (1 == Random.Range(1, 3))
                     stateMachine.ChangeState(jock.punchState);
             }
             else if (isPlayerInMinAgroRange)
             {
-                stateMachine.ChangeState(jock.runAtState);
+                stateMachine.ChangeState(jock.playerDetectedState);
             }
             else
             {
                 jock.lookForPlayerState.SetTurnImmedietly(true);
                 stateMachine.ChangeState(jock.lookForPlayerState);
             }
+        }
+
+        else if (entity.Yspeed > 8f)
+        {
+            stateMachine.ChangeState(jock.launchState);
+        }
+        else if (entity.Yspeed < -2.6f && !entity.CheckGround())
+        {
+            stateMachine.ChangeState(jock.spinState);
         }
     }
 

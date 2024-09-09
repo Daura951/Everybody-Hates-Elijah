@@ -7,6 +7,7 @@ public class Entity : MonoBehaviour
 {
     public FiniteStateMachine stateMachine;
     public D_Entity entityData;
+    public D_JumpState JumpData;
     public int facingDir { get; private set; }
     public Rigidbody2D rb { get; private set; }
     public Animator anim { get; private set; }
@@ -33,6 +34,8 @@ public class Entity : MonoBehaviour
     public bool isGrabbed;
 
     public bool isPummeled;
+
+    public bool idleStun;
 
     public int pummelFactor = 0;
 
@@ -71,6 +74,11 @@ public class Entity : MonoBehaviour
             anim.SetFloat("speed", 1);
         }
 
+        if (checkPassThroughAbove())
+            print("jump");
+        else
+            print("Stop");
+
         StartCoroutine(YSpeed());
     }
 
@@ -82,10 +90,6 @@ public class Entity : MonoBehaviour
         anim.SetFloat("YVelocity", Yspeed);
     }
 
-    public virtual void P()
-    {
-        print("print line");
-    }
 
     public virtual void FixedUpdate()
     {
@@ -149,6 +153,8 @@ public class Entity : MonoBehaviour
         Gizmos.DrawWireSphere(playerCheckTF.position + (Vector3)(transform.right * entityData.minAgroDist), .2f);
         Gizmos.color = Color.blue; //Blue is Max awarness range!
         Gizmos.DrawWireSphere(playerCheckTF.position + (Vector3)(transform.right * entityData.maxAgroDist), .2f);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(playerCheckTF.position + (Vector3)(transform.right * 5f), playerCheckTF.position + (Vector3)(transform.right * 5f));
     }
 
     public virtual bool checkPlayerInMinAgroRange()
@@ -165,6 +171,16 @@ public class Entity : MonoBehaviour
     {
 
         return Physics2D.Raycast(playerCheckTF.position, transform.right, entityData.closeRangeAttackDist, entityData.whatIsPlayer);
+    }
+
+    public virtual bool checkPassThroughAbove()
+    {
+        RaycastHit2D RC= Physics2D.Raycast(new Vector3(transform.position.x - (transform.localScale.x*.5f*facingDir), transform.position.y - transform.localScale.y * .25f, transform.position.z), transform.up, JumpData.jumpHeight - transform.localScale.y, entityData.whatIsGround);
+        if (RC)
+            return RC.transform.CompareTag("PassThroughPlatform");
+        else
+            return false;
+
     }
 
     public virtual void GetHit(float knockBack, float angle)

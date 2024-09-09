@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AS_LaunchState : StunState
+public class Jock_SpinState : StunState
 {
-    private AngryStudent angryStudent;
+    private Jock jock;
 
-    public AS_LaunchState(Entity entity, FiniteStateMachine stateMachine, string animBoolName, AngryStudent angryStudent) : base(entity, stateMachine, animBoolName)
+    public Jock_SpinState(Entity entity, FiniteStateMachine stateMachine, string animBoolName, Jock jock) : base(entity, stateMachine, animBoolName)
     {
-        this.angryStudent = angryStudent;
+        this.jock = jock;
     }
 
     public override void Enter()
@@ -25,9 +25,9 @@ public class AS_LaunchState : StunState
     {
         base.LogicUpdate();
 
-        if (entity.Yspeed < -.035f && !entity.CheckGround())
+        if (entity.anim.GetBool("Grounded"))
         {
-            stateMachine.ChangeState(angryStudent.spinState);
+            stateMachine.ChangeState(jock.landState);
         }
 
     }

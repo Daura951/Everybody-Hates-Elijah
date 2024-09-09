@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AS_LandState : StunState
+public class Jock_LandState : StunState
 {
-    private AngryStudent angryStudent;
+    private Jock jock;
 
-    public AS_LandState(Entity entity, FiniteStateMachine stateMachine, string animBoolName, AngryStudent angryStudent) : base(entity, stateMachine, animBoolName)
+    public Jock_LandState(Entity entity, FiniteStateMachine stateMachine, string animBoolName, Jock jock) : base(entity, stateMachine, animBoolName)
     {
-        this.angryStudent = angryStudent;
+        this.jock = jock;
     }
 
 

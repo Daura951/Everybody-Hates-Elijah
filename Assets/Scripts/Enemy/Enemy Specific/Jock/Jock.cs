@@ -7,14 +7,19 @@ public class Jock : Entity
     public Jock_IdleState idleState { get; private set; }
     public Jock_MoveState moveState { get; private set; }
     public Jock_PlayerDetectedState playerDetectedState { get; private set; }
-    public Jock_RunAtState runAtState { get; private set; }
+    public Jock_ChargeState chargeState { get; private set; }
+    public Jock_ChargeFailState chargeFState { get; private set; }
     public Jock_LookForPlayerState lookForPlayerState { get; private set; }
 
     public Jock_PunchState punchState { get; private set; }
+    public Jock_LaunchState launchState { get; private set; }
+    public Jock_SpinState spinState { get; private set; }
+    public Jock_LandState landState { get; private set; }
 
     public Jock_DeadState deadState;
 
     public Jock_StunState stunState { get; private set; }
+    public Jock_JumpState jumpState { get; private set; }
 
 
     public GameObject[] hitboxes;
@@ -23,9 +28,12 @@ public class Jock : Entity
     [SerializeField] private D_MoveState moveStateData;
     [SerializeField] private D_PlayerDetected playerDetectedData;
     [SerializeField] private D_RunAtState runAtStateData;
+    [SerializeField] private D_JumpState jumpStateData;
     [SerializeField] private D_LookForPlayerState lookForPlayerData;
     [SerializeField] private D_MeleeAttack punchStateData;
+    [SerializeField] private D_MeleeAttack chargeStateData;
     [SerializeField] private Transform punchPosition;
+    [SerializeField] private Transform ChargePosition;
     [SerializeField] private AnimatorOverrideController AOC;
 
 
@@ -41,10 +49,15 @@ public class Jock : Entity
         moveState = new Jock_MoveState(this, stateMachine, "move", moveStateData, this);
         idleState = new Jock_IdleState(this, stateMachine, "idle", idleStateData, this);
         playerDetectedState = new Jock_PlayerDetectedState(this, stateMachine, "playerDetected", playerDetectedData, this);
-        runAtState = new Jock_RunAtState(this, stateMachine, "runAt", runAtStateData, this);
+        chargeState = new Jock_ChargeState(this, stateMachine, "charge", ChargePosition, chargeStateData, this);
+        chargeFState = new Jock_ChargeFailState(this, stateMachine, "chargeFail", this);
         lookForPlayerState = new Jock_LookForPlayerState(this, stateMachine, "lookForPlayer", lookForPlayerData, this);
         punchState = new Jock_PunchState(this, stateMachine, "punch", punchPosition, punchStateData, this);
         stunState = new Jock_StunState(this, stateMachine, "stun", this);
+        jumpState = new Jock_JumpState(this, stateMachine, "jump", jumpStateData, this);
+        launchState = new Jock_LaunchState(this, stateMachine, "launch", this);
+        spinState = new Jock_SpinState(this, stateMachine, "spin", this);
+        landState = new Jock_LandState(this, stateMachine, "land", this);
         deadState = new Jock_DeadState(this, stateMachine, "dead", this);
 
         stateMachine.Init(moveState);
@@ -76,9 +89,11 @@ public class Jock : Entity
 
     public override void Damage()
     {
-        base.Damage();
-        if (!BB.isFrozen)
+        if (stateMachine.currentState != chargeState)
         {
+         base.Damage();
+         if (!BB.isFrozen)
+         {
             if (stateMachine.currentState != stunState && health.GetHealth() > 0)
             {
                 stateMachine.ChangeState(stunState);
@@ -87,7 +102,8 @@ public class Jock : Entity
             {
                 stateMachine.ChangeState(deadState);
             }
-       }
+         }
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -99,6 +115,17 @@ public class Jock : Entity
             if (health.GetHealth() > 0)
                 stateMachine.ChangeState(idleState);
         }
+    }
+
+    public void Jock_GoIdle()
+    {
+        idleStun = true;
+        stateMachine.ChangeState(idleState);
+    }
+
+    public D_RunAtState RunData()
+    {
+        return runAtStateData;
     }
 
 }

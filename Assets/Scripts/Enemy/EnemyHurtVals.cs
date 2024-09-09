@@ -7,6 +7,7 @@ public class EnemyHurtVals : MonoBehaviour
     public enum AttackTypes
     {
         Punch, Kick, //angry student
+        Charge,      // Jock
         Slash, Boomerang //sub teacher
     };
 
@@ -15,6 +16,9 @@ public class EnemyHurtVals : MonoBehaviour
         //Angry student
         {AttackTypes.Punch, "5 30 10 .3" },
         {AttackTypes.Kick, "3 20 5 .2" },
+
+        //Jock
+        {AttackTypes.Charge, "10 90 20 .7" },
 
         //Sub Teacher
         {AttackTypes.Slash, "5 30 10 .3" },

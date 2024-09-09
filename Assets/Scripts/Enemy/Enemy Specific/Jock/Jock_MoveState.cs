@@ -28,7 +28,11 @@ public class Jock_MoveState : MoveState
         {
             stateMachine.ChangeState(jock.playerDetectedState);
         }
-        else if (isDetectingWall || !isDetectingLedge)
+        else if (isDetectingWall || entity.checkPassThroughAbove())
+        {
+            stateMachine.ChangeState(jock.jumpState);
+        }
+        else if (!isDetectingLedge)
         {
             jock.idleState.setFlipAfterIdle(true);
             stateMachine.ChangeState(jock.idleState);

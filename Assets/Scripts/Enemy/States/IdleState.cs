@@ -30,11 +30,11 @@ public class IdleState : State
     {
         base.Exit();
         
-        if(flipAfterIdle && !entity.isGrabbed && !entity.BB.isFrozen && !isInCutscene)
+        if(flipAfterIdle && !entity.isGrabbed && !entity.BB.isFrozen && !isInCutscene && !entity.idleStun)
         {
             entity.Flip();
         }
-    
+        entity.idleStun = false;
     }
 
     public override void LogicUpdate()
