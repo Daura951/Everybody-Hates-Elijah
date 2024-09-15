@@ -12,6 +12,10 @@ public class AS_MoveState : MoveState
 
     public override void Enter()
     {
+        foreach (GameObject hb in angryStudent.hitboxes)
+        {
+            hb.SetActive(false);
+        }
         base.Enter();
     }
 

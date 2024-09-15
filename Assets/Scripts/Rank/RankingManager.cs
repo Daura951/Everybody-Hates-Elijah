@@ -4,6 +4,7 @@ using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.UI;
 
 public class RankingManager : MonoBehaviour
 {
@@ -18,17 +19,19 @@ public class RankingManager : MonoBehaviour
     [SerializeField] private TMP_Text timeText;
     [SerializeField] private TMP_Text comboText;
     [SerializeField] private TMP_Text enemiesKilledText;
-    [SerializeField] private TMP_Text rankText;
     [SerializeField] private TMP_Text continueText;
 
     private float WaitTime = 5;
     private bool next = false;
+
+    public Image rankImage;
+    public Sprite[] rankSprites;
     // Start is called before the first frame update
     void Start()
     {
         SetRankingFields();
         next = false;
-        rankText.text =  calculateRank();
+        rankImage.sprite = calculateRank();
         StartCoroutine(NextLevel());
     }
 
@@ -36,7 +39,6 @@ public class RankingManager : MonoBehaviour
     {
         if ((Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Fire1")) && next)
         {
-            print("ready");
             SceneManager.LoadScene(2);
         }
     }
@@ -44,7 +46,6 @@ public class RankingManager : MonoBehaviour
     IEnumerator NextLevel()
     {
         yield return new WaitForSeconds(WaitTime);
-        continueText.SetText("Press 'Space' to continue");
         next = true;
 
     }
@@ -57,7 +58,7 @@ public class RankingManager : MonoBehaviour
         return (float.Parse(parts[0]) * 60) + float.Parse(parts[1]);
     }
 
-    string calculateRank()
+    Sprite calculateRank()
     {
         print("Combo: " + playerCombo);
         print("enemies killed " + playerEnemiesKilled);
@@ -71,9 +72,12 @@ public class RankingManager : MonoBehaviour
         float bestComboPercent = CalculatePercent((float)playerCombo,  bestCombo);
         float bestEnemiesKilledPercent = CalculatePercent((float)playerEnemiesKilled, bestEnemiesKilled);
 
-        SetText("Time", playerTime, bestTimeInSec, bestTimePercent, timeText);
-        SetText("Max Combo", playerCombo, bestCombo, bestComboPercent, comboText);
-        SetText("Enemies Killed", playerEnemiesKilled, bestEnemiesKilled, bestEnemiesKilledPercent, enemiesKilledText);
+        timeText.text = "" + playerTime.ToString("0.0");
+        comboText.text = ""+playerCombo;
+        enemiesKilledText.text = ""+playerEnemiesKilled;
+        //SetText("Time", playerTime, bestTimeInSec, bestTimePercent, timeText);
+        //SetText("Max Combo", playerCombo, bestCombo, bestComboPercent, comboText);
+        //SetText("Enemies Killed", playerEnemiesKilled, bestEnemiesKilled, bestEnemiesKilledPercent, enemiesKilledText);
 
         float rank = bestTimePercent + bestComboPercent + bestEnemiesKilledPercent;
         rank /= 3;
@@ -81,17 +85,17 @@ public class RankingManager : MonoBehaviour
 
         if (rank <= 100 && rank > 75)
         {
-            return "Ignovised";
+            return rankSprites[3];
         }
         else if (rank <= 75 && rank > 50)
         {
-            return "Metamised";
+            return rankSprites[2];
         }
         else if (rank <= 50 && rank > 25)
         {
-            return "Mallodite";
+            return rankSprites[1];
         }
-        else return "Drunt";
+        else return rankSprites[0];
 
         
     }

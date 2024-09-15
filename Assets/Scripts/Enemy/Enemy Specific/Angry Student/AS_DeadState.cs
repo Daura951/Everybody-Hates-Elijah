@@ -11,4 +11,13 @@ public class AS_DeadState : DeadState
     {
         this.angryStudent = angryStudent;
     }
+
+    public override void Enter()
+    {
+        foreach (GameObject hb in angryStudent.hitboxes)
+        {
+            hb.SetActive(false);
+        }
+        base.Enter();
+    }
 }

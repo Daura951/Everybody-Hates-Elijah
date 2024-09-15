@@ -24,6 +24,8 @@ public class PlayerRefrecnces : MonoBehaviour
         PlayerPrefs.SetInt("loadGameIndex", SceneManager.GetActiveScene().buildIndex);
         PlayerPrefs.SetFloat("playerPosX", GameObject.FindGameObjectWithTag("Player").transform.position.x);
         PlayerPrefs.SetFloat("playerPosY", GameObject.FindGameObjectWithTag("Player").transform.position.y);
+
+        PlayerPrefs.SetInt("enemiesKilled", 0);
     }
 
 

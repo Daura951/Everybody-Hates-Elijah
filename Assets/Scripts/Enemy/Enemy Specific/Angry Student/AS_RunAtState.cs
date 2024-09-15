@@ -12,6 +12,10 @@ public class AS_RunAtState : RunAtState
 
     public override void Enter()
     {
+        foreach (GameObject hb in angryStudent.hitboxes)
+        {
+            hb.SetActive(false);
+        }
         base.Enter();
     }
 
