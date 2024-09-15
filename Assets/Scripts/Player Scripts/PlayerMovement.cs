@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
     public float Speed;
 
 
-    public Material crouchMat, RunMat;
+    public Physics2D RunMat, WallMat;
 
     private GameObject currentPassThroughPlatform;
 
@@ -63,6 +63,9 @@ public class PlayerMovement : MonoBehaviour
     public int curDamage = 0;
 
     public bool isInCutscene = false;
+
+    public LayerMask PlatLay;
+    public PhysicsMaterial2D[] Friction;
 
 
     // Start is called before the first frame update
@@ -109,7 +112,7 @@ public class PlayerMovement : MonoBehaviour
             isCrouch = PR.anim.GetCurrentAnimatorStateInfo(0).IsName("Crouch");
 
 
-            if (Input.GetButton("Run") && !isInAir && !isCrouch && !dashDisable)
+            if (Input.GetButton("Run") && !isInAir && !isCrouch)
             {
                 Speed = Run;
                 PR.anim.SetTrigger("Running");
@@ -145,7 +148,26 @@ public class PlayerMovement : MonoBehaviour
                     PR.anim.SetTrigger("Idle");
 
             }
+            if (isLeft)
+            {
+            Vector3 Detection = new Vector3(transform.position.x + transform.localScale.x *.55f , transform.position.y + transform.localScale.y * .3f, transform.position.z);
+                RaycastHit2D RC = Physics2D.Raycast(Detection , Vector3.left , 1f,PlatLay);
+                if (RC)
+                    PR.RB.sharedMaterial = Friction[1];
+                else
+                    PR.RB.sharedMaterial = Friction[0];
 
+            }
+            else if (!isLeft)
+            {
+                Vector3 Detection = new Vector3(transform.position.x - transform.localScale.x * .55f, transform.position.y + transform.localScale.y * .3f, transform.position.z);
+                RaycastHit2D RC = Physics2D.Raycast(Detection, Vector3.right, 1f, PlatLay);
+                if (RC)
+                    PR.RB.sharedMaterial = Friction[1];
+                else
+                    PR.RB.sharedMaterial = Friction[0];
+            } 
+       
             DetermineMovementStates();
 
             if (PR.RB.velocity.y < terminalVelocityY)
@@ -369,6 +391,7 @@ public class PlayerMovement : MonoBehaviour
         if (!PR.anim.GetBool("Stunned") && !PR.anim.GetBool("Taunt") && !PR.anim.GetBool("Grabbing") && !PR.Stun.isAirSpin && !PR.anim.GetBool("isAirStunned") && !PR.anim.GetBool("isLaying") && !H.dead && !SS.ShieldStun && !isInGetup)
         {
 
+
             if (isInAir)
                 Speed = Walk;
             if (!PR.anim.GetBool("EndLag"))
@@ -435,7 +458,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if ((collision.gameObject.tag == "Platform" || collision.gameObject.tag == "Grab") && collision.contacts[0].normal.y > .8f)
+        if ((collision.gameObject.tag == "Platform" || collision.gameObject.tag == "PassThroughPlatform" || collision.gameObject.tag == "Grab") && collision.contacts[0].normal.y > .8f)
         {
             if(collision.gameObject.GetComponent<PlatformMovement>())
             {
@@ -525,7 +548,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
-        if (collision.gameObject.tag == "Platform")
+        if (collision.gameObject.tag == "Platform" || collision.gameObject.tag == "PassThroughPlatform")
         {
             if (!collision.gameObject.GetComponent<Escelator>())
             {
@@ -547,8 +570,9 @@ public class PlayerMovement : MonoBehaviour
 
             RaycastHit2D hitGround = Physics2D.Raycast(groundRays[1].transform.position, -Vector2.up * rayRange);
             if (!isInAir && 
-                collision?.gameObject?.tag == "Platform" && 
-                hitGround.collider?.tag == "Platform")
+                ((collision?.gameObject?.tag == "Platform" && 
+                hitGround.collider?.tag == "Platform")|| (collision?.gameObject?.tag == "PassThroughPlatform" &&
+                hitGround.collider?.tag == "PassThroughPlatform")))
             {
                 if (collision.gameObject.transform.position.y < transform.position.y)
                     jumpAmt = 1;

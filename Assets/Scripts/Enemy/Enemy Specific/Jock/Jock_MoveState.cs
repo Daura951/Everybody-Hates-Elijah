@@ -30,7 +30,7 @@ public class Jock_MoveState : MoveState
         }
         else if (isDetectingWall || entity.checkPassThroughAbove())
         {
-            stateMachine.ChangeState(jock.jumpState);
+           stateMachine.ChangeState(jock.jumpState);
         }
         else if (!isDetectingLedge)
         {
