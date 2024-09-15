@@ -25,6 +25,11 @@ public class Jock_IdleState : IdleState
         base.LogicUpdate();
         if (!entity.BB.isFrozen)
         {
+            if (entity.checkForJump())
+            {
+                setFlipAfterIdle(false);
+               stateMachine.ChangeState(jock.jumpState);
+            }
 
             if (isPlayerInMinAgroRange && !entity.idleStun)
             {

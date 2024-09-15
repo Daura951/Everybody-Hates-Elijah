@@ -3620,7 +3620,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 6200000, guid: 77d6f4bd15e251a4c958dce051dc54b8, type: 2}
+  m_Material: {fileID: 6200000, guid: 664929c967a08334e87083ff464c7eb6, type: 2}
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -3666,8 +3666,6 @@ MonoBehaviour:
   scaledGravity: 0
   jumpAmt: 0
   Speed: 0
-  crouchMat: {fileID: 2100000, guid: 6ed032d1c2cd87c42a57a267c3a8c539, type: 2}
-  RunMat: {fileID: 2100000, guid: b3667f6cfd912fe4386181334424e8c8, type: 2}
   isFalling: 0
   isLeft: 0
   isInAir: 0
@@ -3687,6 +3685,12 @@ MonoBehaviour:
   InEscelator: 0
   curDamage: 0
   isInCutscene: 0
+  PlatLay:
+    serializedVersion: 2
+    m_Bits: 512
+  Friction:
+  - {fileID: 6200000, guid: 664929c967a08334e87083ff464c7eb6, type: 2}
+  - {fileID: 6200000, guid: 87c7ff651ead24e4f925e5d35a2fb05e, type: 2}
 --- !u!114 &4926932388033835190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5986,6 +5990,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4926932388033835194}
     m_Modifications:
+    - target: {fileID: 1527669739784027669, guid: 3942af84304939d4287d889183264d2b, type: 3}
+      propertyPath: m_Name
+      value: Freeze Slider
+      objectReference: {fileID: 0}
     - target: {fileID: 1988979715769318664, guid: 3942af84304939d4287d889183264d2b, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Jock_JumpStateData
   m_EditorClassIdentifier: 
   projectile: {fileID: 0}
-  projectileDamage: 5
-  projectileSpeed: 12
-  projectileTravelDist: 0
+  JumpForce: 5
+  JumpDistance: 6
+  jumpHeight: 4

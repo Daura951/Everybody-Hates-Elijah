@@ -6,6 +6,7 @@ public class LedgeGrab : MonoBehaviour
 {
     public bool reGrab = true, action = false, grab = false, moveable = false;
     Collider2D redBox;
+    BoxCollider2D Box;
     GameObject g;
     private float redX, XoffSet;
 
@@ -170,7 +171,11 @@ public class LedgeGrab : MonoBehaviour
         {
 
             if (redBox)
-                g = redBox.gameObject;
+            {
+               g = redBox.gameObject;
+               Box= g.GetComponent<BoxCollider2D>();
+            }
+
             PR.Attack.bypassMoveBlock = false;
 
             if (g.GetComponent<PlatformMovement>())
@@ -211,7 +216,7 @@ public class LedgeGrab : MonoBehaviour
     {
         if (transform.position.x < g.transform.position.x)
         {
-            offset = new Vector2((g.transform.position.x - (g.transform.localScale.x * 0.5f) - XoffSet), (g.transform.position.y - (((1f - g.transform.localScale.y) / .25f) * .125f)));
+            offset = new Vector2((g.transform.position.x - (g.transform.localScale.x * 0.5f) - XoffSet + (Box.offset.x * Box.size.x)), (g.transform.position.y - (((1f - g.transform.localScale.y) / .25f) * .125f) + (Box.offset.y * Box.size.y)));
             if (transform.localEulerAngles.y == 0)
             {
                 gameObject.transform.eulerAngles = new Vector3(0, -180, 0);
@@ -219,7 +224,7 @@ public class LedgeGrab : MonoBehaviour
         }
         else
         {
-            offset = new Vector2((g.transform.position.x + (g.transform.localScale.x * 0.5f) + XoffSet), (g.transform.position.y - (((1f - g.transform.localScale.y) / .25f) * .125f)));
+            offset = new Vector2((g.transform.position.x + (g.transform.localScale.x * 0.5f) + XoffSet - (Box.offset.x * Box.size.x)), (g.transform.position.y - (((1f - g.transform.localScale.y) / .25f) * .125f) + (Box.offset.y * Box.size.y)));
             if (transform.localEulerAngles.y != 0)
             {
                 gameObject.transform.eulerAngles = new Vector3(0,0,0);
@@ -232,12 +237,12 @@ public class LedgeGrab : MonoBehaviour
     {   
         if (transform.position.x < g.transform.position.x)
         {
-            transform.position = new Vector2(transform.position.x +1.575f, (0.43f * g.transform.localScale.y + g.transform.position.y + 0.55f));
+            transform.position = new Vector2(transform.position.x +1.575f, 0.43f * g.transform.localScale.y + g.transform.position.y + 0.55f + Box.offset.y * Box.size.y);
             gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
         }
         else
         {
-            transform.position = new Vector2(transform.position.x - 1.575f, (0.43f * g.transform.localScale.y + g.transform.position.y + 0.55f));
+            transform.position = new Vector2(transform.position.x - 1.575f, 0.43f * g.transform.localScale.y + g.transform.position.y + 0.55f + Box.offset.y * Box.size.y);
             gameObject.transform.eulerAngles = new Vector3(0, -180, 0);
         }
         PR.anim.SetBool("Grabbing",false);

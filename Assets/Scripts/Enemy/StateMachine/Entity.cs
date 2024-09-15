@@ -22,6 +22,8 @@ public class Entity : MonoBehaviour
     [SerializeField] private Transform ledgeCheckTF;
     [SerializeField] private Transform playerCheckTF;
     [SerializeField] private Transform groundCheckTF;
+    [SerializeField] private Transform HorJumpCheckTF;
+    [SerializeField] private Transform VerJumpCheckTF;
 
     public float[] stats { get; private set; }
 
@@ -74,13 +76,11 @@ public class Entity : MonoBehaviour
             anim.SetFloat("speed", 1);
         }
 
-        if (checkPassThroughAbove())
-            print("jump");
-        else
-            print("Stop");
 
         StartCoroutine(YSpeed());
     }
+
+
 
     IEnumerator YSpeed()
     {
@@ -153,8 +153,6 @@ public class Entity : MonoBehaviour
         Gizmos.DrawWireSphere(playerCheckTF.position + (Vector3)(transform.right * entityData.minAgroDist), .2f);
         Gizmos.color = Color.blue; //Blue is Max awarness range!
         Gizmos.DrawWireSphere(playerCheckTF.position + (Vector3)(transform.right * entityData.maxAgroDist), .2f);
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(playerCheckTF.position + (Vector3)(transform.right * 5f), playerCheckTF.position + (Vector3)(transform.right * 5f));
     }
 
     public virtual bool checkPlayerInMinAgroRange()
@@ -175,9 +173,23 @@ public class Entity : MonoBehaviour
 
     public virtual bool checkPassThroughAbove()
     {
-        RaycastHit2D RC= Physics2D.Raycast(new Vector3(transform.position.x - (transform.localScale.x*.5f*facingDir), transform.position.y - transform.localScale.y * .25f, transform.position.z), transform.up, JumpData.jumpHeight - transform.localScale.y, entityData.whatIsGround);
+        if (JumpData == null) return false;
+
+        RaycastHit2D RC= Physics2D.Raycast(VerJumpCheckTF.position, transform.up, JumpData.jumpHeight, entityData.whatIsGround);
         if (RC)
             return RC.transform.CompareTag("PassThroughPlatform");
+            else
+                return false;
+
+    }
+
+    public virtual bool checkForJump()
+    {
+        if (JumpData == null) return false;
+
+        RaycastHit2D RC = Physics2D.Raycast(HorJumpCheckTF.position, transform.right, JumpData.JumpDistance, entityData.whatIsGround);
+        if (RC && !checkLedge())
+            return true;
         else
             return false;
 
@@ -277,9 +289,9 @@ public class Entity : MonoBehaviour
        else if(!Vocals.EnemyVoice.isPlaying)
        {
             yield return new WaitForSeconds(Vocals.Died());
+       PlayerPrefs.SetInt("enemiesKilled", PlayerPrefs.GetInt("enemiesKilled") + 1);
             Destroy(this.gameObject);
        }
-       PlayerPrefs.SetInt("enemiesKilled", PlayerPrefs.GetInt("enemiesKilled") + 1);
 
     }
 

@@ -5,6 +5,8 @@ using UnityEngine;
 public class Jock_JumpState : JumpState
 {
     private Jock jock;
+    bool Hordir;
+    float Y;
     public Jock_JumpState(Entity entity, FiniteStateMachine stateMachine, string animBoolName, D_JumpState stateData, Jock jock) : base(entity, stateMachine, animBoolName , stateData)
     {
         this.jock = jock;
@@ -13,29 +15,37 @@ public class Jock_JumpState : JumpState
     public override void Enter()
     {
         base.Enter();
-        if (entity.checkPassThroughAbove())
-        {
+
+        jock.idleState.setFlipAfterIdle(false);
+        Hordir = !entity.checkLedge();
         entity.SetVelocity(0);
-        }
-        entity.rb.AddForce(new Vector2(0f,jumpforce), ForceMode2D.Impulse);
-        jock.idleState.setFlipAfterIdle(true);
+        Y = entity.transform.position.y;
+
+        if(!Hordir)
+        entity.rb.AddForce(new Vector2(0,jumpforce+.475f), ForceMode2D.Impulse);
+        else
+            entity.rb.AddForce(new Vector2(jumpdis, jumpforce*.5f), ForceMode2D.Impulse);
     }
 
     public override void Exit()
     {
+        if (!Hordir && (entity.transform.position.y <= Y+.1f && entity.transform.position.y >= Y-.1f))
+            jock.idleState.setFlipAfterIdle(true);
+
         base.Exit();
     }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        entity.rb.AddForce(Vector2.right *entity.facingDir);
+        if(!Hordir)
+        {
+         entity.rb.AddForce(Vector2.right *entity.facingDir * 2f);
+        }
 
-        if(!entity.CheckWall())
-            jock.idleState.setFlipAfterIdle(false);
+         if (entity.rb.velocity.y == 0)
+         stateMachine.ChangeState(jock.idleState);
 
-        if (entity.rb.velocity.y == 0)
-            stateMachine.ChangeState(jock.idleState);
 
     }
 
