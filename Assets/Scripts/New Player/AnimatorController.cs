@@ -38,7 +38,7 @@ public class AnimatorController : MonoBehaviour
 
     public void Play(Animations animation, bool lockAnimator, bool bypassLock, float crossFadeTime = 0.2f)
     {
-        //print("Going from: " + currentAnimation.ToString() + " to: " + animation.ToString());
+        print("Going from: " + currentAnimation.ToString() + " to: " + animation.ToString());
         if(animation==Animations.NONE)
         {
             anim.CrossFade(animations[(int)Animations.IDLE], crossFadeTime);

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 234a294cbad039a469db570462dfd2d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animToGoToOnButtonPress: 6
+  animToGoToOnButtonPress: 7
   animToGoToOnEnd: 0
   crossFadeTime: 0.001
 --- !u!1102 &-8247244769186620217
@@ -54,7 +54,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4bd5bf40b097cf43ae6e845d7cb5bee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animation: 9
+  animation: 10
   isLocked: 0
   crossFadeTime: 0.001
   isAnimAttack: 1
@@ -323,7 +323,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4bd5bf40b097cf43ae6e845d7cb5bee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animation: 5
+  animation: 6
   isLocked: 0
   crossFadeTime: 0.001
   isAnimAttack: 1
@@ -420,7 +420,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4bd5bf40b097cf43ae6e845d7cb5bee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animation: 7
+  animation: 8
   isLocked: 0
   crossFadeTime: 0.001
   isAnimAttack: 1
@@ -438,7 +438,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 234a294cbad039a469db570462dfd2d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animToGoToOnButtonPress: 8
+  animToGoToOnButtonPress: 9
   animToGoToOnEnd: 0
   crossFadeTime: 0.001
 --- !u!1102 &7808082690436276083

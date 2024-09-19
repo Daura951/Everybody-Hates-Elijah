@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,22 +7,25 @@ public class Player : MonoBehaviour
 {
     [SerializeField]
     public List<PlayerComponent> playerComponents;
-    [SerializeField]
     private AnimatorController animController;
-
-    [SerializeField]
-    private PlayerAttackController playerAttack;
+    private PlayerAttackController attackController;
 
     private InputManager inputManager;
 
     private void Start()
     {
         inputManager = GetComponent<InputManager>();
+        attackController = GetComponent<PlayerAttackController>();
+        animController = GetComponent<AnimatorController>();
+
         foreach(PlayerComponent pc in playerComponents)
         {
+            ConfiugrePlayer(pc);
             pc.OnStart();
         }
+
     }
+
 
     // Update is called once per frame
     private void Update()
@@ -40,18 +44,16 @@ public class Player : MonoBehaviour
         }
     }
 
-    public InputManager getInputManager()
+    private void ConfiugrePlayer(PlayerComponent pc)
     {
-        return inputManager;
-    }
+       if(pc is PlayerAttackController)
+       {
+            ((PlayerAttackController)pc).Configure(inputManager, animController);
+       }
 
-    public AnimatorController getAnimController()
-    {
-        return animController;
-    }
-
-    public PlayerAttackController GetAttackController()
-    {
-        return playerAttack;
+       else if(pc is PlayerMovementController)
+       {
+            ((PlayerMovementController)pc).Configure(inputManager, animController, attackController);
+       }
     }
 }

@@ -4,27 +4,28 @@ using UnityEngine;
 
 public class PlayerAttackController : PlayerComponent
 {
-    [SerializeField]
-    private Player player;
-    private InputManager input;
+    private InputManager inputManager;
     private AnimatorController animController;
 
     private bool isAttacking = false;
     public override void OnStart()
     {
-        input = player.getInputManager();
-        animController = player.getAnimController();
         print("Hello PlayerAttackController!");
     }
 
     public override void OnUpdate()
     {
-        if(input.isNeturalPressed && !isAttacking)
+    }
+
+    public void Jab()
+    {
+        if(!isAttacking)
         {
             animController.Play(Animations.JAB_1, false, false);
             isAttacking = true;
         }
     }
+
     public override void OnFixedUpdate()
     {
     }
@@ -38,5 +39,13 @@ public class PlayerAttackController : PlayerComponent
     {
         this.isAttacking = isAttacking;
     }
+
+    public void Configure(InputManager inputManager, AnimatorController animController)
+    {
+        this.inputManager = inputManager;
+        this.animController = animController;
+
+        inputManager.OnJabPressed += Jab;
+    } 
 
 }

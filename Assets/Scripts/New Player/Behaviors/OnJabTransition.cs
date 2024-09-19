@@ -15,7 +15,7 @@ public class OnJabTransition : StateMachineBehaviour
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        manager = animator.GetComponent<Player>().getInputManager();
+        manager = animator.GetComponent<InputManager>();
         hasTransitioned = false; // Reset when entering the state
     }
 
@@ -23,7 +23,7 @@ public class OnJabTransition : StateMachineBehaviour
     {
         if (!hasTransitioned && manager.isNeturalPressed)
         {
-            animator.GetComponent<Player>().getAnimController().Play(animToGoToOnButtonPress, false, true, crossFadeTime);
+            animator.GetComponent<AnimatorController>().Play(animToGoToOnButtonPress, false, true, crossFadeTime);
             hasTransitioned = true;
             Debug.Log("TRANSITION TO " + animToGoToOnButtonPress.ToString());
             return;
@@ -31,7 +31,7 @@ public class OnJabTransition : StateMachineBehaviour
 
         if (!hasTransitioned && stateInfo.normalizedTime >= 0.95f)
         {
-            animator.GetComponent<Player>().getAnimController().Play(animToGoToOnEnd, false, false, crossFadeTime);
+            animator.GetComponent<AnimatorController>().Play(animToGoToOnEnd, false, false, crossFadeTime);
             Debug.Log("TRANSITION TO " + animToGoToOnEnd.ToString());
             animator.GetComponent<PlayerAttackController>().SetIsAttacking(false);
             hasTransitioned = true;

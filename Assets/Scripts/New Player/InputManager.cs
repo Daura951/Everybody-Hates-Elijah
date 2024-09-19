@@ -6,6 +6,10 @@ using UnityEngine.InputSystem;
 
 public class InputManager:PlayerComponent
 {
+
+    public event Action<float> OnMove;
+    public event Action OnJabPressed;
+
     public PlayerInputActions playerControls;
     private InputAction move;
     private InputAction neutral;
@@ -58,7 +62,14 @@ public class InputManager:PlayerComponent
     public override void OnUpdate()
     {
         moveHorizontal = playerControls.Player.Move.ReadValue<Vector2>().x;
+        OnMove?.Invoke(moveHorizontal);
+
         isNeturalPressed = playerControls.Player.Neutral.triggered;
+
+        if(playerControls.Player.Neutral.triggered)
+        {
+            OnJabPressed?.Invoke();
+        }
     }
 
     public override void OnFixedUpdate()
