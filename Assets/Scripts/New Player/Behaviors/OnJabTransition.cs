@@ -25,14 +25,14 @@ public class OnJabTransition : StateMachineBehaviour
         {
             animator.GetComponent<AnimatorController>().Play(animToGoToOnButtonPress, false, true, crossFadeTime);
             hasTransitioned = true;
-            Debug.Log("TRANSITION TO " + animToGoToOnButtonPress.ToString());
+          //  Debug.Log("TRANSITION TO " + animToGoToOnButtonPress.ToString());
             return;
         }
 
         if (!hasTransitioned && stateInfo.normalizedTime >= 0.95f)
         {
             animator.GetComponent<AnimatorController>().Play(animToGoToOnEnd, false, false, crossFadeTime);
-            Debug.Log("TRANSITION TO " + animToGoToOnEnd.ToString());
+          //  Debug.Log("TRANSITION TO " + animToGoToOnEnd.ToString());
             animator.GetComponent<PlayerAttackController>().SetIsAttacking(false);
             hasTransitioned = true;
         }

@@ -62,7 +62,7 @@ public class InputManager:PlayerComponent
     public override void OnUpdate()
     {
         moveHorizontal = playerControls.Player.Move.ReadValue<Vector2>().x;
-        OnMove?.Invoke(moveHorizontal);
+        OnMove?.Invoke((moveHorizontal > .1f || moveHorizontal < -.1f) ? moveHorizontal: 0.0f);
 
         isNeturalPressed = playerControls.Player.Neutral.triggered;
 
