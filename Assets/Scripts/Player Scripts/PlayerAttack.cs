@@ -49,7 +49,7 @@ public class PlayerAttack : MonoBehaviour
 
     public bool ASideB = false, SideBS = false;
     public float distance, Speed = 20;
-    public Vector3 target;
+    public Vector2 target;
 
     [Header("Grabbing")]
     public Vector2 grabOffset;
@@ -157,27 +157,29 @@ public class PlayerAttack : MonoBehaviour
                 hitBoxes[attackIndexes[30]].transform.localScale = new Vector3(1f, 1f, 1f);
 
 
-
-            if (PlayerRefrecnces.instance.anim.GetBool("isGrounded") == true)
+            if (PlayerRefrecnces.instance.anim != null)
             {
-                //If we collided despawn the air hitboxes!
-                DespawnHitBox(3);
-                DespawnHitBox(10);
-                DespawnHitBox(11);
-                DespawnHitBox(12);
-            }
-
-            if (stunned)
-            {
-                for (int i = 0; i < hitBoxes.Length; i++)
+                if (PlayerRefrecnces.instance.anim.GetBool("isGrounded") == true)
                 {
-                    DespawnHitBox(i);
+                    //If we collided despawn the air hitboxes!
+                    DespawnHitBox(3);
+                    DespawnHitBox(10);
+                    DespawnHitBox(11);
+                    DespawnHitBox(12);
                 }
+
+                if (stunned)
+                {
+                    for (int i = 0; i < hitBoxes.Length; i++)
+                    {
+                        DespawnHitBox(i);
+                    }
+                }
+
+
+                if (!PlayerRefrecnces.instance.anim.GetBool("Climbing") && !ASideB && !PlayerRefrecnces.instance.anim.GetBool("Grabbing") && !SS.ShieldStun && !H.dead)
+                    Attack();
             }
-
-
-            if (!PlayerRefrecnces.instance.anim.GetBool("Climbing") && !ASideB && !PlayerRefrecnces.instance.anim.GetBool("Grabbing") && !SS.ShieldStun && !H.dead)
-                Attack();
 
             if (ASideB)
                 SideBMove();
@@ -392,8 +394,8 @@ public class PlayerAttack : MonoBehaviour
 
     public void SideBMove()
     {
-        transform.position = Vector2.MoveTowards(transform.position, target, 25f * Time.deltaTime);
-        if (transform.position == target)
+        transform.position = Vector2.MoveTowards(new Vector2(transform.position.x, transform.position.y), target, 25f * Time.deltaTime);
+        if (new Vector2(transform.position.x, transform.position.y) == target)
             ASideB = false;
     }
 

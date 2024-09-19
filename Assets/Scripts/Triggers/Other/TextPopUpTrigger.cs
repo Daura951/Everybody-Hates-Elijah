@@ -14,6 +14,7 @@ public class TextPopUpTrigger : MonoBehaviour
     void Start()
     {
         this.GetComponent<SpriteRenderer>().enabled = false;
+        text.SetActive(false);
         text.GetComponent<TMP_Text>().text = textToDisplay;   
     }
 
