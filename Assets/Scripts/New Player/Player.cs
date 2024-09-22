@@ -12,15 +12,21 @@ public class Player : MonoBehaviour
 
     private InputManager inputManager;
 
-    private void Start()
+    private void Awake()
     {
         inputManager = GetComponent<InputManager>();
         animController = GetComponent<AnimatorController>();
         Playerstate = GetComponent<PlayerState>();
+        ConfiugrePlayer(playerComponents);
+        
+
+    }
+
+    private void Start()
+    {
 
         foreach(PlayerComponent pc in playerComponents)
         {
-            ConfiugrePlayer(pc);
             pc.OnStart();
         }
 
@@ -44,8 +50,12 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void ConfiugrePlayer(PlayerComponent pc)
+    private void ConfiugrePlayer(List<PlayerComponent> pcs)
     {
-        pc.Configure(inputManager, animController, Playerstate);
+
+        foreach (PlayerComponent pc in playerComponents)
+        {
+            pc.Configure(inputManager, animController, Playerstate);
+        }
     }
 }
