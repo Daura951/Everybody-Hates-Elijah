@@ -58,10 +58,11 @@ public class PlayerAttackController : PlayerComponent
     }
 
 
-    public void Configure(InputManager inputManager, AnimatorController animController)
+    public override void Configure(InputManager inputManager, AnimatorController animController, PlayerState playerstate)
     {
         this.inputManager = inputManager;
         this.animController = animController;
+        this.playerstate = playerstate;
 
         inputManager.OnJabPressed += Jab;
         inputManager.OnTiltPressed += Tilt;

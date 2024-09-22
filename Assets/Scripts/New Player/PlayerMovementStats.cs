@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Player Movement")]
-public class PlayerMovementStats : MonoBehaviour
+public class PlayerMovementStats : ScriptableObject
 {
     [Header("Walk")]
     [Range(1f, 100f)] public float MaxWalkSpeed = 7f;
