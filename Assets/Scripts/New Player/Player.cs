@@ -8,15 +8,15 @@ public class Player : MonoBehaviour
     [SerializeField]
     public List<PlayerComponent> playerComponents;
     private AnimatorController animController;
-    private PlayerAttackController attackController;
+    private PlayerState Playerstate;
 
     private InputManager inputManager;
 
     private void Start()
     {
         inputManager = GetComponent<InputManager>();
-        attackController = GetComponent<PlayerAttackController>();
         animController = GetComponent<AnimatorController>();
+        Playerstate = GetComponent<PlayerState>();
 
         foreach(PlayerComponent pc in playerComponents)
         {
@@ -46,14 +46,6 @@ public class Player : MonoBehaviour
 
     private void ConfiugrePlayer(PlayerComponent pc)
     {
-       if(pc is PlayerAttackController)
-       {
-            ((PlayerAttackController)pc).Configure(inputManager, animController);
-       }
-
-       else if(pc is PlayerMovementController)
-       {
-            ((PlayerMovementController)pc).Configure(inputManager, animController, attackController);
-       }
+        pc.Configure(inputManager, animController, Playerstate);
     }
 }
