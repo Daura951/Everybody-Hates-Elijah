@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Tilt Forward
+  m_Name: FTilt
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -33,6 +33,10 @@ AnimationClip:
       value: {fileID: 1577776635, guid: 5619a209c40fdc247a50ba74c82f7ec1, type: 3}
     - time: 0.25
       value: {fileID: 1577776635, guid: 5619a209c40fdc247a50ba74c82f7ec1, type: 3}
+    - time: 0.28333333
+      value: {fileID: -787909636, guid: 5619a209c40fdc247a50ba74c82f7ec1, type: 3}
+    - time: 0.31666666
+      value: {fileID: 414358172, guid: 5619a209c40fdc247a50ba74c82f7ec1, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -59,12 +63,14 @@ AnimationClip:
     - {fileID: 658348196, guid: 5619a209c40fdc247a50ba74c82f7ec1, type: 3}
     - {fileID: 1577776635, guid: 5619a209c40fdc247a50ba74c82f7ec1, type: 3}
     - {fileID: 1577776635, guid: 5619a209c40fdc247a50ba74c82f7ec1, type: 3}
+    - {fileID: -787909636, guid: 5619a209c40fdc247a50ba74c82f7ec1, type: 3}
+    - {fileID: 414358172, guid: 5619a209c40fdc247a50ba74c82f7ec1, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.26666668
+    m_StopTime: 0.33333334
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -83,18 +89,4 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events:
-  - time: 0
-    functionName: Grunt
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.16666667
-    functionName: parseAttack
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 9
-    messageOptions: 0
+  m_Events: []

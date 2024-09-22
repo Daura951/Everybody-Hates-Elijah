@@ -242,7 +242,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7841a7f2efab734ead6c3e807d2b315, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1950137004}
 --- !u!114 &1950137004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -258,9 +257,6 @@ MonoBehaviour:
   playerComponents:
   - {fileID: 1950137003}
   - {fileID: 1950137007}
-  - {fileID: 1950137008}
-  animController: {fileID: 1950137010}
-  playerAttack: {fileID: 1950137007}
 --- !u!212 &1950137005
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -340,7 +336,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3709e7cbbf84f884baec213857790f5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1950137004}
 --- !u!114 &1950137008
 MonoBehaviour:
   m_ObjectHideFlags: 0

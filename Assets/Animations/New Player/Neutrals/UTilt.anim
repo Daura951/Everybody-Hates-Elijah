@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Tilt Up
+  m_Name: UTilt
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -41,6 +41,20 @@ AnimationClip:
       value: {fileID: -1863842623, guid: 136e69e5391eb7c4abd4d269362372fb, type: 3}
     - time: 0.33333334
       value: {fileID: 1891832702, guid: 136e69e5391eb7c4abd4d269362372fb, type: 3}
+    - time: 0.36666667
+      value: {fileID: -210977550, guid: 136e69e5391eb7c4abd4d269362372fb, type: 3}
+    - time: 0.4
+      value: {fileID: 613365968, guid: 136e69e5391eb7c4abd4d269362372fb, type: 3}
+    - time: 0.43333334
+      value: {fileID: 373521675, guid: 136e69e5391eb7c4abd4d269362372fb, type: 3}
+    - time: 0.46666667
+      value: {fileID: 1103626027, guid: 136e69e5391eb7c4abd4d269362372fb, type: 3}
+    - time: 0.5
+      value: {fileID: 125349373, guid: 136e69e5391eb7c4abd4d269362372fb, type: 3}
+    - time: 0.53333336
+      value: {fileID: 543326471, guid: 136e69e5391eb7c4abd4d269362372fb, type: 3}
+    - time: 0.56666666
+      value: {fileID: -2087565430, guid: 136e69e5391eb7c4abd4d269362372fb, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -71,12 +85,19 @@ AnimationClip:
     - {fileID: -346460634, guid: 136e69e5391eb7c4abd4d269362372fb, type: 3}
     - {fileID: -1863842623, guid: 136e69e5391eb7c4abd4d269362372fb, type: 3}
     - {fileID: 1891832702, guid: 136e69e5391eb7c4abd4d269362372fb, type: 3}
+    - {fileID: -210977550, guid: 136e69e5391eb7c4abd4d269362372fb, type: 3}
+    - {fileID: 613365968, guid: 136e69e5391eb7c4abd4d269362372fb, type: 3}
+    - {fileID: 373521675, guid: 136e69e5391eb7c4abd4d269362372fb, type: 3}
+    - {fileID: 1103626027, guid: 136e69e5391eb7c4abd4d269362372fb, type: 3}
+    - {fileID: 125349373, guid: 136e69e5391eb7c4abd4d269362372fb, type: 3}
+    - {fileID: 543326471, guid: 136e69e5391eb7c4abd4d269362372fb, type: 3}
+    - {fileID: -2087565430, guid: 136e69e5391eb7c4abd4d269362372fb, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.35000002
+    m_StopTime: 0.5833333
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -95,18 +116,4 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events:
-  - time: 0
-    functionName: Grunt
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 1
-    messageOptions: 0
-  - time: 0.25
-    functionName: parseAttack
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 8
-    messageOptions: 0
+  m_Events: []

@@ -16,7 +16,10 @@ public class AnimatorController : MonoBehaviour
         Animator.StringToHash("Jab 2"),
         Animator.StringToHash("Jab 2 Transition"),
         Animator.StringToHash("Jab 3"),
-        Animator.StringToHash("Jab 3 Transition")
+        Animator.StringToHash("Jab 3 Transition"),
+        Animator.StringToHash("DTilt"),
+        Animator.StringToHash("UTilt"),
+        Animator.StringToHash("FTilt")
     };
 
     [SerializeField]
@@ -86,5 +89,8 @@ public enum Animations
     JAB_2_TRANSITION,
     JAB_3,
     JAB_3_TRANSITION,
+    DTILT,
+    UTILT,
+    FTILT,
     NONE
 }
