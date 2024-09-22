@@ -18,7 +18,7 @@ public class OnAnimationExit : StateMachineBehaviour
 
         if (isAnimAttack)
         {
-            animator.GetComponent<PlayerAttackController>().SetIsAttacking(true);
+            animator.GetComponent<PlayerState>().isAttacking = true;
         }
 
         animator.GetComponent<MonoBehaviour>().StartCoroutine(Transition(animator, stateInfo));
@@ -33,13 +33,13 @@ public class OnAnimationExit : StateMachineBehaviour
             yield break; // If cancelled, exit coroutine
         }
 
-        PlayerAttackController attackController = animator.GetComponent<PlayerAttackController>();
+        PlayerState playerstate = animator.GetComponent<PlayerState>();
         AnimatorController animatorController = animator.GetComponent<AnimatorController>();
 
 
-        if (attackController.GetIsAttacking() && !isJab)
+        if (playerstate.isAttacking && !isJab)
         {
-            attackController.SetIsAttacking(false);
+            playerstate.isAttacking = false;
         }
 
         // Play Jab 1 Transition immediately

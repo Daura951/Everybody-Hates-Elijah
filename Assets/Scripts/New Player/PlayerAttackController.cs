@@ -6,8 +6,7 @@ public class PlayerAttackController : PlayerComponent
 {
     private InputManager inputManager;
     private AnimatorController animController;
-
-    private bool isAttacking = false;
+    private PlayerState playerstate;
     public override void OnStart()
     {
         print("Hello PlayerAttackController!");
@@ -19,26 +18,45 @@ public class PlayerAttackController : PlayerComponent
 
     public void Jab()
     {
-        if(!isAttacking)
+        if(!playerstate.isAttacking)
         {
             animController.Play(Animations.JAB_1, false, false);
-            isAttacking = true;
+            playerstate.isAttacking = true;
         }
     }
+
+    public void Tilt()
+    {
+        if (!playerstate.isAttacking)
+        {
+            playerstate.isAttacking = true;
+            float moveY = inputManager.moveVertical;
+
+            if (moveY > 0)
+            {
+                animController.Play(Animations.UTILT, false, false);
+            }
+            else if (moveY < 0)
+            {
+                animController.Play(Animations.DTILT, false, false);
+            }
+            else
+            {
+                animController.Play(Animations.FTILT, false, false);
+            }
+        }
+    }
+
+    public void Smash()
+    {
+
+    }
+
 
     public override void OnFixedUpdate()
     {
     }
 
-    public bool GetIsAttacking()
-    {
-        return isAttacking;
-    }
-
-    public void SetIsAttacking(bool isAttacking)
-    {
-        this.isAttacking = isAttacking;
-    }
 
     public void Configure(InputManager inputManager, AnimatorController animController)
     {
@@ -46,6 +64,8 @@ public class PlayerAttackController : PlayerComponent
         this.animController = animController;
 
         inputManager.OnJabPressed += Jab;
-    } 
+        inputManager.OnTiltPressed += Tilt;
+        inputManager.OnSmashPressed += Smash;
+    }
 
 }
