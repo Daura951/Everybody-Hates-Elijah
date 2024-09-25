@@ -19,7 +19,13 @@ public class AnimatorController : MonoBehaviour
         Animator.StringToHash("Jab 3 Transition"),
         Animator.StringToHash("DTilt"),
         Animator.StringToHash("UTilt"),
-        Animator.StringToHash("FTilt")
+        Animator.StringToHash("FTilt"),
+        Animator.StringToHash("DStrong Charge"),
+        Animator.StringToHash("DStrong Hit"),
+        Animator.StringToHash("UStrong Charge"),
+        Animator.StringToHash("UStrong Hit"),
+        Animator.StringToHash("FStrong Charge"),
+        Animator.StringToHash("FStrong Hit")
     };
 
     [SerializeField]
@@ -92,5 +98,11 @@ public enum Animations
     DTILT,
     UTILT,
     FTILT,
+    DSTRONG_CHARGE,
+    DSTRONG_HIT,
+    USTRONG_CHARGE,
+    USTRONG_HIT,
+    FSTRONG_CHARGE,
+    FSTRONG_HIT,
     NONE
 }

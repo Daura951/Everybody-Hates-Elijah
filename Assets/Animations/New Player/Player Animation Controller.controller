@@ -1,5 +1,32 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1102 &-9196663173933586308
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: DStrong Hit
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours:
+  - {fileID: 1279409167207887596}
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: 8f4e99373d54a5041a8f4ff02cd0eb56, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!114 &-8717036465974899461
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12,8 +39,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 234a294cbad039a469db570462dfd2d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animToGoToOnButtonPress: 7
   crossFadeTime: 0.001
+  animToGoToOnButtonPress: 7
+  isJabCancelable: 1
 --- !u!1102 &-8247244769186620217
 AnimatorState:
   serializedVersion: 6
@@ -58,6 +86,26 @@ MonoBehaviour:
   crossFadeTime: 0.001
   isAnimAttack: 1
   isJab: 1
+  isStrong: 0
+  cancel: 0
+--- !u!114 &-7257888032220903449
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4bd5bf40b097cf43ae6e845d7cb5bee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animation: 15
+  isLocked: 0
+  crossFadeTime: 0.001
+  isAnimAttack: 1
+  isJab: 0
+  isStrong: 1
   cancel: 0
 --- !u!1102 &-6890851525005987808
 AnimatorState:
@@ -166,6 +214,166 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!1102 &-6334967879863355409
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: FStrong Charge
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours:
+  - {fileID: -6201878834419396279}
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: 77124cea9065a1b4b8f6bf9481ba2538, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
+--- !u!114 &-6204456144812956222
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4bd5bf40b097cf43ae6e845d7cb5bee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animation: 0
+  isLocked: 0
+  crossFadeTime: 0.2
+  isAnimAttack: 0
+  isJab: 0
+  isStrong: 0
+  cancel: 0
+--- !u!114 &-6201878834419396279
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4bd5bf40b097cf43ae6e845d7cb5bee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animation: 19
+  isLocked: 0
+  crossFadeTime: 0.001
+  isAnimAttack: 1
+  isJab: 0
+  isStrong: 1
+  cancel: 0
+--- !u!114 &-5986545845975342538
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 234a294cbad039a469db570462dfd2d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  crossFadeTime: 0.001
+  animToGoToOnButtonPress: 0
+  isJabCancelable: 0
+--- !u!114 &-5667214813922842479
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 234a294cbad039a469db570462dfd2d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  crossFadeTime: 0.001
+  animToGoToOnButtonPress: 0
+  isJabCancelable: 0
+--- !u!114 &-3722857317439806747
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4bd5bf40b097cf43ae6e845d7cb5bee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animation: 17
+  isLocked: 0
+  crossFadeTime: 0.001
+  isAnimAttack: 1
+  isJab: 0
+  isStrong: 1
+  cancel: 0
+--- !u!1102 &-3434152897206598426
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: DStrong Charge
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours:
+  - {fileID: -7257888032220903449}
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: a23d85be211ab0b47ac78167f90f8fba, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
+--- !u!114 &-3374027612496671636
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4bd5bf40b097cf43ae6e845d7cb5bee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animation: 0
+  isLocked: 0
+  crossFadeTime: 0.2
+  isAnimAttack: 0
+  isJab: 0
+  isStrong: 0
+  cancel: 0
 --- !u!1102 &-2813478507364011297
 AnimatorState:
   serializedVersion: 6
@@ -218,6 +426,79 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!114 &-2442442848459570943
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4bd5bf40b097cf43ae6e845d7cb5bee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animation: 0
+  isLocked: 0
+  crossFadeTime: 0.2
+  isAnimAttack: 0
+  isJab: 0
+  isStrong: 0
+  cancel: 0
+--- !u!1102 &-1143569724418355073
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UStrong Hit
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours:
+  - {fileID: -5667214813922842479}
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: fcd39d714831d1e41bc2b079b889cfa3, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
+--- !u!1102 &-1065354227316446822
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UStrong Charge
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours:
+  - {fileID: -3722857317439806747}
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: 79758cb7174541e4ea98766620fa6a7a, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!114 &-925361411936369229
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -235,6 +516,7 @@ MonoBehaviour:
   crossFadeTime: 0.001
   isAnimAttack: 0
   isJab: 0
+  isStrong: 0
   cancel: 0
 --- !u!91 &9100000
 AnimatorController:
@@ -258,6 +540,25 @@ AnimatorController:
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
+--- !u!114 &84726903799027427
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4bd5bf40b097cf43ae6e845d7cb5bee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animation: 0
+  isLocked: 0
+  crossFadeTime: 0.2
+  isAnimAttack: 0
+  isJab: 0
+  isStrong: 0
+  cancel: 0
 --- !u!1102 &599660044511915997
 AnimatorState:
   serializedVersion: 6
@@ -300,9 +601,25 @@ MonoBehaviour:
   animation: 0
   isLocked: 0
   crossFadeTime: 0.001
-  isAnimAttack: 0
+  isAnimAttack: 1
   isJab: 0
+  isStrong: 0
   cancel: 0
+--- !u!114 &1279409167207887596
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 234a294cbad039a469db570462dfd2d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  crossFadeTime: 0.001
+  animToGoToOnButtonPress: 0
+  isJabCancelable: 0
 --- !u!1107 &2588790822426584310
 AnimatorStateMachine:
   serializedVersion: 6
@@ -354,6 +671,24 @@ AnimatorStateMachine:
   - serializedVersion: 1
     m_State: {fileID: 3841632332494140961}
     m_Position: {x: 870, y: 310, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 8514117127958092423}
+    m_Position: {x: 660, y: 440, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: -6334967879863355409}
+    m_Position: {x: 660, y: 390, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: -3434152897206598426}
+    m_Position: {x: 450, y: 390, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: -9196663173933586308}
+    m_Position: {x: 450, y: 440, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: -1143569724418355073}
+    m_Position: {x: 870, y: 440, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: -1065354227316446822}
+    m_Position: {x: 870, y: 390, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -408,6 +743,7 @@ MonoBehaviour:
   crossFadeTime: 0.001
   isAnimAttack: 1
   isJab: 1
+  isStrong: 0
   cancel: 0
 --- !u!1102 &5080153978006550241
 AnimatorState:
@@ -436,6 +772,25 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!114 &5367240848550769212
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4bd5bf40b097cf43ae6e845d7cb5bee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animation: 0
+  isLocked: 0
+  crossFadeTime: 0.2
+  isAnimAttack: 0
+  isJab: 0
+  isStrong: 0
+  cancel: 0
 --- !u!1102 &5603450808688840869
 AnimatorState:
   serializedVersion: 6
@@ -477,8 +832,9 @@ MonoBehaviour:
   animation: 0
   isLocked: 0
   crossFadeTime: 0.001
-  isAnimAttack: 0
+  isAnimAttack: 1
   isJab: 0
+  isStrong: 0
   cancel: 0
 --- !u!1102 &6204260599414405377
 AnimatorState:
@@ -523,6 +879,7 @@ MonoBehaviour:
   crossFadeTime: 0.001
   isAnimAttack: 1
   isJab: 1
+  isStrong: 0
   cancel: 0
 --- !u!114 &6826046510408802517
 MonoBehaviour:
@@ -536,8 +893,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 234a294cbad039a469db570462dfd2d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animToGoToOnButtonPress: 9
   crossFadeTime: 0.001
+  animToGoToOnButtonPress: 9
+  isJabCancelable: 1
 --- !u!1102 &7808082690436276083
 AnimatorState:
   serializedVersion: 6
@@ -580,9 +938,37 @@ MonoBehaviour:
   animation: 0
   isLocked: 0
   crossFadeTime: 0.001
-  isAnimAttack: 0
+  isAnimAttack: 1
   isJab: 0
+  isStrong: 0
   cancel: 0
+--- !u!1102 &8514117127958092423
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: FStrong Hit
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours:
+  - {fileID: -5986545845975342538}
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: 711b8d8e29541eb49abc45ef69e7518d, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!1102 &8975823760882356323
 AnimatorState:
   serializedVersion: 6

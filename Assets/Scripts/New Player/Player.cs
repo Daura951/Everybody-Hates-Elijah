@@ -53,7 +53,7 @@ public class Player : MonoBehaviour
     private void ConfiugrePlayer(List<PlayerComponent> pcs)
     {
 
-        foreach (PlayerComponent pc in playerComponents)
+        foreach (PlayerComponent pc in pcs)
         {
             pc.Configure(inputManager, animController, Playerstate);
         }

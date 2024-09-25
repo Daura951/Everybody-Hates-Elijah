@@ -7,6 +7,9 @@ public class PlayerAttackController : PlayerComponent
     private InputManager inputManager;
     private AnimatorController animController;
     private PlayerState playerstate;
+
+    private bool isSmashCharging = false;
+
     public override void OnStart()
     {
         print("Hello PlayerAttackController!");
@@ -47,9 +50,49 @@ public class PlayerAttackController : PlayerComponent
         }
     }
 
-    public void Smash()
+    public void StrongHold()
     {
+        if(!playerstate.isAttacking &&!animController.GetCurrentAnimation().ToString().Contains("HIT"))
+        {
+            playerstate.isAttacking = true;
+            isSmashCharging = true;
+            float moveY = inputManager.moveVertical;
 
+            if (moveY > 0)
+            {
+                animController.Play(Animations.USTRONG_CHARGE, false, false);
+            }
+            else if (moveY < 0)
+            {
+                animController.Play(Animations.DSTRONG_CHARGE, false, false);
+            }
+            else
+            {
+                animController.Play(Animations.FSTRONG_CHARGE, false, false);
+            }
+        }
+    }
+
+    public void StrongRelease()
+    {
+        if (isSmashCharging &&(animController.GetCurrentAnimation().ToString().Contains("CHARGE")))
+        {
+            print("Strong release!");
+
+            if (animController.GetCurrentAnimation() == Animations.USTRONG_CHARGE)
+            {
+                animController.Play(Animations.USTRONG_HIT, false, false);
+            }
+            else if (animController.GetCurrentAnimation() == Animations.DSTRONG_CHARGE)
+            {
+                animController.Play(Animations.DSTRONG_HIT, false, false);
+            }
+            else if(animController.GetCurrentAnimation() == Animations.FSTRONG_CHARGE)
+            {
+                animController.Play(Animations.FSTRONG_HIT, false, false);
+            }
+        }
+            isSmashCharging = false;
     }
 
 
@@ -66,7 +109,8 @@ public class PlayerAttackController : PlayerComponent
 
         inputManager.OnJabPressed += Jab;
         inputManager.OnTiltPressed += Tilt;
-        inputManager.OnSmashPressed += Smash;
+        inputManager.OnStrongHold += StrongHold;
+        inputManager.OnStrongRelease += StrongRelease;
     }
 
 }

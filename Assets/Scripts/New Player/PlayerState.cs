@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerState : MonoBehaviour
 {
 
-    public bool isAttacking { get; set; }
+    public bool isAttacking;
 
 
     // Start is called before the first frame update
@@ -17,6 +17,5 @@ public class PlayerState : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 }

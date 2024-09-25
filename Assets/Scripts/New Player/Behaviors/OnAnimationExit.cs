@@ -8,7 +8,7 @@ public class OnAnimationExit : StateMachineBehaviour
     [SerializeField] private bool isLocked;
     [SerializeField] private float crossFadeTime = 0.2f;
     [SerializeField] private bool isAnimAttack;
-    [SerializeField] private bool isJab;
+    [SerializeField] private bool isJab, isStrong;
 
     [HideInInspector] public bool cancel = false;
 
@@ -36,13 +36,14 @@ public class OnAnimationExit : StateMachineBehaviour
         PlayerState playerstate = animator.GetComponent<PlayerState>();
         AnimatorController animatorController = animator.GetComponent<AnimatorController>();
 
-
-        if (playerstate.isAttacking && !isJab)
+        if (!isJab && !isStrong)
         {
             playerstate.isAttacking = false;
         }
 
+
+
         // Play Jab 1 Transition immediately
-        animatorController.Play(animation, isLocked, false, crossFadeTime);
+        animatorController.Play(animation, isLocked, true, crossFadeTime);
     }
 }
