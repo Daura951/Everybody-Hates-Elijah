@@ -83,7 +83,7 @@ public class PlayerMovementController : PlayerComponent
         if (!playerState.isAttacking)
         {
             //if (moveX != 0)
-            if(inputManager.Input != Vector2.zero)
+            if((moveX > .1f || moveX < -.1f))
             {
                 //move check
                 TurnCheck(moveX);
@@ -100,13 +100,17 @@ public class PlayerMovementController : PlayerComponent
                 rb.velocity = new Vector2(moveVelocity.x, rb.velocity.y);
 
             }
-            else if (inputManager.Input == Vector2.zero)
+            else if (!(moveX > .1f || moveX < -.1f))
             {
                 animController.Play(Animations.IDLE, false, false);
 
-             moveVelocity = Vector2.Lerp(moveVelocity, Vector2.zero, decel * Time.fixedDeltaTime);
-             rb.velocity = new Vector2(moveVelocity.x, rb.velocity.y);
+                moveVelocity = Vector2.Lerp(moveVelocity, Vector2.zero, decel * Time.fixedDeltaTime);
+                rb.velocity = new Vector2(moveVelocity.x, rb.velocity.y);
             }
+        }
+        else
+        {
+            rb.velocity = new Vector2(0, rb.velocity.y);
         }
     }
 
