@@ -24,12 +24,10 @@ public class PlayerMovementController : PlayerComponent
     //collision checks vars
     private RaycastHit2D groundHit;
     private RaycastHit2D headHit;
-    private bool isGrounded;
     private bool bumpedHead;
 
     // jump vars
     public float VerticalVelocity { get; private set; }
-    private bool isJumping;
     private bool isFalling;
     private bool isFastFalling;
     private float fastFallTime;
@@ -63,18 +61,14 @@ public class PlayerMovementController : PlayerComponent
 
         if (!playerState.isAttacking)
         {
-            if (inputManager.isJumping)
-            {
-                print("Jump");
-            }
         }
     }
     public override void OnFixedUpdate()
     {
        CollisionCheck();
         Jump();
-        accel = isGrounded ? pms.GroundAccel : pms.AirAccel;
-        decel = isGrounded ? pms.GroundDecel : pms.AirDecel;
+        accel = inputManager.isGrounded ? pms.GroundAccel : pms.AirAccel;
+        decel = inputManager.isGrounded ? pms.GroundDecel : pms.AirDecel;
     }
 
 
@@ -88,10 +82,13 @@ public class PlayerMovementController : PlayerComponent
                 //move check
                 TurnCheck(moveX);
 
-                if (inputManager.isRunning)
-                animController.Play(Animations.RUN, false, false);
-                else
+                if(inputManager.isGrounded)
+                {
+                 if (inputManager.isRunning)
+                 animController.Play(Animations.RUN, false, false);
+                 else
                     animController.Play(Animations.WALK, false, false);
+                }
 
 
                 Vector2 targetVelocity = Vector2.zero;
@@ -102,10 +99,23 @@ public class PlayerMovementController : PlayerComponent
             }
             else if (!(moveX > .1f || moveX < -.1f))
             {
+                if(inputManager.isGrounded)
                 animController.Play(Animations.IDLE, false, false);
 
                 moveVelocity = Vector2.Lerp(moveVelocity, Vector2.zero, decel * Time.fixedDeltaTime);
                 rb.velocity = new Vector2(moveVelocity.x, rb.velocity.y);
+            }
+
+
+            if(!inputManager.isGrounded)
+            {
+                if(rb.velocity.y < 0.6f)
+                animController.Play(Animations.FALLING, false, false);
+                else if (usedJumps == 1)
+                animController.Play(Animations.SINGLE_JUMP, false, false);
+                else
+                animController.Play(Animations.DOUBLE_JUMP, false, false);
+
             }
         }
         else
@@ -139,18 +149,18 @@ public class PlayerMovementController : PlayerComponent
         inputManager.OnMove+=MovePlayer;
     }
 
-    private void IsGrounded()
+    private void isGrounded()
     {
         Vector2 boxCastOrigin = new Vector2(feet.bounds.center.x, feet.bounds.min.y);
         Vector2 boxCastSize = new Vector2(feet.bounds.size.x, pms.GroundDetectLength);
 
         groundHit = Physics2D.BoxCast(boxCastOrigin,boxCastSize,0f,Vector2.down, pms.GroundDetectLength,pms.GroundLayer);
-        isGrounded = groundHit.collider != null ? true : false;
+        inputManager.isGrounded = groundHit.collider != null ? true : false;
 
         if(pms.ShowGroundBox)
         {
             Color rayColor;
-            rayColor = isGrounded ? Color.green : Color.red;
+            rayColor = inputManager.isGrounded ? Color.green : Color.red;
 
             Debug.DrawRay(new Vector2(boxCastOrigin.x - boxCastSize.x/2, boxCastOrigin.y),Vector2.down * pms.GroundDetectLength,rayColor);
             Debug.DrawRay(new Vector2(boxCastOrigin.x + boxCastSize.x/2, boxCastOrigin.y),Vector2.down * pms.GroundDetectLength,rayColor);
@@ -170,7 +180,7 @@ public class PlayerMovementController : PlayerComponent
 
     private void CollisionCheck()
     {
-        IsGrounded();
+        isGrounded();
         bumpHead();
     }
 
@@ -189,7 +199,7 @@ public class PlayerMovementController : PlayerComponent
             if (jumpBufferTimer > 0f)
                 jumpReleaseDuringBuffer = true;
 
-            if(isJumping && VerticalVelocity > 0f)
+            if(inputManager.isJumping && VerticalVelocity > 0f)
                 if(isPastApexThreshold)
                 {
                     isPastApexThreshold = false;
@@ -205,7 +215,7 @@ public class PlayerMovementController : PlayerComponent
         }
 
         //jUMP WITH JUMP BUFFER AND COYOTE
-        if(jumpBufferTimer > 0f && !isJumping && (isGrounded || coyoteTimer > 0f))
+        if(jumpBufferTimer > 0f && !inputManager.isJumping && (inputManager.isGrounded || coyoteTimer > 0f))
         {
             InitiateJump(1);
 
@@ -217,7 +227,7 @@ public class PlayerMovementController : PlayerComponent
         }
 
         //DOUBLE JUMP
-        else if (jumpBufferTimer > 0f && isJumping && usedJumps < pms.NumberofJumps)
+        else if (jumpBufferTimer > 0f && inputManager.isJumping && usedJumps < pms.NumberofJumps)
         {
             isFastFalling = false;
             InitiateJump(1);
@@ -231,9 +241,9 @@ public class PlayerMovementController : PlayerComponent
         }
 
         //LANDED
-        if((isJumping || isFalling) && isGrounded && VerticalVelocity <= 0f)
+        if((inputManager.isJumping || isFalling) && inputManager.isGrounded && VerticalVelocity <= 0f)
         {
-            isJumping = isFalling = isFastFalling = isPastApexThreshold = false;
+            inputManager.isJumping = isFalling = isFastFalling = isPastApexThreshold = false;
             fastFallTime = usedJumps = 0;
 
             VerticalVelocity = Physics2D.gravity.y;
@@ -242,8 +252,8 @@ public class PlayerMovementController : PlayerComponent
 
     private void InitiateJump(int jumpsUsed)
     {
-        if (!isJumping)
-            isJumping = true;
+        if (!inputManager.isJumping)
+            inputManager.isJumping = true;
 
         jumpBufferTimer = 0f;
         usedJumps += jumpsUsed;
@@ -253,7 +263,7 @@ public class PlayerMovementController : PlayerComponent
     private void Jump()
     {
         //APPLY GRAVITY WHILE JUMPING
-        if(isJumping)
+        if(inputManager.isJumping)
         {
             
             //CHECK FOR HEAD BUMP
@@ -306,7 +316,7 @@ public class PlayerMovementController : PlayerComponent
         }
 
         // NORMAL GRAVITY WHILE FALLING
-        if(!isGrounded && !isJumping)
+        if(!inputManager.isGrounded && !inputManager.isJumping)
         {
             if (!isFalling)
                 isFalling = true;
@@ -322,7 +332,7 @@ public class PlayerMovementController : PlayerComponent
     private void CountTimers()
     {
         jumpBufferTimer -= Time.deltaTime;
-        coyoteTimer = isGrounded ? pms.JumpCoyoteTime : coyoteTimer - Time.deltaTime;
+        coyoteTimer = inputManager.isGrounded ? pms.JumpCoyoteTime : coyoteTimer - Time.deltaTime;
     }
 
     #region JUMPARC
