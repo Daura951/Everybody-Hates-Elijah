@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,12 @@ public class PlayerAttackController : PlayerComponent
     private PlayerState playerstate;
 
     private bool isSmashCharging = false;
+
+    [SerializeField]
+    private float tiltBuffer = .1f;
+
+    [SerializeField]
+    private float specialBuffer = .1f;
 
     public override void OnStart()
     {
@@ -35,11 +42,11 @@ public class PlayerAttackController : PlayerComponent
             playerstate.isAttacking = true;
             float moveY = inputManager.moveVertical;
 
-            if (moveY > 0)
+            if (moveY > 0+tiltBuffer)
             {
                 animController.Play(Animations.UTILT, false, false);
             }
-            else if (moveY < 0)
+            else if (moveY < 0-tiltBuffer)
             {
                 animController.Play(Animations.DTILT, false, false);
             }
@@ -58,11 +65,11 @@ public class PlayerAttackController : PlayerComponent
             isSmashCharging = true;
             float moveY = inputManager.moveVertical;
 
-            if (moveY > 0)
+            if (moveY > 0+ specialBuffer)
             {
                 animController.Play(Animations.USTRONG_CHARGE, false, false);
             }
-            else if (moveY < 0)
+            else if (moveY < 0- specialBuffer)
             {
                 animController.Play(Animations.DSTRONG_CHARGE, false, false);
             }
@@ -95,6 +102,27 @@ public class PlayerAttackController : PlayerComponent
             isSmashCharging = false;
     }
 
+    private void Special()
+    {
+        if (!playerstate.isAttacking)
+        {
+            playerstate.isAttacking = true;
+            float moveY = inputManager.moveVertical;
+
+            if (moveY > 0)
+            {
+                
+            }
+            else if (moveY < 0)
+            {
+                animController.Play(Animations.DSPECIAL, false, false);
+            }
+            else
+            {
+            
+            }
+        }
+    }
 
     public override void OnFixedUpdate()
     {
@@ -111,6 +139,7 @@ public class PlayerAttackController : PlayerComponent
         inputManager.OnTiltPressed += Tilt;
         inputManager.OnStrongHold += StrongHold;
         inputManager.OnStrongRelease += StrongRelease;
+        inputManager.OnSpecialPressed += Special;
     }
 
 }

@@ -17,11 +17,13 @@ public class InputManager : MonoBehaviour
     public event Action OnTiltPressed;
     public event Action OnStrongHold;
     public event Action OnStrongRelease;
+    public event Action OnSpecialPressed;
 
     public PlayerInputActions playerControls;
     private InputAction move;
     private InputAction neutral;
     private InputAction strong;
+    public InputAction special;
     private InputAction jump;
     private InputAction run;
 
@@ -31,7 +33,8 @@ public class InputManager : MonoBehaviour
     public bool isNeutralPressed { get; private set; }
     public bool isTiltPressed { get; private set; }
     public bool isStrongHeld { get; private set;}
-    public bool isJumping { get; private set; }
+    public bool isJumping { get;  set; }
+    public bool isGrounded { get; set; }
 
     public bool isRunning { get; private set; }
 
@@ -45,11 +48,13 @@ public class InputManager : MonoBehaviour
         jump = playerControls.Player.Jump;
         run = playerControls.Player.Run;
         strong = playerControls.Player.Strong;
+        special = playerControls.Player.Special;
         move.Enable();
         neutral.Enable();
         jump.Enable();
         run.Enable();
         strong.Enable();
+        special.Enable();
     }
 
     private void OnDisable()
@@ -59,25 +64,14 @@ public class InputManager : MonoBehaviour
         jump.Disable();
         run.Disable();
         strong.Disable();
+        special.Disable();
     }
 
     private void Awake()
     {
         playerControls = new PlayerInputActions();
-        playerControls.Player.Jump.performed += JumpOn;
-        playerControls.Player.Jump.canceled += JumpOff;
         playerControls.Player.Strong.performed += OnStrongPerformed;
         playerControls.Player.Strong.canceled += OnStrongCanceled;
-    }
-
-    private void JumpOn(InputAction.CallbackContext obj)
-    {
-        isJumping = true;
-    }
-
-    private void JumpOff(InputAction.CallbackContext obj)
-    {
-        isJumping = false;
     }
 
     private void OnStrongPerformed(InputAction.CallbackContext obj)
@@ -107,7 +101,7 @@ public class InputManager : MonoBehaviour
         isNeutralPressed = neutral.triggered;
         isRunning = run.ReadValue<float>() > 0;
 
-        if (neutral.triggered)
+        if (neutral.triggered && isGrounded)
         {
 
             if (move.ReadValue<Vector2>().magnitude < tiltThreshold)
@@ -118,6 +112,11 @@ public class InputManager : MonoBehaviour
             {
                 OnTiltPressed?.Invoke(); 
             }
+        }
+
+        if(special.triggered)
+        {
+            OnSpecialPressed?.Invoke();
         }
     }
 }

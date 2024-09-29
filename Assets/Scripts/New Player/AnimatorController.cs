@@ -10,6 +10,7 @@ public class AnimatorController : MonoBehaviour
         Animator.StringToHash("Walk"),
         Animator.StringToHash("Run"),
         Animator.StringToHash("Single Jump"),
+        Animator.StringToHash("Double Jump"),
         Animator.StringToHash("Falling"),
         Animator.StringToHash("Jab 1"),
         Animator.StringToHash("Jab 1 Transition"),
@@ -25,7 +26,8 @@ public class AnimatorController : MonoBehaviour
         Animator.StringToHash("UStrong Charge"),
         Animator.StringToHash("UStrong Hit"),
         Animator.StringToHash("FStrong Charge"),
-        Animator.StringToHash("FStrong Hit")
+        Animator.StringToHash("FStrong Hit"),
+        Animator.StringToHash("DSpecial")
     };
 
     [SerializeField]
@@ -88,6 +90,7 @@ public enum Animations
     WALK,
     RUN,
     SINGLE_JUMP,
+    DOUBLE_JUMP,
     FALLING,
     JAB_1,
     JAB_1_TRANSITION,
@@ -104,5 +107,6 @@ public enum Animations
     USTRONG_HIT,
     FSTRONG_CHARGE,
     FSTRONG_HIT,
+    DSPECIAL,
     NONE
 }
