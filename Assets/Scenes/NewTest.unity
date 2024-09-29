@@ -674,6 +674,14 @@ PrefabInstance:
       propertyPath: m_Offset.x
       value: -0.12
       objectReference: {fileID: 0}
+    - target: {fileID: 3131762222312026641, guid: 423404d272b53ec41841ed87b2e3f072, type: 3}
+      propertyPath: special.m_Id
+      value: 7c2ab6e1-4fc6-49f7-aa54-8f2bd2de0478
+      objectReference: {fileID: 0}
+    - target: {fileID: 3131762222312026641, guid: 423404d272b53ec41841ed87b2e3f072, type: 3}
+      propertyPath: special.m_Name
+      value: Special
+      objectReference: {fileID: 0}
     - target: {fileID: 3131762222312026652, guid: 423404d272b53ec41841ed87b2e3f072, type: 3}
       propertyPath: m_Constraints
       value: 4
@@ -725,6 +733,10 @@ PrefabInstance:
     - target: {fileID: 3131762222312026667, guid: 423404d272b53ec41841ed87b2e3f072, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4335699818797656285, guid: 423404d272b53ec41841ed87b2e3f072, type: 3}
+      propertyPath: hitboxes.Array.size
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8764307452220976335, guid: 423404d272b53ec41841ed87b2e3f072, type: 3}
       propertyPath: m_LocalPosition.y
