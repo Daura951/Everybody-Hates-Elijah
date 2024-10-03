@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -57,6 +58,7 @@ public class PlayerMovementController : PlayerComponent
     {
         CountTimers();
         JumpChecks();
+        SendDataToPlayerState();
 
 
         if (!playerState.isAttacking)
@@ -124,6 +126,8 @@ public class PlayerMovementController : PlayerComponent
         }
     }
 
+
+
     private void TurnCheck(float moveX)
     {
         if (isRight && moveX < 0)
@@ -136,17 +140,6 @@ public class PlayerMovementController : PlayerComponent
     {
         isRight = turn;
         transform.Rotate(0f,180f *(turn ? 1f : -1f) ,0f);
-    }
-
-
-    public override void Configure(InputManager inputManager, AnimatorController animController, PlayerState playerstate)
-    {
-        this.inputManager = inputManager;
-        this.animController = animController;
-        this.playerState = playerstate;
-
-
-        inputManager.OnMove+=MovePlayer;
     }
 
     private void isGrounded()
@@ -396,5 +389,19 @@ public class PlayerMovementController : PlayerComponent
             DrawJumpArc(pms.MaxWalkSpeed, Color.red);
         if (pms.RunJumpArc)
             DrawJumpArc(pms.MaxRunSpeed, Color.green);
+    }
+    private void SendDataToPlayerState()
+    {
+        playerState.isRight = isRight;
+    }
+
+    public override void Configure(InputManager inputManager, AnimatorController animController, PlayerState playerstate)
+    {
+        this.inputManager = inputManager;
+        this.animController = animController;
+        this.playerState = playerstate;
+
+
+        inputManager.OnMove += MovePlayer;
     }
 }

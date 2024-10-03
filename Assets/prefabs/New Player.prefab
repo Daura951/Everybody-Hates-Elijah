@@ -839,7 +839,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8764307452220976335}
   - component: {fileID: 6119474020206487817}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Feet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1354,9 +1354,9 @@ GameObject:
   - component: {fileID: 3131762222312026643}
   - component: {fileID: 3131762222312026666}
   - component: {fileID: 4335699818797656285}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: New Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1498,6 +1498,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3709e7cbbf84f884baec213857790f5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tiltBuffer: 0.1
+  specialBuffer: 0.1
 --- !u!114 &3131762222312026641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2981,7 +2983,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8329514926921684395}
   - component: {fileID: 2272624342141555647}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}

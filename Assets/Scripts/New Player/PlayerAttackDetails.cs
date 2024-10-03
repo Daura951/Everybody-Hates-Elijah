@@ -13,17 +13,25 @@ public class PlayerAttackDetails
 
     public PlayerAttackDetails(Attacks attack, float damage, float angle, float knockback, float stunTime)
     {
-        this.attack = attack;
-        this.damage = damage;
-        this.angle = angle;
-        this.knockback = knockback;
-        this.stunTime = stunTime;
+        this.Attack = attack;
+        this.Damage = damage;
+        this.Angle = angle;
+        this.Knockback = knockback;
+        this.StunTime = stunTime;
     }
+
 
     public override string ToString()
     {
-        return attack.ToString() + ": " + damage + " " + angle + " " + knockback + " " + stunTime;
+        return Attack.ToString() + ": " + Damage + " " + Angle + " " + Knockback + " " + StunTime;
     }
+    public Attacks Attack { get => attack; set => attack = value; }
+    public float Damage { get => damage; set => damage = value; }
+    public float Angle { get => angle; set => angle = value; }
+    public float Knockback { get => knockback; set => knockback = value; }
+    public float StunTime { get => stunTime; set => stunTime = value; }
+
+
 }
 
 public enum Attacks

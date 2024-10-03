@@ -16,6 +16,8 @@ public class AttackManager : MonoBehaviour
 
     private int currentHitboxIndex = -1;
 
+    private PlayerState playerState;
+
     void Start()
     {
         attackDetails = new PlayerAttackDetails[hitboxes.Length];
@@ -29,6 +31,7 @@ public class AttackManager : MonoBehaviour
 
     private void InitalizeManager()
     {
+        playerState = GetComponent<PlayerState>();
         using(StringReader sr = new StringReader(attackConfigFile.text))
         {
             string line;
@@ -47,7 +50,6 @@ public class AttackManager : MonoBehaviour
                     float stunTime = float.Parse(parts[4]);
 
                     attackDetails[(int)attack] = new PlayerAttackDetails(attack, damage, angle, knockback, stunTime);
-                    print(attackDetails[(int)attack]);
                 }
             }
         }
@@ -68,6 +70,23 @@ public class AttackManager : MonoBehaviour
     {
         hitboxes[currentHitboxIndex].SetActive(false);
         currentHitboxIndex = -1;
+    }
+
+    public PlayerAttackDetails findByHitbox(string hbName)
+    {
+        for(int i = 0; i < hitboxes.Length; i++)
+        {
+            if (hitboxes[i].name == hbName)
+            {
+                return attackDetails[i];
+            }
+        }
+        return null;
+    }
+
+    public PlayerState GetPlayerState()
+    {
+        return playerState;
     }
 
 }

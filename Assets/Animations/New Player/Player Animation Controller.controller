@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4bd5bf40b097cf43ae6e845d7cb5bee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animation: 15
+  animation: 16
   isLocked: 0
   crossFadeTime: 0.001
   isAnimAttack: 1
@@ -272,7 +272,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4bd5bf40b097cf43ae6e845d7cb5bee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animation: 19
+  animation: 20
   isLocked: 0
   crossFadeTime: 0.001
   isAnimAttack: 1
@@ -374,7 +374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4bd5bf40b097cf43ae6e845d7cb5bee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animation: 17
+  animation: 18
   isLocked: 0
   crossFadeTime: 0.001
   isAnimAttack: 1
@@ -760,10 +760,10 @@ AnimatorStateMachine:
     m_Position: {x: 870, y: 440, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -1065354227316446822}
-    m_Position: {x: 870, y: 360, z: 0}
+    m_Position: {x: 870, y: 390, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4985536694698240163}
-    m_Position: {x: 1080, y: 110, z: 0}
+    m_Position: {x: 1070, y: 110, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -5459743782576104896}
     m_Position: {x: 1070, y: 160, z: 0}
