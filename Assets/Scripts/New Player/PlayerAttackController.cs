@@ -111,7 +111,7 @@ public class PlayerAttackController : PlayerComponent
 
             if (moveY > 0)
             {
-                
+                //animController.Play(Animations.USPECIAL, false, false);
             }
             else if (moveY < 0)
             {
@@ -119,7 +119,7 @@ public class PlayerAttackController : PlayerComponent
             }
             else
             {
-            
+               //animController.Play(Animations.SSPECIAL, false, false);
             }
         }
     }

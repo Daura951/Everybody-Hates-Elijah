@@ -21,13 +21,21 @@ public class AnimatorController : MonoBehaviour
         Animator.StringToHash("DTilt"),
         Animator.StringToHash("UTilt"),
         Animator.StringToHash("FTilt"),
+        Animator.StringToHash("Nair"),
+        Animator.StringToHash("Uair"),
+        Animator.StringToHash("Fair"),
+        Animator.StringToHash("Bair"),
+        Animator.StringToHash("Dair"),
         Animator.StringToHash("DStrong Charge"),
         Animator.StringToHash("DStrong Hit"),
         Animator.StringToHash("UStrong Charge"),
         Animator.StringToHash("UStrong Hit"),
         Animator.StringToHash("FStrong Charge"),
         Animator.StringToHash("FStrong Hit"),
-        Animator.StringToHash("DSpecial")
+        Animator.StringToHash("DSpecial"),
+        Animator.StringToHash("SSpecial"),
+        Animator.StringToHash("USpecial"),
+        Animator.StringToHash("NSpecial")
     };
 
     [SerializeField]
@@ -77,7 +85,7 @@ public class AnimatorController : MonoBehaviour
         }
 
         currentAnimation = animation;
-
+        print(animations[(int)currentAnimation]);
         anim.CrossFade(animations[(int)currentAnimation], crossFadeTime);
     }
 
@@ -101,6 +109,11 @@ public enum Animations
     DTILT,
     UTILT,
     FTILT,
+    NAIR,
+    UAIR,
+    FAIR,
+    BAIR,
+    DAIR,
     DSTRONG_CHARGE,
     DSTRONG_HIT,
     USTRONG_CHARGE,
@@ -108,5 +121,8 @@ public enum Animations
     FSTRONG_CHARGE,
     FSTRONG_HIT,
     DSPECIAL,
+    SSPECIAL,
+    USPECIAL,
+    NSPECIAL,
     NONE
 }
