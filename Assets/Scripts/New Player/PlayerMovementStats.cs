@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerMovementStats : ScriptableObject
 {
     [Header("Walk")]
-    [Range(1f, 100f)] public float MaxWalkSpeed = 7f;
+    [Range(1f, 100f)] public float MaxWalkSpeed = 5.5f;
     [Range(0.25f, 50f)] public float GroundAccel = 5f;
     [Range(0.25f, 50f)] public float GroundDecel = 20f;
     [Range(0.25f, 50f)] public float AirAccel = 5f;
@@ -47,23 +47,40 @@ public class PlayerMovementStats : ScriptableObject
     [Header("Jump Visualization")]
     public bool WalkJumpArc = false;
     public bool RunJumpArc = false;
+    public bool USpecialArc = false;
     public bool StopOncollision = true;
     public bool DrawRight = true;
     [Range(5, 100)] public int ArcRes = 20;
     [Range(0, 500)] public int VisualSteps = 90;
 
     public float Gravity { get; private set; }
+    public float USpecGravity { get; private set; }
     public float InitialJumpVelo { get; private set; }
+    public float USpecInitialJumpVelo { get; private set; }
     public float AdjustedJumpHieght { get; private set; }
+    public float USpecAdjustedJumpHieght { get; private set; }
+
+    [Header("USpecialJump")]
+    public bool UspecialJump = false;
+    [Range(2,4)]public float USpecJumpHieght = 3f;
+    [Range(0,5)]public float USpecHorfact = 2f;
+
+    [Header("SideSpecial")]
+    public bool SSpecialSlide = false;
+    public bool SSpecialFall = false;
+    public float SSpecialFallMulti = 1;
+    public float HorizontalSlideVelo = 7f;
 
     private void OnValidate()
     {
         CalcValues();
+        CalcUSpecValues();
     }
 
     private void OnEnable()
     {
         CalcValues();
+        CalcUSpecValues();
     }
 
     private void CalcValues()
@@ -71,6 +88,14 @@ public class PlayerMovementStats : ScriptableObject
         AdjustedJumpHieght = JumpHieght * JumpHieghtCompFactor;
         Gravity = -(2f * AdjustedJumpHieght) / Mathf.Pow(JumpApexTime, 2f);
         InitialJumpVelo = Mathf.Abs(Gravity) * JumpApexTime;
+
+    }
+
+    private void CalcUSpecValues()
+    {
+        USpecAdjustedJumpHieght = USpecJumpHieght * JumpHieghtCompFactor;
+        USpecGravity = -(2f * USpecAdjustedJumpHieght) / Mathf.Pow(JumpApexTime, 2f);
+        USpecInitialJumpVelo = Mathf.Abs(USpecGravity) * JumpApexTime;
 
     }
 

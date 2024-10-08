@@ -84,45 +84,31 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.11666667
-    functionName: SpecialSoud
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 1
-    messageOptions: 0
-  - time: 0.16666667
-    functionName: DetectReverseFSpecial
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.18333334
-    functionName: DetectReverseFSpecial
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.2
-    functionName: DetectReverseFSpecial
+  - time: 0.05
+    functionName: SSpecialLaunch
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.23333333
-    functionName: ActivateSideB
+    functionName: SpawnHitbox
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 5
-    intParameter: 6
+    intParameter: 14
     messageOptions: 0
   - time: 0.43333334
-    functionName: parseAttack
+    functionName: DespawnHitbox
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 6
+    messageOptions: 0
+  - time: 0.55
+    functionName: SSpecialLaunch
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
     messageOptions: 0

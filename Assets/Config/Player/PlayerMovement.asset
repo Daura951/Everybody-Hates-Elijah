@@ -21,13 +21,13 @@ MonoBehaviour:
   GroundLayer:
     serializedVersion: 2
     m_Bits: 512
-  ShowGroundBox: 0
+  ShowGroundBox: 1
   GroundDetectLength: 0.02
   HeadDetectLength: 0.02
   HeadWidth: 0.75
-  JumpHieght: 2.5
+  JumpHieght: 2.66
   JumpHieghtCompFactor: 1.054
-  JumpApexTime: 0.4
+  JumpApexTime: 0.47
   GravityReleaseMultiplyer: 1.8
   MaxFallSpeed: 26
   NumberofJumps: 2
@@ -36,9 +36,16 @@ MonoBehaviour:
   ApexhangTime: 0.03
   JumpBufferTime: 0.9
   JumpCoyoteTime: 0.1
-  WalkJumpArc: 1
-  RunJumpArc: 1
+  WalkJumpArc: 0
+  RunJumpArc: 0
+  USpecialArc: 0
   StopOncollision: 1
   DrawRight: 1
   ArcRes: 20
   VisualSteps: 90
+  UspecialJump: 0
+  USpecJumpHieght: 3.292
+  USpecHorfact: 2.933
+  SSpecialSlide: 0
+  SSpecialFall: 1
+  HorizontalSlideVelo: 10

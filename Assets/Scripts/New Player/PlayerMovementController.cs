@@ -21,6 +21,8 @@ public class PlayerMovementController : PlayerComponent
     private bool isRight;
     private float accel;
     private float decel;
+    private bool isGrounded;
+    private float dir;
 
     //collision checks vars
     private RaycastHit2D groundHit;
@@ -56,35 +58,75 @@ public class PlayerMovementController : PlayerComponent
 
     public override void OnUpdate()
     {
-        CountTimers();
-        JumpChecks();
         SendDataToPlayerState();
-
-
-        if (!playerState.isAttacking)
-        {
-        }
+        if(!pms.SSpecialSlide)
+        CountTimers();
+        if(!pms.UspecialJump)
+        JumpChecks();
     }
     public override void OnFixedUpdate()
     {
        CollisionCheck();
-        Jump();
-        accel = inputManager.isGrounded ? pms.GroundAccel : pms.AirAccel;
-        decel = inputManager.isGrounded ? pms.GroundDecel : pms.AirDecel;
+
+        if (pms.UspecialJump)
+            USpecialJump();
+
+        if (inputManager.isJumping && !pms.UspecialJump)
+            Jump();
+
+       // if(!playerState.isAttacking)
+        Falling();
+
+        accel = isGrounded ? pms.GroundAccel : pms.AirAccel;
+        decel = isGrounded ? pms.GroundDecel : pms.AirDecel;
     }
 
 
+    private void Falling()
+    {
+        if (isFastFalling && !pms.UspecialJump)
+        {
+
+            VerticalVelocity = fastFallTime >= pms.UpCancelTime ? VerticalVelocity + (pms.Gravity * pms.GravityReleaseMultiplyer * Time.fixedDeltaTime) : Mathf.Lerp(fastFallReleaseSpeed, 0f, (fastFallTime / pms.UpCancelTime));
+            fastFallTime += Time.fixedDeltaTime;
+            
+        }
+
+        // NORMAL GRAVITY WHILE FALLING
+        if (!isGrounded && !inputManager.isJumping && !pms.UspecialJump)
+        {
+            if (!isFalling)
+                isFalling = true;
+
+                VerticalVelocity += pms.Gravity * Time.fixedDeltaTime;
+        }
+
+        if (!pms.SSpecialSlide)
+        {
+            //CLAMP FALL SPEED
+                VerticalVelocity = Mathf.Clamp(VerticalVelocity, -pms.MaxFallSpeed, 50f);
+            rb.velocity = new Vector2(rb.velocity.x, VerticalVelocity);
+        }
+        else if (pms.SSpecialSlide)
+            rb.velocity = new Vector2(pms.HorizontalSlideVelo * dir , 0f);
+    }
+
+    #region Movement
     public void MovePlayer(float moveX)
     {
+        if(!pms.SSpecialSlide)
+        if (moveX > .1f || moveX < -.1f)
+            dir = moveX;
+
+
         if (!playerState.isAttacking)
         {
-            //if (moveX != 0)
-            if((moveX > .1f || moveX < -.1f))
+            if(moveX > .1f || moveX < -.1f)
             {
                 //move check
                 TurnCheck(moveX);
 
-                if(inputManager.isGrounded)
+                if(isGrounded)
                 {
                  if (inputManager.isRunning)
                  animController.Play(Animations.RUN, false, false);
@@ -101,7 +143,7 @@ public class PlayerMovementController : PlayerComponent
             }
             else if (!(moveX > .1f || moveX < -.1f))
             {
-                if(inputManager.isGrounded)
+                if(isGrounded)
                 animController.Play(Animations.IDLE, false, false);
 
                 moveVelocity = Vector2.Lerp(moveVelocity, Vector2.zero, decel * Time.fixedDeltaTime);
@@ -109,21 +151,28 @@ public class PlayerMovementController : PlayerComponent
             }
 
 
-            if(!inputManager.isGrounded)
+            if(!isGrounded)
             {
                 if(rb.velocity.y < 0.6f)
                 animController.Play(Animations.FALLING, false, false);
                 else if (usedJumps == 1)
                 animController.Play(Animations.SINGLE_JUMP, false, false);
-                else
+                else if (usedJumps > 1)
+                {
                 animController.Play(Animations.DOUBLE_JUMP, false, false);
+                }
 
             }
+        }
+        else if (pms.UspecialJump)
+        {
+            rb.velocity = new Vector2(pms.USpecHorfact * (dir) , rb.velocity.y);
         }
         else
         {
             rb.velocity = new Vector2(0, rb.velocity.y);
         }
+
     }
 
 
@@ -142,18 +191,22 @@ public class PlayerMovementController : PlayerComponent
         transform.Rotate(0f,180f *(turn ? 1f : -1f) ,0f);
     }
 
-    private void isGrounded()
+    #endregion
+
+    private void IsGrounded()
     {
+        if (isGrounded && pms.SSpecialFall) {pms.SSpecialFall = false; }
+
         Vector2 boxCastOrigin = new Vector2(feet.bounds.center.x, feet.bounds.min.y);
         Vector2 boxCastSize = new Vector2(feet.bounds.size.x, pms.GroundDetectLength);
 
         groundHit = Physics2D.BoxCast(boxCastOrigin,boxCastSize,0f,Vector2.down, pms.GroundDetectLength,pms.GroundLayer);
-        inputManager.isGrounded = groundHit.collider != null ? true : false;
+        isGrounded = groundHit.collider != null ? true : false;
 
         if(pms.ShowGroundBox)
         {
             Color rayColor;
-            rayColor = inputManager.isGrounded ? Color.green : Color.red;
+            rayColor = isGrounded ? Color.green : Color.red;
 
             Debug.DrawRay(new Vector2(boxCastOrigin.x - boxCastSize.x/2, boxCastOrigin.y),Vector2.down * pms.GroundDetectLength,rayColor);
             Debug.DrawRay(new Vector2(boxCastOrigin.x + boxCastSize.x/2, boxCastOrigin.y),Vector2.down * pms.GroundDetectLength,rayColor);
@@ -173,14 +226,14 @@ public class PlayerMovementController : PlayerComponent
 
     private void CollisionCheck()
     {
-        isGrounded();
+        IsGrounded();
         bumpHead();
     }
 
     private void JumpChecks()
     {
         //PRESSING JUMP
-        if(inputManager.JumpPressed)
+        if (inputManager.JumpPressed)
         {
             jumpBufferTimer = pms.JumpBufferTime;
             jumpReleaseDuringBuffer = false;
@@ -189,6 +242,8 @@ public class PlayerMovementController : PlayerComponent
         //RELEASING JUMP
         if(inputManager.JumpReleased)
         {
+
+
             if (jumpBufferTimer > 0f)
                 jumpReleaseDuringBuffer = true;
 
@@ -208,7 +263,7 @@ public class PlayerMovementController : PlayerComponent
         }
 
         //jUMP WITH JUMP BUFFER AND COYOTE
-        if(jumpBufferTimer > 0f && !inputManager.isJumping && (inputManager.isGrounded || coyoteTimer > 0f))
+        if(jumpBufferTimer > 0f && !inputManager.isJumping && (isGrounded || coyoteTimer > 0f))
         {
             InitiateJump(1);
 
@@ -216,6 +271,7 @@ public class PlayerMovementController : PlayerComponent
             {
                 isFastFalling = true;
                 fastFallReleaseSpeed = VerticalVelocity;
+
             }
         }
 
@@ -234,7 +290,7 @@ public class PlayerMovementController : PlayerComponent
         }
 
         //LANDED
-        if((inputManager.isJumping || isFalling) && inputManager.isGrounded && VerticalVelocity <= 0f)
+        if((inputManager.isJumping || isFalling) && isGrounded && VerticalVelocity <= 0f)
         {
             inputManager.isJumping = isFalling = isFastFalling = isPastApexThreshold = false;
             fastFallTime = usedJumps = 0;
@@ -251,16 +307,13 @@ public class PlayerMovementController : PlayerComponent
         jumpBufferTimer = 0f;
         usedJumps += jumpsUsed;
         VerticalVelocity = pms.InitialJumpVelo;
+
     }
 
     private void Jump()
     {
-        //APPLY GRAVITY WHILE JUMPING
-        if(inputManager.isJumping)
-        {
-            
-            //CHECK FOR HEAD BUMP
-            if (bumpedHead)
+        //CHECK FOR HEAD BUMP
+        if (bumpedHead)
                 isFastFalling = true;
         
          //GRAVITY ON ASCENDING
@@ -294,38 +347,84 @@ public class PlayerMovementController : PlayerComponent
 
          }
          //GRAVITY ON DESCENDING
-         else if (!isFastFalling)
+         else if (pms.SSpecialFall)
+            VerticalVelocity += pms.Gravity * pms.SSpecialFallMulti * Time.fixedDeltaTime;
+        else if (!isFastFalling)
             VerticalVelocity += pms.Gravity * pms.GravityReleaseMultiplyer * Time.fixedDeltaTime;
          else if (VerticalVelocity < 0f)
             if (!isFalling)
                 isFalling = true; 
-        }
-
-        //JUMP CUT
-        if(isFastFalling)
-        {
-            VerticalVelocity = fastFallTime >= pms.UpCancelTime ? VerticalVelocity + (pms.Gravity * pms.GravityReleaseMultiplyer * Time.fixedDeltaTime) : Mathf.Lerp(fastFallReleaseSpeed, 0f, (fastFallTime / pms.UpCancelTime));
-            fastFallTime += Time.fixedDeltaTime;
-        }
-
-        // NORMAL GRAVITY WHILE FALLING
-        if(!inputManager.isGrounded && !inputManager.isJumping)
-        {
-            if (!isFalling)
-                isFalling = true;
-
-            VerticalVelocity += pms.Gravity * Time.fixedDeltaTime;
-        }
-
-        //CLAMP FALL SPEED
-        VerticalVelocity = Mathf.Clamp(VerticalVelocity, -pms.MaxFallSpeed, 50f);
-        rb.velocity = new Vector2(rb.velocity.x, VerticalVelocity);
     }
+
+    #region SpecailVelo
+
+    private void USpecialJump()
+    {
+        //CHECK FOR HEAD BUMP
+        if (bumpedHead)
+            isFastFalling = true;
+
+        //GRAVITY ON ASCENDING
+        if (VerticalVelocity >= 0f)
+        {
+            //APEX CONTROLS
+            apexPoint = Mathf.InverseLerp(pms.USpecInitialJumpVelo, 0f, VerticalVelocity);
+
+            if (apexPoint > pms.ApexThreshold)
+            {
+                if (!isPastApexThreshold)
+                {
+                    isPastApexThreshold = true;
+                    timePastApexThreshold = 0;
+                }
+                if (isPastApexThreshold)
+                {
+                    timePastApexThreshold += Time.fixedDeltaTime;
+                    VerticalVelocity = timePastApexThreshold < pms.ApexhangTime ? 0f : -0.01f;
+                }
+            }
+
+            //GRAVITY ON ASCENDING BUT NOT PAST APEX THRESHOLD
+            else
+            {
+                VerticalVelocity += pms.Gravity * Time.fixedDeltaTime;
+                if (isPastApexThreshold)
+                    isPastApexThreshold = false;
+            }
+
+
+        }
+    }
+
+    public void USpecialLaunch()
+    {
+        pms.UspecialJump = !pms.UspecialJump;
+        if(pms.UspecialJump)
+        {
+            isFastFalling = isFalling = false;
+            jumpBufferTimer = 0f;
+            usedJumps += 2;
+            VerticalVelocity = pms.USpecInitialJumpVelo;
+            rb.velocity = new Vector2(rb.velocity.x, VerticalVelocity);
+        }
+    }
+
+    public void SSpecialLaunch()
+    {
+        pms.SSpecialSlide = !pms.SSpecialSlide;
+        isFastFalling =  false;
+        rb.velocity = new Vector2(0, 0);
+        pms.SSpecialFall = true;
+
+    }
+
+
+    #endregion
 
     private void CountTimers()
     {
         jumpBufferTimer -= Time.deltaTime;
-        coyoteTimer = inputManager.isGrounded ? pms.JumpCoyoteTime : coyoteTimer - Time.deltaTime;
+        coyoteTimer = isGrounded ? pms.JumpCoyoteTime : coyoteTimer - Time.deltaTime;
     }
 
     #region JUMPARC
@@ -334,11 +433,12 @@ public class PlayerMovementController : PlayerComponent
     {
         Vector2 startpos = new Vector2(feet.bounds.center.x, feet.bounds.min.y);
         Vector2 prevpos = startpos;
+
+        Vector2 velocity;
         float speed = 0f;
 
         speed = pms.DrawRight ? moveSpeed : -moveSpeed;
-
-        Vector2 velocity = new Vector2(speed, pms.InitialJumpVelo);
+        velocity = new Vector2(speed, pms.InitialJumpVelo);
         Gizmos.color = gizmoColor;
 
         float timestep = 2 * pms.JumpApexTime / pms.ArcRes;
@@ -346,24 +446,24 @@ public class PlayerMovementController : PlayerComponent
         for(int i = 0; i < pms.VisualSteps; i++)
         {
             float simtime = i * timestep;
-            Vector2 displacement;
             Vector2 drawpoint;
-
-            if (simtime < pms.JumpApexTime)
-                displacement = velocity * simtime + 0.5f * new Vector2(0, pms.Gravity) * simtime * simtime;
-            else if(simtime < pms.JumpApexTime +pms.ApexhangTime)
-            {
-                float apexTime = simtime - pms.JumpApexTime;
-                displacement = velocity * pms.JumpApexTime + 0.5f * new Vector2(0, pms.Gravity) * pms.JumpApexTime * pms.JumpApexTime;
-                displacement += new Vector2(speed, 0) * apexPoint;
-            }
-            else
-            {
-                float descendtime = simtime - (pms.JumpApexTime + pms.ApexhangTime);
-                displacement = velocity * pms.JumpApexTime +0.5f * new Vector2(0, pms.Gravity) * pms.JumpApexTime * pms.JumpApexTime;
-                displacement += new Vector2(speed, 0) * pms.ApexhangTime;
-                displacement += new Vector2(speed, 0) * descendtime + 0.5f * new Vector2(0, pms.Gravity) * descendtime * descendtime;
-            }
+            Vector2 displacement;
+                if (simtime < pms.JumpApexTime)
+                    displacement = velocity * simtime + 0.5f * new Vector2(0, pms.Gravity) * simtime * simtime;
+                else if (simtime < pms.JumpApexTime + pms.ApexhangTime)
+                {
+                    float apexTime = simtime - pms.JumpApexTime;
+                    displacement = velocity * pms.JumpApexTime + 0.5f * new Vector2(0, pms.Gravity) * pms.JumpApexTime * pms.JumpApexTime;
+                    displacement += new Vector2(speed, 0) * apexPoint;
+                }
+                else
+                {
+                    float descendtime = simtime - (pms.JumpApexTime + pms.ApexhangTime);
+                    displacement = velocity * pms.JumpApexTime + 0.5f * new Vector2(0, pms.Gravity) * pms.JumpApexTime * pms.JumpApexTime;
+                    displacement += new Vector2(speed, 0) * pms.ApexhangTime;
+                    displacement += new Vector2(speed, 0) * descendtime + 0.5f * new Vector2(0, pms.Gravity) * descendtime * descendtime;
+                }
+ 
             drawpoint = startpos + displacement;
 
             if(pms.StopOncollision)
@@ -381,10 +481,63 @@ public class PlayerMovementController : PlayerComponent
         }
     }
 
+    private void DrawSpecJumpArc(float moveSpeed, Color gizmoColor)
+    {
+        Vector2 startpos = new Vector2(feet.bounds.center.x, feet.bounds.min.y);
+        Vector2 prevpos = startpos;
+        Vector2 velocity;
+        float speed = pms.DrawRight ? moveSpeed : -moveSpeed;
+
+        velocity = new Vector2(speed, pms.USpecInitialJumpVelo);
+        Gizmos.color = gizmoColor;
+
+        float timestep = 2 * pms.JumpApexTime / pms.ArcRes;
+
+        for (int i = 0; i < pms.VisualSteps; i++)
+        {
+            float simtime = i * timestep;
+            Vector2 drawpoint;
+            Vector2 displacement;
+            if (simtime < pms.JumpApexTime)
+                    displacement = velocity * simtime + 0.5f * new Vector2(0, pms.USpecGravity) * simtime * simtime;
+                else if (simtime < pms.JumpApexTime + pms.ApexhangTime)
+                {
+                    float apexTime = simtime - pms.JumpApexTime;
+                    displacement = velocity * pms.JumpApexTime + 0.5f * new Vector2(0, pms.USpecGravity) * pms.JumpApexTime * pms.JumpApexTime;
+                    displacement += new Vector2(speed, 0) * apexPoint;
+                }
+                else
+                {
+                    float descendtime = simtime - (pms.JumpApexTime + pms.ApexhangTime);
+                    displacement = velocity * pms.JumpApexTime + 0.5f * new Vector2(0, pms.USpecGravity) * pms.JumpApexTime * pms.JumpApexTime;
+                    displacement += new Vector2(speed, 0) * pms.ApexhangTime;
+                    displacement += new Vector2(speed, 0) * descendtime + 0.5f * new Vector2(0, pms.USpecGravity) * descendtime * descendtime;
+                }
+            
+
+            drawpoint = startpos + displacement;
+
+            if (pms.StopOncollision)
+            {
+                RaycastHit2D hit = Physics2D.Raycast(prevpos, drawpoint - prevpos, Vector2.Distance(prevpos, drawpoint), pms.GroundLayer);
+                if (hit.collider != null)
+                {
+                    Gizmos.DrawLine(prevpos, hit.point);
+                    break;
+                }
+            }
+
+            Gizmos.DrawLine(prevpos, drawpoint);
+            prevpos = drawpoint;
+        }
+    }
+
     #endregion
 
     private void OnDrawGizmos()
     {
+        if (pms.USpecialArc)
+            DrawSpecJumpArc(pms.USpecHorfact, Color.blue);
         if (pms.WalkJumpArc)
             DrawJumpArc(pms.MaxWalkSpeed, Color.red);
         if (pms.RunJumpArc)
@@ -393,6 +546,7 @@ public class PlayerMovementController : PlayerComponent
     private void SendDataToPlayerState()
     {
         playerState.isRight = isRight;
+        playerState.isGrounded = isGrounded;
     }
 
     public override void Configure(InputManager inputManager, AnimatorController animController, PlayerState playerstate)
@@ -403,5 +557,6 @@ public class PlayerMovementController : PlayerComponent
 
 
         inputManager.OnMove += MovePlayer;
+       // inputManager.OnJump += Jump;
     }
 }
