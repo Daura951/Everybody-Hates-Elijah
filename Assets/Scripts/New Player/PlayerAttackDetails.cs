@@ -50,7 +50,7 @@ public enum Attacks
     FSTRONG,
     USTRONG,
     DSTRONG,
-    NSPECAIL,
+    NSPECIAL,
     FSPECIAL,
     USPECIAL_1,
     USPECIAL_2,

@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Special Side
+  m_Name: FSpecial
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -96,7 +96,7 @@ AnimationClip:
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 5
-    intParameter: 14
+    intParameter: 15
     messageOptions: 0
   - time: 0.43333334
     functionName: DespawnHitbox

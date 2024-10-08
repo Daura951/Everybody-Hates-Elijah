@@ -122,7 +122,7 @@ AnimationClip:
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 18
+    intParameter: 19
     messageOptions: 0
   - time: 0.41666666
     functionName: DespawnHitbox
@@ -136,7 +136,7 @@ AnimationClip:
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 19
+    intParameter: 20
     messageOptions: 0
   - time: 0.68333334
     functionName: DespawnHitbox
@@ -150,7 +150,7 @@ AnimationClip:
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 20
+    intParameter: 21
     messageOptions: 0
   - time: 0.9166667
     functionName: DespawnHitbox

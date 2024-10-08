@@ -47,5 +47,6 @@ MonoBehaviour:
   USpecJumpHieght: 3.292
   USpecHorfact: 2.933
   SSpecialSlide: 0
-  SSpecialFall: 1
+  SSpecialFall: 0
+  SSpecialFallMulti: 0.55
   HorizontalSlideVelo: 10

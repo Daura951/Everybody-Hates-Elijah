@@ -78,6 +78,7 @@ public class AttackManager : MonoBehaviour
         {
             if (hitboxes[i].name == hbName)
             {
+                print(attackDetails[i]);
                 return attackDetails[i];
             }
         }

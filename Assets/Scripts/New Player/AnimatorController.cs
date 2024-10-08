@@ -33,7 +33,7 @@ public class AnimatorController : MonoBehaviour
         Animator.StringToHash("FStrong Charge"),
         Animator.StringToHash("FStrong Hit"),
         Animator.StringToHash("DSpecial"),
-        Animator.StringToHash("SSpecial"),
+        Animator.StringToHash("FSpecial"),
         Animator.StringToHash("USpecial"),
         Animator.StringToHash("NSpecial Elijah Strartup"),
         Animator.StringToHash("NSpecial Elijah Fail"),
