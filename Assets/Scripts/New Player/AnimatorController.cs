@@ -21,11 +21,11 @@ public class AnimatorController : MonoBehaviour
         Animator.StringToHash("DTilt"),
         Animator.StringToHash("UTilt"),
         Animator.StringToHash("FTilt"),
-        Animator.StringToHash("Nair"),
-        Animator.StringToHash("Uair"),
-        Animator.StringToHash("Fair"),
-        Animator.StringToHash("Bair"),
-        Animator.StringToHash("Dair"),
+        Animator.StringToHash("NAir"),
+        Animator.StringToHash("UAir"),
+        Animator.StringToHash("FAir"),
+        Animator.StringToHash("BAir"),
+        Animator.StringToHash("DAir"),
         Animator.StringToHash("DStrong Charge"),
         Animator.StringToHash("DStrong Hit"),
         Animator.StringToHash("UStrong Charge"),
@@ -35,7 +35,10 @@ public class AnimatorController : MonoBehaviour
         Animator.StringToHash("DSpecial"),
         Animator.StringToHash("SSpecial"),
         Animator.StringToHash("USpecial"),
-        Animator.StringToHash("NSpecial")
+        Animator.StringToHash("NSpecial Elijah Strartup"),
+        Animator.StringToHash("NSpecial Elijah Fail"),
+        Animator.StringToHash("NSpecial Elijah Success")
+
     };
 
     [SerializeField]
@@ -85,7 +88,7 @@ public class AnimatorController : MonoBehaviour
         }
 
         currentAnimation = animation;
-        print(animations[(int)currentAnimation]);
+        //print(currentAnimation.ToString() + " "+(int)currentAnimation);
         anim.CrossFade(animations[(int)currentAnimation], crossFadeTime);
     }
 
@@ -123,6 +126,8 @@ public enum Animations
     DSPECIAL,
     SSPECIAL,
     USPECIAL,
-    NSPECIAL,
+    NSPECIAL_STARTUP,
+    NSPECIAL_FAIL,
+    NSPECIAL_SUCESS,
     NONE
 }

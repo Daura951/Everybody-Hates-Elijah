@@ -47,12 +47,6 @@ public class PunchingBag : MonoBehaviour
             XComponent *= -1;
         }
 
-        if(isInLaunch)
-        {
-            XComponent = XComponent + XComponent * launchVelocityFactor;
-            YComponent = YComponent + YComponent * launchVelocityFactor;
-        }
-
         rb.AddForce(new Vector2(XComponent, YComponent));
     }
 

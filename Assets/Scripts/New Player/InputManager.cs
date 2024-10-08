@@ -13,8 +13,7 @@ public class InputManager : MonoBehaviour
     public Vector2 Input { get; private set; }
 
     public event Action<float> OnMove;
-    public event Action OnJabPressed;
-    public event Action OnTiltPressed;
+    public event Action OnNeutralPressed;
     public event Action OnStrongHold;
     public event Action OnStrongRelease;
     public event Action OnSpecialPressed;
@@ -101,17 +100,9 @@ public class InputManager : MonoBehaviour
         isNeutralPressed = neutral.triggered;
         isRunning = run.ReadValue<float>() > 0;
 
-        if (neutral.triggered && isGrounded)
+        if (neutral.triggered)
         {
-
-            if (move.ReadValue<Vector2>().magnitude < tiltThreshold)
-            {
-                OnJabPressed?.Invoke();
-            }
-            else if (move.ReadValue<Vector2>().magnitude >= tiltThreshold)
-            {
-                OnTiltPressed?.Invoke(); 
-            }
+            OnNeutralPressed?.Invoke();
         }
 
         if(special.triggered)

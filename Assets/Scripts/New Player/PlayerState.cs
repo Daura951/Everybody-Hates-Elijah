@@ -7,6 +7,7 @@ public class PlayerState : MonoBehaviour
 
     public bool isAttacking;
     public bool isRight;
+    public bool isGrounded;
 
 
     // Start is called before the first frame update

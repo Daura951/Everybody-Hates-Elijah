@@ -17,6 +17,12 @@ public class PlayerAttackController : PlayerComponent
     [SerializeField]
     private float specialBuffer = .1f;
 
+    [SerializeField]
+    private float tiltThreshold = 0.1f;
+    
+    [SerializeField]
+    private float smashThreshold = 0.8f;
+
     public override void OnStart()
     {
         print("Hello PlayerAttackController!");
@@ -26,40 +32,85 @@ public class PlayerAttackController : PlayerComponent
     {
     }
 
-    public void Jab()
+    public void PerformNeutral()
     {
-        if(!playerstate.isAttacking)
-        {
-            animController.Play(Animations.JAB_1, false, false);
-            playerstate.isAttacking = true;
-        }
-    }
-
-    public void Tilt()
-    {
+        Vector2 move = new Vector2(inputManager.moveHorizontal, inputManager.moveVertical);
         if (!playerstate.isAttacking)
         {
             playerstate.isAttacking = true;
-            float moveY = inputManager.moveVertical;
-
-            if (moveY > 0+tiltBuffer)
+            if (playerstate.isGrounded)
             {
-                animController.Play(Animations.UTILT, false, false);
-            }
-            else if (moveY < 0-tiltBuffer)
-            {
-                animController.Play(Animations.DTILT, false, false);
+                if (move.magnitude < tiltThreshold)
+                {
+                    Jab();
+                }
+                else
+                {
+                    Tilt(move.y);
+                }
             }
             else
             {
-                animController.Play(Animations.FTILT, false, false);
+                Ariel(move);
             }
         }
     }
 
+
+    public void Jab()
+    {
+        animController.Play(Animations.JAB_1, false, false);
+    }
+
+    public void Tilt(float moveY)
+    {
+        if (moveY > tiltBuffer)
+        {
+            animController.Play(Animations.UTILT, false, false);
+        }
+        else if (moveY < -tiltBuffer)
+        {
+            animController.Play(Animations.DTILT, false, false);
+        }
+        else
+        {
+            animController.Play(Animations.FTILT, false, false);
+        }
+
+    }
+
+    private void Ariel(Vector2 move)
+    {
+        print("ARIAL!");
+        if (move.y> tiltBuffer)
+        {
+            animController.Play(Animations.UAIR, false, false);
+        }
+        else if (move.y < -tiltBuffer)
+        {
+            animController.Play(Animations.DAIR, false, false);
+        }
+        else if((move.x > tiltBuffer && playerstate.isRight) || (move.x < -tiltBuffer && !playerstate.isRight))
+        {
+            animController.Play(Animations.FAIR, false, false);
+        }
+        else if ((move.x < -tiltBuffer && playerstate.isRight) || (move.x > tiltBuffer && !playerstate.isRight))
+        {
+            animController.Play(Animations.BAIR, false, false);
+        }
+        else
+        {
+            animController.Play(Animations.NAIR, false, false);
+        }
+    }
     public void StrongHold()
     {
-        if(!playerstate.isAttacking &&!animController.GetCurrentAnimation().ToString().Contains("HIT"))
+        if(!playerstate.isGrounded)
+        {
+            Ariel(new Vector2(inputManager.moveHorizontal, inputManager.moveVertical));
+        }
+
+        else if(!playerstate.isAttacking &&!animController.GetCurrentAnimation().ToString().Contains("HIT"))
         {
             playerstate.isAttacking = true;
             isSmashCharging = true;
@@ -107,19 +158,23 @@ public class PlayerAttackController : PlayerComponent
         if (!playerstate.isAttacking)
         {
             playerstate.isAttacking = true;
-            float moveY = inputManager.moveVertical;
+            Vector2 move = new Vector2(inputManager.moveHorizontal, inputManager.moveVertical);
 
-            if (moveY > 0)
+            if (move.y > specialBuffer)
             {
-                //animController.Play(Animations.USPECIAL, false, false);
+                animController.Play(Animations.USPECIAL, false, false);
             }
-            else if (moveY < 0)
+            else if (move.y < -specialBuffer)
             {
                 animController.Play(Animations.DSPECIAL, false, false);
             }
+            else if(move.x != 0)
+            {
+               animController.Play(Animations.SSPECIAL, false, false);
+            }
             else
             {
-               //animController.Play(Animations.SSPECIAL, false, false);
+                animController.Play(Animations.NSPECIAL_STARTUP, false, false);
             }
         }
     }
@@ -135,8 +190,7 @@ public class PlayerAttackController : PlayerComponent
         this.animController = animController;
         this.playerstate = playerstate;
 
-        inputManager.OnJabPressed += Jab;
-        inputManager.OnTiltPressed += Tilt;
+        inputManager.OnNeutralPressed += PerformNeutral;
         inputManager.OnStrongHold += StrongHold;
         inputManager.OnStrongRelease += StrongRelease;
         inputManager.OnSpecialPressed += Special;
