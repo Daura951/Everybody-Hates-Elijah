@@ -18,6 +18,8 @@ public class AttackManager : MonoBehaviour
 
     private PlayerState playerState;
 
+    public bool didStickyCollide = false;
+
     void Start()
     {
         attackDetails = new PlayerAttackDetails[hitboxes.Length];

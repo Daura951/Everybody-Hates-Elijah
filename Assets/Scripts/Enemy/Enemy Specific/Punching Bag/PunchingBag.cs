@@ -63,6 +63,11 @@ public class PunchingBag : MonoBehaviour
         if (collision.gameObject.tag == "Hitbox")
         {
             AttackManager atkManager = GameObject.FindGameObjectWithTag("Player").GetComponent<AttackManager>();
+            if(collision.gameObject.name.Contains("Sticky"))
+            {
+                atkManager.didStickyCollide = true;
+            }
+
             GetHit(atkManager.findByHitbox(collision.gameObject.name), atkManager.GetPlayerState().isRight);
         }
         

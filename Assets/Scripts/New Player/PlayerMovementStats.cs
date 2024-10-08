@@ -71,6 +71,10 @@ public class PlayerMovementStats : ScriptableObject
     public float SSpecialFallMulti = 1;
     public float HorizontalSlideVelo = 7f;
 
+    [Header("DSpecial")]
+    public bool downSpecial;
+    public float dosnSpecialHorizontalVelocity;
+
     private void OnValidate()
     {
         CalcValues();

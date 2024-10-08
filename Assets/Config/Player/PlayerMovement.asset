@@ -49,4 +49,6 @@ MonoBehaviour:
   SSpecialSlide: 0
   SSpecialFall: 0
   SSpecialFallMulti: 0.55
-  HorizontalSlideVelo: 10
+  HorizontalSlideVelo: 17.5
+  downSpecial: 0
+  dosnSpecialHorizontalVelocity: 0

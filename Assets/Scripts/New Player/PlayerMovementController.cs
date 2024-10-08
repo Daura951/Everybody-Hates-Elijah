@@ -168,10 +168,15 @@ public class PlayerMovementController : PlayerComponent
         {
             rb.velocity = new Vector2(pms.USpecHorfact * (dir) , rb.velocity.y);
         }
+        else if (pms.downSpecial)
+        {
+            rb.velocity = new Vector2(pms.dosnSpecialHorizontalVelocity * (dir), rb.velocity.y);
+        }
         else
         {
             rb.velocity = new Vector2(0, rb.velocity.y);
         }
+
 
     }
 
@@ -179,10 +184,13 @@ public class PlayerMovementController : PlayerComponent
 
     private void TurnCheck(float moveX)
     {
-        if (isRight && moveX < 0)
-            Turn(false);
-        if (!isRight && moveX > 0)
-            Turn(true);
+        if (isGrounded)
+        {
+            if (isRight && moveX < 0)
+                Turn(false);
+            if (!isRight && moveX > 0)
+                Turn(true);
+        }
     }
 
     private void Turn(bool turn)
@@ -416,6 +424,11 @@ public class PlayerMovementController : PlayerComponent
         rb.velocity = new Vector2(0, 0);
         pms.SSpecialFall = true;
 
+    }
+
+    public void DSpecialSpin()
+    {
+        pms.downSpecial = !pms.downSpecial;
     }
 
 

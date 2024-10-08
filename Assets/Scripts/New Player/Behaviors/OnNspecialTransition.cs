@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class OnNspecialTransition : StateMachineBehaviour
 {
-    [SerializeField] private Animations animation;
+    private Animations animation;
     [SerializeField] private bool isLocked;
     [SerializeField] private float crossFadeTime = 0.2f;
     [SerializeField] private bool isAnimAttack;
@@ -22,6 +22,8 @@ public class OnNspecialTransition : StateMachineBehaviour
     }
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        bool didStickyHit = animator.GetComponent<AttackManager>().didStickyCollide;
+        animation = didStickyHit ?  Animations.NSPECIAL_SUCESS : Animations.NSPECIAL_FAIL;
         
     }
 
