@@ -75,6 +75,10 @@ public class PlayerMovementStats : ScriptableObject
     public bool downSpecial;
     public float dosnSpecialHorizontalVelocity;
 
+    [Header("Dash")]
+    public bool dashAttack;
+    public float slowdownVelocity = 0.01f;
+
     private void OnValidate()
     {
         CalcValues();

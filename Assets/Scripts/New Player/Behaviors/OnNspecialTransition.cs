@@ -27,10 +27,6 @@ public class OnNspecialTransition : StateMachineBehaviour
         
     }
 
-    public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    { 
-    }
-
     private IEnumerator Transition(Animator animator, AnimatorStateInfo stateInfo)
     {
         yield return new WaitForSeconds(stateInfo.length - crossFadeTime);

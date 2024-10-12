@@ -37,8 +37,8 @@ public class AnimatorController : MonoBehaviour
         Animator.StringToHash("USpecial"),
         Animator.StringToHash("NSpecial Elijah Strartup"),
         Animator.StringToHash("NSpecial Elijah Fail"),
-        Animator.StringToHash("NSpecial Elijah Success")
-
+        Animator.StringToHash("NSpecial Elijah Success"),
+        Animator.StringToHash("Dash")
     };
 
     [SerializeField]
@@ -58,6 +58,13 @@ public class AnimatorController : MonoBehaviour
         this.isLocked = isLocked;
     }
 
+    /// <summary>
+    /// Plays the animation if able to
+    /// </summary>
+    /// <param name="animation">Animation to play</param>
+    /// <param name="lockAnimator">Should the animator be locked</param>
+    /// <param name="bypassLock">Should the animation bypass the lock</param>
+    /// <param name="crossFadeTime">Time for crossfade</param>
     public void Play(Animations animation, bool lockAnimator, bool bypassLock, float crossFadeTime = 0.2f)
     {
        // print("Going from: " + currentAnimation.ToString() + " to: " + animation.ToString());
@@ -129,5 +136,6 @@ public enum Animations
     NSPECIAL_STARTUP,
     NSPECIAL_FAIL,
     NSPECIAL_SUCESS,
+    DASH,
     NONE
 }

@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
+/// <summary>
+/// Class that houses utility methods for attacks. Accessed via the animator
+/// </summary>
 public class AttackManager : MonoBehaviour
 {
     [SerializeField]
@@ -20,15 +23,12 @@ public class AttackManager : MonoBehaviour
 
     public bool didStickyCollide = false;
 
+    public Stickyhand stickyhand;
+
     void Start()
     {
         attackDetails = new PlayerAttackDetails[hitboxes.Length];
         InitalizeManager();
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private void InitalizeManager()
@@ -50,13 +50,19 @@ public class AttackManager : MonoBehaviour
                     float angle = float.Parse(parts[2]);
                     float knockback = float.Parse(parts[3]);
                     float stunTime = float.Parse(parts[4]);
+                    float freezeDuration = float.Parse(parts[5]);
 
-                    attackDetails[(int)attack] = new PlayerAttackDetails(attack, damage, angle, knockback, stunTime);
+                    attackDetails[(int)attack] = new PlayerAttackDetails(attack, damage, angle, knockback, stunTime, freezeDuration);
+                    print(attackDetails[(int)attack] + " " + hitboxes[(int)attack]);
                 }
             }
         }
     }
 
+    /// <summary>
+    /// Spawns a hitbox correlating to the attack
+    /// </summary>
+    /// <param name="attack">Attack the player is performing</param>
     public void SpawnHitbox(Attacks attack)
     {
         foreach(GameObject hb in hitboxes)
@@ -68,12 +74,20 @@ public class AttackManager : MonoBehaviour
         hitboxes[currentHitboxIndex].SetActive(true);
     }
 
+    /// <summary>
+    /// Despawns the currently active hitbox
+    /// </summary>
     public void DespawnHitbox()
     {
         hitboxes[currentHitboxIndex].SetActive(false);
         currentHitboxIndex = -1;
     }
 
+    /// <summary>
+    /// Finds PlayerAttackDetails via the hitbox's name
+    /// </summary>
+    /// <param name="hbName">Name of the hitbox</param>
+    /// <returns></returns>
     public PlayerAttackDetails findByHitbox(string hbName)
     {
         for(int i = 0; i < hitboxes.Length; i++)
@@ -90,6 +104,29 @@ public class AttackManager : MonoBehaviour
     public PlayerState GetPlayerState()
     {
         return playerState;
+    }
+
+    public void StickyHandStartup()
+    {
+        stickyhand.SetIsStickyActive(true);
+        stickyhand.ChangeStickyHandAnimation("Stickyhand Start up");
+    }
+
+    public void StickyHandSuccess()
+    {
+        stickyhand.ChangeStickyHandAnimation("Stickyhand Success");
+        this.didStickyCollide = false;
+    }
+
+    public void StickyHandFail()
+    {
+        stickyhand.ChangeStickyHandAnimation("Stickyhand Fail");
+    }
+
+    public void OnStickyHandEnd()
+    {
+        stickyhand.ChangeStickyHandAnimation("Stickyhand Blank State");
+        stickyhand.SetIsStickyActive(false);
     }
 
 }

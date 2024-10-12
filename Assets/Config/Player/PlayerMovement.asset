@@ -52,3 +52,5 @@ MonoBehaviour:
   HorizontalSlideVelo: 17.5
   downSpecial: 0
   dosnSpecialHorizontalVelocity: 0
+  dashAttack: 0
+  slowdownVelocity: 0.01

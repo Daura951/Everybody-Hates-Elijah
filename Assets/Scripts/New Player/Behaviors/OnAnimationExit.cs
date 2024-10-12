@@ -24,6 +24,8 @@ public class OnAnimationExit : StateMachineBehaviour
         animator.GetComponent<MonoBehaviour>().StartCoroutine(Transition(animator, stateInfo));
     }
 
+
+
     private IEnumerator Transition(Animator animator, AnimatorStateInfo stateInfo)
     {
         yield return new WaitForSeconds(stateInfo.length - crossFadeTime);

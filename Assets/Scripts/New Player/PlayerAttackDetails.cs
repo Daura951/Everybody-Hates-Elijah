@@ -10,26 +10,29 @@ public class PlayerAttackDetails
     private float angle;
     private float knockback;
     private float stunTime;
+    private float freezeDuration;
 
-    public PlayerAttackDetails(Attacks attack, float damage, float angle, float knockback, float stunTime)
+    public PlayerAttackDetails(Attacks attack, float damage, float angle, float knockback, float stunTime, float freezeDuration)
     {
         this.Attack = attack;
         this.Damage = damage;
         this.Angle = angle;
         this.Knockback = knockback;
         this.StunTime = stunTime;
+        this.freezeDuration = freezeDuration;
     }
 
 
     public override string ToString()
     {
-        return Attack.ToString() + ": " + Damage + " " + Angle + " " + Knockback + " " + StunTime;
+        return Attack.ToString() + ": " + Damage + " " + Angle + " " + Knockback + " " + StunTime + " "+freezeDuration;
     }
     public Attacks Attack { get => attack; set => attack = value; }
     public float Damage { get => damage; set => damage = value; }
     public float Angle { get => angle; set => angle = value; }
     public float Knockback { get => knockback; set => knockback = value; }
     public float StunTime { get => stunTime; set => stunTime = value; }
+    public float FreezeDuration { get => freezeDuration; set => freezeDuration = value; }
 
 
 }
@@ -58,4 +61,6 @@ public enum Attacks
     DSPECIAL_1,
     DSPECIAL_2,
     DSPECIAL_3,
+    DASH,
+    FAIR_2,
 }

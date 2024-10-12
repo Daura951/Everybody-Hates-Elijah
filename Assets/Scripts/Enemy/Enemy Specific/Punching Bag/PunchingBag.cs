@@ -38,7 +38,7 @@ public class PunchingBag : MonoBehaviour
 
     public virtual void GetHit(PlayerAttackDetails details, bool isRight)
     {
-
+        rb.velocity = Vector2.zero;
         float XComponent = Mathf.Cos(details.Angle * (Mathf.PI / 180)) * details.Knockback;
         float YComponent = Mathf.Sin(details.Angle * (Mathf.PI / 180)) * details.Knockback;
 
@@ -46,7 +46,7 @@ public class PunchingBag : MonoBehaviour
         {
             XComponent *= -1;
         }
-
+        StartCoroutine(FreezeHit(details.FreezeDuration));
         rb.AddForce(new Vector2(XComponent, YComponent));
     }
 
@@ -80,6 +80,13 @@ public class PunchingBag : MonoBehaviour
             isInLaunch = false;
             render.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
         }
+    }
+
+    private IEnumerator FreezeHit(float time)
+    {
+        Time.timeScale = 0;
+        yield return new WaitForSecondsRealtime(time);
+        Time.timeScale = 1f;
     }
 
 

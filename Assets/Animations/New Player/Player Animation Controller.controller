@@ -546,6 +546,33 @@ MonoBehaviour:
   isJab: 0
   isStrong: 0
   cancel: 0
+--- !u!1102 &-3251582774284885332
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Dash
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours:
+  - {fileID: 4036173959726444553}
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: 3ec66c15f9b97514391aac8254711f87, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!1102 &-2813478507364011297
 AnimatorState:
   serializedVersion: 6
@@ -797,7 +824,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5ca40c61bc8e1b43994d49056912ad0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animation: 30
   isLocked: 0
   crossFadeTime: 0.001
   isAnimAttack: 1
@@ -1082,6 +1108,9 @@ AnimatorStateMachine:
   - serializedVersion: 1
     m_State: {fileID: 8771656830349774679}
     m_Position: {x: 900, y: 580, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: -3251582774284885332}
+    m_Position: {x: 470, y: 340, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -1136,6 +1165,25 @@ MonoBehaviour:
   crossFadeTime: 0.001
   isAnimAttack: 1
   isJab: 1
+  isStrong: 0
+  cancel: 0
+--- !u!114 &4036173959726444553
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4bd5bf40b097cf43ae6e845d7cb5bee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animation: 0
+  isLocked: 0
+  crossFadeTime: 0.001
+  isAnimAttack: 1
+  isJab: 0
   isStrong: 0
   cancel: 0
 --- !u!1102 &5080153978006550241

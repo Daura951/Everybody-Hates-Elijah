@@ -40,29 +40,36 @@ public class PlayerAttackController : PlayerComponent
             playerstate.isAttacking = true;
             if (playerstate.isGrounded)
             {
+                if(playerstate.isRunning)
+                {
+                    Dash();
+                    return;
+                }
+
                 if (move.magnitude < tiltThreshold)
                 {
                     Jab();
+                    return;
                 }
-                else
-                {
-                    Tilt(move.y);
-                }
+                Tilt(move.y);
+                return;
             }
-            else
-            {
-                Ariel(move);
-            }
+            Ariel(move);
         }
     }
 
 
-    public void Jab()
+    private void Jab()
     {
         animController.Play(Animations.JAB_1, false, false);
     }
 
-    public void Tilt(float moveY)
+    private void Dash()
+    {
+        animController.Play(Animations.DASH, false, false);
+    }
+
+    private void Tilt(float moveY)
     {
         if (moveY > tiltBuffer)
         {
@@ -102,7 +109,7 @@ public class PlayerAttackController : PlayerComponent
             animController.Play(Animations.NAIR, false, false);
         }
     }
-    public void StrongHold()
+    private void StrongHold()
     {
         if(!playerstate.isGrounded)
         {
@@ -130,7 +137,7 @@ public class PlayerAttackController : PlayerComponent
         }
     }
 
-    public void StrongRelease()
+    private void StrongRelease()
     {
         if (isSmashCharging &&(animController.GetCurrentAnimation().ToString().Contains("CHARGE")))
         {
