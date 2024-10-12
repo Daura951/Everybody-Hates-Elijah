@@ -74,8 +74,10 @@ public class PlayerMovementController : PlayerComponent
         if (inputManager.isJumping && !pms.UspecialJump)
             Jump();
 
-       // if(!playerState.isAttacking)
-        Falling();
+       // if (animController.GetCurrentAnimation() != Animations.FAIR)
+            Falling();
+       // else
+       //     rb.velocity = new Vector2(0, (-9.81f/2f));
 
         accel = isGrounded ? pms.GroundAccel : pms.AirAccel;
         decel = isGrounded ? pms.GroundDecel : pms.AirDecel;
@@ -101,22 +103,34 @@ public class PlayerMovementController : PlayerComponent
                 VerticalVelocity += pms.Gravity * Time.fixedDeltaTime;
         }
 
-        if (!pms.SSpecialSlide)
+        if (!pms.SSpecialSlide && !pms.downSpecial && !pms.dashAttack)
         {
             //CLAMP FALL SPEED
                 VerticalVelocity = Mathf.Clamp(VerticalVelocity, -pms.MaxFallSpeed, 50f);
+            if(pms.UspecialJump)
+            rb.velocity = new Vector2(rb.velocity.x * dir, VerticalVelocity);
+                else
             rb.velocity = new Vector2(rb.velocity.x, VerticalVelocity);
         }
         else if (pms.SSpecialSlide)
             rb.velocity = new Vector2(pms.HorizontalSlideVelo * dir , 0f);
+        else if (pms.downSpecial)
+            rb.velocity = new Vector2(pms.dosnSpecialHorizontalVelocity * dir , 0f);
+        else if (pms.dashAttack)
+        {
+            if (rb.velocity.x >= 0)
+                rb.velocity -= new Vector2(pms.slowdownVelocity * dir, 0f);
+        }
     }
 
     #region Movement
     public void MovePlayer(float moveX)
     {
-        if(!pms.SSpecialSlide)
-        if (moveX > .1f || moveX < -.1f)
-            dir = moveX;
+        if (!pms.SSpecialSlide && !pms.dashAttack)
+            if (moveX > .1f || moveX < -.1f)
+                dir = moveX;
+            else
+                dir = 0;
 
 
         if (!playerState.isAttacking)
@@ -171,6 +185,11 @@ public class PlayerMovementController : PlayerComponent
         else if (pms.downSpecial)
         {
             rb.velocity = new Vector2(pms.dosnSpecialHorizontalVelocity * (dir), rb.velocity.y);
+        }
+        else if (pms.dashAttack)
+        {
+            if (rb.velocity.x >= 0)
+                rb.velocity -= new Vector2(pms.slowdownVelocity * (dir), rb.velocity.y);
         }
         else
         {
@@ -236,6 +255,7 @@ public class PlayerMovementController : PlayerComponent
     {
         IsGrounded();
         bumpHead();
+        LedgeCheck();
     }
 
     private void JumpChecks()
@@ -363,6 +383,21 @@ public class PlayerMovementController : PlayerComponent
             if (!isFalling)
                 isFalling = true; 
     }
+    private void CountTimers()
+    {
+        jumpBufferTimer -= Time.deltaTime;
+        coyoteTimer = isGrounded ? pms.JumpCoyoteTime : coyoteTimer - Time.deltaTime;
+    }
+
+    public void DashLaunch()
+    {
+        pms.dashAttack = !pms.dashAttack;
+    }
+
+    private void LedgeCheck()
+    {
+
+    }
 
     #region SpecailVelo
 
@@ -434,11 +469,6 @@ public class PlayerMovementController : PlayerComponent
 
     #endregion
 
-    private void CountTimers()
-    {
-        jumpBufferTimer -= Time.deltaTime;
-        coyoteTimer = isGrounded ? pms.JumpCoyoteTime : coyoteTimer - Time.deltaTime;
-    }
 
     #region JUMPARC
 
@@ -560,6 +590,7 @@ public class PlayerMovementController : PlayerComponent
     {
         playerState.isRight = isRight;
         playerState.isGrounded = isGrounded;
+        playerState.isRunning = inputManager.isRunning;
     }
 
     public override void Configure(InputManager inputManager, AnimatorController animController, PlayerState playerstate)
