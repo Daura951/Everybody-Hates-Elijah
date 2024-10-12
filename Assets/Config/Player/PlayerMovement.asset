@@ -51,6 +51,6 @@ MonoBehaviour:
   SSpecialFallMulti: 0.55
   HorizontalSlideVelo: 17.5
   downSpecial: 0
-  dosnSpecialHorizontalVelocity: 0
+  dosnSpecialHorizontalVelocity: 3
   dashAttack: 0
   slowdownVelocity: 0.01
