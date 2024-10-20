@@ -17,6 +17,7 @@ public class InputManager : MonoBehaviour
     public event Action OnStrongHold;
     public event Action OnStrongRelease;
     public event Action OnSpecialPressed;
+    public event Action<float,float,bool> OnLedgeInput;
 
     public PlayerInputActions playerControls;
     private InputAction move;
@@ -99,6 +100,7 @@ public class InputManager : MonoBehaviour
         OnMove?.Invoke((moveHorizontal > .1f || moveHorizontal < -.1f) ? moveHorizontal: 0.0f);
         isNeutralPressed = neutral.triggered;
         isRunning = run.ReadValue<float>() > 0;
+        OnLedgeInput?.Invoke(moveHorizontal, moveVertical, isNeutralPressed);
 
         if (neutral.triggered)
         {

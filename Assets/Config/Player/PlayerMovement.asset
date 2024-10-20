@@ -12,6 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ba424a98862fa940ba7f6514fd8b454, type: 3}
   m_Name: PlayerMovement
   m_EditorClassIdentifier: 
+  drawLedgeBox: 1
+  WalkJumpArc: 1
+  RunJumpArc: 1
+  USpecialArc: 0
+  StopOncollision: 1
+  DrawRight: 1
+  ArcRes: 20
+  VisualSteps: 90
   MaxWalkSpeed: 5.5
   GroundAccel: 5
   GroundDecel: 20
@@ -36,13 +44,6 @@ MonoBehaviour:
   ApexhangTime: 0.03
   JumpBufferTime: 0.9
   JumpCoyoteTime: 0.1
-  WalkJumpArc: 0
-  RunJumpArc: 0
-  USpecialArc: 0
-  StopOncollision: 1
-  DrawRight: 1
-  ArcRes: 20
-  VisualSteps: 90
   UspecialJump: 0
   USpecJumpHieght: 3.292
   USpecHorfact: 2.933
@@ -54,3 +55,20 @@ MonoBehaviour:
   dosnSpecialHorizontalVelocity: 3
   dashAttack: 0
   slowdownVelocity: 0.01
+  reGrab: 0
+  grab: 0
+  moveable: 0
+  moveHorOnLedge: 1
+  redXOff: 0
+  redYOff: 0.26
+  redXSize: 0.83
+  redYSize: 0.05
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 512
+  Xtweak: 2.15
+  Ytweak: 0.2825
+  Box: {fileID: 0}
+  g: {fileID: 0}
+  holding: 3
+  Limit: 7

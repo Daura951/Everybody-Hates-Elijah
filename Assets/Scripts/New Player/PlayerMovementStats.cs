@@ -5,6 +5,17 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Player Movement")]
 public class PlayerMovementStats : ScriptableObject
 {
+    [Header("drawGizmos")]
+    public bool drawLedgeBox = false;
+    public bool WalkJumpArc = false;
+    public bool RunJumpArc = false;
+    public bool USpecialArc = false;
+    public bool StopOncollision = true;
+    public bool DrawRight = true;
+    [Range(5, 100)] public int ArcRes = 20;
+    [Range(0, 500)] public int VisualSteps = 90;
+
+
     [Header("Walk")]
     [Range(1f, 100f)] public float MaxWalkSpeed = 5.5f;
     [Range(0.25f, 50f)] public float GroundAccel = 5f;
@@ -44,14 +55,6 @@ public class PlayerMovementStats : ScriptableObject
     [Header("Jump Coyote Time")]
     [Range(0f, 1f)] public float JumpCoyoteTime = 0.1f;
 
-    [Header("Jump Visualization")]
-    public bool WalkJumpArc = false;
-    public bool RunJumpArc = false;
-    public bool USpecialArc = false;
-    public bool StopOncollision = true;
-    public bool DrawRight = true;
-    [Range(5, 100)] public int ArcRes = 20;
-    [Range(0, 500)] public int VisualSteps = 90;
 
     public float Gravity { get; private set; }
     public float USpecGravity { get; private set; }
@@ -78,6 +81,19 @@ public class PlayerMovementStats : ScriptableObject
     [Header("Dash")]
     public bool dashAttack;
     public float slowdownVelocity = 0.01f;
+
+    [Header("LedgeGrab")]
+    public bool reGrab = true, grab = false, moveable = false;
+    public bool moveHorOnLedge = false;
+    public float redXOff, redYOff, redXSize, redYSize;
+    public LayerMask groundMask;
+    [Range(-4,4)]public float Xtweak = 0, Ytweak = 0;
+    public BoxCollider2D Box;
+    public GameObject g;
+
+    [Header("Timers")]
+    public float holding, Limit;
+    private float timer, timer1;
 
     private void OnValidate()
     {

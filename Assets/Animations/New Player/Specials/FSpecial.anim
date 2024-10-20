@@ -111,7 +111,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 6
     messageOptions: 0
-  - time: 0.7
+  - time: 0.6666667
     functionName: SSpecialLaunch
     data: 
     objectReferenceParameter: {fileID: 0}

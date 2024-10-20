@@ -105,23 +105,23 @@ CompositeCollider2D:
   m_ColliderPaths:
   - m_Collider: {fileID: 3619496926669803537}
     m_ColliderPaths:
-    - - X: -8200000
-        Y: 3400000
-      - X: 11600000
-        Y: 4400000
-      - X: 11000000
-        Y: -16800000
-      - X: 10200000
-        Y: -30800000
-      - X: -4700000
-        Y: -17500000
+    - - X: -16400000
+        Y: 6800000
+      - X: 23200000
+        Y: 8800000
+      - X: 22000000
+        Y: -33600000
+      - X: 20400000
+        Y: -61600000
+      - X: -9400000
+        Y: -35000000
   m_CompositePaths:
     m_Paths:
-    - - {x: 1.0199461, y: -3.079952}
-      - {x: 1.1, y: -1.6800008}
-      - {x: 1.1599677, y: 0.4399983}
-      - {x: -0.8199944, y: 0.3399668}
-      - {x: -0.4699933, y: -1.7500061}
+    - - {x: 2.039946, y: -6.159952}
+      - {x: 2.2, y: -3.3600008}
+      - {x: 2.3199675, y: 0.8799983}
+      - {x: -1.6399944, y: 0.6799668}
+      - {x: -0.9399933, y: -3.500006}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
 --- !u!1 &6877093091481947021
@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 5907406077412330847}
   - component: {fileID: 5907406077412330846}
   - component: {fileID: 1286499835260747555}
-  m_Layer: 11
+  m_Layer: 9
   m_Name: Grabbable Cracked Hallway
   m_TagString: Grab
   m_Icon: {fileID: 0}
@@ -153,7 +153,7 @@ Transform:
   m_GameObject: {fileID: 6877093091481947021}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 148.89685, y: -3.4138405, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7102844938591437816}
@@ -229,20 +229,20 @@ CompositeCollider2D:
   m_ColliderPaths:
   - m_Collider: {fileID: 5907406077412330784}
     m_ColliderPaths:
-    - - X: 12100000
-        Y: 10500000
-      - X: -12700000
-        Y: 10500000
-      - X: -12700000
-        Y: 500000
-      - X: 12100000
-        Y: 500000
+    - - X: 24200000
+        Y: 21000000
+      - X: -25400000
+        Y: 21000000
+      - X: -25400000
+        Y: 1000000
+      - X: 24200000
+        Y: 1000000
   m_CompositePaths:
     m_Paths:
-    - - {x: 1.2099707, y: 0.05}
-      - {x: 1.2099707, y: 1.0500001}
-      - {x: -1.27, y: 1.0499707}
-      - {x: -1.2699707, y: 0.05}
+    - - {x: 2.4199708, y: 0.1}
+      - {x: 2.4199708, y: 2.1000001}
+      - {x: -2.54, y: 2.0999708}
+      - {x: -2.5399709, y: 0.1}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
 --- !u!212 &1286499835260747555

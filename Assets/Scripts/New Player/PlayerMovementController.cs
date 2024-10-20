@@ -35,7 +35,7 @@ public class PlayerMovementController : PlayerComponent
     private bool isFastFalling;
     private float fastFallTime;
     private float fastFallReleaseSpeed;
-    private int usedJumps;
+    public int usedJumps;
 
     //apex vars
     private float apexPoint;
@@ -61,7 +61,7 @@ public class PlayerMovementController : PlayerComponent
         SendDataToPlayerState();
         if(!pms.SSpecialSlide)
         CountTimers();
-        if(!pms.UspecialJump)
+        if(!pms.UspecialJump && !playerState.isAttacking)
         JumpChecks();
     }
     public override void OnFixedUpdate()
@@ -71,13 +71,13 @@ public class PlayerMovementController : PlayerComponent
         if (pms.UspecialJump)
             USpecialJump();
 
-        if (inputManager.isJumping && !pms.UspecialJump)
+        if (inputManager.isJumping && !pms.UspecialJump && !playerState.isAttacking)
             Jump();
 
-       // if (animController.GetCurrentAnimation() != Animations.FAIR)
+
+        if(!playerState.isLedgeGrab)
             Falling();
-       // else
-       //     rb.velocity = new Vector2(0, (-9.81f/2f));
+
 
         accel = isGrounded ? pms.GroundAccel : pms.AirAccel;
         decel = isGrounded ? pms.GroundDecel : pms.AirDecel;
@@ -106,14 +106,17 @@ public class PlayerMovementController : PlayerComponent
         if (!pms.SSpecialSlide && !pms.downSpecial && !pms.dashAttack)
         {
             //CLAMP FALL SPEED
-                VerticalVelocity = Mathf.Clamp(VerticalVelocity, -pms.MaxFallSpeed, 50f);
-            if(pms.UspecialJump)
-            rb.velocity = new Vector2(rb.velocity.x * dir, VerticalVelocity);
-                else
-            rb.velocity = new Vector2(rb.velocity.x, VerticalVelocity);
+            VerticalVelocity = Mathf.Clamp(VerticalVelocity, -pms.MaxFallSpeed, 50f);
+            if (pms.UspecialJump)
+                rb.velocity = new Vector2(rb.velocity.x * dir, VerticalVelocity);
+            else
+                rb.velocity = new Vector2(rb.velocity.x, VerticalVelocity);
         }
         else if (pms.SSpecialSlide)
+        {
+            dir = dir != 0 ? dir : (transform.eulerAngles.y == 0 ? 1f : -1f);
             rb.velocity = new Vector2(pms.HorizontalSlideVelo * dir , 0f);
+        }
         else if (pms.downSpecial)
             rb.velocity = new Vector2(pms.dosnSpecialHorizontalVelocity * dir , 0f);
         else if (pms.dashAttack)
@@ -128,75 +131,83 @@ public class PlayerMovementController : PlayerComponent
     {
         if (!pms.SSpecialSlide && !pms.dashAttack)
             if (moveX > .1f || moveX < -.1f)
+            {
                 dir = moveX;
+                if(!playerState.isLedgeGrab)
+                pms.moveHorOnLedge = false;
+            }
             else
+            {
+                pms.moveHorOnLedge = true;
                 dir = 0;
+            }
 
-
-        if (!playerState.isAttacking)
+        if (!playerState.isLedgeGrab)
         {
-            if(moveX > .1f || moveX < -.1f)
+            if (!playerState.isAttacking)
             {
-                //move check
-                TurnCheck(moveX);
-
-                if(isGrounded)
+                if (moveX > .1f || moveX < -.1f)
                 {
-                 if (inputManager.isRunning)
-                 animController.Play(Animations.RUN, false, false);
-                 else
-                    animController.Play(Animations.WALK, false, false);
+                    //move check
+                    TurnCheck(moveX);
+
+                    if (isGrounded)
+                    {
+                        if (inputManager.isRunning)
+                            animController.Play(Animations.RUN, false, false);
+                        else
+                            animController.Play(Animations.WALK, false, false);
+                    }
+
+
+                    Vector2 targetVelocity = Vector2.zero;
+                    targetVelocity = new Vector2(moveX, 0f) * (inputManager.isRunning ? pms.MaxRunSpeed : pms.MaxWalkSpeed);
+                    moveVelocity = Vector2.Lerp(moveVelocity, targetVelocity, accel * Time.fixedDeltaTime);
+                    rb.velocity = new Vector2(moveVelocity.x, rb.velocity.y);
+
+                }
+                else if (!(moveX > .1f || moveX < -.1f))
+                {
+                    if (isGrounded)
+                        animController.Play(Animations.IDLE, false, false);
+
+                    moveVelocity = Vector2.Lerp(moveVelocity, Vector2.zero, decel * Time.fixedDeltaTime);
+                    rb.velocity = new Vector2(moveVelocity.x, rb.velocity.y);
                 }
 
 
-                Vector2 targetVelocity = Vector2.zero;
-                targetVelocity = new Vector2(moveX, 0f) * (inputManager.isRunning ? pms.MaxRunSpeed : pms.MaxWalkSpeed);
-                moveVelocity = Vector2.Lerp(moveVelocity, targetVelocity, accel * Time.fixedDeltaTime);
-                rb.velocity = new Vector2(moveVelocity.x, rb.velocity.y);
-
-            }
-            else if (!(moveX > .1f || moveX < -.1f))
-            {
-                if(isGrounded)
-                animController.Play(Animations.IDLE, false, false);
-
-                moveVelocity = Vector2.Lerp(moveVelocity, Vector2.zero, decel * Time.fixedDeltaTime);
-                rb.velocity = new Vector2(moveVelocity.x, rb.velocity.y);
-            }
-
-
-            if(!isGrounded)
-            {
-                if(rb.velocity.y < 0.6f)
-                animController.Play(Animations.FALLING, false, false);
-                else if (usedJumps == 1)
-                animController.Play(Animations.SINGLE_JUMP, false, false);
-                else if (usedJumps > 1)
+                if (!isGrounded)
                 {
-                animController.Play(Animations.DOUBLE_JUMP, false, false);
+                    if (rb.velocity.y < -0.6f)
+                        animController.Play(Animations.FALLING, false, false);
+                    else if (usedJumps == 1)
+                        animController.Play(Animations.SINGLE_JUMP, false, false);
+                    else if (usedJumps > 1)
+                    {
+                        animController.Play(Animations.DOUBLE_JUMP, false, false);
+                    }
+
                 }
-
             }
-        }
-        else if (pms.UspecialJump)
-        {
-            rb.velocity = new Vector2(pms.USpecHorfact * (dir) , rb.velocity.y);
-        }
-        else if (pms.downSpecial)
-        {
-            rb.velocity = new Vector2(pms.dosnSpecialHorizontalVelocity * (dir), rb.velocity.y);
-        }
-        else if (pms.dashAttack)
-        {
-            if (rb.velocity.x >= 0)
-                rb.velocity -= new Vector2(pms.slowdownVelocity * (dir), rb.velocity.y);
-        }
-        else
-        {
-            rb.velocity = new Vector2(0, rb.velocity.y);
-        }
+            else if (pms.UspecialJump)
+            {
+                rb.velocity = new Vector2(pms.USpecHorfact * (dir), rb.velocity.y);
+            }
+            else if (pms.downSpecial)
+            {
+                rb.velocity = new Vector2(pms.dosnSpecialHorizontalVelocity * (dir), rb.velocity.y);
+            }
+            else if (pms.dashAttack)
+            {
+                if (rb.velocity.x >= 0)
+                    rb.velocity -= new Vector2(pms.slowdownVelocity * (dir), rb.velocity.y);
+            }
+            else
+            {
+                rb.velocity = new Vector2(0, rb.velocity.y);
+            }
 
-
+        }
     }
 
 
@@ -255,6 +266,7 @@ public class PlayerMovementController : PlayerComponent
     {
         IsGrounded();
         bumpHead();
+        if(!playerState.isLedgeGrab)
         LedgeCheck();
     }
 
@@ -263,6 +275,7 @@ public class PlayerMovementController : PlayerComponent
         //PRESSING JUMP
         if (inputManager.JumpPressed)
         {
+            playerState.isLedgeGrab = false;
             jumpBufferTimer = pms.JumpBufferTime;
             jumpReleaseDuringBuffer = false;
         }
@@ -340,8 +353,10 @@ public class PlayerMovementController : PlayerComponent
 
     private void Jump()
     {
-        //CHECK FOR HEAD BUMP
-        if (bumpedHead)
+        if(!playerState.isAttacking)
+        {
+         //CHECK FOR HEAD BUMP
+         if (bumpedHead)
                 isFastFalling = true;
         
          //GRAVITY ON ASCENDING
@@ -377,11 +392,12 @@ public class PlayerMovementController : PlayerComponent
          //GRAVITY ON DESCENDING
          else if (pms.SSpecialFall)
             VerticalVelocity += pms.Gravity * pms.SSpecialFallMulti * Time.fixedDeltaTime;
-        else if (!isFastFalling)
+         else if (!isFastFalling)
             VerticalVelocity += pms.Gravity * pms.GravityReleaseMultiplyer * Time.fixedDeltaTime;
          else if (VerticalVelocity < 0f)
             if (!isFalling)
                 isFalling = true; 
+        }
     }
     private void CountTimers()
     {
@@ -396,7 +412,86 @@ public class PlayerMovementController : PlayerComponent
 
     private void LedgeCheck()
     {
+       pms.redXOff = playerState.isRight ? MathF.Abs(pms.redXOff) : MathF.Abs(pms.redXOff) * -1f;
 
+
+        Collider2D redBox = Physics2D.OverlapBox(new Vector2(transform.position.x + pms.redXOff, transform.position.y + pms.redYOff), new Vector2(pms.redXSize , pms.redYSize), 0f, pms.groundMask);
+
+
+        if(rb.velocity.y > 1)
+            pms.reGrab = true;
+
+
+        if (!redBox || animController.GetCurrentAnimation() == Animations.FALLING)
+        {
+            playerState.isLedgeGrab = false;
+        }
+
+        if (redBox && pms.reGrab)
+        {
+           // print("I grabbed because why not");
+            pms.g = redBox.gameObject;
+            pms.Box = pms.g.GetComponent<BoxCollider2D>();
+
+            if (pms.g.GetComponent<PlatformMovement>())
+                pms.moveable = true;
+
+            if (pms.g.CompareTag("Grab") && pms.reGrab)
+            {
+                rb.velocity = Vector2.zero;
+                VerticalVelocity = moveVelocity.x = 0f;
+                pms.reGrab = false;
+
+                /// a timer system need to be here
+
+                usedJumps = usedJumps == 2 ? 1 : usedJumps;
+                playerState.isLedgeGrab = true;
+                animController.Play(Animations.LEDGE_GRAB, false, false);
+
+
+                /// Need to despawn all attack hitboxes
+
+            }
+
+            if (transform.position.x < pms.g.transform.position.x)
+            {
+                transform.position = new Vector2((pms.g.transform.position.x - (pms.g.transform.localScale.x * 0.5f) - transform.localScale.x * pms.Xtweak + (pms.Box.offset.x * pms.Box.size.x)), 
+                    (pms.g.transform.position.y - (((1f - pms.g.transform.localScale.y) / .25f) * pms.Ytweak) + (pms.Box.offset.y * pms.Box.size.y)));
+                if (playerState.isRight)
+                    Turn(false);
+            }
+            else
+            {
+                transform.position = new Vector2((pms.g.transform.position.x + (pms.g.transform.localScale.x * 0.5f) + transform.localScale.x * pms.Xtweak - (pms.Box.offset.x * pms.Box.size.x)), 
+                    (pms.g.transform.position.y - (((1f - pms.g.transform.localScale.y) / .25f) * pms.Ytweak) + (pms.Box.offset.y * pms.Box.size.y)));
+                if (!playerState.isRight)
+                    Turn(true);
+ 
+            }
+        }
+    }
+
+    public void LedgeHang(float moveX , float moveY, bool Attack)
+    {
+        if(playerState.isLedgeGrab)
+        {
+
+            if(moveY < -.4f || (isRight && dir > .1f) || (!isRight && dir < -.1f))
+            {
+                animController.Play(Animations.FALLING, false, false);
+                playerState.isLedgeGrab = false;
+            }
+
+            if(pms.moveHorOnLedge && ((!isRight && dir > .1f) || (isRight && dir < -.1f)))
+            {
+                animController.Play(Animations.LEDGE_PULL, false, false);
+                //playerState.isLedgeGrab = false;
+            }
+
+        //    print("moveX: " + moveX);
+        //    print("moveY: " + moveY);
+        //    print("Attack: " + Attack);
+        }
     }
 
     #region SpecailVelo
@@ -585,6 +680,11 @@ public class PlayerMovementController : PlayerComponent
             DrawJumpArc(pms.MaxWalkSpeed, Color.red);
         if (pms.RunJumpArc)
             DrawJumpArc(pms.MaxRunSpeed, Color.green);
+        if(pms.drawLedgeBox)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireCube(new Vector2(transform.position.x + pms.redXOff, transform.position.y + pms.redYOff), new Vector2(pms.redXSize, pms.redYSize));
+        }
     }
     private void SendDataToPlayerState()
     {
@@ -592,6 +692,7 @@ public class PlayerMovementController : PlayerComponent
         playerState.isGrounded = isGrounded;
         playerState.isRunning = inputManager.isRunning;
     }
+
 
     public override void Configure(InputManager inputManager, AnimatorController animController, PlayerState playerstate)
     {
@@ -601,6 +702,51 @@ public class PlayerMovementController : PlayerComponent
 
 
         inputManager.OnMove += MovePlayer;
-       // inputManager.OnJump += Jump;
+        inputManager.OnLedgeInput += LedgeHang;
+        EventManager.bladebound.AddListener(ConfigureForBladebound);
+        EventManager.bladeboundEnd.AddListener(ConfigureAfterBladebound);
+        // inputManager.OnJump += Jump;
+    }
+
+    private void ConfigureForBladebound()
+    {
+        //pms.MaxWalkSpeed =2.0f;
+        //pms.MaxRunSpeed= 2.0f;
+        //pms.AirAccel = 2.0f;
+        //pms.AirDecel= 2.0f;
+        //pms.GroundAccel = 2.0f;
+        //pms.GroundDecel= 2.0f;
+        //pms.HorizontalSlideVelo = 2.0f;
+        //pms.downSpecialHorizontalVelocity= 2.0f;
+        //pms.slowdownVelocity = 2.0f;
+        //pms.MaxFallSpeed= 2.0f;
+        //pms.GravityReleaseMultiplyer = 2.0f;
+        //pms.JumpApexTime /= 2.0f;
+        //pms.ApexhangTime /= 2.0f;
+        //pms.JumpHieght /= 2.0f;
+        //pms.InitialJumpVelo= 2.0f;
+
+        VerticalVelocity = 2.0f;
+    }
+
+    private void ConfigureAfterBladebound()
+    {
+        //pms.MaxWalkSpeed /= 2.0f;
+        //pms.MaxRunSpeed /= 2.0f;
+        //pms.AirAccel /= 2.0f;
+        //pms.AirDecel /= 2.0f;
+        //pms.GroundAccel /= 2.0f;
+        //pms.GroundDecel /= 2.0f;
+        //pms.HorizontalSlideVelo /= 2.0f;
+        //pms.downSpecialHorizontalVelocity /= 2.0f;
+        //pms.slowdownVelocity /= 2.0f;
+        //pms.MaxFallSpeed /= 2.0f;
+        //pms.GravityReleaseMultiplyer /= 2.0f;
+        //pms.InitialJumpVelo /= 2.0f;
+        //pms.JumpApexTime= 2.0f;
+        //pms.ApexhangTime = 2.0f;
+        //pms.JumpHieght= 2.0f;
+
+        VerticalVelocity /= 2.0f;
     }
 }
