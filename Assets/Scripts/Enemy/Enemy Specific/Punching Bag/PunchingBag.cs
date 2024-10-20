@@ -67,7 +67,7 @@ public class PunchingBag : MonoBehaviour
             {
                 atkManager.didStickyCollide = true;
             }
-
+            GameObject.FindGameObjectWithTag("Player").GetComponent<BladeboundController>().CurHitAmt++;
             GetHit(atkManager.findByHitbox(collision.gameObject.name), atkManager.GetPlayerState().isRight);
         }
         
@@ -86,7 +86,7 @@ public class PunchingBag : MonoBehaviour
     {
         Time.timeScale = 0;
         yield return new WaitForSecondsRealtime(time);
-        Time.timeScale = 1f;
+        Time.timeScale = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerState>().isInBB ? 0.5f : 1.0f;
     }
 
 

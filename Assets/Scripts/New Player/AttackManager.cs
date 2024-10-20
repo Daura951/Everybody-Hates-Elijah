@@ -75,12 +75,15 @@ public class AttackManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Despawns the currently active hitbox
+    /// Despawns the currently active hitbox so long as its index is not negative
     /// </summary>
     public void DespawnHitbox()
     {
-        hitboxes[currentHitboxIndex].SetActive(false);
-        currentHitboxIndex = -1;
+        if (currentHitboxIndex >= 0)
+        {
+            hitboxes[currentHitboxIndex].SetActive(false);
+            currentHitboxIndex = -1;
+        }
     }
 
     /// <summary>
@@ -94,7 +97,7 @@ public class AttackManager : MonoBehaviour
         {
             if (hitboxes[i].name == hbName)
             {
-                print(attackDetails[i]);
+                //print(attackDetails[i]);
                 return attackDetails[i];
             }
         }
@@ -129,4 +132,8 @@ public class AttackManager : MonoBehaviour
         stickyhand.SetIsStickyActive(false);
     }
 
+    public void OnLedgeFail()
+    {
+        playerState.isLedgeGrab = false;
+    }
 }

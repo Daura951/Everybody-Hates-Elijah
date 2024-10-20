@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerState : MonoBehaviour
 {
@@ -9,7 +10,9 @@ public class PlayerState : MonoBehaviour
     public bool isRight;
     public bool isGrounded;
     public bool isRunning;
-
+    public bool isBBReady;
+    public bool isInBB;
+    public bool isLedgeGrab;
 
     // Start is called before the first frame update
     void Start()
@@ -20,5 +23,8 @@ public class PlayerState : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+        
+        
     }
 }
