@@ -206,6 +206,33 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!1102 &-6783029185466063627
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Ledge pull
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours:
+  - {fileID: 950471612322392465}
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: 8ef2644e0c7d2514cacbb6ddcf7af5d3, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!114 &-6682039369432732470
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -507,6 +534,33 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!1102 &-4152714924391512001
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Ledge grab
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours:
+  - {fileID: -2677022202578094968}
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: 2898eeed76d537f4cb9ce0e212647470, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!114 &-3722857317439806747
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -678,6 +732,25 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!114 &-2677022202578094968
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4bd5bf40b097cf43ae6e845d7cb5bee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animation: 35
+  isLocked: 0
+  crossFadeTime: 0.2
+  isAnimAttack: 0
+  isJab: 0
+  isStrong: 0
+  cancel: 0
 --- !u!114 &-2487739022120001110
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1033,6 +1106,25 @@ MonoBehaviour:
   isJab: 0
   isStrong: 0
   cancel: 0
+--- !u!114 &950471612322392465
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4bd5bf40b097cf43ae6e845d7cb5bee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animation: 5
+  isLocked: 0
+  crossFadeTime: 0.001
+  isAnimAttack: 0
+  isJab: 0
+  isStrong: 0
+  cancel: 0
 --- !u!114 &1279409167207887596
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1251,6 +1343,18 @@ AnimatorStateMachine:
   - serializedVersion: 1
     m_State: {fileID: 7701647406942585244}
     m_Position: {x: 738.03644, y: 663.5435, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: -4152714924391512001}
+    m_Position: {x: -150, y: 220, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 5117465784952501572}
+    m_Position: {x: -360, y: 220, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: -6783029185466063627}
+    m_Position: {x: -150, y: 170, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 3319729593851882929}
+    m_Position: {x: -360, y: 170, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -1280,6 +1384,32 @@ MonoBehaviour:
   isJab: 0
   isStrong: 0
   cancel: 0
+--- !u!1102 &3319729593851882929
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Ledge attack
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: 03034cfbede098b439d6ad7352db7f02, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!1102 &3841632332494140961
 AnimatorState:
   serializedVersion: 6
@@ -1399,6 +1529,33 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!1102 &5117465784952501572
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Ledge idle
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours:
+  - {fileID: 5561166727693692602}
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: 560e79a1ee8d4d04b8b302b60ba609e0, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!114 &5367240848550769212
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1414,6 +1571,25 @@ MonoBehaviour:
   animation: 0
   isLocked: 0
   crossFadeTime: 0.2
+  isAnimAttack: 0
+  isJab: 0
+  isStrong: 0
+  cancel: 0
+--- !u!114 &5561166727693692602
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4bd5bf40b097cf43ae6e845d7cb5bee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animation: 5
+  isLocked: 0
+  crossFadeTime: 6.67
   isAnimAttack: 0
   isJab: 0
   isStrong: 0

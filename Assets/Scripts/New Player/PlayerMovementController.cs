@@ -61,7 +61,7 @@ public class PlayerMovementController : PlayerComponent
         SendDataToPlayerState();
         if(!pms.SSpecialSlide)
         CountTimers();
-        if(!pms.UspecialJump && !playerState.isAttacking)
+        if(!pms.UspecialJump)
         JumpChecks();
     }
     public override void OnFixedUpdate()
@@ -71,7 +71,7 @@ public class PlayerMovementController : PlayerComponent
         if (pms.UspecialJump)
             USpecialJump();
 
-        if (inputManager.isJumping && !pms.UspecialJump && !playerState.isAttacking)
+        if (inputManager.isJumping && !pms.UspecialJump)
             Jump();
 
 
@@ -353,8 +353,6 @@ public class PlayerMovementController : PlayerComponent
 
     private void Jump()
     {
-        if(!playerState.isAttacking)
-        {
          //CHECK FOR HEAD BUMP
          if (bumpedHead)
                 isFastFalling = true;
@@ -397,7 +395,7 @@ public class PlayerMovementController : PlayerComponent
          else if (VerticalVelocity < 0f)
             if (!isFalling)
                 isFalling = true; 
-        }
+      
     }
     private void CountTimers()
     {
