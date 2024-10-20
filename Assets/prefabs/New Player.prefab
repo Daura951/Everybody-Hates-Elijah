@@ -1526,15 +1526,15 @@ GameObject:
   - component: {fileID: 3131762222312026667}
   - component: {fileID: 3131762222312026644}
   - component: {fileID: 3315005420220196329}
-  - component: {fileID: 3131762222312026643}
   - component: {fileID: 3131762222312026645}
   - component: {fileID: 3131762222312026646}
   - component: {fileID: 3131762222312026640}
   - component: {fileID: 3131762222312026641}
   - component: {fileID: 3131762222312026642}
+  - component: {fileID: 3131762222312026643}
   - component: {fileID: 3131762222312026666}
   - component: {fileID: 4335699818797656285}
-  - component: {fileID: 2583657740059479791}
+  - component: {fileID: 1950785412}
   m_Layer: 3
   m_Name: New Player
   m_TagString: Player
@@ -1638,26 +1638,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!95 &3131762222312026643
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3131762222312026654}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 90e154b2ad0144d4d8edab97eb7147f1, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &3131762222312026645
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1673,7 +1653,6 @@ MonoBehaviour:
   playerComponents:
   - {fileID: 3131762222312026646}
   - {fileID: 3131762222312026640}
-  - {fileID: 2583657740059479791}
 --- !u!114 &3131762222312026646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1689,6 +1668,7 @@ MonoBehaviour:
   pms: {fileID: 11400000, guid: 777ef4400f47f4a42b5f3952fc044dc7, type: 2}
   feet: {fileID: 6119474020206487817}
   body: {fileID: 2272624342141555647}
+  usedJumps: 0
 --- !u!114 &3131762222312026640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1739,6 +1719,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 3131762222312026643}
+--- !u!95 &3131762222312026643
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3131762222312026654}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 90e154b2ad0144d4d8edab97eb7147f1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &3131762222312026666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1757,6 +1757,7 @@ MonoBehaviour:
   isRunning: 0
   isBBReady: 0
   isInBB: 0
+  isLedgeGrab: 0
 --- !u!114 &4335699818797656285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1797,7 +1798,7 @@ MonoBehaviour:
   attackConfigFile: {fileID: 4900000, guid: 5c4885a361e2c1f4ba2a56c1f8cbf383, type: 3}
   didStickyCollide: 0
   stickyhand: {fileID: 8704471994056319284}
---- !u!114 &2583657740059479791
+--- !u!114 &1950785412
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
