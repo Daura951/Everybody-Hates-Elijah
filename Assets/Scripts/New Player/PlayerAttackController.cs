@@ -178,9 +178,13 @@ public class PlayerAttackController : PlayerComponent
             {
                animController.Play(Animations.SSPECIAL, false, false);
             }
-            else
+            else if(!playerstate.isBBReady)
             {
                 animController.Play(Animations.NSPECIAL_STARTUP, false, false);
+            }
+            else
+            {
+                playerstate.isAttacking = false; //TODO: Make sure to get rid of this for when BB anim is in
             }
         }
     }
@@ -200,6 +204,14 @@ public class PlayerAttackController : PlayerComponent
         inputManager.OnStrongHold += StrongHold;
         inputManager.OnStrongRelease += StrongRelease;
         inputManager.OnSpecialPressed += Special;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(animController.GetCurrentAnimation().ToString().Contains("AIR"))
+        {
+            animController.Play(Animations.IDLE, false, false);
+        }
     }
 
 }

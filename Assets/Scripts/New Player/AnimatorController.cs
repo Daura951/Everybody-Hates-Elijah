@@ -38,7 +38,12 @@ public class AnimatorController : MonoBehaviour
         Animator.StringToHash("NSpecial Elijah Strartup"),
         Animator.StringToHash("NSpecial Elijah Fail"),
         Animator.StringToHash("NSpecial Elijah Success"),
-        Animator.StringToHash("Dash")
+        Animator.StringToHash("Dash"),
+        Animator.StringToHash("BladeboundActivation"),
+        Animator.StringToHash("Ledge grab"),
+        Animator.StringToHash("Ledge idle"),
+        Animator.StringToHash("Ledge attack"),
+        Animator.StringToHash("Ledge pull")
     };
 
     [SerializeField]
@@ -46,6 +51,13 @@ public class AnimatorController : MonoBehaviour
 
     private Animations currentAnimation = Animations.IDLE;
     private bool isLocked = false;
+
+
+    private void Awake()
+    {
+        EventManager.bladebound.AddListener(ConfigureBladeBound);
+        EventManager.bladeboundEnd.AddListener(ConfigureAfterBladeBound);
+    }
 
 
     public Animations GetCurrentAnimation()
@@ -99,6 +111,17 @@ public class AnimatorController : MonoBehaviour
         anim.CrossFade(animations[(int)currentAnimation], crossFadeTime);
     }
 
+    public void ConfigureBladeBound()
+    {
+        anim.speed = 2.0f;
+    }
+    public void ConfigureAfterBladeBound()
+    {
+        anim.speed = 1.0f;
+    }
+
+
+
 }
 
 
@@ -137,5 +160,10 @@ public enum Animations
     NSPECIAL_FAIL,
     NSPECIAL_SUCESS,
     DASH,
+    BLADEBOUND_ACTIVATION,
+    LEDGE_GRAB,
+    LEDGE_IDLE,
+    LEDGE_ATTACK,
+    LEDGE_PULL,
     NONE
 }
