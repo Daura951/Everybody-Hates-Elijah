@@ -12,6 +12,7 @@ public class VideoCutsceneTrigger : MonoBehaviour
     public int sceneToGoTo;
     public VideoCutsceneFader fader;
     private GameObject cutSceneUi;
+    private Player player;
 
     public string cutsceneKey;
     private void Awake()
@@ -23,10 +24,15 @@ public class VideoCutsceneTrigger : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         this.GetComponent<SpriteRenderer>().enabled = false;
 
         if(SceneManager.GetActiveScene().buildIndex != 0) { 
             fader = GameObject.Find("Player UI").transform.Find("Fader").GetComponent<VideoCutsceneFader>();
+            if(fader != null)
+            {
+                print("Fader found!");
+            }
         }
     }
 
@@ -40,8 +46,7 @@ public class VideoCutsceneTrigger : MonoBehaviour
     {
         if(collision.gameObject.tag=="Player" && PlayerPrefs.GetInt(cutsceneKey) == 0)
         {
-            collision.GetComponent<PlayerMovement>().isInCutscene = true;
-            collision.GetComponent<PlayerAttack>().isInCutscene = true;
+            player.GetPlayerState().isInCutscene = true;
             fader.gameObject.SetActive(true);
             fader.SetVideoIndex(videoIndex);
 

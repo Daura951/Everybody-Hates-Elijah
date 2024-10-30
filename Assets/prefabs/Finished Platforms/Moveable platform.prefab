@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4850103470931344447}
   - component: {fileID: 6387822050946825291}
   - component: {fileID: 1588288309772268630}
-  m_Layer: 11
+  m_Layer: 9
   m_Name: Moveable platform
   m_TagString: Platform
   m_Icon: {fileID: 0}
@@ -276,6 +276,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 7f3d411e34664bc479a053331038a5c2, type: 3}
       propertyPath: m_Name
       value: trashbot_movingplatform
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7f3d411e34664bc479a053331038a5c2, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f3d411e34664bc479a053331038a5c2, type: 3}

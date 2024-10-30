@@ -53,7 +53,7 @@ public class AttackManager : MonoBehaviour
                     float freezeDuration = float.Parse(parts[5]);
 
                     attackDetails[(int)attack] = new PlayerAttackDetails(attack, damage, angle, knockback, stunTime, freezeDuration);
-                    print(attackDetails[(int)attack] + " " + hitboxes[(int)attack]);
+                    //print(attackDetails[(int)attack] + " " + hitboxes[(int)attack]);
                 }
             }
         }

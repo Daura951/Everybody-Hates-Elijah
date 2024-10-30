@@ -58,4 +58,14 @@ public class Player : MonoBehaviour
             pc.Configure(inputManager, animController, Playerstate);
         }
     }
+
+    public PlayerState GetPlayerState()
+    {
+        return Playerstate;
+    }
+
+    public InputManager getInputManager()
+    {
+        return inputManager;
+    }
 }

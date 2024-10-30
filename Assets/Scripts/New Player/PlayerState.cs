@@ -13,6 +13,9 @@ public class PlayerState : MonoBehaviour
     public bool isBBReady;
     public bool isInBB;
     public bool isLedgeGrab;
+    public bool isInCutscene;
+
+    public bool isOnMoveable;
 
     // Start is called before the first frame update
     void Start()

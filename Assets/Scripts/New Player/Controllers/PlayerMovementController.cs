@@ -58,6 +58,12 @@ public class PlayerMovementController : PlayerComponent
 
     public override void OnUpdate()
     {
+
+        if(playerState.isInBB)
+        {
+            rb.velocity *= 2.0f;
+        }
+
         SendDataToPlayerState();
         if(!pms.SSpecialSlide)
         CountTimers();
@@ -67,16 +73,18 @@ public class PlayerMovementController : PlayerComponent
     public override void OnFixedUpdate()
     {
        CollisionCheck();
+        if (!playerState.isInCutscene)
+        {
+            if (pms.UspecialJump)
+                USpecialJump();
 
-        if (pms.UspecialJump)
-            USpecialJump();
-
-        if (inputManager.isJumping && !pms.UspecialJump)
-            Jump();
+            if (inputManager.isJumping && !pms.UspecialJump)
+                Jump();
 
 
-        if(!playerState.isLedgeGrab)
-            Falling();
+            if (!playerState.isLedgeGrab)
+                Falling();
+        }
 
 
         accel = isGrounded ? pms.GroundAccel : pms.AirAccel;
@@ -129,84 +137,83 @@ public class PlayerMovementController : PlayerComponent
     #region Movement
     public void MovePlayer(float moveX)
     {
-        if (!pms.SSpecialSlide && !pms.dashAttack)
-            if (moveX > .1f || moveX < -.1f)
-            {
-                dir = moveX;
-                if(!playerState.isLedgeGrab)
-                pms.moveHorOnLedge = false;
-            }
-            else
-            {
-                pms.moveHorOnLedge = true;
-                dir = 0;
-            }
-
-        if (!playerState.isLedgeGrab)
-        {
-            if (!playerState.isAttacking)
-            {
+            if (!pms.SSpecialSlide && !pms.dashAttack)
                 if (moveX > .1f || moveX < -.1f)
                 {
-                    //move check
-                    TurnCheck(moveX);
+                    dir = moveX;
+                    if (!playerState.isLedgeGrab)
+                        pms.moveHorOnLedge = false;
+                }
+                else
+                {
+                    pms.moveHorOnLedge = true;
+                    dir = 0;
+                }
 
-                    if (isGrounded)
+            if (!playerState.isLedgeGrab)
+            {
+                if (!playerState.isAttacking)
+                {
+                    if (moveX > .1f || moveX < -.1f)
                     {
-                        if (inputManager.isRunning)
-                            animController.Play(Animations.RUN, false, false);
-                        else
-                            animController.Play(Animations.WALK, false, false);
+                        //move check
+                        TurnCheck(moveX);
+
+                        if (isGrounded)
+                        {
+                            if (inputManager.isRunning)
+                                animController.Play(Animations.RUN, false, false);
+                            else
+                                animController.Play(Animations.WALK, false, false);
+                        }
+
+
+                        Vector2 targetVelocity = Vector2.zero;
+                        targetVelocity = new Vector2(moveX, 0f) * (inputManager.isRunning ? pms.MaxRunSpeed : pms.MaxWalkSpeed);
+                        moveVelocity = Vector2.Lerp(moveVelocity, targetVelocity, accel * Time.fixedDeltaTime);
+                        rb.velocity = new Vector2(moveVelocity.x, rb.velocity.y);
+
+                    }
+                    else if (!(moveX > .1f || moveX < -.1f))
+                    {
+                        if (isGrounded)
+                            animController.Play(Animations.IDLE, false, false);
+
+                        moveVelocity = Vector2.Lerp(moveVelocity, Vector2.zero, decel * Time.fixedDeltaTime);
+                        rb.velocity = new Vector2(moveVelocity.x, rb.velocity.y);
                     }
 
 
-                    Vector2 targetVelocity = Vector2.zero;
-                    targetVelocity = new Vector2(moveX, 0f) * (inputManager.isRunning ? pms.MaxRunSpeed : pms.MaxWalkSpeed);
-                    moveVelocity = Vector2.Lerp(moveVelocity, targetVelocity, accel * Time.fixedDeltaTime);
-                    rb.velocity = new Vector2(moveVelocity.x, rb.velocity.y);
-
-                }
-                else if (!(moveX > .1f || moveX < -.1f))
-                {
-                    if (isGrounded)
-                        animController.Play(Animations.IDLE, false, false);
-
-                    moveVelocity = Vector2.Lerp(moveVelocity, Vector2.zero, decel * Time.fixedDeltaTime);
-                    rb.velocity = new Vector2(moveVelocity.x, rb.velocity.y);
-                }
-
-
-                if (!isGrounded)
-                {
-                    if (rb.velocity.y < -0.6f)
-                        animController.Play(Animations.FALLING, false, false);
-                    else if (usedJumps == 1)
-                        animController.Play(Animations.SINGLE_JUMP, false, false);
-                    else if (usedJumps > 1)
+                    if (!isGrounded)
                     {
-                        animController.Play(Animations.DOUBLE_JUMP, false, false);
+                        if (rb.velocity.y < -0.6f)
+                            animController.Play(Animations.FALLING, false, false);
+                        else if (usedJumps == 1)
+                            animController.Play(Animations.SINGLE_JUMP, false, false);
+                        else if (usedJumps > 1)
+                        {
+                            animController.Play(Animations.DOUBLE_JUMP, false, false);
+                        }
+
                     }
-
                 }
-            }
-            else if (pms.UspecialJump)
-            {
-                rb.velocity = new Vector2(pms.USpecHorfact * (dir), rb.velocity.y);
-            }
-            else if (pms.downSpecial)
-            {
-                rb.velocity = new Vector2(pms.dosnSpecialHorizontalVelocity * (dir), rb.velocity.y);
-            }
-            else if (pms.dashAttack)
-            {
-                if (rb.velocity.x >= 0)
-                    rb.velocity -= new Vector2(pms.slowdownVelocity * (dir), rb.velocity.y);
-            }
-            else
-            {
-                rb.velocity = new Vector2(0, rb.velocity.y);
-            }
-
+                else if (pms.UspecialJump)
+                {
+                    rb.velocity = new Vector2(pms.USpecHorfact * (dir), rb.velocity.y);
+                }
+                else if (pms.downSpecial)
+                {
+                    rb.velocity = new Vector2(pms.dosnSpecialHorizontalVelocity * (dir), rb.velocity.y);
+                }
+                else if (pms.dashAttack)
+                {
+                    if (rb.velocity.x >= 0)
+                        rb.velocity -= new Vector2(pms.slowdownVelocity * (dir), rb.velocity.y);
+                }
+                else
+                {
+                    rb.velocity = new Vector2(0, rb.velocity.y);
+                }
         }
     }
 
@@ -703,7 +710,28 @@ public class PlayerMovementController : PlayerComponent
         inputManager.OnLedgeInput += LedgeHang;
         EventManager.bladebound.AddListener(ConfigureForBladebound);
         EventManager.bladeboundEnd.AddListener(ConfigureAfterBladebound);
+        EventManager.onCutesceneEnter.AddListener(ConfigureForCutscene);
         // inputManager.OnJump += Jump;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.GetComponent<PlatformMovement>() != null && !playerState.isOnMoveable)
+        {
+            playerState.isOnMoveable = true;
+            transform.SetParent(collision.gameObject.transform);
+            rb.interpolation = RigidbodyInterpolation2D.None;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.GetComponent<PlatformMovement>() != null && playerState.isOnMoveable)
+        {
+            playerState.isOnMoveable = false;
+            transform.SetParent(null);
+            rb.interpolation = RigidbodyInterpolation2D.Interpolate;
+        }
     }
 
     private void ConfigureForBladebound()
@@ -746,5 +774,10 @@ public class PlayerMovementController : PlayerComponent
         //pms.JumpHieght= 2.0f;
 
         VerticalVelocity /= 2.0f;
+    }
+
+    public void ConfigureForCutscene()
+    {
+        rb.velocity = Vector2.zero;
     }
 }

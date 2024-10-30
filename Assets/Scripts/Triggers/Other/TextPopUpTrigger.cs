@@ -20,12 +20,14 @@ public class TextPopUpTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        text.SetActive(true);   
+        if(collision.gameObject.tag == "Player")
+            text.SetActive(true);   
     }
 
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        text.SetActive(false);
+        if (collision.gameObject.tag == "Player")
+            text.SetActive(false);
     }
 }

@@ -57,6 +57,7 @@ public class AnimatorController : MonoBehaviour
     {
         EventManager.bladebound.AddListener(ConfigureBladeBound);
         EventManager.bladeboundEnd.AddListener(ConfigureAfterBladeBound);
+        EventManager.onCutesceneEnter.AddListener(ConfigureForCutscene);
     }
 
 
@@ -118,6 +119,11 @@ public class AnimatorController : MonoBehaviour
     public void ConfigureAfterBladeBound()
     {
         anim.speed = 1.0f;
+    }
+
+    public void ConfigureForCutscene()
+    {
+        Play(Animations.IDLE, false, false);
     }
 
 

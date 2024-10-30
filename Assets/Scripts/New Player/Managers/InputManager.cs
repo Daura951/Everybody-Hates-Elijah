@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
-
+    private PlayerState playerState;
     public bool JumpPressed { get; private set; }
     public bool JumpHeld { get; private set; }
     public bool JumpReleased { get; private set; }
@@ -72,6 +72,7 @@ public class InputManager : MonoBehaviour
         playerControls = new PlayerInputActions();
         playerControls.Player.Strong.performed += OnStrongPerformed;
         playerControls.Player.Strong.canceled += OnStrongCanceled;
+        playerState = GetComponent<PlayerState>();
     }
 
     private void OnStrongPerformed(InputAction.CallbackContext obj)
@@ -90,26 +91,29 @@ public class InputManager : MonoBehaviour
 
     void Update()
     {
-        JumpPressed = jump.WasPressedThisFrame();
-        JumpReleased = jump.WasReleasedThisFrame();
-        JumpHeld = jump.IsPressed();
-        Input = move.ReadValue<Vector2>();
-
-        moveHorizontal = move.ReadValue<Vector2>().x;
-        moveVertical = move.ReadValue<Vector2>().y;
-        OnMove?.Invoke((moveHorizontal > .1f || moveHorizontal < -.1f) ? moveHorizontal: 0.0f);
-        isNeutralPressed = neutral.triggered;
-        isRunning = run.ReadValue<float>() > 0;
-        OnLedgeInput?.Invoke(moveHorizontal, moveVertical, isNeutralPressed);
-
-        if (neutral.triggered)
+        if (!playerState.isInCutscene)
         {
-            OnNeutralPressed?.Invoke();
-        }
+            JumpPressed = jump.WasPressedThisFrame();
+            JumpReleased = jump.WasReleasedThisFrame();
+            JumpHeld = jump.IsPressed();
+            Input = move.ReadValue<Vector2>();
 
-        if(special.triggered)
-        {
-            OnSpecialPressed?.Invoke();
+            moveHorizontal = move.ReadValue<Vector2>().x;
+            moveVertical = move.ReadValue<Vector2>().y;
+            OnMove?.Invoke((moveHorizontal > .1f || moveHorizontal < -.1f) ? moveHorizontal : 0.0f);
+            isNeutralPressed = neutral.triggered;
+            isRunning = run.ReadValue<float>() > 0;
+            OnLedgeInput?.Invoke(moveHorizontal, moveVertical, isNeutralPressed);
+
+            if (neutral.triggered)
+            {
+                OnNeutralPressed?.Invoke();
+            }
+
+            if (special.triggered)
+            {
+                OnSpecialPressed?.Invoke();
+            }
         }
     }
 }

@@ -31,6 +31,8 @@ public class CameraManager : MonoBehaviour
                 break;
             }
         }
+
+        camera = GameObject.Find("Camera").GetComponent<Camera>();
     }
 
     // Update is called once per frame
