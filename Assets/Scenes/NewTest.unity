@@ -2440,7 +2440,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3131762222312026667, guid: 423404d272b53ec41841ed87b2e3f072, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 2.89
       objectReference: {fileID: 0}
     - target: {fileID: 3131762222312026667, guid: 423404d272b53ec41841ed87b2e3f072, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2963,6 +2963,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5526573572424011088, guid: bbbd18c5cd89b37488f912e0dce7109b, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5526573572424011088, guid: bbbd18c5cd89b37488f912e0dce7109b, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5526573572424011088, guid: bbbd18c5cd89b37488f912e0dce7109b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5526573572424011088, guid: bbbd18c5cd89b37488f912e0dce7109b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5526573572424011088, guid: bbbd18c5cd89b37488f912e0dce7109b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -30.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5526573572424011089, guid: bbbd18c5cd89b37488f912e0dce7109b, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5526573572424011103, guid: bbbd18c5cd89b37488f912e0dce7109b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5526573572704484952, guid: bbbd18c5cd89b37488f912e0dce7109b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 51.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 5526573572704484952, guid: bbbd18c5cd89b37488f912e0dce7109b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -19.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5526573572704484955, guid: bbbd18c5cd89b37488f912e0dce7109b, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1058947521}
     - target: {fileID: 5526573573703884886, guid: bbbd18c5cd89b37488f912e0dce7109b, type: 3}
       propertyPath: m_Name
       value: Text Popup Trigger
@@ -2973,15 +3013,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5526573573703884905, guid: bbbd18c5cd89b37488f912e0dce7109b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -35.23
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5526573573703884905, guid: bbbd18c5cd89b37488f912e0dce7109b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.83
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5526573573703884905, guid: bbbd18c5cd89b37488f912e0dce7109b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5526573573703884905, guid: bbbd18c5cd89b37488f912e0dce7109b, type: 3}
       propertyPath: m_LocalRotation.w
