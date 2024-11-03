@@ -336,7 +336,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 5526573572424011103}
-  textToDisplay: 
+  textToDisplay: Sample Text
 --- !u!61 &5526573573703884906
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -350,7 +350,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 4.7, y: 0}
+  m_Offset: {x: 5.6, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}

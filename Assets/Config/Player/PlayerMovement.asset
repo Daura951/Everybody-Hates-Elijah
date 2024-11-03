@@ -22,7 +22,7 @@ MonoBehaviour:
   VisualSteps: 90
   MaxWalkSpeed: 5.5
   GroundAccel: 5
-  GroundDecel: 20
+  GroundDecel: 10
   AirAccel: 5
   AirDecel: 5
   MaxRunSpeed: 10
@@ -55,9 +55,9 @@ MonoBehaviour:
   dosnSpecialHorizontalVelocity: 3
   dashAttack: 0
   slowdownVelocity: 0.01
-  reGrab: 0
+  reGrab: 1
   grab: 0
-  moveable: 0
+  moveable: 1
   moveHorOnLedge: 1
   redXOff: 0
   redYOff: 0.26

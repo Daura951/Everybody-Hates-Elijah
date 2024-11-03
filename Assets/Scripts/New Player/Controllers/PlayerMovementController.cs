@@ -59,6 +59,8 @@ public class PlayerMovementController : PlayerComponent
     public override void OnUpdate()
     {
 
+        //print(VerticalVelocity);
+
         if(playerState.isInBB)
         {
             rb.velocity *= 2.0f;
@@ -97,7 +99,7 @@ public class PlayerMovementController : PlayerComponent
         if (isFastFalling && !pms.UspecialJump)
         {
 
-            VerticalVelocity = fastFallTime >= pms.UpCancelTime ? VerticalVelocity + (pms.Gravity * pms.GravityReleaseMultiplyer * Time.fixedDeltaTime) : Mathf.Lerp(fastFallReleaseSpeed, 0f, (fastFallTime / pms.UpCancelTime));
+            VerticalVelocity = fastFallTime >= pms.UpCancelTime ? VerticalVelocity + ((playerState.isInBB ? 2.0f : 1.0f) *  (pms.Gravity * pms.GravityReleaseMultiplyer * Time.fixedDeltaTime)) : Mathf.Lerp((playerState.isInBB ? 2.0f : 1.0f) * fastFallReleaseSpeed, 0f, (playerState.isInBB ? 2.0f : 1.0f) * (fastFallTime / pms.UpCancelTime));
             fastFallTime += Time.fixedDeltaTime;
             
         }
@@ -108,17 +110,17 @@ public class PlayerMovementController : PlayerComponent
             if (!isFalling)
                 isFalling = true;
 
-                VerticalVelocity += pms.Gravity * Time.fixedDeltaTime;
+                VerticalVelocity += (playerState.isInBB ? 2.0f : 1.0f) * (pms.Gravity * Time.fixedDeltaTime);
         }
 
         if (!pms.SSpecialSlide && !pms.downSpecial && !pms.dashAttack)
         {
             //CLAMP FALL SPEED
-            VerticalVelocity = Mathf.Clamp(VerticalVelocity, -pms.MaxFallSpeed, 50f);
+            VerticalVelocity = Mathf.Clamp(VerticalVelocity, (playerState.isInBB ? 2.0f : 1.0f) * -pms.MaxFallSpeed, (playerState.isInBB ? 2.0f : 1.0f) * 50f);
             if (pms.UspecialJump)
-                rb.velocity = new Vector2(rb.velocity.x * dir, VerticalVelocity);
+                rb.velocity = new Vector2(rb.velocity.x * dir, (playerState.isInBB ? 2.0f : 1.0f) * VerticalVelocity);
             else
-                rb.velocity = new Vector2(rb.velocity.x, VerticalVelocity);
+                rb.velocity = new Vector2(rb.velocity.x, (playerState.isInBB ? 2.0f : 1.0f) *  VerticalVelocity);
         }
         else if (pms.SSpecialSlide)
         {
@@ -343,7 +345,7 @@ public class PlayerMovementController : PlayerComponent
             inputManager.isJumping = isFalling = isFastFalling = isPastApexThreshold = false;
             fastFallTime = usedJumps = 0;
 
-            VerticalVelocity = Physics2D.gravity.y;
+            VerticalVelocity = (playerState.isInBB ? 2.0f : 1.0f) * Physics2D.gravity.y;
         }
     }
 
@@ -354,7 +356,7 @@ public class PlayerMovementController : PlayerComponent
 
         jumpBufferTimer = 0f;
         usedJumps += jumpsUsed;
-        VerticalVelocity = pms.InitialJumpVelo;
+        VerticalVelocity = (playerState.isInBB ? 1.0f : 1.0f) * pms.InitialJumpVelo;
 
     }
 
@@ -380,14 +382,14 @@ public class PlayerMovementController : PlayerComponent
                 if(isPastApexThreshold)
                 {
                     timePastApexThreshold += Time.fixedDeltaTime;
-                    VerticalVelocity = timePastApexThreshold < pms.ApexhangTime ? 0f : -0.01f;
+                    VerticalVelocity = (playerState.isInBB ? 2.0f : 1.0f) * timePastApexThreshold < pms.ApexhangTime ? 0f : -0.01f;
                 }
             }
 
             //GRAVITY ON ASCENDING BUT NOT PAST APEX THRESHOLD
             else
             {
-             VerticalVelocity += pms.Gravity * Time.fixedDeltaTime;
+             VerticalVelocity += (playerState.isInBB ? 2.0f : 1.0f) *  (pms.Gravity * Time.fixedDeltaTime);
              if (isPastApexThreshold)
                 isPastApexThreshold = false;
             }
@@ -396,9 +398,9 @@ public class PlayerMovementController : PlayerComponent
          }
          //GRAVITY ON DESCENDING
          else if (pms.SSpecialFall)
-            VerticalVelocity += pms.Gravity * pms.SSpecialFallMulti * Time.fixedDeltaTime;
+            VerticalVelocity += (playerState.isInBB ? 2.0f : 1.0f) * (pms.Gravity * pms.SSpecialFallMulti * Time.fixedDeltaTime);
          else if (!isFastFalling)
-            VerticalVelocity += pms.Gravity * pms.GravityReleaseMultiplyer * Time.fixedDeltaTime;
+            VerticalVelocity += (playerState.isInBB ? 2.0f : 1.0f) * (pms.Gravity * pms.GravityReleaseMultiplyer * Time.fixedDeltaTime);
          else if (VerticalVelocity < 0f)
             if (!isFalling)
                 isFalling = true; 
@@ -523,14 +525,14 @@ public class PlayerMovementController : PlayerComponent
                 if (isPastApexThreshold)
                 {
                     timePastApexThreshold += Time.fixedDeltaTime;
-                    VerticalVelocity = timePastApexThreshold < pms.ApexhangTime ? 0f : -0.01f;
+                    VerticalVelocity = (playerState.isInBB ? 2.0f : 1.0f) * timePastApexThreshold < pms.ApexhangTime ? 0f : -0.01f;
                 }
             }
 
             //GRAVITY ON ASCENDING BUT NOT PAST APEX THRESHOLD
             else
             {
-                VerticalVelocity += pms.Gravity * Time.fixedDeltaTime;
+                VerticalVelocity += (playerState.isInBB ? 2.0f : 1.0f) *(pms.Gravity * Time.fixedDeltaTime);
                 if (isPastApexThreshold)
                     isPastApexThreshold = false;
             }
@@ -708,10 +710,7 @@ public class PlayerMovementController : PlayerComponent
 
         inputManager.OnMove += MovePlayer;
         inputManager.OnLedgeInput += LedgeHang;
-        EventManager.bladebound.AddListener(ConfigureForBladebound);
-        EventManager.bladeboundEnd.AddListener(ConfigureAfterBladebound);
         EventManager.onCutesceneEnter.AddListener(ConfigureForCutscene);
-        // inputManager.OnJump += Jump;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -732,48 +731,6 @@ public class PlayerMovementController : PlayerComponent
             transform.SetParent(null);
             rb.interpolation = RigidbodyInterpolation2D.Interpolate;
         }
-    }
-
-    private void ConfigureForBladebound()
-    {
-        //pms.MaxWalkSpeed =2.0f;
-        //pms.MaxRunSpeed= 2.0f;
-        //pms.AirAccel = 2.0f;
-        //pms.AirDecel= 2.0f;
-        //pms.GroundAccel = 2.0f;
-        //pms.GroundDecel= 2.0f;
-        //pms.HorizontalSlideVelo = 2.0f;
-        //pms.downSpecialHorizontalVelocity= 2.0f;
-        //pms.slowdownVelocity = 2.0f;
-        //pms.MaxFallSpeed= 2.0f;
-        //pms.GravityReleaseMultiplyer = 2.0f;
-        //pms.JumpApexTime /= 2.0f;
-        //pms.ApexhangTime /= 2.0f;
-        //pms.JumpHieght /= 2.0f;
-        //pms.InitialJumpVelo= 2.0f;
-
-        VerticalVelocity = 2.0f;
-    }
-
-    private void ConfigureAfterBladebound()
-    {
-        //pms.MaxWalkSpeed /= 2.0f;
-        //pms.MaxRunSpeed /= 2.0f;
-        //pms.AirAccel /= 2.0f;
-        //pms.AirDecel /= 2.0f;
-        //pms.GroundAccel /= 2.0f;
-        //pms.GroundDecel /= 2.0f;
-        //pms.HorizontalSlideVelo /= 2.0f;
-        //pms.downSpecialHorizontalVelocity /= 2.0f;
-        //pms.slowdownVelocity /= 2.0f;
-        //pms.MaxFallSpeed /= 2.0f;
-        //pms.GravityReleaseMultiplyer /= 2.0f;
-        //pms.InitialJumpVelo /= 2.0f;
-        //pms.JumpApexTime= 2.0f;
-        //pms.ApexhangTime = 2.0f;
-        //pms.JumpHieght= 2.0f;
-
-        VerticalVelocity /= 2.0f;
     }
 
     public void ConfigureForCutscene()

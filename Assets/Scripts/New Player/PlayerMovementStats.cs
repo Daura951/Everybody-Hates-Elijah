@@ -56,7 +56,7 @@ public class PlayerMovementStats : ScriptableObject
     [Range(0f, 1f)] public float JumpCoyoteTime = 0.1f;
 
 
-    public float Gravity { get; private set; }
+    public float Gravity { get;  set; }
     public float USpecGravity { get; private set; }
     public float InitialJumpVelo { get; private set; }
     public float USpecInitialJumpVelo { get; private set; }

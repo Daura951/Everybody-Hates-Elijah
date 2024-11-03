@@ -44,7 +44,6 @@ public class PassthroughPlatform : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        print("CollisioN!");
         SetPlayerOnPlatform(collision, true);
     }
 
