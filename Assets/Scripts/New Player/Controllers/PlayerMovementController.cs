@@ -468,23 +468,23 @@ public class PlayerMovementController : PlayerComponent
 
                 /// Need to despawn all attack hitboxes
 
-            }
 
-             Xpos = pms.g.transform.position.x + ((transform.position.x < pms.g.transform.position.x ? -1f : 1f) * ((pms.Box.size.x * .5f * pms.g.transform.localScale.x) + .55f));
-             Ypos = pms.g.transform.position.y + ((pms.Box.size.y * .5f + pms.Box.offset.y) * pms.g.transform.localScale.y) - .5f;
-             transform.position = new Vector2(Xpos, Ypos);
+                 Xpos = pms.g.transform.position.x + ((transform.position.x < pms.g.transform.position.x ? -1f : 1f) * ((pms.Box.size.x * .5f * pms.g.transform.localScale.x) + .55f));
+                 Ypos = pms.g.transform.position.y + ((pms.Box.size.y * .5f + pms.Box.offset.y) * pms.g.transform.localScale.y) - .5f;
+                 transform.position = new Vector2(Xpos, Ypos);
 
-            if (transform.position.x < pms.g.transform.position.x)
-            {
+                if (transform.position.x < pms.g.transform.position.x)
+                {
  
-                if (playerState.isRight)
-                    Turn(false);
-            }
-            else
-            {
-                if (!playerState.isRight)
-                    Turn(true);
+                    if (playerState.isRight)
+                        Turn(false);
+                }
+                else
+                {
+                    if (!playerState.isRight)
+                        Turn(true);
 
+                }
             }
         }
     }
