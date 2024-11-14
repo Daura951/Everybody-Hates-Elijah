@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class MainMenuManager : MonoBehaviour
 {
-    public GeneralSceneFader fader;
+    public Fader fader;
 
     public Animator elijahAnim;
     public GameObject player, menuCam, mainMenu, playerUI, bubble;

@@ -9,6 +9,7 @@ public static class EventManager
     public static UnityEvent bladeboundEnd = new UnityEvent();
     public static UnityEvent onCutesceneEnter = new UnityEvent();
     public static UnityEvent onCutsceneExit = new UnityEvent();
+    public static UnityEvent onDeath = new UnityEvent();
 
     public static void TriggerBladebound()
     {
@@ -30,6 +31,11 @@ public static class EventManager
     public static void TriggerOnCutsceneExit()
     {
         onCutsceneExit?.Invoke();
+    }
+
+    public static void TriggerOnDeath()
+    {
+        onDeath?.Invoke();
     }
 
 }
