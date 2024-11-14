@@ -12,12 +12,12 @@ public class InputManager : MonoBehaviour
     public bool JumpReleased { get; private set; }
     public Vector2 Input { get; private set; }
 
-    public event Action<float> OnMove;
+    public event Action<float, float> OnMove;
     public event Action OnNeutralPressed;
     public event Action OnStrongHold;
     public event Action OnStrongRelease;
     public event Action OnSpecialPressed;
-    public event Action<float,float,bool> OnLedgeInput;
+    public event Action<float,float> OnLedgeInput;
 
     public PlayerInputActions playerControls;
     private InputAction move;
@@ -26,6 +26,8 @@ public class InputManager : MonoBehaviour
     public InputAction special;
     private InputAction jump;
     private InputAction run;
+
+    private bool canControl = true;
 
 
     public float moveHorizontal { get; private set; }
@@ -73,6 +75,10 @@ public class InputManager : MonoBehaviour
         playerControls.Player.Strong.performed += OnStrongPerformed;
         playerControls.Player.Strong.canceled += OnStrongCanceled;
         playerState = GetComponent<PlayerState>();
+        EventManager.onCutesceneEnter.AddListener(ToggleCanControl);
+        EventManager.onCutsceneExit.AddListener(ToggleCanControl);
+        EventManager.onDeath.AddListener(ToggleCanControl);
+
     }
 
     private void OnStrongPerformed(InputAction.CallbackContext obj)
@@ -91,7 +97,7 @@ public class InputManager : MonoBehaviour
 
     void Update()
     {
-        if (!playerState.isInCutscene)
+        if (canControl)
         {
             JumpPressed = jump.WasPressedThisFrame();
             JumpReleased = jump.WasReleasedThisFrame();
@@ -100,10 +106,10 @@ public class InputManager : MonoBehaviour
 
             moveHorizontal = move.ReadValue<Vector2>().x;
             moveVertical = move.ReadValue<Vector2>().y;
-            OnMove?.Invoke((moveHorizontal > .1f || moveHorizontal < -.1f) ? moveHorizontal : 0.0f);
+            OnMove?.Invoke(moveHorizontal, moveVertical);
             isNeutralPressed = neutral.triggered;
             isRunning = run.ReadValue<float>() > 0;
-            OnLedgeInput?.Invoke(moveHorizontal, moveVertical, isNeutralPressed);
+            OnLedgeInput?.Invoke(moveHorizontal, moveVertical);
 
             if (neutral.triggered)
             {
@@ -115,5 +121,12 @@ public class InputManager : MonoBehaviour
                 OnSpecialPressed?.Invoke();
             }
         }
+    }
+
+    private void ToggleCanControl()
+    {
+        canControl = !canControl;
+        moveHorizontal = 0.0f;
+        print("Toggling canControl: "+ canControl);
     }
 }

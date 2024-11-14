@@ -17,7 +17,7 @@ public class FinishLine : MonoBehaviour
 
     public RankData rankValues;
 
-    public GeneralSceneFader fader;
+    public Fader fader;
 
     // Start is called before the first frame update
     void Start()
@@ -60,7 +60,7 @@ public class FinishLine : MonoBehaviour
             fader.gameObject.SetActive(true);
             LoaderCallback.targetScene = NextScene;
             fader.SetSceneToGoTo(1);
-            fader.GetComponent<Animator>().Play("Fade");
+            fader.GetComponent<Animator>().Play("SceneChangeFade");
         }
     }
 }

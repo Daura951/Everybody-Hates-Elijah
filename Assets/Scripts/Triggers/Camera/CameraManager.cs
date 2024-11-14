@@ -86,6 +86,10 @@ public class CameraManager : MonoBehaviour
         isRotating = true;
     }
 
+    public void SetCameraLock(bool isLocked)
+    {
+        camera.GetComponent<TempCameraFollow>().SetIsLocked(isLocked);
+    }
 
 
     //True if we use stack value, flase if we use new value
@@ -105,4 +109,5 @@ public class CameraManager : MonoBehaviour
             return false;
         }
     }
+
 }

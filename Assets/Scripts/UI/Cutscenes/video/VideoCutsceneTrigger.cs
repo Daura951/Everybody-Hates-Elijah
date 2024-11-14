@@ -10,7 +10,7 @@ public class VideoCutsceneTrigger : MonoBehaviour
 
     public int videoIndex;
     public int sceneToGoTo;
-    public VideoCutsceneFader fader;
+    public Fader fader;
     private GameObject cutSceneUi;
     private Player player;
 
@@ -28,7 +28,7 @@ public class VideoCutsceneTrigger : MonoBehaviour
         this.GetComponent<SpriteRenderer>().enabled = false;
 
         if(SceneManager.GetActiveScene().buildIndex != 0) { 
-            fader = GameObject.Find("Player UI").transform.Find("Fader").GetComponent<VideoCutsceneFader>();
+            fader = GameObject.Find("Player UI").transform.Find("Fader").GetComponent<Fader>();
             if(fader != null)
             {
                 print("Fader found!");
@@ -65,7 +65,7 @@ public class VideoCutsceneTrigger : MonoBehaviour
 
 
 
-            fader.GetComponent<Animator>().Play("Fade");
+            fader.Fade("video");
             PlayerPrefs.SetInt(cutsceneKey, 1);
         }
     }
