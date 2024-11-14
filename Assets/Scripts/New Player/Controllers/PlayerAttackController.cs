@@ -54,10 +54,21 @@ public class PlayerAttackController : PlayerComponent
                 Tilt(move.y);
                 return;
             }
+            else if (playerstate.isLedgeGrab)
+            {
+                LedgeAttack();
+            }
+            else
+            {
             Ariel(move);
+            }
         }
     }
 
+    private void LedgeAttack()
+    {
+        animController.Play(Animations.LEDGE_ATTACK, false, false);
+    }
 
     private void Jab()
     {

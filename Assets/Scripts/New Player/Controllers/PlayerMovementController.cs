@@ -49,6 +49,11 @@ public class PlayerMovementController : PlayerComponent
     //coyote tume vars
     private float coyoteTimer;
 
+    //Ledge Grab junk
+    private float Xpos, Ypos;
+
+    private bool canControl = true;
+
     public override void OnStart()
     {
         print("Hello PlayerMovementController!");
@@ -67,20 +72,20 @@ public class PlayerMovementController : PlayerComponent
         }
 
         SendDataToPlayerState();
-        if(!pms.SSpecialSlide)
+        if(!playerState.isSSpecial)
         CountTimers();
-        if(!pms.UspecialJump)
+        if(!playerState.isUSpecial)
         JumpChecks();
     }
     public override void OnFixedUpdate()
     {
        CollisionCheck();
-        if (!playerState.isInCutscene)
+        if (canControl)
         {
-            if (pms.UspecialJump)
+            if (playerState.isUSpecial)
                 USpecialJump();
 
-            if (inputManager.isJumping && !pms.UspecialJump)
+            if (inputManager.isJumping && !playerState.isUSpecial)
                 Jump();
 
 
@@ -96,7 +101,7 @@ public class PlayerMovementController : PlayerComponent
 
     private void Falling()
     {
-        if (isFastFalling && !pms.UspecialJump)
+        if (isFastFalling && !playerState.isUSpecial)
         {
 
             VerticalVelocity = fastFallTime >= pms.UpCancelTime ? VerticalVelocity + ((playerState.isInBB ? 2.0f : 1.0f) *  (pms.Gravity * pms.GravityReleaseMultiplyer * Time.fixedDeltaTime)) : Mathf.Lerp((playerState.isInBB ? 2.0f : 1.0f) * fastFallReleaseSpeed, 0f, (playerState.isInBB ? 2.0f : 1.0f) * (fastFallTime / pms.UpCancelTime));
@@ -105,7 +110,7 @@ public class PlayerMovementController : PlayerComponent
         }
 
         // NORMAL GRAVITY WHILE FALLING
-        if (!isGrounded && !inputManager.isJumping && !pms.UspecialJump)
+        if (!isGrounded && !inputManager.isJumping && !playerState.isUSpecial)
         {
             if (!isFalling)
                 isFalling = true;
@@ -113,22 +118,22 @@ public class PlayerMovementController : PlayerComponent
                 VerticalVelocity += (playerState.isInBB ? 2.0f : 1.0f) * (pms.Gravity * Time.fixedDeltaTime);
         }
 
-        if (!pms.SSpecialSlide && !pms.downSpecial && !pms.dashAttack)
+        if (!playerState.isSSpecial && !playerState.isDSpecial && !pms.dashAttack)
         {
             //CLAMP FALL SPEED
             VerticalVelocity = Mathf.Clamp(VerticalVelocity, (playerState.isInBB ? 2.0f : 1.0f) * -pms.MaxFallSpeed, (playerState.isInBB ? 2.0f : 1.0f) * 50f);
-            if (pms.UspecialJump)
-                rb.velocity = new Vector2(rb.velocity.x * dir, (playerState.isInBB ? 2.0f : 1.0f) * VerticalVelocity);
+            if (playerState.isUSpecial)
+                rb.velocity = new Vector2(rb.velocity.x, (playerState.isInBB ? 2.0f : 1.0f) * VerticalVelocity);
             else
                 rb.velocity = new Vector2(rb.velocity.x, (playerState.isInBB ? 2.0f : 1.0f) *  VerticalVelocity);
         }
-        else if (pms.SSpecialSlide)
+        else if (playerState.isSSpecial)
         {
             dir = dir != 0 ? dir : (transform.eulerAngles.y == 0 ? 1f : -1f);
             rb.velocity = new Vector2(pms.HorizontalSlideVelo * dir , 0f);
         }
-        else if (pms.downSpecial)
-            rb.velocity = new Vector2(pms.dosnSpecialHorizontalVelocity * dir , 0f);
+        else if (playerState.isDSpecial)
+            rb.velocity = new Vector2(pms.dosnSpecialHorizontalVelocity * dir , -9.81f);
         else if (pms.dashAttack)
         {
             if (rb.velocity.x >= 0)
@@ -137,29 +142,28 @@ public class PlayerMovementController : PlayerComponent
     }
 
     #region Movement
-    public void MovePlayer(float moveX)
+    public void MovePlayer(float moveX , float moveY)
     {
-            if (!pms.SSpecialSlide && !pms.dashAttack)
+        if (!playerState.isSSpecial && !pms.dashAttack)
+        { 
+
                 if (moveX > .1f || moveX < -.1f)
                 {
                     dir = moveX;
-                    if (!playerState.isLedgeGrab)
-                        pms.moveHorOnLedge = false;
                 }
                 else
                 {
-                    pms.moveHorOnLedge = true;
-                    dir = 0;
+                    dir = (!playerState.isGrounded && moveX == 0 && moveY > -.2f && !pms.Flatmove) ? .5f * (isRight ? 1 : -1) : 0;
                 }
 
-            if (!playerState.isLedgeGrab)
-            {
+             if (!playerState.isLedgeGrab)
+             {
                 if (!playerState.isAttacking)
                 {
-                    if (moveX > .1f || moveX < -.1f)
+                    if (dir > .1f || dir < -.1f)
                     {
                         //move check
-                        TurnCheck(moveX);
+                        TurnCheck(dir);
 
                         if (isGrounded)
                         {
@@ -171,12 +175,12 @@ public class PlayerMovementController : PlayerComponent
 
 
                         Vector2 targetVelocity = Vector2.zero;
-                        targetVelocity = new Vector2(moveX, 0f) * (inputManager.isRunning ? pms.MaxRunSpeed : pms.MaxWalkSpeed);
+                        targetVelocity = new Vector2(dir, 0f) * (inputManager.isRunning ? pms.MaxRunSpeed : pms.MaxWalkSpeed);
                         moveVelocity = Vector2.Lerp(moveVelocity, targetVelocity, accel * Time.fixedDeltaTime);
                         rb.velocity = new Vector2(moveVelocity.x, rb.velocity.y);
 
                     }
-                    else if (!(moveX > .1f || moveX < -.1f))
+                    else if (!(dir > .1f || dir < -.1f))
                     {
                         if (isGrounded)
                             animController.Play(Animations.IDLE, false, false);
@@ -199,11 +203,11 @@ public class PlayerMovementController : PlayerComponent
 
                     }
                 }
-                else if (pms.UspecialJump)
+                else if (playerState.isUSpecial)
                 {
-                    rb.velocity = new Vector2(pms.USpecHorfact * (dir), rb.velocity.y);
+                    rb.velocity = new Vector2(pms.USpecHorfact * (isRight ? 1 : -1), rb.velocity.y);
                 }
-                else if (pms.downSpecial)
+                else if (playerState.isDSpecial)
                 {
                     rb.velocity = new Vector2(pms.dosnSpecialHorizontalVelocity * (dir), rb.velocity.y);
                 }
@@ -216,6 +220,7 @@ public class PlayerMovementController : PlayerComponent
                 {
                     rb.velocity = new Vector2(0, rb.velocity.y);
                 }
+             }
         }
     }
 
@@ -351,6 +356,9 @@ public class PlayerMovementController : PlayerComponent
 
     private void InitiateJump(int jumpsUsed)
     {
+        if (playerState.isGrounded || playerState.isLedgeGrab)
+            pms.Flatmove = dir == 0 ? true : false;
+
         if (!inputManager.isJumping)
             inputManager.isJumping = true;
 
@@ -417,6 +425,7 @@ public class PlayerMovementController : PlayerComponent
         pms.dashAttack = !pms.dashAttack;
     }
 
+    #region Ledges
     private void LedgeCheck()
     {
        pms.redXOff = playerState.isRight ? MathF.Abs(pms.redXOff) : MathF.Abs(pms.redXOff) * -1f;
@@ -438,13 +447,13 @@ public class PlayerMovementController : PlayerComponent
         {
            // print("I grabbed because why not");
             pms.g = redBox.gameObject;
-            pms.Box = pms.g.GetComponent<BoxCollider2D>();
 
             if (pms.g.GetComponent<PlatformMovement>())
                 pms.moveable = true;
 
             if (pms.g.CompareTag("Grab") && pms.reGrab)
             {
+                pms.Box = pms.g.GetComponent<BoxCollider2D>();
                 rb.velocity = Vector2.zero;
                 VerticalVelocity = moveVelocity.x = 0f;
                 pms.reGrab = false;
@@ -453,53 +462,72 @@ public class PlayerMovementController : PlayerComponent
 
                 usedJumps = usedJumps == 2 ? 1 : usedJumps;
                 playerState.isLedgeGrab = true;
-                animController.Play(Animations.LEDGE_GRAB, false, false);
+                pms.moveHorOnLedge = false;
+                animController.Play(Animations.LEDGE_GRAB, false, true);
 
 
                 /// Need to despawn all attack hitboxes
 
             }
 
+             Xpos = pms.g.transform.position.x + ((transform.position.x < pms.g.transform.position.x ? -1f : 1f) * ((pms.Box.size.x * .5f * pms.g.transform.localScale.x) + .55f));
+             Ypos = pms.g.transform.position.y + ((pms.Box.size.y * .5f + pms.Box.offset.y) * pms.g.transform.localScale.y) - .5f;
+             transform.position = new Vector2(Xpos, Ypos);
+
             if (transform.position.x < pms.g.transform.position.x)
             {
-                transform.position = new Vector2((pms.g.transform.position.x - (pms.g.transform.localScale.x * 0.5f) - transform.localScale.x * pms.Xtweak + (pms.Box.offset.x * pms.Box.size.x)), 
-                    (pms.g.transform.position.y - (((1f - pms.g.transform.localScale.y) / .25f) * pms.Ytweak) + (pms.Box.offset.y * pms.Box.size.y)));
+ 
                 if (playerState.isRight)
                     Turn(false);
             }
             else
             {
-                transform.position = new Vector2((pms.g.transform.position.x + (pms.g.transform.localScale.x * 0.5f) + transform.localScale.x * pms.Xtweak - (pms.Box.offset.x * pms.Box.size.x)), 
-                    (pms.g.transform.position.y - (((1f - pms.g.transform.localScale.y) / .25f) * pms.Ytweak) + (pms.Box.offset.y * pms.Box.size.y)));
                 if (!playerState.isRight)
                     Turn(true);
- 
+
             }
         }
     }
 
-    public void LedgeHang(float moveX , float moveY, bool Attack)
+    public void LedgeMove()
+    {
+        float newY = Ypos + pms.Ytweak;
+        float newX = transform.position.x + (((transform.position.x < pms.g.transform.position.x) ? 1f : -1f) *pms.Xtweak);
+        transform.position = new Vector2(newX, newY);
+
+        if (transform.position.x < pms.g.transform.position.x)
+        {
+            if (!playerState.isRight)
+                Turn(true);
+
+        }
+        else
+        {
+            if (playerState.isRight)
+                Turn(false);
+        }
+    }
+
+    public void LedgeHang(float moveX , float moveY)
     {
         if(playerState.isLedgeGrab)
         {
+            if (moveX > -.1f && moveX < .1f)
+                pms.moveHorOnLedge = true;
 
-            if(moveY < -.4f || (isRight && dir > .1f) || (!isRight && dir < -.1f))
+            if (moveY < -.4f)
             {
                 animController.Play(Animations.FALLING, false, false);
                 playerState.isLedgeGrab = false;
             }
 
-            if(pms.moveHorOnLedge && ((!isRight && dir > .1f) || (isRight && dir < -.1f)))
+            if(pms.moveHorOnLedge && ((!isRight && moveX > .1f) || (isRight && moveX < -.1f)))
             {
                 animController.Play(Animations.LEDGE_PULL, false, false);
-                //playerState.isLedgeGrab = false;
             }
-
-        //    print("moveX: " + moveX);
-        //    print("moveY: " + moveY);
-        //    print("Attack: " + Attack);
         }
     }
+    #endregion
 
     #region SpecailVelo
 
@@ -543,29 +571,18 @@ public class PlayerMovementController : PlayerComponent
 
     public void USpecialLaunch()
     {
-        pms.UspecialJump = !pms.UspecialJump;
-        if(pms.UspecialJump)
-        {
             isFastFalling = isFalling = false;
             jumpBufferTimer = 0f;
             usedJumps += 2;
             VerticalVelocity = pms.USpecInitialJumpVelo;
             rb.velocity = new Vector2(rb.velocity.x, VerticalVelocity);
-        }
     }
 
     public void SSpecialLaunch()
     {
-        pms.SSpecialSlide = !pms.SSpecialSlide;
         isFastFalling =  false;
         rb.velocity = new Vector2(0, 0);
         pms.SSpecialFall = true;
-
-    }
-
-    public void DSpecialSpin()
-    {
-        pms.downSpecial = !pms.downSpecial;
     }
 
 
@@ -711,6 +728,7 @@ public class PlayerMovementController : PlayerComponent
         inputManager.OnMove += MovePlayer;
         inputManager.OnLedgeInput += LedgeHang;
         EventManager.onCutesceneEnter.AddListener(ConfigureForCutscene);
+        EventManager.onCutsceneExit.AddListener(ConfigureEndOfCutscene);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -735,6 +753,12 @@ public class PlayerMovementController : PlayerComponent
 
     public void ConfigureForCutscene()
     {
+        canControl = false;
         rb.velocity = Vector2.zero;
+    }
+
+    public void ConfigureEndOfCutscene()
+    {
+        canControl = true;
     }
 }

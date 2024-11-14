@@ -34,6 +34,7 @@ public class PlayerMovementStats : ScriptableObject
     [Range(0f, 1f)] public float HeadWidth = .75f;
 
     [Header("Jump")]
+    public bool Flatmove = false;
     public float JumpHieght = 6.5f;
     [Range(1f,1.1f)] public float JumpHieghtCompFactor = 1.054f;
     public float JumpApexTime = 0.35f;

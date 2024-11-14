@@ -17,6 +17,11 @@ public class PlayerState : MonoBehaviour
 
     public bool isOnMoveable;
 
+
+    public bool isUSpecial = false;
+    public bool isSSpecial = false;
+    public bool isDSpecial = false;
+
     // Start is called before the first frame update
     void Start()
     {

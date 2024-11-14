@@ -33,6 +33,7 @@ MonoBehaviour:
   GroundDetectLength: 0.02
   HeadDetectLength: 0.02
   HeadWidth: 0.75
+  Flatmove: 1
   JumpHieght: 2.66
   JumpHieghtCompFactor: 1.054
   JumpApexTime: 0.47
@@ -55,19 +56,19 @@ MonoBehaviour:
   dosnSpecialHorizontalVelocity: 3
   dashAttack: 0
   slowdownVelocity: 0.01
-  reGrab: 1
+  reGrab: 0
   grab: 0
   moveable: 1
   moveHorOnLedge: 1
-  redXOff: 0
+  redXOff: -0
   redYOff: 0.26
   redXSize: 0.83
   redYSize: 0.05
   groundMask:
     serializedVersion: 2
     m_Bits: 512
-  Xtweak: 2.15
-  Ytweak: 0.2825
+  Xtweak: 0.5
+  Ytweak: 0.5
   Box: {fileID: 0}
   g: {fileID: 0}
   holding: 3

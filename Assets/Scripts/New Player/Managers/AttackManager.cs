@@ -108,6 +108,7 @@ public class AttackManager : MonoBehaviour
     {
         return playerState;
     }
+    #region StickyHand
 
     public void StickyHandStartup()
     {
@@ -131,6 +132,43 @@ public class AttackManager : MonoBehaviour
         stickyhand.ChangeStickyHandAnimation("Stickyhand Blank State");
         stickyhand.SetIsStickyActive(false);
     }
+    #endregion
+
+    #region Specials
+
+    public void USpecialStart()
+    {
+        playerState.isUSpecial = true;
+    }
+
+    public void USpecialEnd()
+    {
+        playerState.isUSpecial = false;
+    }
+
+    public void SSpecialStart()
+    {
+        playerState.isSSpecial = true;
+    }
+
+    public void SSpecialEnd()
+    {
+        playerState.isSSpecial = false;
+    }
+
+    public void DSpecialStart()
+    {
+        playerState.isDSpecial = true;
+    }
+
+    public void DSpecialEnd()
+    {
+        playerState.isDSpecial = false;
+    }
+
+
+    #endregion
+
 
     public void OnLedgeFail()
     {

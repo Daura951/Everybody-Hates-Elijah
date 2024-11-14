@@ -90,6 +90,13 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
+  - time: 0.016666668
+    functionName: SSpecialStart
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 0.36666667
     functionName: SSpecialLaunch
     data: 
@@ -104,15 +111,22 @@ AnimationClip:
     floatParameter: 5
     intParameter: 15
     messageOptions: 0
-  - time: 0.6333333
+  - time: 0.6
     functionName: DespawnHitbox
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 6
     messageOptions: 0
-  - time: 0.6666667
+  - time: 0.6333333
     functionName: SSpecialLaunch
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.6666667
+    functionName: SSpecialEnd
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

@@ -10,11 +10,11 @@ public class OnAnimationExit : StateMachineBehaviour
     [SerializeField] private bool isAnimAttack;
     [SerializeField] private bool isJab, isStrong;
 
-    [HideInInspector] public bool cancel = false;
+     public bool cancel = false;
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        cancel = false;
+        //cancel = false;
 
         if (isAnimAttack)
         {
