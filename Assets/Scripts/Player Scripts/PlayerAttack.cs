@@ -55,7 +55,7 @@ public class PlayerAttack : MonoBehaviour
     public Vector2 grabOffset;
     public Vector2 playerDThrowOffset;
     public float maxGrabTime;
-    public Entity currentlyGrabbedEntity;
+    //public Entity currentlyGrabbedEntity;
     public Vector2[] throwingOffsets;
 
     private int revFSpecialIndex = 0;
@@ -496,8 +496,8 @@ public class PlayerAttack : MonoBehaviour
     public void Throw()
     {
         //currentlyGrabbedEnemy.isGrabbed = false; //Make sure the currently grabbed enemy is unlocked
-        if (currentlyGrabbedEntity != null)
-            currentlyGrabbedEntity.getThrown();
+        //if (currentlyGrabbedEntity != null)
+        //    currentlyGrabbedEntity.getThrown();
     }
 
     public void DThrow()

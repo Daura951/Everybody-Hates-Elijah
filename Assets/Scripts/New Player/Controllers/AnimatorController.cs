@@ -43,7 +43,10 @@ public class AnimatorController : MonoBehaviour
         Animator.StringToHash("Ledge grab"),
         Animator.StringToHash("Ledge idle"),
         Animator.StringToHash("Ledge attack"),
-        Animator.StringToHash("Ledge pull")
+        Animator.StringToHash("Ledge pull"),
+        Animator.StringToHash("Stun1"),
+        Animator.StringToHash("Stun2"),
+        Animator.StringToHash("Stun3")
     };
 
     [SerializeField]
@@ -80,7 +83,8 @@ public class AnimatorController : MonoBehaviour
     /// <param name="crossFadeTime">Time for crossfade</param>
     public void Play(Animations animation, bool lockAnimator, bool bypassLock, float crossFadeTime = 0.2f)
     {
-       // print("Going from: " + currentAnimation.ToString() + " to: " + animation.ToString());
+        //print("Going from: " + currentAnimation.ToString() + " to: " + animation.ToString());
+
         if(animation==Animations.NONE)
         {
             anim.CrossFade(animations[(int)Animations.IDLE], crossFadeTime);
@@ -171,5 +175,8 @@ public enum Animations
     LEDGE_IDLE,
     LEDGE_ATTACK,
     LEDGE_PULL,
+    Stun1,
+    Stun2,
+    Stun3,
     NONE
 }

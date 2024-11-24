@@ -14,13 +14,16 @@ public class PlayerState : MonoBehaviour
     public bool isInBB;
     public bool isLedgeGrab;
     public bool isInCutscene;
-
     public bool isOnMoveable;
 
 
+    public bool CanUSpecial;
+    public bool CanSSpecial;
     public bool isUSpecial = false;
     public bool isSSpecial = false;
     public bool isDSpecial = false;
+
+    public float Health, MaxHealth;
 
     // Start is called before the first frame update
     void Start()
