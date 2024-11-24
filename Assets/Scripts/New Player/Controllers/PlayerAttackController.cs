@@ -122,12 +122,12 @@ public class PlayerAttackController : PlayerComponent
     }
     private void StrongHold()
     {
-        if(!playerstate.isGrounded)
+        if(!playerstate.isGrounded && !playerstate.isLedgeGrab)
         {
             Ariel(new Vector2(inputManager.moveHorizontal, inputManager.moveVertical));
         }
 
-        else if(!playerstate.isAttacking &&!animController.GetCurrentAnimation().ToString().Contains("HIT"))
+        else if(!playerstate.isAttacking &&!animController.GetCurrentAnimation().ToString().Contains("HIT") && !playerstate.isLedgeGrab)
         {
             playerstate.isAttacking = true;
             isSmashCharging = true;
@@ -172,7 +172,7 @@ public class PlayerAttackController : PlayerComponent
 
     private void Special()
     {
-        if (!playerstate.isAttacking)
+        if (!playerstate.isAttacking && !playerstate.isLedgeGrab)
         {
             playerstate.isAttacking = true;
             Vector2 move = new Vector2(inputManager.moveHorizontal, inputManager.moveVertical);
