@@ -808,8 +808,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animation: 35
-  isLocked: 0
-  crossFadeTime: 0.2
+  isLocked: 1
+  crossFadeTime: 0.01
   isAnimAttack: 0
   isJab: 0
   isStrong: 0

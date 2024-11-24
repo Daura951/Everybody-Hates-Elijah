@@ -491,6 +491,11 @@ public override void OnUpdate()
             if (pms.g.CompareTag("Grab") && pms.reGrab)
             {
                 playerState.isLedgeGrab = true;
+                playerState.CanUSpecial = true;
+                playerState.CanSSpecial = true;
+                playerState.isSSpecial = false;
+                playerState.isUSpecial = false;
+
                 pms.Box = pms.g.GetComponent<BoxCollider2D>();
                 rb.velocity = Vector2.zero;
                 VerticalVelocity = moveVelocity.x = 0f;
@@ -557,7 +562,7 @@ public override void OnUpdate()
             if (moveY < -.4f)
             {
                 print("Fall input");
-                animController.Play(Animations.FALLING, false, false);
+                animController.Play(Animations.FALLING, false, true);
                 playerState.isLedgeGrab = false;
             }
 
