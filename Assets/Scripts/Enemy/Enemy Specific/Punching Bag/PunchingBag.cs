@@ -36,7 +36,7 @@ public class PunchingBag : MonoBehaviour
         }
     }
 
-    public virtual void GetHit(PlayerAttackDetails details, bool isRight)
+    public virtual void GetHit(AttackDetails details, bool isRight)
     {
         rb.velocity = Vector2.zero;
         float XComponent = Mathf.Cos(details.Angle * (Mathf.PI / 180)) * details.Knockback;
@@ -68,6 +68,7 @@ public class PunchingBag : MonoBehaviour
                 atkManager.didStickyCollide = true;
             }
             GameObject.FindGameObjectWithTag("Player").GetComponent<BladeboundController>().CurHitAmt++;
+            GameObject.FindGameObjectWithTag("Player").GetComponent<ComboController>().Combo();
             GetHit(atkManager.findByHitbox(collision.gameObject.name), atkManager.GetPlayerState().isRight);
         }
         

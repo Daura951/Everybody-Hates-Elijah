@@ -30,7 +30,7 @@ public class DoorTrigger : MonoBehaviour
 
             if(inputManager.moveVertical > .5f)
             {
-                fader.setPositionToGoTo(otherDoor.position);
+                fader.setPositionToGoTo(new Vector3(otherDoor.position.x, otherDoor.position.y, GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().transform.position.z));
                 fader.Fade("position");
             }
         }
