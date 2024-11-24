@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TsetingGround.unity
     guid: 6e238c18c7d2215429b4b3f51b587efe
+  - enabled: 1
+    path: Assets/Scenes/DemoLevel 2.unity
+    guid: cff2f235eeef31d4595c797b6c101d75
   m_configObjects: {}
