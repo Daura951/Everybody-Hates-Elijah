@@ -42,6 +42,9 @@ public class PlayerHealthController : PlayerComponent
         currentHealth = maxHealth;
         healthBarSlider.value = currentHealth / maxHealth;
         healthAnim.SetFloat("animSpeedParameter", .5f);
+
+        playerState.MaxHealth = currentHealth;
+        playerState.Health = currentHealth;
     }
 
 
@@ -95,6 +98,7 @@ public class PlayerHealthController : PlayerComponent
             currentHealth = 0;
 
         healthBarSlider.value = currentHealth / maxHealth;
+        playerState.Health = currentHealth;
     }
 
     private void ApplyHealthUI()

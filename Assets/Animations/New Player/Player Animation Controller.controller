@@ -113,6 +113,8 @@ MonoBehaviour:
   isAnimAttack: 1
   isJab: 0
   isStrong: 0
+  isLedgeMove: 0
+  LedgeAnim: 0
   cancel: 0
 --- !u!114 &-8054189947841682086
 MonoBehaviour:
@@ -132,6 +134,8 @@ MonoBehaviour:
   isAnimAttack: 1
   isJab: 1
   isStrong: 0
+  isLedgeMove: 0
+  LedgeAnim: 0
   cancel: 0
 --- !u!114 &-8044023879834564387
 MonoBehaviour:
@@ -145,12 +149,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4bd5bf40b097cf43ae6e845d7cb5bee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animation: 5
+  animation: 0
   isLocked: 0
-  crossFadeTime: 0.2
+  crossFadeTime: 0.00001
   isAnimAttack: 0
   isJab: 0
   isStrong: 0
+  isLedgeMove: 0
+  LedgeAnim: 1
   cancel: 0
 --- !u!1102 &-7553246404321521979
 AnimatorState:
@@ -197,6 +203,8 @@ MonoBehaviour:
   isAnimAttack: 1
   isJab: 0
   isStrong: 1
+  isLedgeMove: 0
+  LedgeAnim: 0
   cancel: 0
 --- !u!1102 &-6890851525005987808
 AnimatorState:
@@ -270,6 +278,8 @@ MonoBehaviour:
   isAnimAttack: 1
   isJab: 0
   isStrong: 0
+  isLedgeMove: 0
+  LedgeAnim: 0
   cancel: 0
 --- !u!1102 &-6487151853821876213
 AnimatorState:
@@ -396,6 +406,8 @@ MonoBehaviour:
   isAnimAttack: 0
   isJab: 0
   isStrong: 0
+  isLedgeMove: 0
+  LedgeAnim: 0
   cancel: 0
 --- !u!114 &-6201878834419396279
 MonoBehaviour:
@@ -415,6 +427,8 @@ MonoBehaviour:
   isAnimAttack: 1
   isJab: 0
   isStrong: 1
+  isLedgeMove: 0
+  LedgeAnim: 0
   cancel: 0
 --- !u!1102 &-6004507233348952506
 AnimatorState:
@@ -553,6 +567,32 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!1102 &-4390988683541720104
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Stun1
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: 44e2cfbc8f7b58649bbaab1677a0fe74, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!1102 &-4152714924391512001
 AnimatorState:
   serializedVersion: 6
@@ -598,6 +638,8 @@ MonoBehaviour:
   isAnimAttack: 1
   isJab: 0
   isStrong: 1
+  isLedgeMove: 0
+  LedgeAnim: 0
   cancel: 0
 --- !u!1102 &-3434152897206598426
 AnimatorState:
@@ -644,6 +686,8 @@ MonoBehaviour:
   isAnimAttack: 0
   isJab: 0
   isStrong: 0
+  isLedgeMove: 0
+  LedgeAnim: 0
   cancel: 0
 --- !u!1102 &-3251582774284885332
 AnimatorState:
@@ -769,7 +813,9 @@ MonoBehaviour:
   isAnimAttack: 0
   isJab: 0
   isStrong: 0
-  cancel: 0
+  isLedgeMove: 0
+  LedgeAnim: 0
+  cancel: 1
 --- !u!114 &-2487739022120001110
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -788,6 +834,8 @@ MonoBehaviour:
   isAnimAttack: 1
   isJab: 0
   isStrong: 0
+  isLedgeMove: 0
+  LedgeAnim: 0
   cancel: 0
 --- !u!114 &-2442442848459570943
 MonoBehaviour:
@@ -807,6 +855,8 @@ MonoBehaviour:
   isAnimAttack: 0
   isJab: 0
   isStrong: 0
+  isLedgeMove: 0
+  LedgeAnim: 0
   cancel: 0
 --- !u!114 &-2264493023942090751
 MonoBehaviour:
@@ -826,6 +876,8 @@ MonoBehaviour:
   isAnimAttack: 0
   isJab: 0
   isStrong: 0
+  isLedgeMove: 0
+  LedgeAnim: 0
   cancel: 0
 --- !u!114 &-1426513913327290278
 MonoBehaviour:
@@ -845,6 +897,8 @@ MonoBehaviour:
   isAnimAttack: 0
   isJab: 0
   isStrong: 0
+  isLedgeMove: 0
+  LedgeAnim: 0
   cancel: 0
 --- !u!114 &-1279158118023706458
 MonoBehaviour:
@@ -864,6 +918,8 @@ MonoBehaviour:
   isAnimAttack: 1
   isJab: 0
   isStrong: 0
+  isLedgeMove: 0
+  LedgeAnim: 0
   cancel: 0
 --- !u!114 &-1171363718896576319
 MonoBehaviour:
@@ -883,6 +939,8 @@ MonoBehaviour:
   isAnimAttack: 0
   isJab: 0
   isStrong: 0
+  isLedgeMove: 0
+  LedgeAnim: 0
   cancel: 0
 --- !u!1102 &-1143569724418355073
 AnimatorState:
@@ -956,6 +1014,8 @@ MonoBehaviour:
   isAnimAttack: 0
   isJab: 0
   isStrong: 0
+  isLedgeMove: 0
+  LedgeAnim: 0
   cancel: 0
 --- !u!114 &-723942445063607417
 MonoBehaviour:
@@ -975,6 +1035,8 @@ MonoBehaviour:
   isAnimAttack: 1
   isJab: 0
   isStrong: 0
+  isLedgeMove: 0
+  LedgeAnim: 0
   cancel: 0
 --- !u!114 &-575573741120933153
 MonoBehaviour:
@@ -994,6 +1056,8 @@ MonoBehaviour:
   isAnimAttack: 1
   isJab: 0
   isStrong: 0
+  isLedgeMove: 0
+  LedgeAnim: 0
   cancel: 0
 --- !u!114 &-287720430670819563
 MonoBehaviour:
@@ -1051,6 +1115,8 @@ MonoBehaviour:
   isAnimAttack: 0
   isJab: 0
   isStrong: 0
+  isLedgeMove: 0
+  LedgeAnim: 0
   cancel: 0
 --- !u!1102 &540615677176350233
 AnimatorState:
@@ -1124,6 +1190,8 @@ MonoBehaviour:
   isAnimAttack: 1
   isJab: 0
   isStrong: 0
+  isLedgeMove: 0
+  LedgeAnim: 0
   cancel: 0
 --- !u!114 &950471612322392465
 MonoBehaviour:
@@ -1137,12 +1205,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4bd5bf40b097cf43ae6e845d7cb5bee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animation: 5
+  animation: 0
   isLocked: 0
-  crossFadeTime: 0.001
+  crossFadeTime: 0.00001
   isAnimAttack: 0
   isJab: 0
   isStrong: 0
+  isLedgeMove: 1
+  LedgeAnim: 1
   cancel: 0
 --- !u!114 &1279409167207887596
 MonoBehaviour:
@@ -1177,6 +1247,8 @@ MonoBehaviour:
   isAnimAttack: 0
   isJab: 0
   isStrong: 0
+  isLedgeMove: 0
+  LedgeAnim: 0
   cancel: 0
 --- !u!1102 &2400653259632633052
 AnimatorState:
@@ -1250,6 +1322,8 @@ MonoBehaviour:
   isAnimAttack: 1
   isJab: 0
   isStrong: 0
+  isLedgeMove: 0
+  LedgeAnim: 0
   cancel: 0
 --- !u!1107 &2588790822426584310
 AnimatorStateMachine:
@@ -1374,6 +1448,15 @@ AnimatorStateMachine:
   - serializedVersion: 1
     m_State: {fileID: 3319729593851882929}
     m_Position: {x: -360, y: 170, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: -4390988683541720104}
+    m_Position: {x: -360, y: 270, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 7560953736531659510}
+    m_Position: {x: -150, y: 270, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 3383728627313380616}
+    m_Position: {x: -360, y: 320, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -1402,6 +1485,8 @@ MonoBehaviour:
   isAnimAttack: 1
   isJab: 0
   isStrong: 0
+  isLedgeMove: 0
+  LedgeAnim: 0
   cancel: 0
 --- !u!1102 &3319729593851882929
 AnimatorState:
@@ -1425,6 +1510,32 @@ AnimatorState:
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: 03034cfbede098b439d6ad7352db7f02, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
+--- !u!1102 &3383728627313380616
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Stun3
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: 478e59fa20aa801448ed194741935511, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -1475,6 +1586,8 @@ MonoBehaviour:
   isAnimAttack: 1
   isJab: 1
   isStrong: 0
+  isLedgeMove: 0
+  LedgeAnim: 0
   cancel: 0
 --- !u!114 &4036173959726444553
 MonoBehaviour:
@@ -1494,6 +1607,8 @@ MonoBehaviour:
   isAnimAttack: 1
   isJab: 0
   isStrong: 0
+  isLedgeMove: 0
+  LedgeAnim: 0
   cancel: 0
 --- !u!1102 &5059590241129599429
 AnimatorState:
@@ -1594,6 +1709,8 @@ MonoBehaviour:
   isAnimAttack: 0
   isJab: 0
   isStrong: 0
+  isLedgeMove: 0
+  LedgeAnim: 0
   cancel: 0
 --- !u!114 &5561166727693692602
 MonoBehaviour:
@@ -1613,6 +1730,8 @@ MonoBehaviour:
   isAnimAttack: 0
   isJab: 0
   isStrong: 0
+  isLedgeMove: 0
+  LedgeAnim: 0
   cancel: 0
 --- !u!1102 &5603450808688840869
 AnimatorState:
@@ -1658,6 +1777,8 @@ MonoBehaviour:
   isAnimAttack: 1
   isJab: 0
   isStrong: 0
+  isLedgeMove: 0
+  LedgeAnim: 0
   cancel: 0
 --- !u!1102 &6204260599414405377
 AnimatorState:
@@ -1703,6 +1824,8 @@ MonoBehaviour:
   isAnimAttack: 1
   isJab: 1
   isStrong: 0
+  isLedgeMove: 0
+  LedgeAnim: 0
   cancel: 0
 --- !u!114 &6826046510408802517
 MonoBehaviour:
@@ -1746,6 +1869,32 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!1102 &7560953736531659510
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Stun2
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: f9e8ac3b22f0cbb498ad8f01e4a8613a, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!114 &7679940554613603481
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1764,6 +1913,8 @@ MonoBehaviour:
   isAnimAttack: 1
   isJab: 0
   isStrong: 0
+  isLedgeMove: 0
+  LedgeAnim: 0
   cancel: 0
 --- !u!1102 &7701647406942585244
 AnimatorState:
@@ -1891,6 +2042,8 @@ MonoBehaviour:
   isAnimAttack: 1
   isJab: 0
   isStrong: 0
+  isLedgeMove: 0
+  LedgeAnim: 0
   cancel: 0
 --- !u!1102 &8486346289168916566
 AnimatorState:
@@ -1964,6 +2117,8 @@ MonoBehaviour:
   isAnimAttack: 0
   isJab: 0
   isStrong: 0
+  isLedgeMove: 0
+  LedgeAnim: 0
   cancel: 0
 --- !u!1102 &8771656830349774679
 AnimatorState:

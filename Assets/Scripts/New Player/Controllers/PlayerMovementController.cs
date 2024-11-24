@@ -52,21 +52,22 @@ public class PlayerMovementController : PlayerComponent
     //Ledge Grab junk
     private float Xpos, Ypos;
 
-    private bool canControl = true;
+    public bool canControl = true;
+    public bool OverrideControl = false;
 
     public override void OnStart()
     {
         print("Hello PlayerMovementController!");
         rb = GetComponent<Rigidbody2D>();
         isRight = true;
-    }
+        playerState.CanUSpecial = true;
+        playerState.CanSSpecial = true;
 
-    public override void OnUpdate()
+}
+
+public override void OnUpdate()
     {
-
-        //print(VerticalVelocity);
-
-        if(playerState.isInBB)
+        if (playerState.isInBB)
         {
             rb.velocity *= 2.0f;
         }
@@ -74,7 +75,7 @@ public class PlayerMovementController : PlayerComponent
         SendDataToPlayerState();
         if(!playerState.isSSpecial)
         CountTimers();
-        if(!playerState.isUSpecial)
+        if(!playerState.isUSpecial && canControl)
         JumpChecks();
     }
     public override void OnFixedUpdate()
@@ -89,10 +90,10 @@ public class PlayerMovementController : PlayerComponent
                 Jump();
 
 
-            if (!playerState.isLedgeGrab)
-                Falling();
         }
 
+            if (!playerState.isLedgeGrab && (OverrideControl|| canControl))
+                Falling();
 
         accel = isGrounded ? pms.GroundAccel : pms.AirAccel;
         decel = isGrounded ? pms.GroundDecel : pms.AirDecel;
@@ -103,6 +104,8 @@ public class PlayerMovementController : PlayerComponent
     {
         if (isFastFalling && !playerState.isUSpecial)
         {
+            if (OverrideControl)
+                print("RAHHHHHHHHHH1");
 
             VerticalVelocity = fastFallTime >= pms.UpCancelTime ? VerticalVelocity + ((playerState.isInBB ? 2.0f : 1.0f) *  (pms.Gravity * pms.GravityReleaseMultiplyer * Time.fixedDeltaTime)) : Mathf.Lerp((playerState.isInBB ? 2.0f : 1.0f) * fastFallReleaseSpeed, 0f, (playerState.isInBB ? 2.0f : 1.0f) * (fastFallTime / pms.UpCancelTime));
             fastFallTime += Time.fixedDeltaTime;
@@ -110,22 +113,32 @@ public class PlayerMovementController : PlayerComponent
         }
 
         // NORMAL GRAVITY WHILE FALLING
-        if (!isGrounded && !inputManager.isJumping && !playerState.isUSpecial)
+        if ((!isGrounded && !inputManager.isJumping && !playerState.isUSpecial) || OverrideControl)
         {
+
+            if (OverrideControl)
+                print("RAHHHHHHHHH2H");
+
             if (!isFalling)
                 isFalling = true;
 
                 VerticalVelocity += (playerState.isInBB ? 2.0f : 1.0f) * (pms.Gravity * Time.fixedDeltaTime);
         }
 
-        if (!playerState.isSSpecial && !playerState.isDSpecial && !pms.dashAttack)
+        if (!playerState.isSSpecial && !playerState.isDSpecial && !pms.dashAttack && !OverrideControl)
         {
-            //CLAMP FALL SPEED
+
+            if (OverrideControl)
+                print("RAHHHHH3HHHHH");
+
+
             VerticalVelocity = Mathf.Clamp(VerticalVelocity, (playerState.isInBB ? 2.0f : 1.0f) * -pms.MaxFallSpeed, (playerState.isInBB ? 2.0f : 1.0f) * 50f);
+
+            //CLAMP FALL SPEED
             if (playerState.isUSpecial)
                 rb.velocity = new Vector2(rb.velocity.x, (playerState.isInBB ? 2.0f : 1.0f) * VerticalVelocity);
             else
-                rb.velocity = new Vector2(rb.velocity.x, (playerState.isInBB ? 2.0f : 1.0f) *  VerticalVelocity);
+                rb.velocity = new Vector2(rb.velocity.x, (playerState.isInBB ? 2.0f : 1.0f) * VerticalVelocity);
         }
         else if (playerState.isSSpecial)
         {
@@ -133,11 +146,21 @@ public class PlayerMovementController : PlayerComponent
             rb.velocity = new Vector2(pms.HorizontalSlideVelo * dir , 0f);
         }
         else if (playerState.isDSpecial)
+        {
             rb.velocity = new Vector2(pms.dosnSpecialHorizontalVelocity * dir , -9.81f);
+        }
         else if (pms.dashAttack)
         {
             if (rb.velocity.x >= 0)
                 rb.velocity -= new Vector2(pms.slowdownVelocity * dir, 0f);
+        }
+        else if (OverrideControl)
+        {
+            if (playerState.isInBB)
+                print("Blade Velo: " + rb.velocity);
+
+
+            rb.velocity += new Vector2(0, (playerState.isInBB ? 2.0f : 1.0f) * (pms.Gravity * Time.fixedDeltaTime));
         }
     }
 
@@ -192,8 +215,12 @@ public class PlayerMovementController : PlayerComponent
 
                     if (!isGrounded)
                     {
-                        if (rb.velocity.y < -0.6f)
+                        if (rb.velocity.y < -1.0f && !playerState.isLedgeGrab)
+                        {
+
+                            print("Falling");
                             animController.Play(Animations.FALLING, false, false);
+                        }
                         else if (usedJumps == 1)
                             animController.Play(Animations.SINGLE_JUMP, false, false);
                         else if (usedJumps > 1)
@@ -247,7 +274,17 @@ public class PlayerMovementController : PlayerComponent
 
     private void IsGrounded()
     {
-        if (isGrounded && pms.SSpecialFall) {pms.SSpecialFall = false; }
+        if (isGrounded) 
+        {
+            playerState.CanUSpecial = playerState.CanUSpecial ? playerState.CanUSpecial  : true;
+            playerState.CanSSpecial = playerState.CanSSpecial ? playerState.CanSSpecial : true;
+            pms.SSpecialFall = pms.SSpecialFall ? false : pms.SSpecialFall; 
+        }
+        else
+        {
+            playerState.CanUSpecial = playerState.isUSpecial ? false : playerState.CanUSpecial;
+            playerState.CanSSpecial = playerState.isSSpecial ? false : playerState.CanSSpecial;
+        }
 
         Vector2 boxCastOrigin = new Vector2(feet.bounds.center.x, feet.bounds.min.y);
         Vector2 boxCastSize = new Vector2(feet.bounds.size.x, pms.GroundDetectLength);
@@ -273,7 +310,7 @@ public class PlayerMovementController : PlayerComponent
         Vector2 boxCastSize = new Vector2(feet.bounds.size.x * pms.HeadWidth, pms.HeadDetectLength);
 
         groundHit = Physics2D.BoxCast(boxCastOrigin, boxCastSize, 0f, Vector2.up, pms.HeadDetectLength, pms.GroundLayer);
-        bumpedHead = groundHit.collider != null ? true : false;
+        bumpedHead = groundHit.collider != null ? (groundHit.collider.GetComponent<PlatformEffector2D>() == true ? false : true) : false;
     }
 
     private void CollisionCheck()
@@ -453,6 +490,7 @@ public class PlayerMovementController : PlayerComponent
 
             if (pms.g.CompareTag("Grab") && pms.reGrab)
             {
+                playerState.isLedgeGrab = true;
                 pms.Box = pms.g.GetComponent<BoxCollider2D>();
                 rb.velocity = Vector2.zero;
                 VerticalVelocity = moveVelocity.x = 0f;
@@ -461,11 +499,8 @@ public class PlayerMovementController : PlayerComponent
                 /// a timer system need to be here
 
                 usedJumps = usedJumps == 2 ? 1 : usedJumps;
-                playerState.isLedgeGrab = true;
                 pms.moveHorOnLedge = false;
-                animController.Play(Animations.LEDGE_GRAB, false, true);
-
-
+                animController.StopAllCoroutines();
                 /// Need to despawn all attack hitboxes
 
 
@@ -485,6 +520,7 @@ public class PlayerMovementController : PlayerComponent
                         Turn(true);
 
                 }
+                animController.Play(Animations.LEDGE_GRAB, true, true);
             }
         }
     }
@@ -494,7 +530,10 @@ public class PlayerMovementController : PlayerComponent
         float newY = Ypos + pms.Ytweak;
         float newX = transform.position.x + (((transform.position.x < pms.g.transform.position.x) ? 1f : -1f) *pms.Xtweak);
         transform.position = new Vector2(newX, newY);
+    }
 
+    public void LedgeRotate()
+    {
         if (transform.position.x < pms.g.transform.position.x)
         {
             if (!playerState.isRight)
@@ -517,6 +556,7 @@ public class PlayerMovementController : PlayerComponent
 
             if (moveY < -.4f)
             {
+                print("Fall input");
                 animController.Play(Animations.FALLING, false, false);
                 playerState.isLedgeGrab = false;
             }
@@ -584,8 +624,6 @@ public class PlayerMovementController : PlayerComponent
         rb.velocity = new Vector2(0, 0);
         pms.SSpecialFall = true;
     }
-
-
     #endregion
 
 
@@ -729,16 +767,56 @@ public class PlayerMovementController : PlayerComponent
         inputManager.OnLedgeInput += LedgeHang;
         EventManager.onCutesceneEnter.AddListener(ConfigureForCutscene);
         EventManager.onCutsceneExit.AddListener(ConfigureEndOfCutscene);
+        EventManager.onStunStart.AddListener(ConfigureControl);
+        EventManager.onStunEnd.AddListener(ConfigureControl);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.GetComponent<PlatformMovement>() != null && !playerState.isOnMoveable)
+        GameObject collidedGO = collision.gameObject;
+        if (collidedGO.GetComponent<Stun_Info>() != null)
+        {
+            print("STUN HAZARD!");
+            if (OverrideControl) { EventManager.TriggerOnStunEnd(); }
+
+            EventManager.TriggerOnStunStart();
+            ApplyKnockback(collidedGO.GetComponent<Stun_Info>().GetDAKTInfo()[1] , collidedGO.GetComponent<Stun_Info>().GetDAKTInfo()[2]);
+        }
+
+        if (collidedGO.GetComponent<PlatformMovement>() != null && !playerState.isOnMoveable)
         {
             playerState.isOnMoveable = true;
             transform.SetParent(collision.gameObject.transform);
             rb.interpolation = RigidbodyInterpolation2D.None;
         }
+    }
+
+    private void ApplyKnockback(float angle , float Kb)
+    {
+        float healthWeight = 0;
+        float stunMultiplier = 10 / playerState.MaxHealth;
+
+        if (playerState.Health > 0)
+        {
+            healthWeight = ((playerState.MaxHealth / playerState.Health) * stunMultiplier);
+
+        }
+        else healthWeight = ((playerState.MaxHealth / 1f) * stunMultiplier);
+        angle += playerState.Health < .5 ? 0 : 10;
+
+        float XComponent = Mathf.Cos(angle * (Mathf.PI / 180)) * Kb;
+        float YComponent = Mathf.Sin(angle * (Mathf.PI / 180)) * Kb;
+
+        
+        if (playerState.isRight)
+        {
+            XComponent *= -1;
+        }
+        rb.velocity = Vector2.zero;
+        rb.velocity = (new Vector2(XComponent, YComponent) * healthWeight );
+        print("Start force is: " + rb.velocity);
+        //rb.AddForce((new Vector2(XComponent, YComponent) /* * healthWeight */), ForceMode2D.Impulse);
+
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -749,6 +827,12 @@ public class PlayerMovementController : PlayerComponent
             transform.SetParent(null);
             rb.interpolation = RigidbodyInterpolation2D.Interpolate;
         }
+    }
+
+    public void ConfigureControl()
+    {
+        canControl = !canControl;
+        OverrideControl = !OverrideControl;
     }
 
     public void ConfigureForCutscene()

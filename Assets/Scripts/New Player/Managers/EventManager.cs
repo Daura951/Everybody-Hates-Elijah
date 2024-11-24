@@ -10,6 +10,8 @@ public static class EventManager
     public static UnityEvent onCutesceneEnter = new UnityEvent();
     public static UnityEvent onCutsceneExit = new UnityEvent();
     public static UnityEvent onDeath = new UnityEvent();
+    public static UnityEvent onStunStart = new UnityEvent();
+    public static UnityEvent onStunEnd = new UnityEvent();
 
     public static void TriggerBladebound()
     {
@@ -38,4 +40,13 @@ public static class EventManager
         onDeath?.Invoke();
     }
 
+    public static void TriggerOnStunStart()
+    {
+        onStunStart?.Invoke();
+    }
+
+    public static void TriggerOnStunEnd()
+    {
+        onStunEnd?.Invoke();
+    }
 }
