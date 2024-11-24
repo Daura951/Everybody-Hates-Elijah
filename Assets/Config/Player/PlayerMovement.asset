@@ -56,14 +56,14 @@ MonoBehaviour:
   dosnSpecialHorizontalVelocity: 3
   dashAttack: 0
   slowdownVelocity: 0.01
-  reGrab: 0
+  reGrab: 1
   grab: 0
   moveable: 1
   moveHorOnLedge: 1
   redXOff: 0
   redYOff: 0.26
-  redXSize: 0.83
-  redYSize: 0.05
+  redXSize: 0.74
+  redYSize: 0.23
   groundMask:
     serializedVersion: 2
     m_Bits: 512
