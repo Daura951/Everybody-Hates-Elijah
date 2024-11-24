@@ -11,12 +11,14 @@ public class Player : MonoBehaviour
     private PlayerState Playerstate;
 
     private InputManager inputManager;
+    private AttackManager attackManager;
 
     private void Awake()
     {
         inputManager = GetComponent<InputManager>();
         animController = GetComponent<AnimatorController>();
         Playerstate = GetComponent<PlayerState>();
+        attackManager = GetComponent<AttackManager>();
         ConfiugrePlayer(playerComponents);
         
 
@@ -67,5 +69,10 @@ public class Player : MonoBehaviour
     public InputManager getInputManager()
     {
         return inputManager;
+    }
+
+    public AttackManager GetAttackManager()
+    {
+        return attackManager;
     }
 }

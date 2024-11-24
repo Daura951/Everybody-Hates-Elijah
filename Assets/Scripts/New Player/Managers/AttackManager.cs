@@ -12,7 +12,7 @@ public class AttackManager : MonoBehaviour
     [SerializeField]
     private GameObject[] hitboxes;
 
-    private PlayerAttackDetails[] attackDetails;
+    private AttackDetails[] attackDetails;
 
     [SerializeField]
     private TextAsset attackConfigFile;
@@ -27,7 +27,7 @@ public class AttackManager : MonoBehaviour
 
     void Start()
     {
-        attackDetails = new PlayerAttackDetails[hitboxes.Length];
+        attackDetails = new AttackDetails[hitboxes.Length];
         InitalizeManager();
     }
 
@@ -52,7 +52,7 @@ public class AttackManager : MonoBehaviour
                     float stunTime = float.Parse(parts[4]);
                     float freezeDuration = float.Parse(parts[5]);
 
-                    attackDetails[(int)attack] = new PlayerAttackDetails(attack, damage, angle, knockback, stunTime, freezeDuration);
+                    attackDetails[(int)attack] = new AttackDetails(attack, damage, angle, knockback, stunTime, freezeDuration);
                     //print(attackDetails[(int)attack] + " " + hitboxes[(int)attack]);
                 }
             }
@@ -91,7 +91,7 @@ public class AttackManager : MonoBehaviour
     /// </summary>
     /// <param name="hbName">Name of the hitbox</param>
     /// <returns></returns>
-    public PlayerAttackDetails findByHitbox(string hbName)
+    public AttackDetails findByHitbox(string hbName)
     {
         for(int i = 0; i < hitboxes.Length; i++)
         {

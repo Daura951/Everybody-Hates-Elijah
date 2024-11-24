@@ -9,6 +9,7 @@ public class SceneChangeTrigger : MonoBehaviour
 
     private void Start()
     {
+        this.GetComponent<SpriteRenderer>().enabled = false;
         fader = GameObject.Find("Player UI").transform.Find("Fader").GetComponent<Fader>();
         if (fader != null)
         {

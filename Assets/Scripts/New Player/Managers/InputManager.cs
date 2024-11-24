@@ -78,6 +78,8 @@ public class InputManager : MonoBehaviour
         EventManager.onCutesceneEnter.AddListener(ToggleCanControl);
         EventManager.onCutsceneExit.AddListener(ToggleCanControl);
         EventManager.onDeath.AddListener(ToggleCanControl);
+        EventManager.onStunStart.AddListener(ToggleCanControl);
+        EventManager.onStunEnd.AddListener(ToggleCanControl);
 
     }
 

@@ -83,13 +83,7 @@ public class CutsceneTrigger : MonoBehaviour
         {
             switch (enemies[i].name)
             {
-                case "Male Student":
-                case "Male Student(Clone)":
-                    enemies[i].GetComponent<AngryStudent>().isInCutscene = true;
-                    break;
-                case "TechKid projectile":
-                    enemies[i].GetComponent<TechKidProjectile>().isInCutScene = true;
-                    break;
+
             }
         }
 
@@ -119,13 +113,7 @@ public class CutsceneTrigger : MonoBehaviour
         {
             switch (enemies[i].name)
             {
-                case "Male Student":
-                case "Male Student(Clone)":
-                    enemies[i].GetComponent<AngryStudent>().isInCutscene = false;
-                    break;
-                case "TechKid projectile":
-                    enemies[i].GetComponent<TechKidProjectile>().isInCutScene = false;
-                    break;
+
             }
         }
 

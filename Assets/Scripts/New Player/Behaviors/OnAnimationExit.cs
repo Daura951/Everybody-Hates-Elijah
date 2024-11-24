@@ -8,7 +8,7 @@ public class OnAnimationExit : StateMachineBehaviour
     [SerializeField] private bool isLocked;
     [SerializeField] private float crossFadeTime = 0.2f;
     [SerializeField] private bool isAnimAttack;
-    [SerializeField] private bool isJab, isStrong;
+    [SerializeField] private bool isJab, isStrong, isLedgeMove, LedgeAnim;
 
      [HideInInspector] public bool cancel = false;
 
@@ -37,10 +37,24 @@ public class OnAnimationExit : StateMachineBehaviour
 
         PlayerState playerstate = animator.GetComponent<PlayerState>();
         AnimatorController animatorController = animator.GetComponent<AnimatorController>();
+        PlayerMovementController PMC = animator.GetComponent<PlayerMovementController>();
 
         if (!isJab && !isStrong)
         {
             playerstate.isAttacking = false;
+        }
+
+        if(LedgeAnim)
+        {
+            animatorController.SetIsLocked(false);
+            playerstate.isLedgeGrab = false;
+            PMC.LedgeRotate();
+
+            if (isLedgeMove)
+            {
+                PMC.LedgeMove();
+
+            }
         }
 
 
