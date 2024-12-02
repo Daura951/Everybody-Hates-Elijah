@@ -34,8 +34,8 @@ public class StunController : PlayerComponent
     {
         if(IsStunned)
         {
-            StunTimer -= StunTimer <= 0 ? 0 : Time.deltaTime;
             IsStunned = StunTimer <= 0 ? false : true;
+            StunTimer -= StunTimer <= 0 ? 0 : Time.deltaTime;
 
             if(!IsStunned)
                 EventManager.TriggerOnStunEnd();
@@ -61,9 +61,21 @@ public class StunController : PlayerComponent
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        GameObject collidedGO = collision.gameObject;
+        if(collidedGO.gameObject.tag == "EHitbox")
+        {
+            AttackDetails hit = collidedGO.GetComponentInParent<EnemyAttackManager>().findByHitbox(collidedGO.name);
+            ApplayStun(hit.StunTime);
+            ApplyStunRandomizer();
+        }
+    }
+
 
     private void ApplayStun(float Stunner)
     {
+        playerState.isHelpless = false;
         StunTimer = Stunner;
         IsStunned = true;
     }

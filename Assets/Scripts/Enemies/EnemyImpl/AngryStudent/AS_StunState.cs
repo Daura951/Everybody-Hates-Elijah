@@ -19,17 +19,30 @@ public class AS_StunState : StunState
     public override void Exit()
     {
         base.Exit();
+        entity.isStunned = false;
     }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        if(entity.currentHit.StunTime != stunTime)
+
+        if(isInLaunchVelcoity)
         {
-            stunTime += entity.currentHit.StunTime;
+            stateMachine.ChangeState(angryStudent.launchState);
         }
 
-        if(isStunTimeOver)
+        else if (entity.currentHit.StunTime > 0 && entity.currentHit.StunTime != lastProcessedStunTime)
+        {
+
+            Debug.Log("Adding to stun: " + entity.currentHit.StunTime);
+            stunTime += entity.currentHit.StunTime;
+            stunTime = Mathf.Min(stunTime, entity.entityData.maxStunTime);
+            lastProcessedStunTime = entity.currentHit.StunTime;
+            Debug.Log($"Updated stunTime: {stunTime}");
+        }
+
+
+        else if (isStunTimeOver)
         {
             if(performCloseRangeAction)
             {

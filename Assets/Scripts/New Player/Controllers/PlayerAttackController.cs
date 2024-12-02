@@ -152,7 +152,7 @@ public class PlayerAttackController : PlayerComponent
     {
         if (isSmashCharging &&(animController.GetCurrentAnimation().ToString().Contains("CHARGE")))
         {
-            print("Strong release!");
+            //print("Strong release!");
 
             if (animController.GetCurrentAnimation() == Animations.USTRONG_CHARGE)
             {

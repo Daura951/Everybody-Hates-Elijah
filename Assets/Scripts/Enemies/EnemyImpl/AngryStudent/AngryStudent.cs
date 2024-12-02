@@ -15,6 +15,14 @@ public class AngryStudent : Entity
 
     public AS_StunState stunState { get; private set; }
 
+    public AS_LaunchState launchState { get; private set; }
+    
+    public AS_GetupState getupState { get; private set; }
+
+    public AS_DeadState launchDeadState { get; private set; }
+    public AS_DeadState deadState { get; private set; }
+
+
 
     [SerializeField]
     private D_IdleState idleData;
@@ -37,15 +45,37 @@ public class AngryStudent : Entity
         punchState = new AS_MeleeState(this, stateMachine, "punch", this);
         kickState = new AS_MeleeState(this, stateMachine, "kick", this);
         stunState = new AS_StunState(this, stateMachine, "stun", this);
+        launchState = new AS_LaunchState(this, stateMachine, "launch", this);
+        deadState = new AS_DeadState(this, stateMachine, "dead", this);
+        launchDeadState = new AS_DeadState(this, stateMachine, "launch dead", this);
+        getupState = new AS_GetupState(this, stateMachine, "getup", this);
         stateMachine.Initalize(moveState);
+    }
+
+    public override void Update()
+    {
+        base.Update();
     }
 
     public override void Damage(AttackDetails attackDetails)
     {
         base.Damage(attackDetails);
-        if(isStunned && stateMachine.currentState != stunState)
+        if (stateMachine.currentState != stunState && stateMachine.currentState != launchState)
         {
             stateMachine.ChangeState(stunState);
+        }
+    }
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(isDead)
+        {
+            if(stateMachine.currentState == launchState)
+            {
+                stateMachine.ChangeState(launchDeadState);
+            }
+            else stateMachine.ChangeState(deadState);
         }
     }
 }

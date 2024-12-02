@@ -23,8 +23,12 @@ public class Entity : MonoBehaviour
     public int lastDamageDir { get; private set; }
 
     public AttackDetails currentHit;
-    protected bool isStunned;
+    public bool isStunned;
     private Player player;
+
+    public bool isDead = false;
+
+    private EnemyHealthbar healthbar;
 
 
     public virtual void Start()
@@ -34,6 +38,7 @@ public class Entity : MonoBehaviour
         anim = GetComponent<Animator>();
         currentHealth = entityData.maxHealth;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        healthbar = GetComponentInChildren<EnemyHealthbar>();
         facingDir = 1;
     }
 
@@ -56,7 +61,7 @@ public class Entity : MonoBehaviour
     public virtual void SetVelocity(float velocity, float angle, int direction)
     {
         rb.velocity = Vector2.zero;
-        print(velocity + " " + angle);
+        //print(velocity + " " + angle);
 
         float XComponent = Mathf.Cos(angle * (Mathf.PI / 180));
         float YComponent = Mathf.Sin(angle * (Mathf.PI / 180));
@@ -96,12 +101,23 @@ public class Entity : MonoBehaviour
         return Physics2D.OverlapCircle(groundCheckTf.position, entityData.groundCheckRadius, entityData.whatIsGround);
     }
 
+    public virtual bool CheckIsInLaunchVelocity()
+    {
+        return rb.velocity.magnitude >= entityData.launchVelocityThreshold;
+    }
+
     public virtual void Damage(AttackDetails attackDetails)
     {
         currentHealth -= attackDetails.Damage;
+        healthbar.UpdateHealthbar(currentHealth, entityData.maxHealth);
         lastDamageDir = player.transform.position.x > transform.position.x ? -1 : 1;
         SetVelocity(attackDetails.Knockback, attackDetails.Angle, lastDamageDir);
         isStunned = true;
+
+        if(currentHealth <= 0)
+        {
+            isDead = true;
+        } 
 
     }
 

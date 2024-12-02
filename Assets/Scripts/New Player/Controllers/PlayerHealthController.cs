@@ -72,6 +72,22 @@ public class PlayerHealthController : PlayerComponent
         this.playerState = playerstate;
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        GameObject collidedGO = collision.gameObject;
+        if(collidedGO.gameObject.tag == "EHitbox")
+        {
+            AttackDetails hit = collidedGO.GetComponentInParent<EnemyAttackManager>().findByHitbox(collidedGO.name);
+            TakeHit(hit.Damage);
+            ApplyHealthUI();
+
+            if(currentHealth <= 0)
+            {
+                EventManager.TriggerOnDeath();
+            }
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
 

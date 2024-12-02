@@ -13,9 +13,10 @@ public class EnemyHurtVals : MonoBehaviour
 
     public static  Dictionary<AttackTypes, string> attackValues = new Dictionary<AttackTypes, string>
     {
+        //TODO: Tsering and Rob, pls fill these out proper!
         //Angry student
-        {AttackTypes.Punch, "5 30 10 .3" },
-        {AttackTypes.Kick, "3 20 5 .2" },
+        {AttackTypes.Punch, "5 60 25 .3" },
+        {AttackTypes.Kick, "3 70 10 .2" },
 
         //Jock
         {AttackTypes.Charge, "10 90 20 .7" },

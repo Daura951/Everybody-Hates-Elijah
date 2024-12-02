@@ -23,5 +23,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   closeRangeActionDistance: 0.9
-  maxHealth: 30
+  maxHealth: 50
   damageHopVelocity: 5
+  groundCheckRadius: 0.3
+  launchVelocityThreshold: 10
+  deathTime: 1

@@ -32,13 +32,18 @@ public class AS_PlayerDetectedState : PlayerDetectedState
             stateMachine.ChangeState((attackChoice == 1 ? angryStudent.punchState : angryStudent.kickState));
         }
 
-       else if(performLongRangeAction)
+        else if(performLongRangeAction)
         {
             stateMachine.ChangeState(angryStudent.chargeState);
         }
         else if(!isPlayerInMaxAgroRange)
         {
             stateMachine.ChangeState(angryStudent.lookForPlayerState);
+        }
+        else if(!isDetectingLedge)
+        {
+            entity.Flip();
+            stateMachine.ChangeState(angryStudent.moveState);
         }
 
     }

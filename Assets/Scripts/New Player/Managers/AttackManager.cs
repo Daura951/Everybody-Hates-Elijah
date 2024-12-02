@@ -79,11 +79,12 @@ public class AttackManager : MonoBehaviour
     /// </summary>
     public void DespawnHitbox()
     {
-        if (currentHitboxIndex >= 0)
+        foreach (GameObject hb in hitboxes)
         {
-            hitboxes[currentHitboxIndex].SetActive(false);
-            currentHitboxIndex = -1;
+            hb.SetActive(false);
         }
+        currentHitboxIndex = -1;
+        
     }
 
     /// <summary>
@@ -144,6 +145,7 @@ public class AttackManager : MonoBehaviour
     public void USpecialEnd()
     {
         playerState.isUSpecial = false;
+        playerState.isHelpless = true;
     }
 
     public void SSpecialStart()
@@ -154,6 +156,7 @@ public class AttackManager : MonoBehaviour
     public void SSpecialEnd()
     {
         playerState.isSSpecial = false;
+        playerState.isHelpless = true;
     }
 
     public void DSpecialStart()
@@ -164,6 +167,7 @@ public class AttackManager : MonoBehaviour
     public void DSpecialEnd()
     {
         playerState.isDSpecial = false;
+        playerState.isHelpless = true;
     }
 
 

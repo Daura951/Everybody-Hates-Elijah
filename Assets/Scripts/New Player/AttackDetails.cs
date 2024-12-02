@@ -24,6 +24,7 @@ public class AttackDetails
 
     public AttackDetails(float damage, float angle, float knockback, float stunTime)
     {
+        this.Attack = Attacks.ENEMY_HIT;
         this.Damage = damage;
         this.Angle = angle;
         this.Knockback = knockback;
@@ -71,4 +72,5 @@ public enum Attacks
     DSPECIAL_3,
     DASH,
     FAIR_2,
+    ENEMY_HIT
 }

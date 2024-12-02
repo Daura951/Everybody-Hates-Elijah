@@ -85,14 +85,14 @@ public class InputManager : MonoBehaviour
 
     private void OnStrongPerformed(InputAction.CallbackContext obj)
     {
-        Debug.Log("Strong performed (held)");
+        //Debug.Log("Strong performed (held)");
         isStrongHeld = true;
         OnStrongHold?.Invoke();
     }
 
     private void OnStrongCanceled(InputAction.CallbackContext obj)
     {
-        Debug.Log("Strong canceled (released)");
+        //Debug.Log("Strong canceled (released)");
         isStrongHeld = false;
         OnStrongRelease?.Invoke();
     }

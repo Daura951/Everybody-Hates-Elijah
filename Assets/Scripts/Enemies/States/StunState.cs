@@ -9,6 +9,8 @@ public class StunState : State
     protected bool isMovementStopped;
     protected bool performCloseRangeAction;
     protected bool isPlayerInMinAgroRange;
+    protected float lastProcessedStunTime;
+    protected bool isInLaunchVelcoity;
 
     protected float stunTime, knockback, angle;
     public StunState(Entity entity, FiniteStateMachine stateMachine, string animBoolName) : base(entity, stateMachine, animBoolName)
@@ -35,8 +37,6 @@ public class StunState : State
     {
         base.LogicUpdate();
 
-        Debug.Log(stunTime);
-
         if(Time.time >= startTime + stunTime)
         {
             isStunTimeOver = true;
@@ -61,5 +61,6 @@ public class StunState : State
         isGrounded = entity.CheckGround();
         performCloseRangeAction = entity.CheckPlayerInCloseRangeAction();
         isPlayerInMinAgroRange = entity.CheckPlayerInMinAgroRange();
+        isInLaunchVelcoity = entity.CheckIsInLaunchVelocity();
     }
 }

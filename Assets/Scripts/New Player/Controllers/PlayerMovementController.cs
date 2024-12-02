@@ -218,7 +218,6 @@ public override void OnUpdate()
                         if (rb.velocity.y < -1.0f && !playerState.isLedgeGrab)
                         {
 
-                            print("Falling");
                             animController.Play(Animations.FALLING, false, false);
                         }
                         else if (usedJumps == 1)
@@ -795,6 +794,17 @@ public override void OnUpdate()
             rb.interpolation = RigidbodyInterpolation2D.None;
         }
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        GameObject collidedGo = collision.gameObject;
+        if(collision.gameObject.tag == "EHitbox")
+        {
+            if (OverrideControl) { EventManager.TriggerOnStunEnd(); }
+            AttackDetails hit = collidedGo.GetComponentInParent<EnemyAttackManager>().findByHitbox(collidedGo.name);
+            EventManager.TriggerOnStunStart();
+            ApplyKnockback(hit.Angle, hit.Knockback);
+        }
+    }
 
     private void ApplyKnockback(float angle , float Kb)
     {
@@ -819,7 +829,7 @@ public override void OnUpdate()
         }
         rb.velocity = Vector2.zero;
         rb.velocity = (new Vector2(XComponent, YComponent) * healthWeight );
-        print("Start force is: " + rb.velocity);
+        //print("Start force is: " + rb.velocity);
         //rb.AddForce((new Vector2(XComponent, YComponent) /* * healthWeight */), ForceMode2D.Impulse);
 
     }
