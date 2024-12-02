@@ -1459,7 +1459,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 624763236}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fda187efd21c03942971bd6bcc9a8545, type: 3}
+  m_Script: {fileID: 11500000, guid: 70edda61fefcbaa46b50f00ee15a694b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hitboxes:
