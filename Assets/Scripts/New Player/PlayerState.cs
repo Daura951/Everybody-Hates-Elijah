@@ -22,6 +22,7 @@ public class PlayerState : MonoBehaviour
     public bool isUSpecial = false;
     public bool isSSpecial = false;
     public bool isDSpecial = false;
+    public bool isHelpless = false;
 
     public float Health, MaxHealth;
 

@@ -35,7 +35,7 @@ public class PlayerAttackController : PlayerComponent
     public void PerformNeutral()
     {
         Vector2 move = new Vector2(inputManager.moveHorizontal, inputManager.moveVertical);
-        if (!playerstate.isAttacking)
+        if (!playerstate.isAttacking && !playerstate.isHelpless)
         {
             playerstate.isAttacking = true;
             if (playerstate.isGrounded)
@@ -122,12 +122,12 @@ public class PlayerAttackController : PlayerComponent
     }
     private void StrongHold()
     {
-        if(!playerstate.isGrounded && !playerstate.isLedgeGrab)
+        if(!playerstate.isGrounded && !playerstate.isLedgeGrab && !playerstate.isHelpless)
         {
             Ariel(new Vector2(inputManager.moveHorizontal, inputManager.moveVertical));
         }
 
-        else if(!playerstate.isAttacking &&!animController.GetCurrentAnimation().ToString().Contains("HIT") && !playerstate.isLedgeGrab)
+        else if(!playerstate.isAttacking &&!animController.GetCurrentAnimation().ToString().Contains("HIT") && !playerstate.isLedgeGrab && !playerstate.isHelpless)
         {
             playerstate.isAttacking = true;
             isSmashCharging = true;
@@ -150,7 +150,7 @@ public class PlayerAttackController : PlayerComponent
 
     private void StrongRelease()
     {
-        if (isSmashCharging &&(animController.GetCurrentAnimation().ToString().Contains("CHARGE")))
+        if (isSmashCharging &&(animController.GetCurrentAnimation().ToString().Contains("CHARGE")) && !playerstate.isHelpless)
         {
             print("Strong release!");
 
@@ -172,7 +172,7 @@ public class PlayerAttackController : PlayerComponent
 
     private void Special()
     {
-        if (!playerstate.isAttacking && !playerstate.isLedgeGrab)
+        if (!playerstate.isAttacking && !playerstate.isLedgeGrab && !playerstate.isHelpless)
         {
             playerstate.isAttacking = true;
             Vector2 move = new Vector2(inputManager.moveHorizontal, inputManager.moveVertical);
