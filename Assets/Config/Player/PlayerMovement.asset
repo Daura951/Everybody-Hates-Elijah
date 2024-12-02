@@ -33,7 +33,7 @@ MonoBehaviour:
   GroundDetectLength: 0.02
   HeadDetectLength: 0.02
   HeadWidth: 0.75
-  Flatmove: 0
+  Flatmove: 1
   JumpHieght: 2.66
   JumpHieghtCompFactor: 1.054
   JumpApexTime: 0.47
@@ -63,7 +63,7 @@ MonoBehaviour:
   redXOff: 0
   redYOff: 0.26
   redXSize: 0.74
-  redYSize: 0.23
+  redYSize: 0.19
   groundMask:
     serializedVersion: 2
     m_Bits: 512
