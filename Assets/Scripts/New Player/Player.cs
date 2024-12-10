@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -57,6 +58,7 @@ public class Player : MonoBehaviour
 
         foreach (PlayerComponent pc in pcs)
         {
+            pc.player = this;
             pc.Configure(inputManager, animController, Playerstate);
         }
     }
@@ -74,5 +76,10 @@ public class Player : MonoBehaviour
     public AttackManager GetAttackManager()
     {
         return attackManager;
+    }
+
+    public T GetControllers<T>() where T : PlayerComponent
+    {
+        return playerComponents.OfType<T>().FirstOrDefault();
     }
 }

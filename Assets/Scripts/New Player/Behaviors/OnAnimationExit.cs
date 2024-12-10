@@ -37,7 +37,7 @@ public class OnAnimationExit : StateMachineBehaviour
 
         PlayerState playerstate = animator.GetComponent<PlayerState>();
         AnimatorController animatorController = animator.GetComponent<AnimatorController>();
-        PlayerMovementController PMC = animator.GetComponent<PlayerMovementController>();
+        LedgeGrabController LGC = animator.GetComponent<LedgeGrabController>();
 
         if (!isJab && !isStrong)
         {
@@ -48,11 +48,11 @@ public class OnAnimationExit : StateMachineBehaviour
         {
             animatorController.SetIsLocked(false);
             playerstate.isLedgeGrab = false;
-            PMC.LedgeRotate();
+            LGC.LedgeRotate();
 
             if (isLedgeMove)
             {
-                PMC.LedgeMove();
+                LGC.LedgeMove();
 
             }
         }

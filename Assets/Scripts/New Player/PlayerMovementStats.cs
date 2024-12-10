@@ -83,18 +83,6 @@ public class PlayerMovementStats : ScriptableObject
     public bool dashAttack;
     public float slowdownVelocity = 0.01f;
 
-    [Header("LedgeGrab")]
-    public bool reGrab = true, grab = false, moveable = false;
-    public bool moveHorOnLedge = false;
-    public float redXOff, redYOff, redXSize, redYSize;
-    public LayerMask groundMask;
-    [Range(-4,4)]public float Xtweak = 0, Ytweak = 0;
-    public BoxCollider2D Box;
-    public GameObject g;
-
-    [Header("Timers")]
-    public float holding, Limit;
-    private float timer, timer1;
 
     private void OnValidate()
     {

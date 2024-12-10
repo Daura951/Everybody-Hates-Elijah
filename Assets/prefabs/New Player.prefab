@@ -3291,6 +3291,8 @@ GameObject:
   - component: {fileID: 1920467289}
   - component: {fileID: 3415428552230888925}
   - component: {fileID: 7190412254140857931}
+  - component: {fileID: 3710131334789627301}
+  - component: {fileID: 5839789679176739814}
   m_Layer: 3
   m_Name: New Player
   m_TagString: Player
@@ -3426,10 +3428,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7841a7f2efab734ead6c3e807d2b315, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   pms: {fileID: 11400000, guid: 777ef4400f47f4a42b5f3952fc044dc7, type: 2}
   feet: {fileID: 6119474020206487817}
   body: {fileID: 2272624342141555647}
   usedJumps: 0
+  canControl: 1
+  OverrideControl: 0
 --- !u!114 &3131762222312026640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3442,6 +3447,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3709e7cbbf84f884baec213857790f5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   tiltBuffer: 0.1
   specialBuffer: 0.1
   tiltThreshold: 0.1
@@ -3518,14 +3524,19 @@ MonoBehaviour:
   isRunning: 0
   isBBReady: 0
   isInBB: 0
-  isLedgeGrab: 0
   isInCutscene: 0
   isOnMoveable: 0
+  CanLedgeGrab: 0
+  isLedgeGrab: 0
   CanUSpecial: 0
   CanSSpecial: 0
   isUSpecial: 0
   isSSpecial: 0
   isDSpecial: 0
+  isHelpless: 0
+  Health: 0
+  MaxHealth: 0
+  render: {fileID: 0}
 --- !u!114 &4335699818797656285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3578,6 +3589,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e341ec2082529142afb3d05505563ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   hitsToBladebound: 10
   totalbladeboundTime: 10
 --- !u!114 &3943289407175294988
@@ -3592,6 +3604,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d73a80d7e354344398f830d37315ffc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   maxHealth: 100
   healthBarSlider: {fileID: 1328079408}
   colors:
@@ -3630,6 +3643,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74ab0ff864118c2499e819b9cf6535a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   StunTimer: 0
   IsStunned: 0
 --- !u!114 &7190412254140857931
@@ -3644,8 +3658,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a99ce990294083349be771a291e6f183, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   ComboTimer: 5
   comboText: {fileID: 4735886690678687984}
+--- !u!114 &3710131334789627301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3131762222312026654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61455eab7b9202441a66eca627d28895, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  Draw: 0
+  grab: 0
+  moveable: 0
+  moveHorOnLedge: 0
+  XOffset: 0
+  YOffset: 0
+  XSize: 0
+  YSize: 0
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 0
+  Xtweak: 0
+  Ytweak: 0
+--- !u!114 &5839789679176739814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3131762222312026654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee8432e0147d42b41a16c9f47796116c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3618767885387140425
 GameObject:
   m_ObjectHideFlags: 0
