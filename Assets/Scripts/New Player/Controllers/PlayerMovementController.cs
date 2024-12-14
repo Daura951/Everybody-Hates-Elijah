@@ -21,13 +21,8 @@ public class PlayerMovementController : PlayerComponent
     private bool isRight;
     private float accel;
     private float decel;
-    private bool isGrounded;
     private float dir;
 
-    //collision checks vars
-    private RaycastHit2D groundHit;
-    private RaycastHit2D headHit;
-    private bool bumpedHead;
 
     // jump vars
     public float VerticalVelocity { get; private set; }
@@ -49,8 +44,6 @@ public class PlayerMovementController : PlayerComponent
     //coyote tume vars
     private float coyoteTimer;
 
-    //Ledge Grab junk
-    private float Xpos, Ypos;
 
     public bool canControl = true;
     public bool OverrideControl = false;
@@ -80,7 +73,6 @@ public override void OnUpdate()
     }
     public override void OnFixedUpdate()
     {
-       CollisionCheck();
         if (canControl)
         {
             if (playerState.isUSpecial)
@@ -92,11 +84,14 @@ public override void OnUpdate()
 
         }
 
-            if (!playerState.isLedgeGrab && (OverrideControl|| canControl))
+        if (rb.velocity.y > 1)
+            playerState.CanLedgeGrab = true;
+
+        if (!playerState.isLedgeGrab && (OverrideControl|| canControl))
                 Falling();
 
-        accel = isGrounded ? pms.GroundAccel : pms.AirAccel;
-        decel = isGrounded ? pms.GroundDecel : pms.AirDecel;
+        accel = playerState.isGrounded ? pms.GroundAccel : pms.AirAccel;
+        decel = playerState.isGrounded ? pms.GroundDecel : pms.AirDecel;
     }
 
 
@@ -113,7 +108,7 @@ public override void OnUpdate()
         }
 
         // NORMAL GRAVITY WHILE FALLING
-        if ((!isGrounded && !inputManager.isJumping && !playerState.isUSpecial) || OverrideControl)
+        if ((!playerState.isGrounded && !inputManager.isJumping && !playerState.isUSpecial) || OverrideControl)
         {
 
             if (OverrideControl)
@@ -188,7 +183,7 @@ public override void OnUpdate()
                         //move check
                         TurnCheck(dir);
 
-                        if (isGrounded)
+                        if (playerState.isGrounded)
                         {
                             if (inputManager.isRunning)
                                 animController.Play(Animations.RUN, false, false);
@@ -205,7 +200,7 @@ public override void OnUpdate()
                     }
                     else if (!(dir > .1f || dir < -.1f))
                     {
-                        if (isGrounded)
+                        if (playerState.isGrounded)
                             animController.Play(Animations.IDLE, false, false);
 
                         moveVelocity = Vector2.Lerp(moveVelocity, Vector2.zero, decel * Time.fixedDeltaTime);
@@ -213,7 +208,7 @@ public override void OnUpdate()
                     }
 
 
-                    if (!isGrounded)
+                    if (!playerState.isGrounded)
                     {
                         if (rb.velocity.y < -1.0f && !playerState.isLedgeGrab)
                         {
@@ -254,7 +249,7 @@ public override void OnUpdate()
 
     private void TurnCheck(float moveX)
     {
-        if (isGrounded)
+        if (playerState.isGrounded)
         {
             if (isRight && moveX < 0)
                 Turn(false);
@@ -263,7 +258,7 @@ public override void OnUpdate()
         }
     }
 
-    private void Turn(bool turn)
+    public void Turn(bool turn)
     {
         isRight = turn;
         transform.Rotate(0f,180f *(turn ? 1f : -1f) ,0f);
@@ -271,54 +266,6 @@ public override void OnUpdate()
 
     #endregion
 
-    private void IsGrounded()
-    {
-        if (isGrounded) 
-        {
-            playerState.CanUSpecial = playerState.CanUSpecial ? playerState.CanUSpecial  : true;
-            playerState.CanSSpecial = playerState.CanSSpecial ? playerState.CanSSpecial : true;
-            pms.SSpecialFall = pms.SSpecialFall ? false : pms.SSpecialFall; 
-        }
-        else
-        {
-            playerState.CanUSpecial = playerState.isUSpecial ? false : playerState.CanUSpecial;
-            playerState.CanSSpecial = playerState.isSSpecial ? false : playerState.CanSSpecial;
-        }
-
-        Vector2 boxCastOrigin = new Vector2(feet.bounds.center.x, feet.bounds.min.y);
-        Vector2 boxCastSize = new Vector2(feet.bounds.size.x, pms.GroundDetectLength);
-
-        groundHit = Physics2D.BoxCast(boxCastOrigin,boxCastSize,0f,Vector2.down, pms.GroundDetectLength,pms.GroundLayer);
-        isGrounded = groundHit.collider != null ? true : false;
-
-        if(pms.ShowGroundBox)
-        {
-            Color rayColor;
-            rayColor = isGrounded ? Color.green : Color.red;
-
-            Debug.DrawRay(new Vector2(boxCastOrigin.x - boxCastSize.x/2, boxCastOrigin.y),Vector2.down * pms.GroundDetectLength,rayColor);
-            Debug.DrawRay(new Vector2(boxCastOrigin.x + boxCastSize.x/2, boxCastOrigin.y),Vector2.down * pms.GroundDetectLength,rayColor);
-            Debug.DrawRay(new Vector2(boxCastOrigin.x - boxCastSize.x/2, boxCastOrigin.y - pms.GroundDetectLength),Vector2.right * boxCastSize.x, rayColor);
-
-        }
-    }
-
-    private void bumpHead()
-    {
-        Vector2 boxCastOrigin = new Vector2(feet.bounds.center.x, body.bounds.max.y);
-        Vector2 boxCastSize = new Vector2(feet.bounds.size.x * pms.HeadWidth, pms.HeadDetectLength);
-
-        groundHit = Physics2D.BoxCast(boxCastOrigin, boxCastSize, 0f, Vector2.up, pms.HeadDetectLength, pms.GroundLayer);
-        bumpedHead = groundHit.collider != null ? (groundHit.collider.GetComponent<PlatformEffector2D>() == true ? false : true) : false;
-    }
-
-    private void CollisionCheck()
-    {
-        IsGrounded();
-        bumpHead();
-        if(!playerState.isLedgeGrab)
-        LedgeCheck();
-    }
 
     private void JumpChecks()
     {
@@ -354,7 +301,7 @@ public override void OnUpdate()
         }
 
         //jUMP WITH JUMP BUFFER AND COYOTE
-        if(jumpBufferTimer > 0f && !inputManager.isJumping && (isGrounded || coyoteTimer > 0f))
+        if(jumpBufferTimer > 0f && !inputManager.isJumping && (playerState.isGrounded || coyoteTimer > 0f))
         {
             InitiateJump(1);
 
@@ -381,7 +328,7 @@ public override void OnUpdate()
         }
 
         //LANDED
-        if((inputManager.isJumping || isFalling) && isGrounded && VerticalVelocity <= 0f)
+        if((inputManager.isJumping || isFalling) && playerState.isGrounded && VerticalVelocity <= 0f)
         {
             inputManager.isJumping = isFalling = isFastFalling = isPastApexThreshold = false;
             fastFallTime = usedJumps = 0;
@@ -407,8 +354,8 @@ public override void OnUpdate()
     private void Jump()
     {
          //CHECK FOR HEAD BUMP
-         if (bumpedHead)
-                isFastFalling = true;
+     //    if (bumpedHead)
+      //          isFastFalling = true;
         
          //GRAVITY ON ASCENDING
          if(VerticalVelocity >=0f)
@@ -453,133 +400,31 @@ public override void OnUpdate()
     private void CountTimers()
     {
         jumpBufferTimer -= Time.deltaTime;
-        coyoteTimer = isGrounded ? pms.JumpCoyoteTime : coyoteTimer - Time.deltaTime;
+        coyoteTimer = playerState.isGrounded ? pms.JumpCoyoteTime : coyoteTimer - Time.deltaTime;
     }
 
     public void DashLaunch()
     {
         pms.dashAttack = !pms.dashAttack;
     }
+        #region Ledges
 
-    #region Ledges
-    private void LedgeCheck()
-    {
-       pms.redXOff = playerState.isRight ? MathF.Abs(pms.redXOff) : MathF.Abs(pms.redXOff) * -1f;
-
-
-        Collider2D redBox = Physics2D.OverlapBox(new Vector2(transform.position.x + pms.redXOff, transform.position.y + pms.redYOff), new Vector2(pms.redXSize , pms.redYSize), 0f, pms.groundMask);
-
-
-        if(rb.velocity.y > 1)
-            pms.reGrab = true;
-
-
-        if (!redBox || animController.GetCurrentAnimation() == Animations.FALLING)
+        public void MadeToTest()
         {
-            playerState.isLedgeGrab = false;
+            rb.velocity = Vector2.zero;
+            VerticalVelocity = moveVelocity.x = 0f;
+            usedJumps = usedJumps == 2 ? 1 : usedJumps;
         }
 
-        if (redBox && pms.reGrab)
-        {
-           // print("I grabbed because why not");
-            pms.g = redBox.gameObject;
-
-            if (pms.g.GetComponent<PlatformMovement>())
-                pms.moveable = true;
-
-            if (pms.g.CompareTag("Grab") && pms.reGrab)
-            {
-                playerState.isLedgeGrab = true;
-                playerState.CanUSpecial = true;
-                playerState.CanSSpecial = true;
-                playerState.isSSpecial = false;
-                playerState.isUSpecial = false;
-
-                pms.Box = pms.g.GetComponent<BoxCollider2D>();
-                rb.velocity = Vector2.zero;
-                VerticalVelocity = moveVelocity.x = 0f;
-                pms.reGrab = false;
-
-                /// a timer system need to be here
-
-                usedJumps = usedJumps == 2 ? 1 : usedJumps;
-                pms.moveHorOnLedge = false;
-                animController.StopAllCoroutines();
-                /// Need to despawn all attack hitboxes
-
-
-                 Xpos = pms.g.transform.position.x + ((transform.position.x < pms.g.transform.position.x ? -1f : 1f) * ((pms.Box.size.x * .5f * pms.g.transform.localScale.x) + .55f));
-                 Ypos = pms.g.transform.position.y + ((pms.Box.size.y * .5f + pms.Box.offset.y) * pms.g.transform.localScale.y) - .5f;
-                 transform.position = new Vector2(Xpos, Ypos);
-
-                if (transform.position.x < pms.g.transform.position.x)
-                {
- 
-                    if (playerState.isRight)
-                        Turn(false);
-                }
-                else
-                {
-                    if (!playerState.isRight)
-                        Turn(true);
-
-                }
-                animController.Play(Animations.LEDGE_GRAB, true, true);
-            }
-        }
-    }
-
-    public void LedgeMove()
-    {
-        float newY = Ypos + pms.Ytweak;
-        float newX = transform.position.x + (((transform.position.x < pms.g.transform.position.x) ? 1f : -1f) *pms.Xtweak);
-        transform.position = new Vector2(newX, newY);
-    }
-
-    public void LedgeRotate()
-    {
-        if (transform.position.x < pms.g.transform.position.x)
-        {
-            if (!playerState.isRight)
-                Turn(true);
-
-        }
-        else
-        {
-            if (playerState.isRight)
-                Turn(false);
-        }
-    }
-
-    public void LedgeHang(float moveX , float moveY)
-    {
-        if(playerState.isLedgeGrab)
-        {
-            if (moveX > -.1f && moveX < .1f)
-                pms.moveHorOnLedge = true;
-
-            if (moveY < -.4f)
-            {
-                print("Fall input");
-                animController.Play(Animations.FALLING, false, true);
-                playerState.isLedgeGrab = false;
-            }
-
-            if(pms.moveHorOnLedge && ((!isRight && moveX > .1f) || (isRight && moveX < -.1f)))
-            {
-                animController.Play(Animations.LEDGE_PULL, false, false);
-            }
-        }
-    }
-    #endregion
-
+        #endregion
+   
     #region SpecailVelo
 
     private void USpecialJump()
     {
         //CHECK FOR HEAD BUMP
-        if (bumpedHead)
-            isFastFalling = true;
+    //    if (bumpedHead)
+    //        isFastFalling = true;
 
         //GRAVITY ON ASCENDING
         if (VerticalVelocity >= 0f)
@@ -746,16 +591,11 @@ public override void OnUpdate()
             DrawJumpArc(pms.MaxWalkSpeed, Color.red);
         if (pms.RunJumpArc)
             DrawJumpArc(pms.MaxRunSpeed, Color.green);
-        if(pms.drawLedgeBox)
-        {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawWireCube(new Vector2(transform.position.x + pms.redXOff, transform.position.y + pms.redYOff), new Vector2(pms.redXSize, pms.redYSize));
-        }
     }
     private void SendDataToPlayerState()
     {
         playerState.isRight = isRight;
-        playerState.isGrounded = isGrounded;
+        playerState.OverrideControl = OverrideControl;
         playerState.isRunning = inputManager.isRunning;
     }
 
@@ -768,7 +608,6 @@ public override void OnUpdate()
 
 
         inputManager.OnMove += MovePlayer;
-        inputManager.OnLedgeInput += LedgeHang;
         EventManager.onCutesceneEnter.AddListener(ConfigureForCutscene);
         EventManager.onCutsceneExit.AddListener(ConfigureEndOfCutscene);
         EventManager.onStunStart.AddListener(ConfigureControl);
@@ -814,6 +653,8 @@ public override void OnUpdate()
             rb.interpolation = RigidbodyInterpolation2D.None;
         }
     }
+
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         GameObject collidedGo = collision.gameObject;
