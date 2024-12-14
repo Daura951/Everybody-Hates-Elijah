@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class PlayerComponent : MonoBehaviour
 {
+    [HideInInspector]
     public Player player;
     protected InputManager inputManager;
     protected AnimatorController animController;

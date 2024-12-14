@@ -132,8 +132,8 @@ public override void OnUpdate()
         }
         else if (playerState.isSSpecial)
         {
-            dir = dir != 0 ? dir : (transform.eulerAngles.y == 0 ? 1f : -1f);
-            rb.velocity = new Vector2(pms.HorizontalSlideVelo * dir , 0f);
+            int SSpecialDir =  (int)(dir != 0 ? (dir > 0 ? 1 : -1) : (transform.eulerAngles.y == 0 ? 1f : -1f));
+            rb.velocity = new Vector2(pms.HorizontalSlideVelo * SSpecialDir, 0f);
         }
         else if (playerState.isDSpecial)
         {

@@ -2584,6 +2584,38 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3710131334789627301, guid: 423404d272b53ec41841ed87b2e3f072, type: 3}
+      propertyPath: Draw
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3710131334789627301, guid: 423404d272b53ec41841ed87b2e3f072, type: 3}
+      propertyPath: XSize
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3710131334789627301, guid: 423404d272b53ec41841ed87b2e3f072, type: 3}
+      propertyPath: YSize
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3710131334789627301, guid: 423404d272b53ec41841ed87b2e3f072, type: 3}
+      propertyPath: Xtweak
+      value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3710131334789627301, guid: 423404d272b53ec41841ed87b2e3f072, type: 3}
+      propertyPath: Ytweak
+      value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3710131334789627301, guid: 423404d272b53ec41841ed87b2e3f072, type: 3}
+      propertyPath: XOffset
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 3710131334789627301, guid: 423404d272b53ec41841ed87b2e3f072, type: 3}
+      propertyPath: YOffset
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3710131334789627301, guid: 423404d272b53ec41841ed87b2e3f072, type: 3}
+      propertyPath: groundMask.m_Bits
+      value: 512
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 423404d272b53ec41841ed87b2e3f072, type: 3}
 --- !u!4 &1396207772 stripped
