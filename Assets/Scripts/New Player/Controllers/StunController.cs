@@ -4,18 +4,13 @@ using UnityEngine;
 
 public class StunController : PlayerComponent
 {
-    private InputManager inputManager;
-    private AnimatorController animController;
-    private PlayerState playerState;
 
     public float StunTimer = 0;
     public bool IsStunned = false ;
 
     public override void Configure(InputManager inputManager, AnimatorController animController, PlayerState playerstate)
     {
-        this.inputManager = inputManager;
-        this.animController = animController;
-        this.playerState = playerstate;
+        base.Configure(inputManager, animController, playerstate);
 
     }
 

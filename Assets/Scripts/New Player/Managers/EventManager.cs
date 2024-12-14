@@ -12,6 +12,7 @@ public static class EventManager
     public static UnityEvent onDeath = new UnityEvent();
     public static UnityEvent onStunStart = new UnityEvent();
     public static UnityEvent onStunEnd = new UnityEvent();
+    public static UnityEvent onHazardCollision = new UnityEvent();
 
     public static void TriggerBladebound()
     {
@@ -48,5 +49,10 @@ public static class EventManager
     public static void TriggerOnStunEnd()
     {
         onStunEnd?.Invoke();
+    }
+
+    public static void TriggerOnHazardCollision()
+    {
+        onHazardCollision?.Invoke();
     }
 }

@@ -27,7 +27,7 @@ public class InputManager : MonoBehaviour
     private InputAction jump;
     private InputAction run;
 
-    private bool canControl = true;
+    public bool canControl = true;
 
 
     public float moveHorizontal { get; private set; }
@@ -80,6 +80,7 @@ public class InputManager : MonoBehaviour
         EventManager.onDeath.AddListener(ToggleCanControl);
         EventManager.onStunStart.AddListener(ToggleCanControl);
         EventManager.onStunEnd.AddListener(ToggleCanControl);
+
 
     }
 

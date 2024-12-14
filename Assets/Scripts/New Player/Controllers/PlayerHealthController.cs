@@ -5,10 +5,6 @@ using UnityEngine.UI;
 
 public class PlayerHealthController : PlayerComponent
 {
-    private InputManager inputManager;
-    private AnimatorController animController;
-    private PlayerState playerState;
-
     private float currentHealth;
 
     [SerializeField]
@@ -63,13 +59,6 @@ public class PlayerHealthController : PlayerComponent
     public override void OnFixedUpdate()
     {
 
-    }
-
-    public override void Configure(InputManager inputManager, AnimatorController animController, PlayerState playerstate)
-    {
-        this.inputManager = inputManager;
-        this.animController = animController;
-        this.playerState = playerstate;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

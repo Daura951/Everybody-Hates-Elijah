@@ -8,10 +8,6 @@ public class LedgeGrabController : PlayerComponent
 
     public bool Draw;
 
-    private InputManager inputManager;
-    private AnimatorController animController;
-    private PlayerState playerState;
-
     private PlayerMovementController PMC;
 
     private float Xpos, Ypos;
@@ -32,7 +28,7 @@ public class LedgeGrabController : PlayerComponent
     public override void OnStart()
     {
         // This is how the generics of something :)
-        PMC = player.GetControllers<PlayerMovementController>();
+        PMC = player.GetController<PlayerMovementController>();
     }
 
     public override void OnUpdate()
@@ -48,10 +44,7 @@ public class LedgeGrabController : PlayerComponent
 
     public override void Configure(InputManager inputManager, AnimatorController animController, PlayerState playerstate)
     {
-        this.inputManager = inputManager;
-        this.animController = animController;
-        this.playerState = playerstate;
-
+        base.Configure(inputManager, animController, playerstate);
         inputManager.OnLedgeInput += LedgeHang;
     }
 

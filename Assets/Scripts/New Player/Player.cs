@@ -78,7 +78,7 @@ public class Player : MonoBehaviour
         return attackManager;
     }
 
-    public T GetControllers<T>() where T : PlayerComponent
+    public T GetController<T>() where T : PlayerComponent
     {
         return playerComponents.OfType<T>().FirstOrDefault();
     }

@@ -2,10 +2,6 @@ using UnityEngine;
 
 public class BladeboundController : PlayerComponent
 {
-    private InputManager inputManager;
-    private AnimatorController animController;
-    private PlayerState playerState;
-
     [SerializeField]
     private int hitsToBladebound;
 
@@ -22,10 +18,7 @@ public class BladeboundController : PlayerComponent
 
     public override void Configure(InputManager inputManager, AnimatorController animController, PlayerState playerstate)
     {
-        this.inputManager = inputManager;
-        this.animController = animController;
-        this.playerState = playerstate;
-
+        base.Configure(inputManager, animController, playerstate);
         inputManager.OnSpecialPressed+=BladeboundInput; 
     }
 

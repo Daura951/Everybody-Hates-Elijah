@@ -5,10 +5,19 @@ using UnityEngine;
 public abstract class PlayerComponent : MonoBehaviour
 {
     public Player player;
+    protected InputManager inputManager;
+    protected AnimatorController animController;
+    protected PlayerState playerState;
+
     public abstract void OnStart();
     public abstract void OnUpdate();
     public abstract void OnFixedUpdate();
 
-    public abstract void Configure(InputManager inputManager, AnimatorController animController, PlayerState playerstate);
+    public virtual void Configure(InputManager inputManager, AnimatorController animController, PlayerState playerstate)
+    {
+        this.inputManager = inputManager;
+        this.animController = animController;
+        this.playerState = playerstate;
+    }
 
 }

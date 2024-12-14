@@ -5,9 +5,6 @@ using UnityEngine;
 
 public class PlayerAttackController : PlayerComponent
 {
-    private InputManager inputManager;
-    private AnimatorController animController;
-    private PlayerState playerstate;
 
     private bool isSmashCharging = false;
 
@@ -35,12 +32,12 @@ public class PlayerAttackController : PlayerComponent
     public void PerformNeutral()
     {
         Vector2 move = new Vector2(inputManager.moveHorizontal, inputManager.moveVertical);
-        if (!playerstate.isAttacking && !playerstate.isHelpless)
+        if (!playerState.isAttacking && !playerState.isHelpless)
         {
-            playerstate.isAttacking = true;
-            if (playerstate.isGrounded)
+            playerState.isAttacking = true;
+            if (playerState.isGrounded)
             {
-                if(playerstate.isRunning)
+                if(playerState.isRunning)
                 {
                     Dash();
                     return;
@@ -54,7 +51,7 @@ public class PlayerAttackController : PlayerComponent
                 Tilt(move.y);
                 return;
             }
-            else if (playerstate.isLedgeGrab)
+            else if (playerState.isLedgeGrab)
             {
                 LedgeAttack();
             }
@@ -107,11 +104,11 @@ public class PlayerAttackController : PlayerComponent
         {
             animController.Play(Animations.DAIR, false, false);
         }
-        else if((move.x > tiltBuffer && playerstate.isRight) || (move.x < -tiltBuffer && !playerstate.isRight))
+        else if((move.x > tiltBuffer && playerState.isRight) || (move.x < -tiltBuffer && !playerState.isRight))
         {
             animController.Play(Animations.FAIR, false, false);
         }
-        else if ((move.x < -tiltBuffer && playerstate.isRight) || (move.x > tiltBuffer && !playerstate.isRight))
+        else if ((move.x < -tiltBuffer && playerState.isRight) || (move.x > tiltBuffer && !playerState.isRight))
         {
             animController.Play(Animations.BAIR, false, false);
         }
@@ -122,14 +119,14 @@ public class PlayerAttackController : PlayerComponent
     }
     private void StrongHold()
     {
-        if(!playerstate.isGrounded && !playerstate.isLedgeGrab && !playerstate.isHelpless)
+        if(!playerState.isGrounded && !playerState.isLedgeGrab && !playerState.isHelpless)
         {
             Ariel(new Vector2(inputManager.moveHorizontal, inputManager.moveVertical));
         }
 
-        else if(!playerstate.isAttacking &&!animController.GetCurrentAnimation().ToString().Contains("HIT") && !playerstate.isLedgeGrab && !playerstate.isHelpless)
+        else if(!playerState.isAttacking &&!animController.GetCurrentAnimation().ToString().Contains("HIT") && !playerState.isLedgeGrab && !playerState.isHelpless)
         {
-            playerstate.isAttacking = true;
+            playerState.isAttacking = true;
             isSmashCharging = true;
             float moveY = inputManager.moveVertical;
 
@@ -150,7 +147,7 @@ public class PlayerAttackController : PlayerComponent
 
     private void StrongRelease()
     {
-        if (isSmashCharging &&(animController.GetCurrentAnimation().ToString().Contains("CHARGE")) && !playerstate.isHelpless)
+        if (isSmashCharging &&(animController.GetCurrentAnimation().ToString().Contains("CHARGE")) && !playerState.isHelpless)
         {
             //print("Strong release!");
 
@@ -172,12 +169,12 @@ public class PlayerAttackController : PlayerComponent
 
     private void Special()
     {
-        if (!playerstate.isAttacking && !playerstate.isLedgeGrab && !playerstate.isHelpless)
+        if (!playerState.isAttacking && !playerState.isLedgeGrab && !playerState.isHelpless)
         {
-            playerstate.isAttacking = true;
+            playerState.isAttacking = true;
             Vector2 move = new Vector2(inputManager.moveHorizontal, inputManager.moveVertical);
 
-            if (move.y > specialBuffer && playerstate.CanUSpecial)
+            if (move.y > specialBuffer && playerState.CanUSpecial)
             {
                 animController.Play(Animations.USPECIAL, false, false);
             }
@@ -185,17 +182,17 @@ public class PlayerAttackController : PlayerComponent
             {
                 animController.Play(Animations.DSPECIAL, false, false);
             }
-            else if((move.x < -specialBuffer || move.x > specialBuffer) && playerstate.CanSSpecial)
+            else if((move.x < -specialBuffer || move.x > specialBuffer) && playerState.CanSSpecial)
             {
                animController.Play(Animations.SSPECIAL, false, false);
             }
-            else if(!playerstate.isBBReady && playerstate.isGrounded)
+            else if(!playerState.isBBReady && playerState.isGrounded)
             {
                 animController.Play(Animations.NSPECIAL_STARTUP, false, false);
             }
             else
             {
-                playerstate.isAttacking = false; //TODO: Make sure to get rid of this for when BB anim is in
+                playerState.isAttacking = false; //TODO: Make sure to get rid of this for when BB anim is in
             }
         }
     }
@@ -205,11 +202,9 @@ public class PlayerAttackController : PlayerComponent
     }
 
 
-    public override void Configure(InputManager inputManager, AnimatorController animController, PlayerState playerstate)
+    public override void Configure(InputManager inputManager, AnimatorController animController, PlayerState playerState)
     {
-        this.inputManager = inputManager;
-        this.animController = animController;
-        this.playerstate = playerstate;
+        base.Configure(inputManager, animController, playerState);
 
         inputManager.OnNeutralPressed += PerformNeutral;
         inputManager.OnStrongHold += StrongHold;

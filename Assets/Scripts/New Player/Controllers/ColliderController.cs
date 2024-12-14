@@ -6,10 +6,6 @@ public class ColliderController : PlayerComponent
 {
     public bool Draw;
 
-    private InputManager inputManager;
-    private AnimatorController animController;
-    private PlayerState playerState;
-
     [SerializeField] private Collider2D feet;
     [SerializeField] private Collider2D body;
 
@@ -40,9 +36,7 @@ public class ColliderController : PlayerComponent
 
     public override void Configure(InputManager inputManager, AnimatorController animController, PlayerState playerstate)
     {
-        this.inputManager = inputManager;
-        this.animController = animController;
-        this.playerState = playerstate;
+        base.Configure(inputManager, animController, playerstate);
     }
 
     #region Player Collision Check
@@ -88,5 +82,26 @@ public class ColliderController : PlayerComponent
         //bumpedHead = groundHit.collider != null ? (groundHit.collider.GetComponent<PlatformEffector2D>() == true ? false : true) : false;
     }
     #endregion
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        GameObject collidedGO = collision.gameObject;
+        if (collidedGO.GetComponent<Stun_Info>() != null)
+        {
+            AttackDetails envAttack = EnvironmentHurtVals.convertDictValToAttackDetails(collidedGO.GetComponent<EnvironmentalStun_info>().attackType);
+            print("STUN HAZARD!");
+            EventManager.TriggerOnStunStart();
+            PerformHazardCollision(envAttack, collision.contacts[0].normal);
+        }
+    }
+
+    private void PerformHazardCollision(AttackDetails attackDetails, Vector2 normal)
+    {
+        normal = normal.normalized; //normalize to just get direction vector
+        float knockbackAngle = (Mathf.Atan2(normal.y, normal.x) * Mathf.Rad2Deg); //convert normal to angle
+        player.GetController<PlayerMovementController>().ApplyKnockback(knockbackAngle, attackDetails.Knockback);
+        player.GetController<PlayerMovementController>().usedJumps = 1;
+    }
 
 }

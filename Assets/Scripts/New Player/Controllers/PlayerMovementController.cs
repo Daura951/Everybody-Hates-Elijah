@@ -5,10 +5,6 @@ using UnityEngine;
 
 public class PlayerMovementController : PlayerComponent
 {
-    private InputManager inputManager;
-    private AnimatorController animController;
-    private PlayerState playerState;
-
     [Header("Refrences")]
     public PlayerMovementStats pms;
     [SerializeField] private Collider2D feet;
@@ -45,7 +41,6 @@ public class PlayerMovementController : PlayerComponent
     private float coyoteTimer;
 
 
-    public bool canControl = true;
     public bool OverrideControl = false;
 
     public override void OnStart()
@@ -68,12 +63,12 @@ public override void OnUpdate()
         SendDataToPlayerState();
         if(!playerState.isSSpecial)
         CountTimers();
-        if(!playerState.isUSpecial && canControl)
+        if(!playerState.isUSpecial && inputManager.canControl)
         JumpChecks();
     }
     public override void OnFixedUpdate()
     {
-        if (canControl)
+        if (inputManager.canControl)
         {
             if (playerState.isUSpecial)
                 USpecialJump();
@@ -87,7 +82,7 @@ public override void OnUpdate()
         if (rb.velocity.y > 1)
             playerState.CanLedgeGrab = true;
 
-        if (!playerState.isLedgeGrab && (OverrideControl|| canControl))
+        if (!playerState.isLedgeGrab && (OverrideControl|| inputManager.canControl))
                 Falling();
 
         accel = playerState.isGrounded ? pms.GroundAccel : pms.AirAccel;
@@ -602,14 +597,10 @@ public override void OnUpdate()
 
     public override void Configure(InputManager inputManager, AnimatorController animController, PlayerState playerstate)
     {
-        this.inputManager = inputManager;
-        this.animController = animController;
-        this.playerState = playerstate;
-
+        base.Configure(inputManager, animController, playerstate);
 
         inputManager.OnMove += MovePlayer;
         EventManager.onCutesceneEnter.AddListener(ConfigureForCutscene);
-        EventManager.onCutsceneExit.AddListener(ConfigureEndOfCutscene);
         EventManager.onStunStart.AddListener(ConfigureControl);
         EventManager.onStunEnd.AddListener(ConfigureControl);
     }
@@ -621,29 +612,8 @@ public override void OnUpdate()
         GameObject collidedGO = collision.gameObject;
         if (collidedGO.GetComponent<Stun_Info>() != null)
         {
-            AttackDetails envAttack = EnvironmentHurtVals.convertDictValToAttackDetails(collidedGO.GetComponent<EnvironmentalStun_info>().attackType);
-
             print("STUN HAZARD!");
             if (OverrideControl) { EventManager.TriggerOnStunEnd(); }
-
-            EventManager.TriggerOnStunStart();
-            ContactPoint2D contact = collision.contacts[0];
-            Vector2 collisionDir = (transform.position - (Vector3)contact.point).normalized;
-            Vector2 knockbackDir = Vector2.Reflect(collisionDir, contact.normal);
-            if(contact.normal.y < 0 || contact.normal.x != 0 )
-            {
-                knockbackDir.y = -knockbackDir.y;
-            }
-            float knockbackAngle = (Mathf.Atan2(knockbackDir.y, knockbackDir.x) * Mathf.Rad2Deg);
-            print($"Collision Direction: {collisionDir}, Contact Normal: {contact.normal}, Knockback Direction: {knockbackDir}");
-
-            print(Mathf.Atan2(collisionDir.y, collisionDir.x) * Mathf.Rad2Deg + ": " + knockbackAngle);
-
-            //if (Mathf.Abs(contact.normal.y) > 0.8f)
-            //{
-            //    knockbackAngle = contact.normal.y > 0 ? 90f : -90f; // Up or down
-            //}
-            ApplyKnockback(knockbackAngle, envAttack.Knockback);
         }
 
         if (collidedGO.GetComponent<PlatformMovement>() != null && !playerState.isOnMoveable)
@@ -667,7 +637,7 @@ public override void OnUpdate()
         }
     }
 
-    private void ApplyKnockback(float angle , float Kb)
+    public void ApplyKnockback(float angle , float Kb)
     {
         float healthWeight = 0;
         float stunMultiplier = 10 / playerState.MaxHealth;
@@ -689,8 +659,6 @@ public override void OnUpdate()
         }
         rb.velocity = Vector2.zero;
         rb.velocity = (new Vector2(XComponent, YComponent) * healthWeight );
-        //print("Start force is: " + rb.velocity);
-        //rb.AddForce((new Vector2(XComponent, YComponent) /* * healthWeight */), ForceMode2D.Impulse);
 
     }
 
@@ -706,18 +674,11 @@ public override void OnUpdate()
 
     public void ConfigureControl()
     {
-        canControl = !canControl;
         OverrideControl = !OverrideControl;
     }
 
     public void ConfigureForCutscene()
     {
-        canControl = false;
         rb.velocity = Vector2.zero;
-    }
-
-    public void ConfigureEndOfCutscene()
-    {
-        canControl = true;
     }
 }
