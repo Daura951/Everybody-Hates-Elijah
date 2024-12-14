@@ -117,7 +117,7 @@ public override void OnUpdate()
         {
 
             if (OverrideControl)
-                print("RAHHHHHHHHH2H");
+                //print("RAHHHHHHHHH2H");
 
             if (!isFalling)
                 isFalling = true;
@@ -777,14 +777,34 @@ public override void OnUpdate()
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+
+        //TODO: Abstract all this and make functions for hazards. May need to also apply a wildcard angle for certain hazards. Gotta wait for collision class
         GameObject collidedGO = collision.gameObject;
         if (collidedGO.GetComponent<Stun_Info>() != null)
         {
+            AttackDetails envAttack = EnvironmentHurtVals.convertDictValToAttackDetails(collidedGO.GetComponent<EnvironmentalStun_info>().attackType);
+
             print("STUN HAZARD!");
             if (OverrideControl) { EventManager.TriggerOnStunEnd(); }
 
             EventManager.TriggerOnStunStart();
-            ApplyKnockback(collidedGO.GetComponent<Stun_Info>().GetDAKTInfo()[1] , collidedGO.GetComponent<Stun_Info>().GetDAKTInfo()[2]);
+            ContactPoint2D contact = collision.contacts[0];
+            Vector2 collisionDir = (transform.position - (Vector3)contact.point).normalized;
+            Vector2 knockbackDir = Vector2.Reflect(collisionDir, contact.normal);
+            if(contact.normal.y < 0 || contact.normal.x != 0 )
+            {
+                knockbackDir.y = -knockbackDir.y;
+            }
+            float knockbackAngle = (Mathf.Atan2(knockbackDir.y, knockbackDir.x) * Mathf.Rad2Deg);
+            print($"Collision Direction: {collisionDir}, Contact Normal: {contact.normal}, Knockback Direction: {knockbackDir}");
+
+            print(Mathf.Atan2(collisionDir.y, collisionDir.x) * Mathf.Rad2Deg + ": " + knockbackAngle);
+
+            //if (Mathf.Abs(contact.normal.y) > 0.8f)
+            //{
+            //    knockbackAngle = contact.normal.y > 0 ? 90f : -90f; // Up or down
+            //}
+            ApplyKnockback(knockbackAngle, envAttack.Knockback);
         }
 
         if (collidedGO.GetComponent<PlatformMovement>() != null && !playerState.isOnMoveable)
@@ -818,9 +838,8 @@ public override void OnUpdate()
         }
         else healthWeight = ((playerState.MaxHealth / 1f) * stunMultiplier);
         angle += playerState.Health < .5 ? 0 : 10;
-
-        float XComponent = Mathf.Cos(angle * (Mathf.PI / 180)) * Kb;
-        float YComponent = Mathf.Sin(angle * (Mathf.PI / 180)) * Kb;
+        float XComponent = Mathf.Cos(angle * Mathf.Deg2Rad) * Kb;
+        float YComponent = Mathf.Sin(angle * Mathf.Deg2Rad) * Kb;
 
         
         if (playerState.isRight)

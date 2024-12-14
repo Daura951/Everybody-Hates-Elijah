@@ -82,7 +82,7 @@ public class ComboController : PlayerComponent
     // This function need to be called when an enemy is damaged
     public void Combo()
     {
-        print("Combo Time");
+        //print("Combo Time");
         timer = 0f;
         if (combodetect)
         {

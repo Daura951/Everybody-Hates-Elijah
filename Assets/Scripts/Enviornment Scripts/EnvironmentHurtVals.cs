@@ -16,4 +16,20 @@ public class EnvironmentHurtVals
             {AttackTypes.techKidProjectile, "5 45 50 .2" }
         };
 
+    public static AttackDetails convertDictValToAttackDetails(AttackTypes attack)
+    {
+        string[] parts = environmentHurtValues[attack].Split(' ');
+        float[] values = new float[parts.Length];
+
+        for (int j = 0; j < parts.Length; j++)
+        {
+            if (float.TryParse(parts[j], out float result))
+            {
+                values[j] = result;
+            }
+
+        }
+        return new AttackDetails(values[0], values[1], values[2], values[3]);
+    }
+
 }

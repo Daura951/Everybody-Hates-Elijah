@@ -31,7 +31,7 @@ public class VideoCutsceneTrigger : MonoBehaviour
             fader = GameObject.Find("Player UI").transform.Find("Fader").GetComponent<Fader>();
             if(fader != null)
             {
-                print("Fader found!");
+                //print("Fader found!");
             }
         }
     }

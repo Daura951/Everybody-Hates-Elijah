@@ -28,7 +28,7 @@ public class EnemyHurtVals : MonoBehaviour
 
     public static AttackDetails convertDictValToAttackDetails(AttackTypes attack)
     {
-        string[] parts = EnemyHurtVals.attackValues[attack].Split(' ');
+        string[] parts = attackValues[attack].Split(' ');
         float[] values = new float[parts.Length];
 
         for (int j = 0; j < parts.Length; j++)

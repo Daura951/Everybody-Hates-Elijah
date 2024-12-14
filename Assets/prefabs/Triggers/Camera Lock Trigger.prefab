@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7934936574115387381}
   - component: {fileID: 1926123856412227442}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: L Wall
-  m_TagString: Untagged
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -102,9 +102,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5822207919614314619}
   - component: {fileID: 3121419902884187178}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: R Wall
-  m_TagString: Untagged
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -162,6 +162,7 @@ GameObject:
   - component: {fileID: 4824552297140071320}
   - component: {fileID: 4824552297140071323}
   - component: {fileID: 3284961245028050373}
+  - component: {fileID: 2088780807020943259}
   m_Layer: 0
   m_Name: Camera Lock Trigger
   m_TagString: Untagged
@@ -276,6 +277,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walls: {fileID: 3078862804998225847}
+  lockedZoneCamPos: {x: 0, y: 0}
+--- !u!114 &2088780807020943259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4824552297140071322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a8b7737542aad448a84691d2aeb0ed2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waves: []
+  spawnPoints: []
+  timeBetweenWaves: 5
 --- !u!1 &5440788767205400484
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,9 +303,9 @@ GameObject:
   m_Component:
   - component: {fileID: 9061440661790379837}
   - component: {fileID: 8109079375285143216}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: T Wall
-  m_TagString: Untagged
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

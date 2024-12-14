@@ -34,11 +34,11 @@ public class AS_StunState : StunState
         else if (entity.currentHit.StunTime > 0 && entity.currentHit.StunTime != lastProcessedStunTime)
         {
 
-            Debug.Log("Adding to stun: " + entity.currentHit.StunTime);
+            //Debug.Log("Adding to stun: " + entity.currentHit.StunTime);
             stunTime += entity.currentHit.StunTime;
             stunTime = Mathf.Min(stunTime, entity.entityData.maxStunTime);
             lastProcessedStunTime = entity.currentHit.StunTime;
-            Debug.Log($"Updated stunTime: {stunTime}");
+            //Debug.Log($"Updated stunTime: {stunTime}");
         }
 
 

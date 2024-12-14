@@ -1,0 +1,653 @@
+fileFormatVersion: 2
+guid: 31f5495cdfe9d2141905ba1581771cdd
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 450
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Full_whip_fail_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4800
+        width: 2880
+        height: 960
+      alignment: 9
+      pivot: {x: 0.24, y: 0.53}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7f4bf0b2f97a424ca8ee15f1c21b9c6
+      internalID: -855373466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Full_whip_fail_1
+      rect:
+        serializedVersion: 2
+        x: 2880
+        y: 4800
+        width: 2880
+        height: 960
+      alignment: 9
+      pivot: {x: 0.24, y: 0.53}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6067980aa00c64944a7bb0c0bd81b818
+      internalID: 553129117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Full_whip_fail_2
+      rect:
+        serializedVersion: 2
+        x: 5760
+        y: 4800
+        width: 2880
+        height: 960
+      alignment: 9
+      pivot: {x: 0.24, y: 0.53}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37eaec6f96b87dc468b6cd59d44a70c4
+      internalID: -541011199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Full_whip_fail_3
+      rect:
+        serializedVersion: 2
+        x: 8640
+        y: 4800
+        width: 2880
+        height: 960
+      alignment: 9
+      pivot: {x: 0.24, y: 0.53}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d02274dbfffb0848b65c0528cbf1ecc
+      internalID: 457560096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Full_whip_fail_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3840
+        width: 2880
+        height: 960
+      alignment: 9
+      pivot: {x: 0.24, y: 0.53}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f2d94ce7dc37264bb007892ba5181e7
+      internalID: -1542968647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Full_whip_fail_5
+      rect:
+        serializedVersion: 2
+        x: 2880
+        y: 3840
+        width: 2880
+        height: 960
+      alignment: 9
+      pivot: {x: 0.24, y: 0.53}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e739b103bf1f0de4fa388d61a94dfb01
+      internalID: 1866058072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Full_whip_fail_6
+      rect:
+        serializedVersion: 2
+        x: 5760
+        y: 3840
+        width: 2880
+        height: 960
+      alignment: 9
+      pivot: {x: 0.24, y: 0.53}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db380280daa371a41b329260f81a13f1
+      internalID: -1590122773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Full_whip_fail_7
+      rect:
+        serializedVersion: 2
+        x: 8640
+        y: 3840
+        width: 2880
+        height: 960
+      alignment: 9
+      pivot: {x: 0.24, y: 0.53}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b456011d405ee74d9f25a679fd182af
+      internalID: 238610112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Full_whip_fail_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2880
+        width: 2880
+        height: 960
+      alignment: 9
+      pivot: {x: 0.24, y: 0.53}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d5697a1d3b82713489a667ccf71e2c7b
+      internalID: -1827263722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Full_whip_fail_9
+      rect:
+        serializedVersion: 2
+        x: 2880
+        y: 2880
+        width: 2880
+        height: 960
+      alignment: 9
+      pivot: {x: 0.24, y: 0.53}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 613ca8613c789b74a94ca09c4752dce5
+      internalID: -608520987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Full_whip_fail_10
+      rect:
+        serializedVersion: 2
+        x: 5760
+        y: 2880
+        width: 2880
+        height: 960
+      alignment: 9
+      pivot: {x: 0.24, y: 0.53}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6223d4d4f318d8459d764f15c3bac18
+      internalID: -411793180
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Full_whip_fail_11
+      rect:
+        serializedVersion: 2
+        x: 8640
+        y: 2880
+        width: 2880
+        height: 960
+      alignment: 9
+      pivot: {x: 0.24, y: 0.53}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41068c8d9c516d14e8d067ed1b586746
+      internalID: 403665408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Full_whip_fail_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1920
+        width: 2880
+        height: 960
+      alignment: 9
+      pivot: {x: 0.24, y: 0.53}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3a0df37207136f44ad8d78b8b3c1d9e
+      internalID: 492151621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Full_whip_fail_13
+      rect:
+        serializedVersion: 2
+        x: 2880
+        y: 1920
+        width: 2880
+        height: 960
+      alignment: 9
+      pivot: {x: 0.24, y: 0.53}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75ed3edf921e88844a7d021b4aa36c48
+      internalID: 362627144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Full_whip_fail_14
+      rect:
+        serializedVersion: 2
+        x: 5760
+        y: 1920
+        width: 2880
+        height: 960
+      alignment: 9
+      pivot: {x: 0.24, y: 0.53}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b25e3f4d9457f3a4d83b02728b7b9be6
+      internalID: -1125892985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Full_whip_fail_15
+      rect:
+        serializedVersion: 2
+        x: 8640
+        y: 1920
+        width: 2880
+        height: 960
+      alignment: 9
+      pivot: {x: 0.24, y: 0.53}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 741c5be59312bea4f804fc9cabf61e6f
+      internalID: 1692201333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Full_whip_fail_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 960
+        width: 2880
+        height: 960
+      alignment: 9
+      pivot: {x: 0.24, y: 0.53}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 368fe61b68802c24f8451c499e8a31fe
+      internalID: 1808248602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Full_whip_fail_17
+      rect:
+        serializedVersion: 2
+        x: 2880
+        y: 960
+        width: 2880
+        height: 960
+      alignment: 9
+      pivot: {x: 0.24, y: 0.53}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 442db514834e6c942bda8f71a84863fe
+      internalID: 1822257101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Full_whip_fail_18
+      rect:
+        serializedVersion: 2
+        x: 5760
+        y: 960
+        width: 2880
+        height: 960
+      alignment: 9
+      pivot: {x: 0.24, y: 0.53}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5abbddb2d23096b4ba8da1ca4cd7c93f
+      internalID: -386723881
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Full_whip_fail_19
+      rect:
+        serializedVersion: 2
+        x: 8640
+        y: 960
+        width: 2880
+        height: 960
+      alignment: 9
+      pivot: {x: 0.24, y: 0.53}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3df755aca93cf2049a7ab134d95e4d44
+      internalID: -1192992832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Full_whip_fail_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 2880
+        height: 960
+      alignment: 9
+      pivot: {x: 0.24, y: 0.53}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16d26f9f6a0034f459668e362c520b19
+      internalID: -1875892237
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Full_whip_fail_21
+      rect:
+        serializedVersion: 2
+        x: 2880
+        y: 0
+        width: 2880
+        height: 960
+      alignment: 9
+      pivot: {x: 0.24, y: 0.53}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58f1ca50facd52a4982f037e8737c1b9
+      internalID: 1677361836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Full_whip_fail_22
+      rect:
+        serializedVersion: 2
+        x: 5760
+        y: 0
+        width: 2880
+        height: 960
+      alignment: 9
+      pivot: {x: 0.24, y: 0.53}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd2b82047c2bd8a43afefbc35dc19f06
+      internalID: 1418294056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Full_whip_fail_16: 1808248602
+      Full_whip_fail_21: 1677361836
+      Full_whip_fail_10: -411793180
+      Full_whip_fail_0: -855373466
+      Full_whip_fail_1: 553129117
+      Full_whip_fail_14: -1125892985
+      Full_whip_fail_4: -1542968647
+      Full_whip_fail_22: 1418294056
+      Full_whip_fail_9: -608520987
+      Full_whip_fail_2: -541011199
+      Full_whip_fail_3: 457560096
+      Full_whip_fail_18: -386723881
+      Full_whip_fail_12: 492151621
+      Full_whip_fail_15: 1692201333
+      Full_whip_fail_6: -1590122773
+      Full_whip_fail_13: 362627144
+      Full_whip_fail_19: -1192992832
+      Full_whip_fail_20: -1875892237
+      Full_whip_fail_8: -1827263722
+      Full_whip_fail_5: 1866058072
+      Full_whip_fail_7: 238610112
+      Full_whip_fail_11: 403665408
+      Full_whip_fail_17: 1822257101
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

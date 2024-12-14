@@ -110,9 +110,9 @@ public class CameraManager : MonoBehaviour
         }
     }
 
-    public void SetCameraPosition(Vector3 offset)
+    public void SetCameraPosition(Vector3 newPos)
     {
-        camera.transform.position += offset;
+        camera.transform.position = newPos;
     }
 
 }

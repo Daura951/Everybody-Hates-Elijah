@@ -25,6 +25,7 @@ public class DeadState : State
         base.LogicUpdate();
         if (Time.time >= startTime + entity.entityData.deathTime)
         {
+            entity.OnDeath?.Invoke();
             entity.gameObject.SetActive(false);
         }
     }

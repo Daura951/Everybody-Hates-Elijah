@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Entity : MonoBehaviour
 {
+
     public FiniteStateMachine stateMachine;
 
     public D_Entity entityData;
@@ -30,6 +32,7 @@ public class Entity : MonoBehaviour
 
     private EnemyHealthbar healthbar;
 
+    public UnityEvent OnDeath;
 
     public virtual void Start()
     {
