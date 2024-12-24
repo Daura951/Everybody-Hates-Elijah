@@ -99,7 +99,7 @@ public class ColliderController : PlayerComponent
 
         if (collidedGO.GetComponent<Stun_Info>() == null)
         {
-            if (playerState.VelocityStunned) { EventManager.TriggerOnStunEnd(); }
+            //if (playerState.VelocityStunned) { EventManager.TriggerOnStunEnd(); }
             playerState.VelocityStunned = false;
         }
         else
@@ -132,7 +132,7 @@ public class ColliderController : PlayerComponent
         GameObject collidedGo = collision.gameObject;
         if (collision.gameObject.tag == "EHitbox")
         {
-            if (playerState.isStunned)  { EventManager.TriggerOnStunEnd(); }
+            //if (playerState.isStunned)  { EventManager.TriggerOnStunEnd(); }
 
             ApplyStunVales();
 
@@ -157,7 +157,7 @@ public class ColliderController : PlayerComponent
         }
 
 
-        print(normal + " " + knockbackAngle);
+        //print(normal + " " + knockbackAngle);
         player.GetController<PlayerMovementController>().ApplyKnockback(knockbackAngle, attackDetails.Knockback);
         player.GetController<PlayerMovementController>().usedJumps = 1;
     }
