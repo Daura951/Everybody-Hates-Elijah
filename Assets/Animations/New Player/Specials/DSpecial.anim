@@ -21,40 +21,42 @@ AnimationClip:
   - curve:
     - time: 0
       value: {fileID: 347656158, guid: e0d46b2053620b54fb8e2ee1cf231411, type: 3}
+    - time: 0.016666668
+      value: {fileID: 151911513, guid: e0d46b2053620b54fb8e2ee1cf231411, type: 3}
     - time: 0.05
-      value: {fileID: 151911513, guid: e0d46b2053620b54fb8e2ee1cf231411, type: 3}
-    - time: 0.13333334
       value: {fileID: 1901384072, guid: e0d46b2053620b54fb8e2ee1cf231411, type: 3}
-    - time: 0.2
+    - time: 0.1
       value: {fileID: 151911513, guid: e0d46b2053620b54fb8e2ee1cf231411, type: 3}
-    - time: 0.28333333
+    - time: 0.16666667
       value: {fileID: 7224651, guid: e0d46b2053620b54fb8e2ee1cf231411, type: 3}
-    - time: 0.35
+    - time: 0.23333333
       value: {fileID: -527718326, guid: e0d46b2053620b54fb8e2ee1cf231411, type: 3}
-    - time: 0.41666666
+    - time: 0.26666668
       value: {fileID: 1319933135, guid: e0d46b2053620b54fb8e2ee1cf231411, type: 3}
-    - time: 0.48333332
+    - time: 0.3
       value: {fileID: -1374677061, guid: e0d46b2053620b54fb8e2ee1cf231411, type: 3}
-    - time: 0.55
+    - time: 0.33333334
       value: {fileID: 2018950124, guid: e0d46b2053620b54fb8e2ee1cf231411, type: 3}
-    - time: 0.6
+    - time: 0.36666667
       value: {fileID: -599684318, guid: e0d46b2053620b54fb8e2ee1cf231411, type: 3}
-    - time: 0.68333334
+    - time: 0.4
       value: {fileID: 1774693812, guid: e0d46b2053620b54fb8e2ee1cf231411, type: 3}
-    - time: 0.73333335
+    - time: 0.43333334
       value: {fileID: 1012414286, guid: e0d46b2053620b54fb8e2ee1cf231411, type: 3}
-    - time: 0.8
+    - time: 0.46666667
       value: {fileID: 50070250, guid: e0d46b2053620b54fb8e2ee1cf231411, type: 3}
-    - time: 0.8666667
+    - time: 0.5
       value: {fileID: 50070250, guid: e0d46b2053620b54fb8e2ee1cf231411, type: 3}
-    - time: 0.9166667
+    - time: 0.51666665
       value: {fileID: -706836799, guid: e0d46b2053620b54fb8e2ee1cf231411, type: 3}
-    - time: 0.98333335
+    - time: 0.55
       value: {fileID: 254525617, guid: e0d46b2053620b54fb8e2ee1cf231411, type: 3}
-    - time: 1.0333333
+    - time: 0.6
       value: {fileID: 1237026871, guid: e0d46b2053620b54fb8e2ee1cf231411, type: 3}
-    - time: 1.0833334
+    - time: 0.6666667
       value: {fileID: -72994272, guid: e0d46b2053620b54fb8e2ee1cf231411, type: 3}
+    - time: 0.71666664
+      value: {fileID: 1237026871, guid: e0d46b2053620b54fb8e2ee1cf231411, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -92,12 +94,13 @@ AnimationClip:
     - {fileID: 254525617, guid: e0d46b2053620b54fb8e2ee1cf231411, type: 3}
     - {fileID: 1237026871, guid: e0d46b2053620b54fb8e2ee1cf231411, type: 3}
     - {fileID: -72994272, guid: e0d46b2053620b54fb8e2ee1cf231411, type: 3}
+    - {fileID: 1237026871, guid: e0d46b2053620b54fb8e2ee1cf231411, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1.1
+    m_StopTime: 0.7333333
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -124,49 +127,49 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.28333333
+  - time: 0.16666667
     functionName: SpawnHitbox
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 19
     messageOptions: 0
-  - time: 0.41666666
+  - time: 0.26666668
     functionName: DespawnHitbox
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.55
+  - time: 0.3
     functionName: SpawnHitbox
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 20
     messageOptions: 0
-  - time: 0.68333334
+  - time: 0.38333333
     functionName: DespawnHitbox
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.8
+  - time: 0.41666666
     functionName: SpawnHitbox
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 21
     messageOptions: 0
-  - time: 0.9166667
+  - time: 0.53333336
     functionName: DespawnHitbox
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.0333333
+  - time: 0.71666664
     functionName: DSpecialEnd
     data: 
     objectReferenceParameter: {fileID: 0}
