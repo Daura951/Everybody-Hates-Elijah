@@ -116,7 +116,8 @@ public class Entity : MonoBehaviour
         lastDamageDir = player.transform.position.x > transform.position.x ? -1 : 1;
         SetVelocity(attackDetails.Knockback, attackDetails.Angle, lastDamageDir);
         isStunned = true;
-        GameObject.FindGameObjectWithTag("Player").GetComponent<ComboController>().Combo();
+        player.GetController<ComboController>().Combo();
+        player.GetController<BladeboundController>().CurHitAmt++;
 
         if (currentHealth <= 0)
         {
