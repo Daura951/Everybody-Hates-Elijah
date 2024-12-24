@@ -6,7 +6,6 @@ public class StunController : PlayerComponent
 {
 
     public float StunTimer = 0;
-    public bool IsStunned = false ;
 
     public override void Configure(InputManager inputManager, AnimatorController animController, PlayerState playerstate)
     {
@@ -27,12 +26,12 @@ public class StunController : PlayerComponent
 
     public override void OnUpdate()
     {
-        if(IsStunned)
+        if(playerState.isStunned)
         {
-            IsStunned = StunTimer <= 0 ? false : true;
             StunTimer -= StunTimer <= 0 ? 0 : Time.deltaTime;
+            playerState.isStunned = StunTimer <= 0 ? false : true;
 
-            if(!IsStunned)
+            if(!playerState.isStunned)
                 EventManager.TriggerOnStunEnd();
         }
 
@@ -70,9 +69,7 @@ public class StunController : PlayerComponent
 
     private void ApplayStun(float Stunner)
     {
-        playerState.isHelpless = false;
         StunTimer = Stunner;
-        IsStunned = true;
     }
 
     private void ApplyStunRandomizer()

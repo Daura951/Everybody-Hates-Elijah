@@ -27,6 +27,8 @@ public class PlayerMovementController : PlayerComponent
     private float fastFallTime;
     private float fastFallReleaseSpeed;
     public int usedJumps;
+    public bool bumpedHead;
+    public bool SSpecialFall = false;
 
     //apex vars
     private float apexPoint;
@@ -40,8 +42,6 @@ public class PlayerMovementController : PlayerComponent
     //coyote tume vars
     private float coyoteTimer;
 
-
-    public bool OverrideControl = false;
 
     public override void OnStart()
     {
@@ -82,7 +82,7 @@ public override void OnUpdate()
         if (rb.velocity.y > 1)
             playerState.CanLedgeGrab = true;
 
-        if (!playerState.isLedgeGrab && (OverrideControl|| inputManager.canControl))
+        if (!playerState.isLedgeGrab && ( playerState.VelocityStunned || inputManager.canControl))
                 Falling();
 
         accel = playerState.isGrounded ? pms.GroundAccel : pms.AirAccel;
@@ -92,9 +92,9 @@ public override void OnUpdate()
 
     private void Falling()
     {
-        if (isFastFalling && !playerState.isUSpecial)
+        if (isFastFalling && !playerState.isUSpecial && !playerState.VelocityStunned)
         {
-            if (OverrideControl)
+            if (playerState.VelocityStunned)
                 print("RAHHHHHHHHHH1");
 
             VerticalVelocity = fastFallTime >= pms.UpCancelTime ? VerticalVelocity + ((playerState.isInBB ? 2.0f : 1.0f) *  (pms.Gravity * pms.GravityReleaseMultiplyer * Time.fixedDeltaTime)) : Mathf.Lerp((playerState.isInBB ? 2.0f : 1.0f) * fastFallReleaseSpeed, 0f, (playerState.isInBB ? 2.0f : 1.0f) * (fastFallTime / pms.UpCancelTime));
@@ -103,11 +103,11 @@ public override void OnUpdate()
         }
 
         // NORMAL GRAVITY WHILE FALLING
-        if ((!playerState.isGrounded && !inputManager.isJumping && !playerState.isUSpecial) || OverrideControl)
+        if (!playerState.isGrounded && !inputManager.isJumping && !playerState.isUSpecial && !playerState.VelocityStunned)
         {
 
-            if (OverrideControl)
-                //print("RAHHHHHHHHH2H");
+            if (playerState.VelocityStunned)
+                print("RAHHHHHHHHH2H");
 
             if (!isFalling)
                 isFalling = true;
@@ -115,10 +115,10 @@ public override void OnUpdate()
                 VerticalVelocity += (playerState.isInBB ? 2.0f : 1.0f) * (pms.Gravity * Time.fixedDeltaTime);
         }
 
-        if (!playerState.isSSpecial && !playerState.isDSpecial && !pms.dashAttack && !OverrideControl)
+        if (!playerState.isSSpecial && !playerState.isDSpecial && !pms.dashAttack && !playerState.VelocityStunned)
         {
 
-            if (OverrideControl)
+            if (playerState.VelocityStunned)
                 print("RAHHHHH3HHHHH");
 
 
@@ -144,13 +144,16 @@ public override void OnUpdate()
             if (rb.velocity.x >= 0)
                 rb.velocity -= new Vector2(pms.slowdownVelocity * dir, 0f);
         }
-        else if (OverrideControl)
+        else if (playerState.VelocityStunned)
         {
+            if (playerState.VelocityStunned)
+                print("RAHHHHHHHHH4H");
+
             if (playerState.isInBB)
                 print("Blade Velo: " + rb.velocity);
 
-
             rb.velocity += new Vector2(0, (playerState.isInBB ? 2.0f : 1.0f) * (pms.Gravity * Time.fixedDeltaTime));
+
         }
     }
 
@@ -210,7 +213,7 @@ public override void OnUpdate()
 
                             animController.Play(Animations.FALLING, false, false);
                         }
-                        else if (usedJumps == 1)
+                        else if (usedJumps == 1 && !playerState.VelocityStunned)
                             animController.Play(Animations.SINGLE_JUMP, false, false);
                         else if (usedJumps > 1)
                         {
@@ -349,8 +352,8 @@ public override void OnUpdate()
     private void Jump()
     {
          //CHECK FOR HEAD BUMP
-     //    if (bumpedHead)
-      //          isFastFalling = true;
+         if (bumpedHead)
+                isFastFalling = true;
         
          //GRAVITY ON ASCENDING
          if(VerticalVelocity >=0f)
@@ -383,7 +386,7 @@ public override void OnUpdate()
 
          }
          //GRAVITY ON DESCENDING
-         else if (pms.SSpecialFall)
+         else if (SSpecialFall)
             VerticalVelocity += (playerState.isInBB ? 2.0f : 1.0f) * (pms.Gravity * pms.SSpecialFallMulti * Time.fixedDeltaTime);
          else if (!isFastFalling)
             VerticalVelocity += (playerState.isInBB ? 2.0f : 1.0f) * (pms.Gravity * pms.GravityReleaseMultiplyer * Time.fixedDeltaTime);
@@ -418,8 +421,8 @@ public override void OnUpdate()
     private void USpecialJump()
     {
         //CHECK FOR HEAD BUMP
-    //    if (bumpedHead)
-    //        isFastFalling = true;
+        if (bumpedHead)
+            isFastFalling = true;
 
         //GRAVITY ON ASCENDING
         if (VerticalVelocity >= 0f)
@@ -466,7 +469,7 @@ public override void OnUpdate()
     {
         isFastFalling =  false;
         rb.velocity = new Vector2(0, 0);
-        pms.SSpecialFall = true;
+        SSpecialFall = true;
     }
     #endregion
 
@@ -590,7 +593,6 @@ public override void OnUpdate()
     private void SendDataToPlayerState()
     {
         playerState.isRight = isRight;
-        playerState.OverrideControl = OverrideControl;
         playerState.isRunning = inputManager.isRunning;
     }
 
@@ -601,40 +603,6 @@ public override void OnUpdate()
 
         inputManager.OnMove += MovePlayer;
         EventManager.onCutesceneEnter.AddListener(ConfigureForCutscene);
-        EventManager.onStunStart.AddListener(ConfigureControl);
-        EventManager.onStunEnd.AddListener(ConfigureControl);
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-
-        //TODO: Abstract all this and make functions for hazards. May need to also apply a wildcard angle for certain hazards. Gotta wait for collision class
-        GameObject collidedGO = collision.gameObject;
-        if (collidedGO.GetComponent<Stun_Info>() != null)
-        {
-            print("STUN HAZARD!");
-            if (OverrideControl) { EventManager.TriggerOnStunEnd(); }
-        }
-
-        if (collidedGO.GetComponent<PlatformMovement>() != null && !playerState.isOnMoveable)
-        {
-            playerState.isOnMoveable = true;
-            transform.SetParent(collision.gameObject.transform);
-            rb.interpolation = RigidbodyInterpolation2D.None;
-        }
-    }
-
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        GameObject collidedGo = collision.gameObject;
-        if(collision.gameObject.tag == "EHitbox")
-        {
-            if (OverrideControl) { EventManager.TriggerOnStunEnd(); }
-            AttackDetails hit = collidedGo.GetComponentInParent<EnemyAttackManager>().findByHitbox(collidedGo.name);
-            EventManager.TriggerOnStunStart();
-            ApplyKnockback(hit.Angle, hit.Knockback);
-        }
     }
 
     public void ApplyKnockback(float angle , float Kb)
@@ -662,23 +630,15 @@ public override void OnUpdate()
 
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.GetComponent<PlatformMovement>() != null && playerState.isOnMoveable)
-        {
-            playerState.isOnMoveable = false;
-            transform.SetParent(null);
-            rb.interpolation = RigidbodyInterpolation2D.Interpolate;
-        }
-    }
 
-    public void ConfigureControl()
-    {
-        OverrideControl = !OverrideControl;
-    }
 
     public void ConfigureForCutscene()
     {
         rb.velocity = Vector2.zero;
+    }
+
+    public void Interpolate(bool b)
+    {
+        rb.interpolation =  b ? RigidbodyInterpolation2D.Interpolate : RigidbodyInterpolation2D.None;
     }
 }

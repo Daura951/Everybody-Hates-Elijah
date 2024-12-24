@@ -9,17 +9,21 @@ public class PlayerState : MonoBehaviour
     public bool isBBReady;
     public bool isInBB;
     public bool isInCutscene;
+    public float Health, MaxHealth;
 
     //Player Movement
     public bool isRight;
     public bool isGrounded;
     public bool isRunning;
     public bool isOnMoveable;
-    public bool OverrideControl;
 
     // Ledgegrab Bools
     public bool CanLedgeGrab;
     public bool isLedgeGrab;
+
+    // Stun bools
+    public bool isStunned;      //Player is stunned and cannot move
+    public bool VelocityStunned; //Player is no longer stunned but is traveling a stun path
 
     // Special Bool
     public bool CanUSpecial;
@@ -29,10 +33,7 @@ public class PlayerState : MonoBehaviour
     public bool isDSpecial = false;
     public bool isHelpless = false;
 
-    public float Health, MaxHealth;
 
-
-    private bool isHelplessCoroutine;
     [SerializeField]
     private SpriteRenderer render;
 

@@ -71,7 +71,6 @@ public class PlayerMovementStats : ScriptableObject
 
     [Header("SideSpecial")]
     public bool SSpecialSlide = false;
-    public bool SSpecialFall = false;
     public float SSpecialFallMulti = 1;
     public float HorizontalSlideVelo = 7f;
 
