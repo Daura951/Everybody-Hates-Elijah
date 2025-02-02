@@ -72,5 +72,6 @@ public enum Attacks
     DSPECIAL_3,
     DASH,
     FAIR_2,
+    GRAB,
     ENEMY_HIT
 }

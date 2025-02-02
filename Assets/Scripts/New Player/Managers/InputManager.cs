@@ -17,6 +17,7 @@ public class InputManager : MonoBehaviour
     public event Action OnStrongHold;
     public event Action OnStrongRelease;
     public event Action OnSpecialPressed;
+    public event Action OnGrabPressed;
     public event Action<float,float> OnLedgeInput;
 
     public PlayerInputActions playerControls;
@@ -26,6 +27,7 @@ public class InputManager : MonoBehaviour
     public InputAction special;
     private InputAction jump;
     private InputAction run;
+    private InputAction grab;
 
     public bool canControl = true;
 
@@ -33,7 +35,6 @@ public class InputManager : MonoBehaviour
     public float moveHorizontal { get; private set; }
     public float moveVertical { get; private set; }
     public bool isNeutralPressed { get; private set; }
-    public bool isTiltPressed { get; private set; }
     public bool isStrongHeld { get; private set;}
     public bool isJumping { get;  set; }
     public bool isGrounded { get; set; }
@@ -51,12 +52,14 @@ public class InputManager : MonoBehaviour
         run = playerControls.Player.Run;
         strong = playerControls.Player.Strong;
         special = playerControls.Player.Special;
+        grab = playerControls.Player.Grab;
         move.Enable();
         neutral.Enable();
         jump.Enable();
         run.Enable();
         strong.Enable();
         special.Enable();
+        grab.Enable();
     }
 
     private void OnDisable()
@@ -67,6 +70,7 @@ public class InputManager : MonoBehaviour
         run.Disable();
         strong.Disable();
         special.Disable();
+        grab.Disable();
     }
 
     private void Awake()
@@ -122,6 +126,11 @@ public class InputManager : MonoBehaviour
             if (special.triggered)
             {
                 OnSpecialPressed?.Invoke();
+            }
+
+            if(grab.triggered)
+            {
+                OnGrabPressed?.Invoke();
             }
         }
     }

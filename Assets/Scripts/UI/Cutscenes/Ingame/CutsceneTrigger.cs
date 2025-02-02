@@ -71,8 +71,6 @@ public class CutsceneTrigger : MonoBehaviour
         player.GetComponent<Rigidbody2D>().gravityScale = 0.0f;
 
         EventManager.TriggerOnCutsceneEnter();
-        //player.GetComponent<PlayerMovement>().isInCutscene = true;
-        //player.GetComponent<PlayerAttack>().isInCutscene = true;
 
         if (finishLine != null)
         {
@@ -102,7 +100,7 @@ public class CutsceneTrigger : MonoBehaviour
         }
         player.GetComponent<Rigidbody2D>().gravityScale = 1.0f;
         EventManager.TriggerOnCutsceneExit();
-        //player.GetComponent<PlayerAttack>().isInCutscene = false;
+
 
         if (finishLine != null)
         {

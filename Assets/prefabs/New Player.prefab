@@ -91,6 +91,96 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 0
+--- !u!1 &540772325
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 540772326}
+  - component: {fileID: 540772329}
+  - component: {fileID: 540772328}
+  - component: {fileID: 540772327}
+  m_Layer: 7
+  m_Name: Grab Hitbox
+  m_TagString: Hitbox
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &540772326
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 540772325}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.98, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1547025671}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &540772329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 540772325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bdcf974cfd2bf34d9052e97ffa3d601, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ASfx: {fileID: 7471807809456509968}
+  Hit:
+  - {fileID: 8300000, guid: a6f65bd1e06a5e843a4b7f80eba40f07, type: 3}
+  - {fileID: 8300000, guid: 435df3a4ea6b48e4bbb2e65560cb9275, type: 3}
+  - {fileID: 8300000, guid: bf58e33942775134ca707e5e7c099dea, type: 3}
+  Miss: {fileID: 8300000, guid: c8b2fdca123b46945b8a21594bdec3bd, type: 3}
+  Delay: 0.0005
+--- !u!58 &540772328
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 540772325}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
+--- !u!50 &540772327
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 540772325}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &646371284
 GameObject:
   m_ObjectHideFlags: 0
@@ -978,6 +1068,38 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.2, y: 0.2}
   m_EdgeRadius: 0
+--- !u!1 &1547025670
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1547025671}
+  m_Layer: 9
+  m_Name: Grab Boxes
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1547025671
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1547025670}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 540772326}
+  m_Father: {fileID: 3131762222312026667}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1550493484
 GameObject:
   m_ObjectHideFlags: 0
@@ -1157,7 +1279,7 @@ RectTransform:
   m_GameObject: {fileID: 1784276529}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.6666667, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1372305613}
@@ -1165,7 +1287,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 31.895597, y: 149.91562}
+  m_AnchoredPosition: {x: 31.895557, y: 149.91565}
   m_SizeDelta: {x: 886.9822, y: 90.4829}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1784276532
@@ -3293,6 +3415,7 @@ GameObject:
   - component: {fileID: 7190412254140857931}
   - component: {fileID: 3710131334789627301}
   - component: {fileID: 5839789679176739814}
+  - component: {fileID: 3327416692200153043}
   m_Layer: 9
   m_Name: New Player
   m_TagString: Player
@@ -3321,6 +3444,7 @@ Transform:
   - {fileID: 2169674825454107763}
   - {fileID: 1262000387623006421}
   - {fileID: 1104863835}
+  - {fileID: 1547025671}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3418,6 +3542,7 @@ MonoBehaviour:
   - {fileID: 7190412254140857931}
   - {fileID: 5839789679176739814}
   - {fileID: 3710131334789627301}
+  - {fileID: 3327416692200153043}
 --- !u!114 &3131762222312026646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3435,7 +3560,8 @@ MonoBehaviour:
   feet: {fileID: 6119474020206487817}
   body: {fileID: 2272624342141555647}
   usedJumps: 0
-  OverrideControl: 0
+  bumpedHead: 0
+  SSpecialFall: 0
 --- !u!114 &3131762222312026640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3524,21 +3650,22 @@ MonoBehaviour:
   isBBReady: 0
   isInBB: 0
   isInCutscene: 0
+  Health: 0
+  MaxHealth: 0
   isRight: 0
   isGrounded: 0
   isRunning: 0
   isOnMoveable: 0
-  OverrideControl: 0
   CanLedgeGrab: 0
   isLedgeGrab: 0
+  isStunned: 0
+  VelocityStunned: 0
   CanUSpecial: 0
   CanSSpecial: 0
   isUSpecial: 0
   isSSpecial: 0
   isDSpecial: 0
   isHelpless: 0
-  Health: 0
-  MaxHealth: 0
   render: {fileID: 3131762222312026644}
 --- !u!114 &4335699818797656285
 MonoBehaviour:
@@ -3577,6 +3704,7 @@ MonoBehaviour:
   - {fileID: 2619711239226583241}
   - {fileID: 8898433478931598251}
   - {fileID: 1214330595514451894}
+  - {fileID: 540772325}
   attackConfigFile: {fileID: 4900000, guid: 5c4885a361e2c1f4ba2a56c1f8cbf383, type: 3}
   didStickyCollide: 0
   stickyhand: {fileID: 8704471994056319284}
@@ -3648,7 +3776,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   StunTimer: 0
-  IsStunned: 0
 --- !u!114 &7190412254140857931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3712,6 +3839,19 @@ MonoBehaviour:
   GroundDetectLength: 0.02
   HeadDetectLength: 0.02
   HeadWidth: 0.75
+--- !u!114 &3327416692200153043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3131762222312026654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e73583a06b43a64dbb41119e069a5a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
 --- !u!1 &3618767885387140425
 GameObject:
   m_ObjectHideFlags: 0
@@ -4236,7 +4376,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5786268094730981003
 RectTransform:
   m_ObjectHideFlags: 0

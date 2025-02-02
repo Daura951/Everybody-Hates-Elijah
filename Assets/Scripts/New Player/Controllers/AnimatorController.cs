@@ -46,7 +46,10 @@ public class AnimatorController : MonoBehaviour
         Animator.StringToHash("Ledge pull"),
         Animator.StringToHash("Stun1"),
         Animator.StringToHash("Stun2"),
-        Animator.StringToHash("Stun3")
+        Animator.StringToHash("Stun3"),
+        Animator.StringToHash("Grabbing"),
+        Animator.StringToHash("Grab Success"),
+        Animator.StringToHash("Grab Fail")
     };
 
     [SerializeField]
@@ -83,7 +86,7 @@ public class AnimatorController : MonoBehaviour
     /// <param name="crossFadeTime">Time for crossfade</param>
     public void Play(Animations animation, bool lockAnimator, bool bypassLock, float crossFadeTime = 0.2f)
     {
-        //print("Going from: " + currentAnimation.ToString() + " to: " + animation.ToString());
+        print("Going from: " + currentAnimation.ToString() + " to: " + animation.ToString());
 
         if(animation==Animations.NONE)
         {
@@ -178,5 +181,8 @@ public enum Animations
     Stun1,
     Stun2,
     Stun3,
+    GRAB_START,
+    GRAB_SUCCESS,
+    GRAB_FAIL,
     NONE
 }
