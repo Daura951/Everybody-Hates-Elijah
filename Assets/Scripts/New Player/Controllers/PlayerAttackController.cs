@@ -96,6 +96,7 @@ public class PlayerAttackController : PlayerComponent
 
     private void Ariel(Vector2 move)
     {
+        playerState.isAriel = true;
         if (move.y> tiltBuffer)
         {
             animController.Play(Animations.UAIR, false, false);

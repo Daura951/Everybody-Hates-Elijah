@@ -6,6 +6,9 @@ using UnityEngine.Events;
 public class PlayerState : MonoBehaviour
 {
     public bool isAttacking;
+    public bool isAriel;
+    public bool isShielding;
+    public bool CanShield = true;
     public bool isBBReady;
     public bool isInBB;
     public bool isInCutscene;
@@ -14,6 +17,7 @@ public class PlayerState : MonoBehaviour
     //Player Movement
     public bool isRight;
     public bool isGrounded;
+    public bool isOnPassThrough;
     public bool isRunning;
     public bool isOnMoveable;
 
