@@ -6,7 +6,7 @@ public class ShaderBlurAnimator : MonoBehaviour
 {
     public Material material; // Assign this in the Inspector
     public string propertyName = "_Size"; // Name of the shader property to animate
-    public float animationDuration = 0.01f; // Duration of the animation
+    public float animationDuration = 0.05f; // Duration of the animation
 
     public float blurAmt = 5f;
 
@@ -56,13 +56,13 @@ public class ShaderBlurAnimator : MonoBehaviour
 
     public void StartAnimation()
     {
-        animationTime = 0.0f;
+        animationTime = 0.5f;
         isAnimating = true;
     }
 
     public void EndCutscene()
     {
-        animationTime = 0.0f;
+        animationTime = 0.5f;
         isAnimatingEnd = true;
     }
 }

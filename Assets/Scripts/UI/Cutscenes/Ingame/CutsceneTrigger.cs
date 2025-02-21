@@ -61,11 +61,16 @@ public class CutsceneTrigger : MonoBehaviour
     private void TransitionToCutscene()
     {
         cutSceneUi.SetActive(true);
-        enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        enemies= GameObject.FindGameObjectsWithTag("Enemy");
+
 
         foreach (Transform child in cutSceneUi.transform)
         {
             child.gameObject.SetActive(false);
+            if(child.gameObject.name == "CutsceneBG")
+            { 
+                child.gameObject.SetActive(true);
+            }
         }
 
         player.GetComponent<Rigidbody2D>().gravityScale = 0.0f;
@@ -79,6 +84,8 @@ public class CutsceneTrigger : MonoBehaviour
 
         for (int i = 0; i < enemies.Length; i++)
         {
+
+            //TODO: Stop the enemies!
             switch (enemies[i].name)
             {
 
