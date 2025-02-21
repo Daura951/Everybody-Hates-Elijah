@@ -18,6 +18,8 @@ public class PlayerMovementController : PlayerComponent
     private float accel;
     private float decel;
     private float dir;
+    [Range(0f,1.2f)]
+    public float airfloat = .7f;
 
 
     // jump vars
@@ -92,14 +94,11 @@ public override void OnUpdate()
 
     private void Falling()
     {
-        if(playerState.VelocityStunned)
-            print(rb.velocity);
-     
+        if (playerState.isAriel)
+            VerticalVelocity *= airfloat;
+
         if (isFastFalling && !playerState.isUSpecial && !playerState.VelocityStunned)
         {
-
-            if (playerState.isAriel)
-                VerticalVelocity *= .685f;
 
             VerticalVelocity = fastFallTime >= pms.UpCancelTime ? VerticalVelocity + ((playerState.isInBB ? 2.0f : 1.0f) *  (pms.Gravity * pms.GravityReleaseMultiplyer * Time.fixedDeltaTime)) : Mathf.Lerp((playerState.isInBB ? 2.0f : 1.0f) * fastFallReleaseSpeed, 0f, (playerState.isInBB ? 2.0f : 1.0f) * (fastFallTime / pms.UpCancelTime));
             fastFallTime += Time.fixedDeltaTime;
