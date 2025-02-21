@@ -12,6 +12,8 @@ public static class EventManager
     public static UnityEvent onDeath = new UnityEvent();
     public static UnityEvent onStunStart = new UnityEvent();
     public static UnityEvent onStunEnd = new UnityEvent();
+    public static UnityEvent onShieldBreakStart = new UnityEvent();
+    public static UnityEvent onShieldBreakEnd = new UnityEvent();
     public static UnityEvent onHazardCollision = new UnityEvent();
 
     public static void TriggerBladebound()
@@ -49,6 +51,16 @@ public static class EventManager
     public static void TriggerOnStunEnd()
     {
         onStunEnd?.Invoke();
+    }
+
+    public static void TriggerOnShieldBreakStart()
+    {
+        onShieldBreakStart?.Invoke();
+    }
+
+    public static void TriggerOnShieldBreakEnd()
+    {
+        onShieldBreakEnd?.Invoke();
     }
 
     public static void TriggerOnHazardCollision()
