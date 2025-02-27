@@ -7,4 +7,5 @@ public class Character : MonoBehaviour
 {
     public Sprite cutsceneImage;
     public string characterName;
+    public Color nameColor;
 }

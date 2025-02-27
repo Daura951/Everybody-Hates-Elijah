@@ -18,6 +18,8 @@ public class InputManager : MonoBehaviour
     public event Action OnStrongRelease;
     public event Action OnSpecialPressed;
     public event Action OnGrabPressed;
+    public event Action OnShieldHold;
+    public event Action OnShieldRelease;
     public event Action<float,float> OnLedgeInput;
 
     public PlayerInputActions playerControls;
@@ -28,6 +30,7 @@ public class InputManager : MonoBehaviour
     private InputAction jump;
     private InputAction run;
     private InputAction grab;
+    private InputAction Shield;
 
     public bool canControl = true;
 
@@ -36,6 +39,7 @@ public class InputManager : MonoBehaviour
     public float moveVertical { get; private set; }
     public bool isNeutralPressed { get; private set; }
     public bool isStrongHeld { get; private set;}
+    public bool isShieldHeld { get; private set;}
     public bool isJumping { get;  set; }
     public bool isGrounded { get; set; }
 
@@ -49,6 +53,7 @@ public class InputManager : MonoBehaviour
         move = playerControls.Player.Move;
         neutral = playerControls.Player.Neutral;
         jump = playerControls.Player.Jump;
+        Shield = playerControls.Player.Shield;
         run = playerControls.Player.Run;
         strong = playerControls.Player.Strong;
         special = playerControls.Player.Special;
@@ -60,6 +65,7 @@ public class InputManager : MonoBehaviour
         strong.Enable();
         special.Enable();
         grab.Enable();
+        Shield.Enable();
     }
 
     private void OnDisable()
@@ -71,19 +77,24 @@ public class InputManager : MonoBehaviour
         strong.Disable();
         special.Disable();
         grab.Disable();
+        Shield.Disable();
     }
 
     private void Awake()
     {
         playerControls = new PlayerInputActions();
         playerControls.Player.Strong.performed += OnStrongPerformed;
-        playerControls.Player.Strong.canceled += OnStrongCanceled;
+        playerControls.Player.Strong.canceled += OnStrongCanceled;        
+        playerControls.Player.Shield.performed += OnShieldPerformed;
+        playerControls.Player.Shield.canceled += OnShieldCanceled;
         playerState = GetComponent<PlayerState>();
         EventManager.onCutesceneEnter.AddListener(ToggleCanControl);
         EventManager.onCutsceneExit.AddListener(ToggleCanControl);
         EventManager.onDeath.AddListener(ToggleCanControl);
         EventManager.onStunStart.AddListener(ToggleCanControl);
         EventManager.onStunEnd.AddListener(ToggleCanControl);
+        EventManager.onShieldBreakStart.AddListener(ToggleCanControl);
+        EventManager.onShieldBreakEnd.AddListener(ToggleCanControl);
 
 
     }
@@ -100,6 +111,21 @@ public class InputManager : MonoBehaviour
         //Debug.Log("Strong canceled (released)");
         isStrongHeld = false;
         OnStrongRelease?.Invoke();
+    }
+
+    private void OnShieldPerformed(InputAction.CallbackContext obj)
+    {
+        if(Input==Vector2.zero && playerState.CanShield && playerState.isGrounded && !playerState.isStunned)
+        {
+            isShieldHeld = true;
+            OnShieldHold?.Invoke();
+        }
+    }
+
+    private void OnShieldCanceled(InputAction.CallbackContext obj)
+    {
+        isShieldHeld = false;
+        OnShieldRelease?.Invoke();
     }
 
     void Update()
@@ -132,13 +158,17 @@ public class InputManager : MonoBehaviour
             {
                 OnGrabPressed?.Invoke();
             }
+
+            if (playerState.isShielding && (Input != Vector2.zero || !playerState.isGrounded || playerState.isStunned))
+                OnShieldRelease?.Invoke();
         }
     }
 
     private void ToggleCanControl()
     {
         canControl = !canControl;
-        moveHorizontal = 0.0f;
+        if(!playerState.VelocityStunned)
+            moveHorizontal = 0.0f;
         print("Toggling canControl: "+ canControl);
     }
 }

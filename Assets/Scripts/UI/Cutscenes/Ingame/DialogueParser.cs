@@ -22,9 +22,12 @@ public class DialogueParser : MonoBehaviour
 
     [Header("UI Components")]
     private Character characterLeft, characterRight;
-    private TMP_Text dialogueText;
+    public TMP_Text dialogueText;
+    public TMP_Text nameText;
     private Image leftImage, rightImage;
     private Image speechBubble;
+
+    private bool canAdvanceDialogue = false;
 
 
 
@@ -41,14 +44,27 @@ public class DialogueParser : MonoBehaviour
         if(isInit)
         {
             ParseDialogue();
+            StartCoroutine(WaitForAnimation());
             isInit = false;
         }
 
-        if((Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space)) && isInCutscene)
+        if((Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space)) && isInCutscene && canAdvanceDialogue)
         {
             index++;
             ParseDialogue();
         }
+    }
+
+    private IEnumerator WaitForAnimation()
+    {
+        canAdvanceDialogue = false; // Disable input during animation
+
+        for (int i = 0; i < 25; i++)
+        {
+            yield return null; // Waits for one frame
+        }
+
+        canAdvanceDialogue = true; // Allow user to progress dialogue
     }
 
     public void ParseDialogue()
@@ -75,6 +91,7 @@ public class DialogueParser : MonoBehaviour
     {
         index = 0;
         dialogueText.text = "";
+        nameText.text = "";
         cutsceneTrigger.cutsceneEnded = true;
     }
 
@@ -109,20 +126,28 @@ public class DialogueParser : MonoBehaviour
     void DisplayDialogue(string currentLine)
     {
         string[] splitTokens = currentLine.Split(':');
-        SetSpeechBubbleDirection(splitTokens);
+        SetDarknessofCharacters(splitTokens);
+        nameText.text = splitTokens[0];
+
+        if(nameText.text == characterLeft.name)
+        {
+            nameText.color = characterLeft.nameColor;
+        }
+        else
+        {
+            nameText.color = characterRight.nameColor;
+        }
+
         dialogueText.text = splitTokens[1];
     }
 
-    void SetSpeechBubbleDirection(string[] splitTokens)
+    void SetDarknessofCharacters(string[] splitTokens)
     {
-        if (splitTokens[0] == characterRight.name)
-        {
-            speechBubble.transform.eulerAngles = new Vector2(0, 180);
-        }
-        else if (splitTokens[0] == characterLeft.name)
-        {
-            speechBubble.transform.eulerAngles = new Vector2(0, 0);
-        }
+        Image darkenedImage = splitTokens[0] == characterRight.name ? leftImage : rightImage;
+        Image lightImage = splitTokens[0] != characterRight.name ? leftImage : rightImage;
+        darkenedImage.color = new Color(0.5f, 0.5f, 0.5f, 1.0f);
+        lightImage.color = new Color(1f, 1f, 1f, 1f);
+
     }
 
     public void InitalizeDialogueParser()
@@ -137,13 +162,24 @@ public class DialogueParser : MonoBehaviour
                 case "RightFace":
                     rightImage = child.GetComponent<Image>();
                     break;
-                case "DialogueText":
-                    dialogueText = child.GetComponent<TMP_Text>();
-                    break;
                 case "SpeechBubble":
                     speechBubble = child.GetComponent<Image>();
+                    foreach (Transform dChild in speechBubble.transform)
+                    {
+                        switch (dChild.name)
+                        {
+                            case "DialogueText":
+                                dialogueText = dChild.GetComponent<TMP_Text>();
+                                break;
+
+                            case "NameText":
+                                nameText = dChild.GetComponent<TMP_Text>();
+                                break;
+                        }
+                    }
                     break;
             }
+            
         }
 
         splitLines = txtFile.text.Split('\n');

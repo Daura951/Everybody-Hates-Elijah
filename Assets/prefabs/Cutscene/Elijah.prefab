@@ -45,9 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f30859d20e52ebe41b3556391e678ca3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cutsceneImage: {fileID: 21300000, guid: 76d199a6b07ac494280daff21e1ec274, type: 3}
+  cutsceneImage: {fileID: -601203278, guid: e261e9a3c525dcb4e9f2edd730b8b3cc, type: 3}
   characterName: Elijah
-  isLeft: 0
+  nameColor: {r: 0, g: 0.43849897, b: 1, a: 1}
 --- !u!212 &8306506514707900216
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -89,7 +89,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 76d199a6b07ac494280daff21e1ec274, type: 3}
+  m_Sprite: {fileID: -601203278, guid: e261e9a3c525dcb4e9f2edd730b8b3cc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

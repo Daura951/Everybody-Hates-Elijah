@@ -42,6 +42,7 @@ public class OnAnimationExit : StateMachineBehaviour
         if (!isJab && !isStrong)
         {
             playerstate.isAttacking = false;
+            playerstate.isAriel = false;
         }
 
         if(LedgeAnim)

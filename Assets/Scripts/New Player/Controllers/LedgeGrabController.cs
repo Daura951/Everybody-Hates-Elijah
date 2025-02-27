@@ -82,7 +82,7 @@ public class LedgeGrabController : PlayerComponent
                 moveHorOnLedge = false;
 
                 BoxCollider2D Box = g.GetComponent<BoxCollider2D>();
-                PMC.MadeToTest();
+                PMC.LedgeGrabStop();
 
                 animController.StopAllCoroutines();
 

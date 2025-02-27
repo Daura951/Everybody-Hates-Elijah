@@ -116,6 +116,32 @@ MonoBehaviour:
   isLedgeMove: 0
   LedgeAnim: 0
   cancel: 0
+--- !u!1102 &-8209619232336762834
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Shield Stun
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: 53bc22fddafeaeb4d86a85c558925962, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!114 &-8054189947841682086
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -478,6 +504,32 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!1102 &-5989430545745727825
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Shield_Pop
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: d9a04b5ccf2379141a71ab1a40a77551, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!114 &-5986545845975342538
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -615,6 +667,27 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!114 &-4415258715319032896
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4bd5bf40b097cf43ae6e845d7cb5bee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animation: 48
+  isLocked: 1
+  crossFadeTime: 0
+  isAnimAttack: 0
+  isJab: 0
+  isStrong: 0
+  isLedgeMove: 0
+  LedgeAnim: 0
+  cancel: 0
 --- !u!1102 &-4390988683541720104
 AnimatorState:
   serializedVersion: 6
@@ -786,6 +859,32 @@ AnimatorState:
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: 560e79a1ee8d4d04b8b302b60ba609e0, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
+--- !u!1102 &-3045461414398749060
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Shield_Block
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: 8b63f0a364e37be42933815724228a63, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -1298,6 +1397,32 @@ MonoBehaviour:
   crossFadeTime: 0.001
   animToGoToOnButtonPress: 0
   isJabCancelable: 0
+--- !u!1102 &1921553424121990206
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Crouch Up
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: bf42fbe4bc286d941b219294de81f316, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!114 &2314180001729364383
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1319,6 +1444,33 @@ MonoBehaviour:
   isLedgeMove: 0
   LedgeAnim: 0
   cancel: 0
+--- !u!1102 &2315123569215018668
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Shield Stun Transition
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours:
+  - {fileID: -4415258715319032896}
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: bee307d2ab4d8914987bbe16beff416c, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!1102 &2400653259632633052
 AnimatorState:
   serializedVersion: 6
@@ -1555,13 +1707,34 @@ AnimatorStateMachine:
     m_Position: {x: -360, y: 320, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -5442798879733284737}
-    m_Position: {x: -330, y: 430, z: 0}
+    m_Position: {x: 0, y: 460, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 8521352124147290170}
-    m_Position: {x: -130, y: 370, z: 0}
+    m_Position: {x: 0, y: 410, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 2467113865136339138}
-    m_Position: {x: -140, y: 500, z: 0}
+    m_Position: {x: 0, y: 510, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 3078977308386323697}
+    m_Position: {x: -570, y: 170, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: -3045461414398749060}
+    m_Position: {x: -570, y: 220, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: -5989430545745727825}
+    m_Position: {x: -570, y: 270, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 2315123569215018668}
+    m_Position: {x: -570, y: 320, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: -8209619232336762834}
+    m_Position: {x: -570, y: 370, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 1921553424121990206}
+    m_Position: {x: 230, y: 410, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 4857862833055445834}
+    m_Position: {x: 230, y: 460, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -1572,6 +1745,33 @@ AnimatorStateMachine:
   m_ExitPosition: {x: 900, y: 20, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: -2753888077838576770}
+--- !u!1102 &3078977308386323697
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Shield_Start
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours:
+  - {fileID: 8427790877655185746}
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: b4e8d8c6ea78f8f4e8594ace0b893db5, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!114 &3187494724054132439
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1715,6 +1915,32 @@ MonoBehaviour:
   isLedgeMove: 0
   LedgeAnim: 0
   cancel: 0
+--- !u!1102 &4857862833055445834
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Crouch
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: 8b062e11a7af32345afa9831c4e0b1b7, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!1102 &5059590241129599429
 AnimatorState:
   serializedVersion: 6
@@ -2129,6 +2355,27 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!114 &8427790877655185746
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4bd5bf40b097cf43ae6e845d7cb5bee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animation: 45
+  isLocked: 1
+  crossFadeTime: 0.2
+  isAnimAttack: 0
+  isJab: 0
+  isStrong: 0
+  isLedgeMove: 0
+  LedgeAnim: 0
+  cancel: 0
 --- !u!114 &8449674866069900796
 MonoBehaviour:
   m_ObjectHideFlags: 1

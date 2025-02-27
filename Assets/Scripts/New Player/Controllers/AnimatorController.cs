@@ -49,7 +49,14 @@ public class AnimatorController : MonoBehaviour
         Animator.StringToHash("Stun3"),
         Animator.StringToHash("Grabbing"),
         Animator.StringToHash("Grab Success"),
-        Animator.StringToHash("Grab Fail")
+        Animator.StringToHash("Grab Fail"),
+        Animator.StringToHash("Shield_Start"),
+        Animator.StringToHash("Shield_Block"),
+        Animator.StringToHash("Shield_Pop"),
+        Animator.StringToHash("Shield Stun Transition"),
+        Animator.StringToHash("Shield Stun"),
+        Animator.StringToHash("Crouch"),
+        Animator.StringToHash("Crouch Up")
     };
 
     [SerializeField]
@@ -86,7 +93,7 @@ public class AnimatorController : MonoBehaviour
     /// <param name="crossFadeTime">Time for crossfade</param>
     public void Play(Animations animation, bool lockAnimator, bool bypassLock, float crossFadeTime = 0.2f)
     {
-        print("Going from: " + currentAnimation.ToString() + " to: " + animation.ToString());
+        //print("Going from: " + currentAnimation.ToString() + " to: " + animation.ToString());
 
         if(animation==Animations.NONE)
         {
@@ -184,5 +191,12 @@ public enum Animations
     GRAB_START,
     GRAB_SUCCESS,
     GRAB_FAIL,
+    Shield_Start,
+    Shield_Block,
+    Shield_Pop,
+    Shield_Stun_Transition,
+    Shield_Stun,
+    Crouch,
+    Crouch_Up,
     NONE
 }

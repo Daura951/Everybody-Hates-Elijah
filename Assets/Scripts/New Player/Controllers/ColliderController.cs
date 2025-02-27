@@ -62,6 +62,7 @@ public class ColliderController : PlayerComponent
 
         groundHit = Physics2D.BoxCast(boxCastOrigin, boxCastSize, 0f, Vector2.down, GroundDetectLength, GroundLayer);
         playerState.isGrounded = groundHit.collider != null ? true : false;
+        playerState.isOnPassThrough = groundHit.collider != null ? (groundHit.collider.GetComponent<PlatformEffector2D>() ? true : false) : false;
 
         if (Draw)
         {
@@ -157,7 +158,7 @@ public class ColliderController : PlayerComponent
         }
 
 
-        //print(normal + " " + knockbackAngle);
+        print(normal + " " + knockbackAngle);
         player.GetController<PlayerMovementController>().ApplyKnockback(knockbackAngle, attackDetails.Knockback);
         player.GetController<PlayerMovementController>().usedJumps = 1;
     }

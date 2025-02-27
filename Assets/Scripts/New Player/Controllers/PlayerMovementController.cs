@@ -18,6 +18,8 @@ public class PlayerMovementController : PlayerComponent
     private float accel;
     private float decel;
     private float dir;
+    [Range(0f,1.2f)]
+    public float airfloat = .7f;
 
 
     // jump vars
@@ -92,10 +94,11 @@ public override void OnUpdate()
 
     private void Falling()
     {
+        if (playerState.isAriel)
+            VerticalVelocity *= airfloat;
+
         if (isFastFalling && !playerState.isUSpecial && !playerState.VelocityStunned)
         {
-            if (playerState.VelocityStunned)
-                print("RAHHHHHHHHHH1");
 
             VerticalVelocity = fastFallTime >= pms.UpCancelTime ? VerticalVelocity + ((playerState.isInBB ? 2.0f : 1.0f) *  (pms.Gravity * pms.GravityReleaseMultiplyer * Time.fixedDeltaTime)) : Mathf.Lerp((playerState.isInBB ? 2.0f : 1.0f) * fastFallReleaseSpeed, 0f, (playerState.isInBB ? 2.0f : 1.0f) * (fastFallTime / pms.UpCancelTime));
             fastFallTime += Time.fixedDeltaTime;
@@ -105,8 +108,6 @@ public override void OnUpdate()
         // NORMAL GRAVITY WHILE FALLING
         if (!playerState.isGrounded && !inputManager.isJumping && !playerState.isUSpecial && !playerState.VelocityStunned)
         {
-
-            if (playerState.VelocityStunned)
                 print("RAHHHHHHHHH2H");
 
             if (!isFalling)
@@ -117,11 +118,6 @@ public override void OnUpdate()
 
         if (!playerState.isSSpecial && !playerState.isDSpecial && !pms.dashAttack && !playerState.VelocityStunned)
         {
-
-            if (playerState.VelocityStunned)
-                print("RAHHHHH3HHHHH");
-
-
             VerticalVelocity = Mathf.Clamp(VerticalVelocity, (playerState.isInBB ? 2.0f : 1.0f) * -pms.MaxFallSpeed, (playerState.isInBB ? 2.0f : 1.0f) * 50f);
 
             //CLAMP FALL SPEED
@@ -130,31 +126,36 @@ public override void OnUpdate()
             else
                 rb.velocity = new Vector2(rb.velocity.x, (playerState.isInBB ? 2.0f : 1.0f) * VerticalVelocity);
         }
-        else if (playerState.isSSpecial)
-        {
-            int SSpecialDir =  (int)(dir != 0 ? (dir > 0 ? 1 : -1) : (transform.eulerAngles.y == 0 ? 1f : -1f));
-            rb.velocity = new Vector2(pms.HorizontalSlideVelo * SSpecialDir, 0f);
-        }
-        else if (playerState.isDSpecial)
-        {
-            rb.velocity = new Vector2(pms.dosnSpecialHorizontalVelocity * dir , -9.81f);
-        }
-        else if (pms.dashAttack)
-        {
-            if (rb.velocity.x >= 0)
-                rb.velocity -= new Vector2(pms.slowdownVelocity * dir, 0f);
-        }
-        else if (playerState.VelocityStunned)
-        {
-            if (playerState.VelocityStunned)
-                print("RAHHHHHHHHH4H");
+        #region Specials Velo
+        
+                else if (playerState.isSSpecial)
+                {
+                    int SSpecialDir =  (int)(dir != 0 ? (dir > 0 ? 1 : -1) : (transform.eulerAngles.y == 0 ? 1f : -1f));
+                    rb.velocity = new Vector2(pms.HorizontalSlideVelo * SSpecialDir, 0f);
+                }
+                else if (playerState.isDSpecial)
+                {
+                    rb.velocity = new Vector2(pms.dosnSpecialHorizontalVelocity * dir , -9.81f);
+                }
+                else if (pms.dashAttack)
+                {
+                    if (rb.velocity.x >= 0)
+                        rb.velocity -= new Vector2(pms.slowdownVelocity * dir, 0f);
+                }
+                else if (playerState.VelocityStunned)
+                {
+                    if (playerState.isAttacking)
+                        print("RAHHHHHHHHH4H");
 
-            if (playerState.isInBB)
-                print("Blade Velo: " + rb.velocity);
+                    if (playerState.isInBB)
+                        print("Blade Velo: " + rb.velocity);
 
-            rb.velocity += new Vector2(0, (playerState.isInBB ? 2.0f : 1.0f) * (pms.Gravity * Time.fixedDeltaTime));
+                    rb.velocity += new Vector2(0, (playerState.isInBB ? 2.0f : 1.0f) * (pms.Gravity * Time.fixedDeltaTime));
 
-        }
+                }
+         
+        #endregion
+
     }
 
     #region Movement
@@ -193,17 +194,19 @@ public override void OnUpdate()
                         Vector2 targetVelocity = Vector2.zero;
                         targetVelocity = new Vector2(dir, 0f) * (inputManager.isRunning ? pms.MaxRunSpeed : pms.MaxWalkSpeed);
                         moveVelocity = Vector2.Lerp(moveVelocity, targetVelocity, accel * Time.fixedDeltaTime);
-                        rb.velocity = new Vector2(moveVelocity.x, rb.velocity.y);
 
                     }
                     else if (!(dir > .1f || dir < -.1f))
                     {
-                        if (playerState.isGrounded)
+                        if (playerState.isGrounded && moveY > -.4f)
                             animController.Play(Animations.IDLE, false, false);
+                        else if(playerState.isGrounded && moveY <= -.4f && !playerState.isOnPassThrough)
+                            animController.Play(Animations.Crouch, false, false);
 
                         moveVelocity = Vector2.Lerp(moveVelocity, Vector2.zero, decel * Time.fixedDeltaTime);
-                        rb.velocity = new Vector2(moveVelocity.x, rb.velocity.y);
                     }
+                        if(!playerState.VelocityStunned)
+                            rb.velocity = new Vector2(moveVelocity.x, rb.velocity.y);
 
 
                     if (!playerState.isGrounded)
@@ -235,7 +238,11 @@ public override void OnUpdate()
                     if (rb.velocity.x >= 0)
                         rb.velocity -= new Vector2(pms.slowdownVelocity * (dir), rb.velocity.y);
                 }
-                else
+                else if (playerState.isAriel)
+                {
+                    rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
+                }
+                else if (!playerState.VelocityStunned)
                 {
                     rb.velocity = new Vector2(0, rb.velocity.y);
                 }
@@ -275,11 +282,10 @@ public override void OnUpdate()
             jumpReleaseDuringBuffer = false;
         }
 
+
         //RELEASING JUMP
         if(inputManager.JumpReleased)
         {
-
-
             if (jumpBufferTimer > 0f)
                 jumpReleaseDuringBuffer = true;
 
@@ -333,6 +339,7 @@ public override void OnUpdate()
 
             VerticalVelocity = (playerState.isInBB ? 2.0f : 1.0f) * Physics2D.gravity.y;
         }
+
     }
 
     private void InitiateJump(int jumpsUsed)
@@ -346,7 +353,6 @@ public override void OnUpdate()
         jumpBufferTimer = 0f;
         usedJumps += jumpsUsed;
         VerticalVelocity = (playerState.isInBB ? 1.0f : 1.0f) * pms.InitialJumpVelo;
-
     }
 
     private void Jump()
@@ -407,12 +413,12 @@ public override void OnUpdate()
     }
         #region Ledges
 
-        public void MadeToTest()
-        {
-            rb.velocity = Vector2.zero;
-            VerticalVelocity = moveVelocity.x = 0f;
-            usedJumps = usedJumps == 2 ? 1 : usedJumps;
-        }
+    public void LedgeGrabStop()
+    {
+       rb.velocity = Vector2.zero;
+       VerticalVelocity = moveVelocity.x = 0f;
+       usedJumps = usedJumps == 2 ? 1 : usedJumps;
+    }
 
         #endregion
    
@@ -474,122 +480,6 @@ public override void OnUpdate()
     #endregion
 
 
-    #region JUMPARC
-
-    private void DrawJumpArc(float moveSpeed , Color gizmoColor)
-    {
-        Vector2 startpos = new Vector2(feet.bounds.center.x, feet.bounds.min.y);
-        Vector2 prevpos = startpos;
-
-        Vector2 velocity;
-        float speed = 0f;
-
-        speed = pms.DrawRight ? moveSpeed : -moveSpeed;
-        velocity = new Vector2(speed, pms.InitialJumpVelo);
-        Gizmos.color = gizmoColor;
-
-        float timestep = 2 * pms.JumpApexTime / pms.ArcRes;
-
-        for(int i = 0; i < pms.VisualSteps; i++)
-        {
-            float simtime = i * timestep;
-            Vector2 drawpoint;
-            Vector2 displacement;
-                if (simtime < pms.JumpApexTime)
-                    displacement = velocity * simtime + 0.5f * new Vector2(0, pms.Gravity) * simtime * simtime;
-                else if (simtime < pms.JumpApexTime + pms.ApexhangTime)
-                {
-                    float apexTime = simtime - pms.JumpApexTime;
-                    displacement = velocity * pms.JumpApexTime + 0.5f * new Vector2(0, pms.Gravity) * pms.JumpApexTime * pms.JumpApexTime;
-                    displacement += new Vector2(speed, 0) * apexPoint;
-                }
-                else
-                {
-                    float descendtime = simtime - (pms.JumpApexTime + pms.ApexhangTime);
-                    displacement = velocity * pms.JumpApexTime + 0.5f * new Vector2(0, pms.Gravity) * pms.JumpApexTime * pms.JumpApexTime;
-                    displacement += new Vector2(speed, 0) * pms.ApexhangTime;
-                    displacement += new Vector2(speed, 0) * descendtime + 0.5f * new Vector2(0, pms.Gravity) * descendtime * descendtime;
-                }
- 
-            drawpoint = startpos + displacement;
-
-            if(pms.StopOncollision)
-            {
-                RaycastHit2D hit = Physics2D.Raycast(prevpos, drawpoint - prevpos, Vector2.Distance(prevpos, drawpoint), pms.GroundLayer);
-                if(hit.collider != null)
-                {
-                    Gizmos.DrawLine(prevpos, hit.point);
-                    break;
-                }
-            }
-
-            Gizmos.DrawLine(prevpos, drawpoint);
-            prevpos = drawpoint;
-        }
-    }
-
-    private void DrawSpecJumpArc(float moveSpeed, Color gizmoColor)
-    {
-        Vector2 startpos = new Vector2(feet.bounds.center.x, feet.bounds.min.y);
-        Vector2 prevpos = startpos;
-        Vector2 velocity;
-        float speed = pms.DrawRight ? moveSpeed : -moveSpeed;
-
-        velocity = new Vector2(speed, pms.USpecInitialJumpVelo);
-        Gizmos.color = gizmoColor;
-
-        float timestep = 2 * pms.JumpApexTime / pms.ArcRes;
-
-        for (int i = 0; i < pms.VisualSteps; i++)
-        {
-            float simtime = i * timestep;
-            Vector2 drawpoint;
-            Vector2 displacement;
-            if (simtime < pms.JumpApexTime)
-                    displacement = velocity * simtime + 0.5f * new Vector2(0, pms.USpecGravity) * simtime * simtime;
-                else if (simtime < pms.JumpApexTime + pms.ApexhangTime)
-                {
-                    float apexTime = simtime - pms.JumpApexTime;
-                    displacement = velocity * pms.JumpApexTime + 0.5f * new Vector2(0, pms.USpecGravity) * pms.JumpApexTime * pms.JumpApexTime;
-                    displacement += new Vector2(speed, 0) * apexPoint;
-                }
-                else
-                {
-                    float descendtime = simtime - (pms.JumpApexTime + pms.ApexhangTime);
-                    displacement = velocity * pms.JumpApexTime + 0.5f * new Vector2(0, pms.USpecGravity) * pms.JumpApexTime * pms.JumpApexTime;
-                    displacement += new Vector2(speed, 0) * pms.ApexhangTime;
-                    displacement += new Vector2(speed, 0) * descendtime + 0.5f * new Vector2(0, pms.USpecGravity) * descendtime * descendtime;
-                }
-            
-
-            drawpoint = startpos + displacement;
-
-            if (pms.StopOncollision)
-            {
-                RaycastHit2D hit = Physics2D.Raycast(prevpos, drawpoint - prevpos, Vector2.Distance(prevpos, drawpoint), pms.GroundLayer);
-                if (hit.collider != null)
-                {
-                    Gizmos.DrawLine(prevpos, hit.point);
-                    break;
-                }
-            }
-
-            Gizmos.DrawLine(prevpos, drawpoint);
-            prevpos = drawpoint;
-        }
-    }
-
-    #endregion
-
-    private void OnDrawGizmos()
-    {
-        if (pms.USpecialArc)
-            DrawSpecJumpArc(pms.USpecHorfact, Color.blue);
-        if (pms.WalkJumpArc)
-            DrawJumpArc(pms.MaxWalkSpeed, Color.red);
-        if (pms.RunJumpArc)
-            DrawJumpArc(pms.MaxRunSpeed, Color.green);
-    }
     private void SendDataToPlayerState()
     {
         playerState.isRight = isRight;
@@ -607,6 +497,7 @@ public override void OnUpdate()
 
     public void ApplyKnockback(float angle , float Kb)
     {
+        print("Angle: "+ angle);
         float healthWeight = 0;
         float stunMultiplier = 10 / playerState.MaxHealth;
 
@@ -627,6 +518,8 @@ public override void OnUpdate()
         }
         rb.velocity = Vector2.zero;
         rb.velocity = (new Vector2(XComponent, YComponent) * healthWeight );
+
+        print(rb.velocity);
 
     }
 
