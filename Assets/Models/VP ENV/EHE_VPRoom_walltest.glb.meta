@@ -1,0 +1,572 @@
+fileFormatVersion: 2
+guid: 9f526fc594f30894486c98607d6274f3
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 3D66_SU_1597800210312_004
+    second: {fileID: 2100000, guid: bb1e857504837c049b194d2e3d1c6eab, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Black
+    second: {fileID: 2100000, guid: 80cdc598ea3fec7479e90bd033f3e1f9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Carpet
+    second: {fileID: 2100000, guid: f790d235c14096040bd1b773917fdb6c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Color_G03
+    second: {fileID: 2100000, guid: 1f9e7a32ac0b99446bcc1d6b80aabfb0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Color_M01
+    second: {fileID: 2100000, guid: c0ceed9b9e3a31a4da42fde23ef1f04b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Color_M04
+    second: {fileID: 2100000, guid: 70530dd70db18d14eaea73bdaa09bf9a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Color_M09
+    second: {fileID: 2100000, guid: c951f1e79afb49b40a152878bc9a7944, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CrystalBlue
+    second: {fileID: 2100000, guid: 3178a41157aade3439ee855c60c46d6e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CrystalBrown
+    second: {fileID: 2100000, guid: bb42a321339ad2346a0bf5d8248f6bf2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CrystalClear
+    second: {fileID: 2100000, guid: 17afccc95120b1644a769364b855143d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CrystalGreen
+    second: {fileID: 2100000, guid: a79f119b3b4150644bc159f7cd06c324, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CrystalOrange
+    second: {fileID: 2100000, guid: ce2626ddedf4f864992984981deb1391, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CrystalPink
+    second: {fileID: 2100000, guid: 10ee26236189bd64c8efad6882207d13, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CrystalRed
+    second: {fileID: 2100000, guid: 8209d681ad2e4134db187444e11aae8d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Default
+    second: {fileID: 2100000, guid: ff399b995adcc7045906c2c2560e7e7f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Empty.002
+    second: {fileID: 2100000, guid: d8f446d44dd2cb44992e6544c8c053bb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Frame
+    second: {fileID: 2100000, guid: fe857065b63a69b49a9cb98d57ed201f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Glass
+    second: {fileID: 2100000, guid: d987428db0d34c544b62bcf811a46b45, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Gold_10k_1
+    second: {fileID: 2100000, guid: 698a9a62460852d40b16ddef9882d4cb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: IMG_3118
+    second: {fileID: 2100000, guid: 29d2261ed3f773749927415303d913d8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: InnerFrame
+    second: {fileID: 2100000, guid: 0a9351104dfd3b04182c39729ec59bb0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: InnerFrame.001
+    second: {fileID: 2100000, guid: 529ef05cda8fdba489f1bdf4c8edbbf1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: InnerFrame.002
+    second: {fileID: 2100000, guid: 4eaf7a1a6ce34f046af98f4bca6a96f2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: InnerFrame.003
+    second: {fileID: 2100000, guid: d5a47a200677ab5418de9e775fce8591, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LedgeBlue
+    second: {fileID: 2100000, guid: d75f73201d05e614688d5b408da32ff7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light
+    second: {fileID: 2100000, guid: c8a541134511eb04ca94abedcf4b4969, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MS_Glass_Light
+    second: {fileID: 2100000, guid: 6a2557bee6b2e824b8c77b25b3dede64, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MS_brass
+    second: {fileID: 2100000, guid: 9cc1ab12be4a8ee4dbc13990db6e311a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MS_gray_plastic
+    second: {fileID: 2100000, guid: 7c2faed14b76109478a28d5c5a337a4b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MS_metal_gray
+    second: {fileID: 2100000, guid: 16b67f86ea5386a429b855208eb77119, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MS_notepad
+    second: {fileID: 2100000, guid: af8513873ebb288449d8d4b0f091025e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MS_notepad_page_front
+    second: {fileID: 2100000, guid: 1d0f12973cced8a4d9a1a56822d8ddd2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MS_pages
+    second: {fileID: 2100000, guid: 1b55fe9b7ca28bc46a2ba3f7cbc4d901, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MS_pencil_diff
+    second: {fileID: 2100000, guid: d8254ca0a5ff9724ea8573de0eda7900, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MS_pencil_graff
+    second: {fileID: 2100000, guid: 2d311830dfd68b34892fef8d96d576c8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MS_pencil_wood
+    second: {fileID: 2100000, guid: 53f8fe6c8bd11ee4dbfe92785a1c5862, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MS_plastic
+    second: {fileID: 2100000, guid: b4ff71702d9ce1e4e861adcfd5b14f7f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Marble_01
+    second: {fileID: 2100000, guid: b44e530803aaabe47bbee5da41e5e261, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: ae73968ee1967af4a946547689ec6d0b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material__151
+    second: {fileID: 2100000, guid: 218ed8d304da86d449f34e83a0c7fec5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Metal
+    second: {fileID: 2100000, guid: fb606982b33a8a349b789e0996acd992, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Plastic_03
+    second: {fileID: 2100000, guid: 1a2b8eebfd7118249a47f5e992d53f51, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Plastic_04
+    second: {fileID: 2100000, guid: fc935043d81e87c42af57df973080298, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: StageEdge
+    second: {fileID: 2100000, guid: 3a8597fe88bb8d94abfad8b2fb206f39, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: StageGrey
+    second: {fileID: 2100000, guid: ade9f5752f317be47bbdc876bab8b26a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wall
+    second: {fileID: 2100000, guid: 7002c25cc612230418a9990d1e440b36, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WoodBrown
+    second: {fileID: 2100000, guid: 7808f77a1aeaee8409472a4b13e77c65, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: banana
+    second: {fileID: 2100000, guid: d4bf49960adba4947ab152339741aba8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: erideltohigh_badge
+    second: {fileID: 2100000, guid: c1c1a50db57b1f94aac293f9447ca491, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gickprofilepic
+    second: {fileID: 2100000, guid: d8a74d7ea46e1b04fa6d6a918487759a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: haydenprofilepic
+    second: {fileID: 2100000, guid: 4f454fd1c497d64469964855c52e3b61, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: kukeyprofilepic
+    second: {fileID: 2100000, guid: 8bf1ecd60da82fa4da5b94651cb6cb05, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: material_1
+    second: {fileID: 2100000, guid: d31a71ee6cb93de4f86d3a51feeea628, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: material_2
+    second: {fileID: 2100000, guid: 288d9e0e61b7e5d44b6e7a984716e9ca, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: material_3
+    second: {fileID: 2100000, guid: f4375ca21ce2ff04db242ad5dae39231, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: outsideview_vproom
+    second: {fileID: 2100000, guid: 2d59044c9660f074aa237d20d8c812b7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: profilepicture_tdhondup
+    second: {fileID: 2100000, guid: 58b7a80059f75cd4b8c5c978bcef5036, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: vray_0012449041_1
+    second: {fileID: 2100000, guid: d1f327697a5beba489ea56802db24458, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: vray_0012449043
+    second: {fileID: 2100000, guid: a5af6582d7c20c74ebacf8318fff2c40, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: vray_0012449044
+    second: {fileID: 2100000, guid: ff46b713ad8f2dd44bdc0dc476afb9d9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: vray_0012449055_1
+    second: {fileID: 2100000, guid: 84d751952b6ccfa459bb7ab1c0e4377b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: vray_6092
+    second: {fileID: 2100000, guid: a941a31b59f57384ba6d9b1c38125737, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: vray_6093
+    second: {fileID: 2100000, guid: 92799e9ddfaa4fc429b30dcc3207ecae, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: vray_6101
+    second: {fileID: 2100000, guid: 6d9d1024959fa384ca89aac9425d1792, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: vray_6102
+    second: {fileID: 2100000, guid: 0aa9eded42e56c84c933f3f33605f992, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: vray_6104_1
+    second: {fileID: 2100000, guid: f0b5273fbb48b5a458d97799bd4b3a2c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: vray_6105
+    second: {fileID: 2100000, guid: 4d9f34390e0290746b7749541e547181, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: vray_6108
+    second: {fileID: 2100000, guid: 06473fa6e5f0fb0449fc27e9e5167003, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: vray_Material__0
+    second: {fileID: 2100000, guid: 1ef232c3f439607408d8b5325e340608, type: 2}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 804e1ce4c496647cfa3f1a1134187c71, type: 3}
+  _removeEmptyRootObjects: 1
+  _scaleFactor: 1
+  _deduplicateResources: 0
+  _maximumLod: 300
+  _readWriteEnabled: 1
+  _generateColliders: 0
+  _swapUvs: 0
+  _generateLightmapUVs: 0
+  _importBlendShapeNames: 1
+  _blendShapeFrameWeight:
+    _option: 0
+    _multiplier: 1
+  _importNormals: 0
+  _importTangents: 0
+  _importCamera: 2
+  _importAnimations: 2
+  _mecanimHumanoidFlip: 0
+  _addAnimatorComponent: 0
+  _animationLoopTime: 1
+  _animationLoopPose: 0
+  _importMaterials: 1
+  _enableGpuInstancing: 0
+  _texturesReadWriteEnabled: 1
+  _generateMipMaps: 1
+  _useSceneNameIdentifier: 1
+  _textureCompression: -50
+  _gltfAsset: '<b>Generator: </b>Khronos glTF Blender I/O v4.3.47
+
+    <b>Version:
+    </b>2.0
+
+'
+  optimizeGameObjects: 0
+  materials:
+  - {fileID: -8771166627424403242, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: -1420874079755031372, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: -6177349147213614620, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: -1255982633427224767, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: -5081792898505675300, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 8556262120643298411, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: -4973734387028869240, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 1788269377728665300, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 3344585871226639817, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: -7428595593461180198, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 1557027803489211727, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: -7804767361710741013, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 6339683346985608978, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 1785203268208283543, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: -1580535799172915004, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: -876546973899608171, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 6326598899089467084, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 4134875813717265250, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 4661866474207846192, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: -1932733962604659798, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: -6819019644584933255, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 3588476585295791906, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 6890980003993472805, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: -5904043345077565774, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: -3266960743557684741, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 5267902412840109181, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: -5820326722683080900, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: -1907194134459183023, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: -782070423352275927, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: -7990347853255247367, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 6597005562445665910, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 4857885325671087104, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: -638971400854704727, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 4374742185166314883, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: -3956111894860512484, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 335955631899845309, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: -540750458478799684, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: -8971359112158376387, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: -552144887736475705, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 1437521818572561022, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: -7872378334357268449, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: -8794944695926590091, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 5407736860224532056, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: -5721059759247427594, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 4209987349024222937, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 1085716045603346030, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 7620272214091284293, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 7376992097975437606, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 5269877038690415137, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 6669835312044900746, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: -8463422220644541974, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: -6766055069625379714, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 5588734743576354052, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: -6072765504796796979, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: -8463396263490148419, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 8378411081150312509, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: -6163764089311020749, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 2750272473165428860, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 445237900377233283, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 3092439742945511283, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 3611539414349985873, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 3171515481223898584, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: -5700094923083135392, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 8966876449689481456, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: -4623410129636052417, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 1551949215878620469, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 55432460647261418, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: -7632447963878199190, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 2878347531210414447, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  textures:
+  - {fileID: 3375747407797253517, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 6961461302551271124, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 6373404478956641736, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: -5810898545818350567, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 1122015756053263733, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 5371430021703529957, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 1606822157062428387, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: -5792210939892526116, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: -4088973452242642754, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 2303134698412618992, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 4614178136292158869, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 4357942224671148307, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 6026543722329013091, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 6240699236126575982, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: -2047673586324591416, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: -5108678464453265825, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 9025762246568078907, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: -6646642126869930353, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: -3479385262411724041, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: -7653949900787084076, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 3863998426743812326, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  - {fileID: 1241560327150403128, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+  hasSceneData: 1
+  hasAnimationData: 0
+  hasMaterialData: 1
+  hasTextureData: 1
+  animations: []
+  _extensions:
+  - name: KHR_materials_transmission
+    supported: 1
+    used: 1
+    required: 0
+  - name: KHR_materials_emissive_strength
+    supported: 1
+    used: 1
+    required: 0
+  - name: KHR_materials_specular
+    supported: 1
+    used: 1
+    required: 0
+  - name: KHR_materials_ior
+    supported: 1
+    used: 1
+    required: 0
+  _textures:
+  - texture: {fileID: 3375747407797253517, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+    shouldBeLinear: 0
+    shouldBeNormalMap: 0
+  - texture: {fileID: 6961461302551271124, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+    shouldBeLinear: 0
+    shouldBeNormalMap: 0
+  - texture: {fileID: 6373404478956641736, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+    shouldBeLinear: 0
+    shouldBeNormalMap: 0
+  - texture: {fileID: -5810898545818350567, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+    shouldBeLinear: 0
+    shouldBeNormalMap: 0
+  - texture: {fileID: 1122015756053263733, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+    shouldBeLinear: 0
+    shouldBeNormalMap: 0
+  - texture: {fileID: 5371430021703529957, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+    shouldBeLinear: 0
+    shouldBeNormalMap: 0
+  - texture: {fileID: 1606822157062428387, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+    shouldBeLinear: 0
+    shouldBeNormalMap: 0
+  - texture: {fileID: -5792210939892526116, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+    shouldBeLinear: 0
+    shouldBeNormalMap: 0
+  - texture: {fileID: -4088973452242642754, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+    shouldBeLinear: 0
+    shouldBeNormalMap: 0
+  - texture: {fileID: 2303134698412618992, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+    shouldBeLinear: 0
+    shouldBeNormalMap: 0
+  - texture: {fileID: 4614178136292158869, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+    shouldBeLinear: 0
+    shouldBeNormalMap: 0
+  - texture: {fileID: 4357942224671148307, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+    shouldBeLinear: 0
+    shouldBeNormalMap: 0
+  - texture: {fileID: 6026543722329013091, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+    shouldBeLinear: 0
+    shouldBeNormalMap: 0
+  - texture: {fileID: 6240699236126575982, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+    shouldBeLinear: 0
+    shouldBeNormalMap: 0
+  - texture: {fileID: -2047673586324591416, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+    shouldBeLinear: 0
+    shouldBeNormalMap: 0
+  - texture: {fileID: -5108678464453265825, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+    shouldBeLinear: 0
+    shouldBeNormalMap: 0
+  - texture: {fileID: 9025762246568078907, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+    shouldBeLinear: 0
+    shouldBeNormalMap: 0
+  - texture: {fileID: -6646642126869930353, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+    shouldBeLinear: 0
+    shouldBeNormalMap: 0
+  - texture: {fileID: -3479385262411724041, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+    shouldBeLinear: 0
+    shouldBeNormalMap: 0
+  - texture: {fileID: -7653949900787084076, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+    shouldBeLinear: 0
+    shouldBeNormalMap: 0
+  - texture: {fileID: 3863998426743812326, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+    shouldBeLinear: 0
+    shouldBeNormalMap: 0
+  - texture: {fileID: 1241560327150403128, guid: 9f526fc594f30894486c98607d6274f3, type: 3}
+    shouldBeLinear: 0
+    shouldBeNormalMap: 0
+  _mainAssetIdentifier: scenes/Scene
+  _importPlugins: []
