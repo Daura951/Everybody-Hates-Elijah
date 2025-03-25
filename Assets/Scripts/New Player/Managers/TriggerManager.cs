@@ -6,10 +6,6 @@ public class TriggerManager : MonoBehaviour
 {
     private Player player;
     private StunController stun;
-    private void Start()
-    {
-        
-    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

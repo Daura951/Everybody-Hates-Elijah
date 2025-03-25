@@ -43,6 +43,12 @@ public class DialogueParser : MonoBehaviour
 
         if(isInit)
         {
+            splitLines = txtFile.text.Split('\n');
+            for (int i = 0; i < splitLines.Length - 1; i++)
+            {
+                splitLines[i] = splitLines[i].Remove(splitLines[i].Length - 1, 1);
+            }
+
             ParseDialogue();
             StartCoroutine(WaitForAnimation());
             isInit = false;
@@ -152,7 +158,7 @@ public class DialogueParser : MonoBehaviour
 
     public void InitalizeDialogueParser()
     {
-        foreach (Transform child in cutsceneTrigger.getCutsceneUi().transform)
+        foreach (Transform child in CutsceneManager.instance.GetCutsceneUi().transform)
         {
             switch (child.name)
             {
@@ -180,12 +186,6 @@ public class DialogueParser : MonoBehaviour
                     break;
             }
             
-        }
-
-        splitLines = txtFile.text.Split('\n');
-        for (int i = 0; i < splitLines.Length - 1; i++)
-        {
-            splitLines[i] = splitLines[i].Remove(splitLines[i].Length - 1, 1);
         }
     }
 }
