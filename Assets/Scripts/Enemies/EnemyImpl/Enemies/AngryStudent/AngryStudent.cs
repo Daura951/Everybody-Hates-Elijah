@@ -16,12 +16,11 @@ public class AngryStudent : Entity
     public AS_StunState stunState { get; private set; }
 
     public AS_LaunchState launchState { get; private set; }
-    
+
     public AS_GetupState getupState { get; private set; }
 
     public AS_DeadState launchDeadState { get; private set; }
     public AS_DeadState deadState { get; private set; }
-
 
 
     [SerializeField]
@@ -50,6 +49,12 @@ public class AngryStudent : Entity
         launchDeadState = new AS_DeadState(this, stateMachine, "launch dead", this);
         getupState = new AS_GetupState(this, stateMachine, "getup", this);
         stateMachine.Initalize(moveState);
+    }
+
+    public override void OnCutsceneBeginAndEnd()
+    {
+        base.OnCutsceneBeginAndEnd();
+        stateMachine.ChangeState(idleState);
     }
 
     public override void Update()

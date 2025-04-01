@@ -7,9 +7,9 @@ public class CutsceneManager : MonoBehaviour
 
     public static CutsceneManager instance;
 
-    private GameObject[] enemies;
+    private Entity[] enemies;
 
-    private GameObject cutSceneUi;
+    public GameObject cutSceneUi;
 
     private FinishLine finishLine;
 
@@ -28,16 +28,12 @@ public class CutsceneManager : MonoBehaviour
 
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 
-        cutSceneUi = GameObject.Find("Cutscene UI");
-        cutSceneUi.GetComponent<ShaderBlurAnimator>().animationDuration = 0.1f;
-        cutSceneUi.SetActive(false);
-
         //if(GameObject.Find("FinishTrigger(Clone)") == null)
         //{
         //    finishLine = GameObject.Find("FinishTrigger").GetComponent<FinishLine>();
         //}
         //else finishLine = GameObject.Find("FinishTrigger(Clone)").GetComponent<FinishLine>();
-
+        enemies = FindObjectsOfType<Entity>();
         parser.InitalizeDialogueParser();
     }
 
@@ -49,7 +45,6 @@ public class CutsceneManager : MonoBehaviour
         parser.cutsceneTrigger = currentTrigger;
 
         cutSceneUi.SetActive(true);
-        enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
 
         foreach (Transform child in cutSceneUi.transform)
@@ -72,12 +67,7 @@ public class CutsceneManager : MonoBehaviour
 
         for (int i = 0; i < enemies.Length; i++)
         {
-
-            //TODO: Stop the enemies!
-            switch (enemies[i].name)
-            {
-
-            }
+            enemies[i].OnCutsceneBeginAndEnd();
         }
 
         parser.isInCutscene = true;
@@ -87,7 +77,6 @@ public class CutsceneManager : MonoBehaviour
     public void TransitionBackToGame()
     {
         cutSceneUi.SetActive(false);
-        enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
         foreach (Transform child in cutSceneUi.transform)
         {
@@ -104,10 +93,7 @@ public class CutsceneManager : MonoBehaviour
 
         for (int i = 0; i < enemies.Length; i++)
         {
-            switch (enemies[i].name)
-            {
-
-            }
+            enemies[i].OnCutsceneBeginAndEnd();
         }
 
         parser.isInCutscene = false;
