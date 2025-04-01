@@ -25,14 +25,17 @@ public class AS_IdleState : IdleState
     {
         base.LogicUpdate();
 
-        if(isPlayerInMinAgroRange)
+        if (!angryStudent.isInCutscene)
         {
-            stateMachine.ChangeState(angryStudent.playerDetectedState);
-        }
+            if (isPlayerInMinAgroRange)
+            {
+                stateMachine.ChangeState(angryStudent.playerDetectedState);
+            }
 
-        else if(isIdleTimeOver)
-        {
-            angryStudent.stateMachine.ChangeState(angryStudent.moveState);
+            else if (isIdleTimeOver)
+            {
+                angryStudent.stateMachine.ChangeState(angryStudent.moveState);
+            }
         }
     }
 

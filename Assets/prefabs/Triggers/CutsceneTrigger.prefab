@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 4773821094739830071}
   - component: {fileID: 4773821094739830068}
   - component: {fileID: 4773821094739830069}
-  - component: {fileID: 4773821094739830073}
   m_Layer: 0
   m_Name: CutsceneTrigger
   m_TagString: CutsceneTrigger
@@ -125,24 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64021681c2e0f6b45a19f6eae2f25499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  txtFile: {fileID: 0}
   isTriggered: 0
   cutsceneEnded: 0
-  parser: {fileID: 4773821094739830073}
-  timeBeforeCutscene: 0.1
---- !u!114 &4773821094739830073
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4773821094739830066}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5c88cabf40d18141bfd4f1221ea8eb6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  txtFile: {fileID: 0}
-  isInCutscene: 0
-  isInit: 0
-  cutsceneTrigger: {fileID: 4773821094739830069}
   characters: []

@@ -479,6 +479,7 @@ RectTransform:
   - {fileID: 1372305613}
   - {fileID: 838258595}
   - {fileID: 5786268094730981003}
+  - {fileID: 8662959960851881615}
   m_Father: {fileID: 3131762222312026667}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -758,7 +759,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1372305613
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3606,6 +3607,7 @@ MonoBehaviour:
   pms: {fileID: 11400000, guid: 777ef4400f47f4a42b5f3952fc044dc7, type: 2}
   feet: {fileID: 6119474020206487817}
   body: {fileID: 2272624342141555647}
+  airfloat: 0.7
   usedJumps: 0
   bumpedHead: 0
   SSpecialFall: 0
@@ -3694,6 +3696,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAttacking: 0
+  isAriel: 0
+  isShielding: 0
+  CanShield: 1
   isBBReady: 0
   isInBB: 0
   isInCutscene: 0
@@ -3701,6 +3706,7 @@ MonoBehaviour:
   MaxHealth: 0
   isRight: 0
   isGrounded: 0
+  isOnPassThrough: 0
   isRunning: 0
   isOnMoveable: 0
   CanLedgeGrab: 0
@@ -5747,6 +5753,77 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.84, y: 0.18}
   m_Direction: 0
+--- !u!1 &8066372910990338470
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8662959960851881615}
+  - component: {fileID: 8974849770229003520}
+  - component: {fileID: 8876631797402632932}
+  m_Layer: 3
+  m_Name: Cutscene Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &8662959960851881615
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8066372910990338470}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1104863835}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &8974849770229003520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8066372910990338470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5c88cabf40d18141bfd4f1221ea8eb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  txtFile: {fileID: 0}
+  isInCutscene: 0
+  isInit: 0
+  cutsceneTrigger: {fileID: 0}
+  characters: []
+  dialogueText: {fileID: 0}
+  nameText: {fileID: 0}
+--- !u!114 &8876631797402632932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8066372910990338470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 211e36af79141634e81ba58ec379b27c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cutSceneUi: {fileID: 1372305612}
+  parser: {fileID: 8974849770229003520}
 --- !u!1 &8231343798073702445
 GameObject:
   m_ObjectHideFlags: 0

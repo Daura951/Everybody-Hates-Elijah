@@ -34,6 +34,8 @@ public class Entity : MonoBehaviour
 
     public UnityEvent OnDeath;
 
+    public bool isInCutscene = false;
+
     public virtual void Start()
     {
         stateMachine = new FiniteStateMachine();
@@ -130,6 +132,10 @@ public class Entity : MonoBehaviour
     {
         facingDir *= -1;
         transform.Rotate(0f, 180f, 0f);
+    }
+    public virtual void OnCutsceneBeginAndEnd()
+    {
+        isInCutscene = !isInCutscene;
     }
 
     public virtual void OnDrawGizmos()
