@@ -173,6 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 211e36af79141634e81ba58ec379b27c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cutSceneUi: {fileID: 0}
   parser: {fileID: 38926443}
 --- !u!114 &38926445
 MonoBehaviour:
@@ -370,7 +371,7 @@ SpriteRenderer:
   m_Size: {x: 1.4666667, y: 0.4268229}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &101670825
